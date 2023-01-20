@@ -1,4 +1,4 @@
-import './BoardQuestion.css';Header
+import './BoardQuestion.css'//;Header
 
 function BoardQuestion() {
     return (
