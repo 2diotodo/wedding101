@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+
+import { Route, Routes } from 'react-router-dom';
+import Area01 from './components/main/area01';
+import Area02 from './components/main/area02';
+// import Area03 from './components/main/area03';
+// import Area04 from './components/main/area04';
+// import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+      <Routes>
+        <Route path="/" element={<Area01 />} />
+        <Route path="/area02" element={<Area02 />} />
+
+
+      </Routes>
+
   );
 }
 
