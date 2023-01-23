@@ -14,7 +14,7 @@ import os
 
 class VideoRecorder():  
     "Video class based on openCV"
-    def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=30):
+    def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
         self.open = True
         self.device_index = camindex
         self.fps = fps                  # fps should be the minimum constant rate at which the camera can
@@ -114,17 +114,17 @@ def start_AVrecording(filename="test"):
     video_thread.start()
     return filename
 
-def start_video_recording(filename="test"):
-    global video_thread
-    video_thread = VideoRecorder()
-    video_thread.start()
-    return filename
+# def start_video_recording(filename="test"):
+#     global video_thread
+#     video_thread = VideoRecorder()
+#     video_thread.start()
+#     return filename
 
-def start_audio_recording(filename="test"):
-    global audio_thread
-    audio_thread = AudioRecorder()
-    audio_thread.start()
-    return filename
+# def start_audio_recording(filename="t"):
+#     global audio_thread
+#     audio_thread = AudioRecorder()
+#     audio_thread.start()
+#     return filename
 
 def stop_AVrecording(filename="test"):
     audio_thread.stop() 
