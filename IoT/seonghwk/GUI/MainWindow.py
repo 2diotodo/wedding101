@@ -8,15 +8,30 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
-    QStackedWidget, QVBoxLayout, QWidget)
+import importlib.util
+
+spec = importlib.util.find_spec("PySide2")
+if spec is None:
+    from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                                QMetaObject, QObject, QPoint, QRect,
+                                QSize, QTime, QUrl, Qt)
+    from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                               QFont, QFontDatabase, QGradient, QIcon,
+                               QImage, QKeySequence, QLinearGradient, QPainter,
+                               QPalette, QPixmap, QRadialGradient, QTransform)
+    from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+                                   QStackedWidget, QVBoxLayout, QWidget)
+else:
+    from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                                QMetaObject, QObject, QPoint, QRect,
+                                QSize, QTime, QUrl, Qt)
+    from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                               QFont, QFontDatabase, QGradient, QIcon,
+                               QImage, QKeySequence, QLinearGradient, QPainter,
+                               QPalette, QPixmap, QRadialGradient, QTransform)
+    from PySide2.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+                                   QStackedWidget, QVBoxLayout, QWidget)
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -49,7 +64,7 @@ class Ui_Form(object):
         self.record_start_button.setGeometry(QRect(80, 330, 75, 24))
         self.video_stream = QLabel(self.video_page)
         self.video_stream.setObjectName(u"video_stream")
-        self.video_stream.setGeometry(QRect(130, 30, 341, 251))
+        self.video_stream.setGeometry(QRect(130, 30, 341-341+130+640, 251-251+30+480))
         self.video_background_prev_button = QPushButton(self.video_page)
         self.video_background_prev_button.setObjectName(u"video_background_prev_button")
         self.video_background_prev_button.setGeometry(QRect(10, 150, 75, 24))
