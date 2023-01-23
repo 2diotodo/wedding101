@@ -9,6 +9,7 @@ else:
     from PySide2.QtWidgets import *
     from PySide2.QtCore import *
     from PySide2.QtGui import *
+    import cv2
 
 from cam_write_ui import Ui_Form
 class MainWindow(QWidget):
@@ -45,7 +46,7 @@ class MainWindow(QWidget):
             height, width, channel = image.shape
             step = channel * width
             # create QImage from image
-            qImg = QImage(image.data, width, height, step, QImage.Format_BGR888)
+            qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
             # show image in img_label
             self.ui.image_label.setPixmap(QPixmap.fromImage(qImg))
 
@@ -109,7 +110,7 @@ class MainWindow(QWidget):
             # write video
             self.out.write(image)
             # create QImage from image
-            qImg = QImage(image.data, width, height, step, QImage.Format_BGR888)
+            qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
             # show image in img_label
             self.ui.image_label.setPixmap(QPixmap.fromImage(qImg))
 
