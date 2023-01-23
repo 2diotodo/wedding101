@@ -28,15 +28,16 @@ class StreamingOutput(object):
             # New frame, copy the existing buffer's content and notify all
             # clients it's available
             self.buffer.truncate()
-            with self.condition:
-                self.frame = self.buffer.getvalue()
-                self.condition.notify_all()
+            # with self.condition:
+            #     self.frame = self.buffer.getvalue()
+            #     self.condition.notify_all()
             self.buffer.seek(0)
         return self.buffer.write(buf)
 
 
 class MyThread(QThread):
     mySignal = Signal(QPixmap)
+
     def __init__(self):
         super().__init__()
         self.cam = picamera.PiCamera()
@@ -48,15 +49,14 @@ class MyThread(QThread):
         self.cam.start_recording(self.output, format='mjpeg')
         while True:
             self.printImage()
-            # time.sleep(1/60) # 60 fps
+            time.sleep(1/60) # 60 fps
 
     def printImage(self):
-        self.output.buffer.truncate()
+        # self.output.buffer.truncate()
         self.output.buffer.seek(0)
         image_data = self.output.buffer.read()
         qimg = QImage.fromData(image_data)
         pix_img = QPixmap(qimg)
-        print(pix_img)
         self.mySignal.emit(pix_img)
 
 
