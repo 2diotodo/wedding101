@@ -35,11 +35,8 @@ class MyThread(QThread):
                 print("camera is not working")
             sleep(0.05)
 
-    def resize_image(self):
+    def resize_image(self, width):
         self.img = cv2.flip(self.img, -1)
-
-    def setImage(self, img):
-        self.video_stream.setPixmap(img)
 
     def printImage(self):
         imgBGR = self.img
@@ -58,7 +55,7 @@ class MyApp(QWidget, Ui_Form):
 
         # set class functions
         self.setupUi(self)
-        # self.main()
+        self.main()
 
     def main(self):
         # this is video thread
@@ -67,6 +64,9 @@ class MyApp(QWidget, Ui_Form):
             self.th.mySignal.connect(self.setImage)
             self.th.start()
 
+    def setImage(self, img):
+        self.video_stream.setPixmap(img)
+    
     def go_next_page(self):
         currentpage = self.stackedWidget.currentIndex()
         sender = self.sender()
@@ -110,4 +110,4 @@ app = QApplication()
 win = MyApp()
 
 win.show()
-app.exec()
+app.exec_()
