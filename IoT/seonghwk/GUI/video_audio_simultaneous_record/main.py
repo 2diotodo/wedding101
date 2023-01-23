@@ -13,6 +13,9 @@ else:
 
 
 import pyaudio, wave, threading, time, subprocess, os
+import mediapipe as mp
+import numpy as np
+
 
 from cam_write_ui import Ui_Form
 
@@ -33,23 +36,40 @@ class VideoRecorder(QThread):
         self.video_out = cv2.VideoWriter(self.video_filename, self.video_writer, self.fps, self.frameSize)
         self.frame_counts = 1
         self.start_time = time.time()
+        self.video_frame = None
+        self.background_image = None
+
+
+        self.fps = 60
+        self.width = 640
+        self.height = 480
+        # mediapipe modules
+        # self.mp_drawing = mp.solutions.drawing_utils
+        # self.mp_drawing_styles = mp.solutions.drawing_styles
+        self.mp_selfie_segmentation = mp.solutions.selfie_segmentation
+        # self.mp_holistic = mp.solutions.holistic
+
 
     def run(self):
+        self.set_background_image(bg_dir = "../BackgroundImage", bg_name = "flower1.png")
+
         "Video starts being recorded"
         # counter = 1
         timer_start = time.time()
         timer_current = 0
         self.open = True
         while self.open:
-            ret, video_frame = self.video_cap.read()
+            ret, self.video_frame = self.video_cap.read()
             if ret:
-                video_frame = cv2.flip(video_frame, 0)
-                self.video_out.write(video_frame)
+                self.video_frame = cv2.flip(self.video_frame, 0)
+                # self.chromakey_replacement()
+                self.mediapipe_selfie_segmentation()
+                self.video_out.write(self.video_frame)
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
                 self.frame_counts += 1
 
 
-                imgRGB = cv2.cvtColor(video_frame, cv2.COLOR_BGR2RGB)
+                imgRGB = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2RGB)
                 h, w, byte = imgRGB.shape
                 img = QImage(imgRGB, w, h, byte * w, QImage.Format_RGB888)
                 pix_img = QPixmap(img)
@@ -63,6 +83,91 @@ class VideoRecorder(QThread):
                 # cv2.waitKey(1)
             else:
                 break
+
+    def set_background_image(self, bg_dir = "../BackgroundImage", bg_name = 'flower1.png'):
+        background_path = os.path.join(bg_dir, bg_name)
+        background_image = cv2.imread(background_path)
+        background_image = cv2.resize(background_image, (self.width, self.height))
+        self.background_image = background_image
+
+    def mediapipe_selfie_segmentation(self) :
+        # For webcam input:
+        BG_COLOR = (192, 192, 192) # gray
+        with self.mp_selfie_segmentation.SelfieSegmentation(model_selection=1) as selfie_segmentation:
+
+            # Flip the image horizontally for a later selfie-view display, and convert
+            # the BGR image to RGB.
+            self.video_frame = cv2.cvtColor(cv2.flip(self.video_frame, 1), cv2.COLOR_BGR2RGB)
+            
+            # To improve performance, optionally mark the image as not writeable to
+            # pass by reference.
+            self.video_frame.flags.writeable = False
+            self.video_frame.flags.writeable = True
+            self.video_frame = cv2.cvtColor(self.video_frame, cv2.COLOR_RGB2BGR)
+
+            # Draw selfie segmentation on the background image.
+            # To improve segmentation around boundaries, consider applying a joint
+            # bilateral filter to "results.segmentation_mask" with "image".
+            condition = np.stack((selfie_segmentation.process(self.video_frame).segmentation_mask,) * 3, axis=-1) > 0.1
+            
+            # The background can be customized.
+            #   a) Load an image (with the same width and height of the input image) to
+            #      be the background, e.g., bg_image = cv2.imread('/path/to/image/file')
+            #   b) Blur the input image by applying image filtering, e.g.,
+            #      bg_image = cv2.GaussianBlur(image,(55,55),0)
+            if self.background_image is None:
+                self.background_image = np.zeros(self.video_frame.shape, dtype=np.uint8)
+                self.background_image[:] = BG_COLOR
+
+            self.video_frame = np.where(condition, self.video_frame, self.background_image)
+
+
+    def chromakey_replacement(self):
+        # # check hsv value from image
+        # hsv = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2HSV)
+        
+        # # make a mask from hsv values
+        # mask = cv2.inRange(hsv, (50, 150, 0), (70, 255, 255)) # 영상, 최솟값, 최댓값
+        
+        # # utilizing mask to input image
+        # # copyTo(src, mask, dst)
+        # cv2.copyTo(self.background_image, mask, self.video_frame)
+
+        norm_factor = 255
+        b = self.video_frame[:, :, 0] / norm_factor
+        g = self.video_frame[:, :, 1] / norm_factor
+        r = self.video_frame[:, :, 2] / norm_factor
+
+        red_vs_green = (r - g) + .3
+        blue_vs_green = (b - g) + .3
+
+        """
+        Darker pixels would be around 0.
+        In order to ommit removing dark pixels we
+        sum .3 to make small negative numbers to be
+        above 0.
+        """
+
+        red_vs_green = (r - g) + .3
+        blue_vs_green = (b - g) + .3
+
+        """
+        Now pixels below 0. value would have a
+        high probability to be background green
+        pixels.
+        """
+        red_vs_green[red_vs_green < 0] = 0
+        blue_vs_green[blue_vs_green < 0] = 0
+
+        """
+        Combine the red(blue) vs green ratios to
+        set an alpha layer with valid alpha-values.
+        """
+        alpha = (red_vs_green + blue_vs_green) * 255
+        alpha[alpha > 50] = 255
+
+        self.video_frame[alpha == 0] = 0
+
 
     def stop(self):
         "Finishes the video recording therefore the thread too"
@@ -144,7 +249,7 @@ class MainWindow(QWidget):
             self.stop_AVrecording()
             self.ui.save_bt.setText("Record")
             self.ui.image_label.setText("Camera")
-            self.file_manager()
+            # self.file_manager()
         else:
             self.open = True
             self.start_AVrecording()
