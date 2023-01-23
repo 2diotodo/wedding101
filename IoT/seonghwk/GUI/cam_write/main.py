@@ -18,9 +18,9 @@ from cam_write_ui import Ui_Form
 
 class VideoRecorder(QThread):
     "Video class based on openCV"
-    def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=24):
+    def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
         super().__init__()
-        self.open = False
+        self.open = True
         self.device_index = camindex
         self.fps = fps                  # fps should be the minimum constant rate at which the camera can
         self.fourcc = fourcc            # capture images (with no decrease in speed over time; testing is required)
@@ -32,14 +32,16 @@ class VideoRecorder(QThread):
         self.frame_counts = 1
         self.start_time = time.time()
 
-    def record(self):
+    def run(self):
         "Video starts being recorded"
         # counter = 1
         timer_start = time.time()
         timer_current = 0
+        self.open = True
         while self.open:
             ret, video_frame = self.video_cap.read()
             if ret:
+                video_frame = cv2.flip(video_frame, 0)
                 self.video_out.write(video_frame)
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
                 self.frame_counts += 1
@@ -60,13 +62,8 @@ class VideoRecorder(QThread):
             self.video_cap.release()
             cv2.destroyAllWindows()
             self.quit()
+            self.wait(500) #5000ms = 5s
 
-
-    def run(self):
-        "Launches the video recording function using a thread"
-        self.open = True
-        video_thread = threading.Thread(target=self.record)
-        video_thread.start()
 
   
 class AudioRecorder(QThread):
@@ -87,9 +84,10 @@ class AudioRecorder(QThread):
                                       frames_per_buffer = self.frames_per_buffer)
         self.audio_frames = []
 
-    def record(self):
+    def run(self):
         "Audio starts being recorded"
         self.stream.start_stream()
+        self.open = True
         while self.open:
             data = self.stream.read(self.frames_per_buffer) 
             self.audio_frames.append(data)
@@ -110,12 +108,7 @@ class AudioRecorder(QThread):
             waveFile.writeframes(b''.join(self.audio_frames))
             waveFile.close()
             self.quit()
-
-    def run(self):
-        "Launches the audio recording function using a thread"
-        self.open = True
-        audio_thread = threading.Thread(target=self.record)
-        audio_thread.start()
+            self.wait(500) #5000ms = 5s
 
 
 class MainWindow(QWidget):
@@ -131,8 +124,8 @@ class MainWindow(QWidget):
         self.ui.save_bt.clicked.connect(self.controlSave)
         # set video and audio record thread
         self.open = False
-        self.video_thread = VideoRecorder()
-        self.audio_thread = AudioRecorder()
+        self.video_thread = None
+        self.audio_thread = None
 
     def controlSave(self):
         if self.open:
@@ -140,7 +133,7 @@ class MainWindow(QWidget):
             self.stop_AVrecording()
             self.ui.save_bt.setText("Record")
             self.ui.image_label.setText("Camera")
-            self.file_manager()
+            # self.file_manager()
         else:
             self.open = True
             self.start_AVrecording()
@@ -150,22 +143,24 @@ class MainWindow(QWidget):
 
     # start/stop both thread
     def start_AVrecording(self, filename="test"):
+        self.audio_thread = AudioRecorder()
+        self.video_thread = VideoRecorder()
         self.audio_thread.start()
         self.video_thread.start()
         return filename
     
 
     def stop_AVrecording(self, filename="test"):
-        self.audio_thread.stop() 
+        self.audio_thread.stop()
         frame_counts = self.video_thread.frame_counts
         elapsed_time = time.time() - self.video_thread.start_time
         recorded_fps = frame_counts / elapsed_time
         print("total frames " + str(frame_counts))
         print("elapsed time " + str(elapsed_time))
         print("recorded fps " + str(recorded_fps))
-        self.video_thread.stop() 
+        self.video_thread.stop()
 
-        # # Makes sure the threads have finished
+        # # Makes sure the threads have finished    
         # while threading.active_count() > 1:
         #     time.sleep(1)
 

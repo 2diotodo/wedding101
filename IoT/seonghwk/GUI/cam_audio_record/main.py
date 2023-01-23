@@ -35,6 +35,7 @@ class VideoRecorder():
         while self.open:
             ret, video_frame = self.video_cap.read()
             if ret:
+                video_frame = cv2.flip(video_frame, 0)
                 self.video_out.write(video_frame)
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
                 self.frame_counts += 1
