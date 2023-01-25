@@ -8,15 +8,30 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide2.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
-    QStackedWidget, QVBoxLayout, QWidget)
+
+import importlib.util
+
+spec = importlib.util.find_spec("PySide2")
+if spec is None:
+    from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                                QMetaObject, QObject, QPoint, QRect,
+                                QSize, QTime, QUrl, Qt)
+    from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                               QFont, QFontDatabase, QGradient, QIcon,
+                               QImage, QKeySequence, QLinearGradient, QPainter,
+                               QPalette, QPixmap, QRadialGradient, QTransform)
+    from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+                                   QStackedWidget, QVBoxLayout, QWidget)
+else:
+    from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                                QMetaObject, QObject, QPoint, QRect,
+                                QSize, QTime, QUrl, Qt)
+    from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                               QFont, QFontDatabase, QGradient, QIcon,
+                               QImage, QKeySequence, QLinearGradient, QPainter,
+                               QPalette, QPixmap, QRadialGradient, QTransform)
+    from PySide2.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+                                   QStackedWidget, QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -38,6 +53,12 @@ class Ui_Form(object):
         self.video_stream = QLabel(self.main_page)
         self.video_stream.setObjectName(u"video_stream")
         self.video_stream.setGeometry(QRect(120, 80, 341, 251))
+        self.record_start_button = QPushButton(self.main_page)
+        self.record_start_button.setObjectName(u"record_start_button")
+        self.record_start_button.setGeometry(QRect(160, 350, 75, 24))
+        self.record_stop_button = QPushButton(self.main_page)
+        self.record_stop_button.setObjectName(u"record_stop_button")
+        self.record_stop_button.setGeometry(QRect(360, 350, 75, 24))
         self.stackedWidget.addWidget(self.main_page)
         self.info_page = QWidget()
         self.info_page.setObjectName(u"info_page")
@@ -150,6 +171,8 @@ class Ui_Form(object):
         self.info_prev_button.clicked.connect(Form.go_prev_page)
         self.image_prev_button.clicked.connect(Form.go_prev_page)
         self.pushButton.clicked.connect(Form.close_window)
+        self.record_start_button.clicked.connect(Form.record_start)
+        self.record_stop_button.clicked.connect(Form.record_stop)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
@@ -159,6 +182,8 @@ class Ui_Form(object):
         self.main_next_button.setText(QCoreApplication.translate("Form", u"Start", None))
         self.pushButton.setText(QCoreApplication.translate("Form", u"Close", None))
         self.video_stream.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.record_start_button.setText(QCoreApplication.translate("Form", u"Record", None))
+        self.record_stop_button.setText(QCoreApplication.translate("Form", u"Stop", None))
         self.info_label.setText(QCoreApplication.translate("Form", u"Info", None))
         self.info_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.info_next_button.setText(QCoreApplication.translate("Form", u"Next", None))

@@ -56,6 +56,32 @@
         <string>TextLabel</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="record_start_button">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>350</y>
+         <width>75</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Record</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="record_stop_button">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>350</y>
+         <width>75</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="info_page">
       <widget class="QLabel" name="info_label">
@@ -678,6 +704,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>record_start_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>record_start()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>201</x>
+     <y>360</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>245</x>
+     <y>6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>record_stop_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>record_stop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>404</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>-3</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>go_next_page()</slot>
@@ -685,5 +743,7 @@
   <slot>go_end_page()</slot>
   <slot>go_prev_page()</slot>
   <slot>close_window()</slot>
+  <slot>record_start()</slot>
+  <slot>record_stop()</slot>
  </slots>
 </ui>
