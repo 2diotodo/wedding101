@@ -8,15 +8,29 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide2.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
-    QStackedWidget, QVBoxLayout, QWidget)
+import importlib.util
+
+spec = importlib.util.find_spec("PySide2")
+if spec is None:
+    from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                                QMetaObject, QObject, QPoint, QRect,
+                                QSize, QTime, QUrl, Qt)
+    from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                               QFont, QFontDatabase, QGradient, QIcon,
+                               QImage, QKeySequence, QLinearGradient, QPainter,
+                               QPalette, QPixmap, QRadialGradient, QTransform)
+    from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+                                   QStackedWidget, QVBoxLayout, QWidget)
+else:
+    from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                                QMetaObject, QObject, QPoint, QRect,
+                                QSize, QTime, QUrl, Qt)
+    from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                               QFont, QFontDatabase, QGradient, QIcon,
+                               QImage, QKeySequence, QLinearGradient, QPainter,
+                               QPalette, QPixmap, QRadialGradient, QTransform)
+    from PySide2.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+                                   QStackedWidget, QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -27,6 +41,30 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.stackedWidget = QStackedWidget(Form)
         self.stackedWidget.setObjectName(u"stackedWidget")
+        self.video_page = QWidget()
+        self.video_page.setObjectName(u"video_page")
+        self.video_home_button = QPushButton(self.video_page)
+        self.video_home_button.setObjectName(u"video_home_button")
+        self.video_home_button.setGeometry(QRect(490, 250, 75, 24))
+        self.video_next_button = QPushButton(self.video_page)
+        self.video_next_button.setObjectName(u"video_next_button")
+        self.video_next_button.setGeometry(QRect(490, 350, 75, 24))
+        self.video_label = QLabel(self.video_page)
+        self.video_label.setObjectName(u"video_label")
+        self.video_label.setGeometry(QRect(440, 40, 50, 16))
+        self.video_prev_button = QPushButton(self.video_page)
+        self.video_prev_button.setObjectName(u"video_prev_button")
+        self.video_prev_button.setGeometry(QRect(500, 300, 75, 24))
+        self.record_stop_button = QPushButton(self.video_page)
+        self.record_stop_button.setObjectName(u"record_stop_button")
+        self.record_stop_button.setGeometry(QRect(200, 330, 75, 24))
+        self.record_start_button = QPushButton(self.video_page)
+        self.record_start_button.setObjectName(u"record_start_button")
+        self.record_start_button.setGeometry(QRect(80, 330, 75, 24))
+        self.video_stream = QLabel(self.video_page)
+        self.video_stream.setObjectName(u"video_stream")
+        self.video_stream.setGeometry(QRect(50, 40, 341, 251))
+        self.stackedWidget.addWidget(self.video_page)
         self.main_page = QWidget()
         self.main_page.setObjectName(u"main_page")
         self.main_next_button = QPushButton(self.main_page)
@@ -35,9 +73,6 @@ class Ui_Form(object):
         self.pushButton = QPushButton(self.main_page)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(590, 90, 75, 24))
-        self.video_stream = QLabel(self.main_page)
-        self.video_stream.setObjectName(u"video_stream")
-        self.video_stream.setGeometry(QRect(120, 80, 341, 251))
         self.stackedWidget.addWidget(self.main_page)
         self.info_page = QWidget()
         self.info_page.setObjectName(u"info_page")
@@ -102,21 +137,6 @@ class Ui_Form(object):
         self.image_prev_button.setObjectName(u"image_prev_button")
         self.image_prev_button.setGeometry(QRect(330, 360, 75, 24))
         self.stackedWidget.addWidget(self.image_page)
-        self.video_page = QWidget()
-        self.video_page.setObjectName(u"video_page")
-        self.video_home_button = QPushButton(self.video_page)
-        self.video_home_button.setObjectName(u"video_home_button")
-        self.video_home_button.setGeometry(QRect(490, 250, 75, 24))
-        self.video_next_button = QPushButton(self.video_page)
-        self.video_next_button.setObjectName(u"video_next_button")
-        self.video_next_button.setGeometry(QRect(450, 410, 75, 24))
-        self.video_label = QLabel(self.video_page)
-        self.video_label.setObjectName(u"video_label")
-        self.video_label.setGeometry(QRect(290, 160, 50, 16))
-        self.video_prev_button = QPushButton(self.video_page)
-        self.video_prev_button.setObjectName(u"video_prev_button")
-        self.video_prev_button.setGeometry(QRect(500, 300, 75, 24))
-        self.stackedWidget.addWidget(self.video_page)
         self.end_page = QWidget()
         self.end_page.setObjectName(u"end_page")
         self.end_home_button = QPushButton(self.end_page)
@@ -156,9 +176,15 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.video_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
+        self.video_next_button.setText(QCoreApplication.translate("Form", u"Next", None))
+        self.video_label.setText(QCoreApplication.translate("Form", u"video", None))
+        self.video_prev_button.setText(QCoreApplication.translate("Form", u"Prev", None))
+        self.record_stop_button.setText(QCoreApplication.translate("Form", u"Stop", None))
+        self.record_start_button.setText(QCoreApplication.translate("Form", u"Record", None))
+        self.video_stream.setText(QCoreApplication.translate("Form", u"TextLabel", None))
         self.main_next_button.setText(QCoreApplication.translate("Form", u"Start", None))
         self.pushButton.setText(QCoreApplication.translate("Form", u"Close", None))
-        self.video_stream.setText(QCoreApplication.translate("Form", u"TextLabel", None))
         self.info_label.setText(QCoreApplication.translate("Form", u"Info", None))
         self.info_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.info_next_button.setText(QCoreApplication.translate("Form", u"Next", None))
@@ -176,10 +202,6 @@ class Ui_Form(object):
         self.image_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.image_label.setText(QCoreApplication.translate("Form", u"image", None))
         self.image_prev_button.setText(QCoreApplication.translate("Form", u"Prev", None))
-        self.video_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
-        self.video_next_button.setText(QCoreApplication.translate("Form", u"Next", None))
-        self.video_label.setText(QCoreApplication.translate("Form", u"video", None))
-        self.video_prev_button.setText(QCoreApplication.translate("Form", u"Prev", None))
         self.end_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.end_label.setText(QCoreApplication.translate("Form", u"Thank you", None))
     # retranslateUi
