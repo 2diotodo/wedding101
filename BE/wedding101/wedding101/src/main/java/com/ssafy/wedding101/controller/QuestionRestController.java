@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/question")
 @CrossOrigin
-public class UserRestController {
-
+public class QuestionRestController {
 }
