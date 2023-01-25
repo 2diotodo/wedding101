@@ -73,11 +73,12 @@ class MyApp(QWidget, Ui_Form):
         # set class variable
         self.th = None
 
+
         # set class functions
         self.setupUi(self)
-
+        self.stackedWidget.setCurrentIndex(0)
         self.frame_shadow_effect = QGraphicsDropShadowEffect(
-            offset=QPoint(4, 4), blurRadius=25, color=QColor("#333")
+            offset=QPoint(2, 8), blurRadius=25, color=QColor("#333")
         )
         self.button_shadow_effect = QGraphicsDropShadowEffect(
             offset=QPoint(2, 2), blurRadius=30, color=QColor("#555")
@@ -91,10 +92,19 @@ class MyApp(QWidget, Ui_Form):
             elif '_button' in class_member_variable:
                 exec(f'self.{class_member_variable}.setGraphicsEffect(self.button_shadow_effect)')
 
-        self.arrow_button_pix = QPixmap("QT_Assets/Pics/proceed.png")
+        self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
         self.arrow_icon = QIcon(self.arrow_button_pix)
+
         self.srvc_chk_button.setIcon(self.arrow_icon)
         self.srvc_chk_button.setIconSize(self.arrow_button_pix.rect().size())
+
+        self.home_back_pix = QPixmap("QT_Resources/Pics/home_back.png")
+        self.home_background.setStyleSheet("background-image: url('QT_Resources/Pics/home_back.png')")
+        self.home_font_id = QFontDatabase.addApplicationFont("QT_Resources/Fonts/BeauRivage-Regular.ttf")
+
+        self.home_background.setFont(QFont('Beau Rivage', 80))
+        self.home_text1.setFont(QFont('Beau Rivage', 40))
+        self.home_text1.setStyleSheet("background-color: rgba(255,255,255,0);")
 
     def main(self):
         # this is video thread
@@ -104,12 +114,12 @@ class MyApp(QWidget, Ui_Form):
             self.th.start()
 
     def go_next_page(self):
-        currentpage = self.stackedWidget.currentIndex()
+        current_page = self.stackedWidget.currentIndex()
         sender = self.sender()
         print(sender)
         if sender.objectName() == "mode_select_video_button":
-            currentpage += 1
-        self.stackedWidget.setCurrentIndex(currentpage + 1)
+            current_page += 1
+        self.stackedWidget.setCurrentIndex(current_page + 1)
 
     def go_prev_page(self):
         current_page = self.stackedWidget.currentIndex()

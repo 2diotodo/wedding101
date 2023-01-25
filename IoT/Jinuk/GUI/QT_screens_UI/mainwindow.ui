@@ -14,10 +14,25 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -31,6 +46,9 @@
          <width>1152</width>
          <height>864</height>
         </rect>
+       </property>
+       <property name="acceptDrops">
+        <bool>false</bool>
        </property>
        <property name="styleSheet">
         <string notr="true">background: #FFFFFF;
@@ -109,45 +127,116 @@ border-radius: 40px;</string>
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="main_page">
-      <widget class="QPushButton" name="main_next_button">
+     <widget class="QWidget" name="home_page">
+      <property name="styleSheet">
+       <string notr="true">background:#FFEEEE;</string>
+      </property>
+      <widget class="QFrame" name="home_frame">
        <property name="geometry">
         <rect>
-         <x>270</x>
-         <y>410</y>
-         <width>75</width>
-         <height>24</height>
+         <x>64</x>
+         <y>48</y>
+         <width>1152</width>
+         <height>864</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Start</string>
+       <property name="styleSheet">
+        <string notr="true">background:white;border-radius:100px;</string>
        </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton">
-       <property name="geometry">
-        <rect>
-         <x>590</x>
-         <y>90</y>
-         <width>75</width>
-         <height>24</height>
-        </rect>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-       <property name="text">
-        <string>Close</string>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
-      </widget>
-      <widget class="QLabel" name="video_stream">
-       <property name="geometry">
-        <rect>
-         <x>120</x>
-         <y>80</y>
-         <width>341</width>
-         <height>251</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
+       <widget class="QPushButton" name="home_next_button">
+        <property name="geometry">
+         <rect>
+          <x>396</x>
+          <y>630</y>
+          <width>360</width>
+          <height>120</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>48</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: #FFAB7C;color: white;border-radius:50px;</string>
+        </property>
+        <property name="text">
+         <string>시작하기</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="home_background">
+        <property name="geometry">
+         <rect>
+          <x>58</x>
+          <y>80</y>
+          <width>1036</width>
+          <height>411</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>60</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Welcome</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="home_text1">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>350</y>
+          <width>481</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>40</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>To the Wedding101</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>470</y>
+          <width>901</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>24</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>신혼부부 OOO, OOO 님에게 사진이나 영상 편지를 남겨보세요</string>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="info_page">
@@ -468,7 +557,7 @@ border-radius: 40px;</string>
  <resources/>
  <connections>
   <connection>
-   <sender>main_next_button</sender>
+   <sender>home_next_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
    <slot>go_next_page()</slot>
@@ -751,22 +840,6 @@ border-radius: 40px;</string>
     </hint>
     <hint type="destinationlabel">
      <x>589</x>
-     <y>7</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>close_window()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>631</x>
-     <y>108</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>708</x>
      <y>7</y>
     </hint>
    </hints>
