@@ -2,7 +2,7 @@ import './UserMyPage.css';
 
 function UserMyPage() {
     return (
-        <div>
+        <div className='user-mypage'>
 
         </div>
     );

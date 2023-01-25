@@ -1,9 +1,7 @@
-
 import './Header.css';
 
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import { Tab, Tabs, Box } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 // function LinkTab(props){
 //     return (
@@ -16,24 +14,18 @@ import { Tab, Tabs, Box } from '@mui/material';
 // }
 
 function Header() {
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+  
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-                <Tab label="About" to="/" />
-                <Tab label="Invitation" to="/invitation" />
-                <Tab label="Album" to="/album" />
-                <Tab label="Review" to="/review" />
-                <Tab label="Contact Us" to="/area02" />
-                <Tab label="LogIn" to="/user/login" />
-                <Tab label="SignUp" to="/user/signup" />
-            </Tabs>
-        </Box>
+        <div className='header'>
+                <NavLink to="/">About </NavLink>
+                <NavLink label="Invitation" to="/invitation">Invitation </NavLink>
+                <NavLink label="Album" to="/album" >Album </NavLink>
+                <NavLink label="Review" to="/review" ></NavLink>
+                <NavLink label="Contact Us" to="/area02" >Contact Us </NavLink>
+                <NavLink label="LogIn" to="/user/login" >LogIn </NavLink>
+                <NavLink label="SignUp" to="/user/signup" >SignUp </NavLink>
+        </div>
     );
 }
 export default Header;
