@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/wedding101.iml" filepath="$PROJECT_DIR$/.idea/wedding101.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/wedding101.wedding101.test.iml" filepath="$PROJECT_DIR$/.idea/modules/wedding101.wedding101.test.iml" />
     </modules>
   </component>
