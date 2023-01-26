@@ -1,5 +1,3 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
 from QT_screens_code.mainwindow import Ui_Form
 from QT_screens_code.chk_Dialog import Ui_chk_Dialog
 from time import *
@@ -67,7 +65,7 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
 
     def show_dialog(self):
         self.setModal(True)
-        return super().exec()
+        return super().exec_()
 
 
 class MyApp(QWidget, Ui_Form):
@@ -197,4 +195,4 @@ app.setApplicationName("Wed101")
 win = MyApp()
 win.show()
 
-app.exec()
+app.exec_()
