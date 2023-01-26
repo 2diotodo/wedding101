@@ -123,6 +123,13 @@ class MyApp(QWidget, Ui_Form):
             "}"
         )
 
+        self.disabled_button_pix = QPixmap("QT_Resources/Pics/unavailable_proceed.png")
+        self.disabled_button_icon = QIcon(self.disabled_button_pix)
+        self.agreement_next_button.setIcon(self.disabled_button_icon)
+        self.agreement_next_button.setIconSize(self.disabled_button_pix.rect().size())
+
+        self.agreement_next_button.setDisabled(True)
+
     def main(self):
         # this is video thread
         if spec is not None:

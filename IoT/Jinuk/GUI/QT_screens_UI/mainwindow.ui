@@ -598,19 +598,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <string/>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox">
-        <property name="geometry">
-         <rect>
-          <x>1000</x>
-          <y>600</y>
-          <width>111</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>CheckBox</string>
-        </property>
-       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="input_page">
