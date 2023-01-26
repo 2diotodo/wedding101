@@ -15,15 +15,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QStackedWidget,
-    QTextBrowser, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+    QHBoxLayout, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QSpacerItem, QStackedWidget, QTextBrowser,
+    QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1276, 951)
+        Form.resize(1280, 958)
         Form.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setSpacing(0)
@@ -193,6 +194,9 @@ class Ui_Form(object):
         self.agreement_textBrowser1 = QTextBrowser(self.agreement_frame)
         self.agreement_textBrowser1.setObjectName(u"agreement_textBrowser1")
         self.agreement_textBrowser1.setGeometry(QRect(70, 130, 881, 261))
+        self.agreement_textBrowser1.setStyleSheet(u"border:1px solid black; border-radius:0;")
+        self.agreement_textBrowser1.setFrameShape(QFrame.StyledPanel)
+        self.agreement_textBrowser1.setTextInteractionFlags(Qt.LinksAccessibleByKeyboard|Qt.LinksAccessibleByMouse)
         self.agreement_checkBox1 = QCheckBox(self.agreement_frame)
         self.agreement_checkBox1.setObjectName(u"agreement_checkBox1")
         self.agreement_checkBox1.setGeometry(QRect(1000, 220, 101, 71))
@@ -205,6 +209,11 @@ class Ui_Form(object):
         self.agreement_textBrowser2 = QTextBrowser(self.agreement_frame)
         self.agreement_textBrowser2.setObjectName(u"agreement_textBrowser2")
         self.agreement_textBrowser2.setGeometry(QRect(70, 430, 881, 261))
+        self.agreement_textBrowser2.setStyleSheet(u"border:1px solid black; border-radius:0;")
+        self.agreement_textBrowser2.setFrameShape(QFrame.Box)
+        self.agreement_textBrowser2.setLineWidth(2)
+        self.agreement_textBrowser2.setMidLineWidth(0)
+        self.agreement_textBrowser2.setTextInteractionFlags(Qt.LinksAccessibleByKeyboard|Qt.LinksAccessibleByMouse)
         self.agreement_checkBox2 = QCheckBox(self.agreement_frame)
         self.agreement_checkBox2.setObjectName(u"agreement_checkBox2")
         self.agreement_checkBox2.setGeometry(QRect(1000, 520, 101, 71))
@@ -218,18 +227,142 @@ class Ui_Form(object):
         self.stackedWidget.addWidget(self.agreement_page)
         self.input_page = QWidget()
         self.input_page.setObjectName(u"input_page")
-        self.input_next_button = QPushButton(self.input_page)
-        self.input_next_button.setObjectName(u"input_next_button")
-        self.input_next_button.setGeometry(QRect(460, 400, 75, 24))
-        self.input_home_button = QPushButton(self.input_page)
+        self.input_frame = QFrame(self.input_page)
+        self.input_frame.setObjectName(u"input_frame")
+        self.input_frame.setGeometry(QRect(64, 48, 1152, 864))
+        self.input_frame.setAcceptDrops(False)
+        self.input_frame.setStyleSheet(u"background: #FFFFFF;\n"
+"border-radius: 80px;")
+        self.input_frame.setFrameShape(QFrame.StyledPanel)
+        self.input_frame.setFrameShadow(QFrame.Raised)
+        self.input_frame.setLineWidth(20)
+        self.input_frame.setMidLineWidth(10)
+        self.input_title = QLabel(self.input_frame)
+        self.input_title.setObjectName(u"input_title")
+        self.input_title.setGeometry(QRect(261, 50, 630, 90))
+        font9 = QFont()
+        font9.setPointSize(50)
+        font9.setBold(True)
+        self.input_title.setFont(font9)
+        self.verticalLayoutWidget_3 = QWidget(self.input_frame)
+        self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
+        self.verticalLayoutWidget_3.setGeometry(QRect(80, 200, 781, 521))
+        self.input_vLayout = QVBoxLayout(self.verticalLayoutWidget_3)
+        self.input_vLayout.setObjectName(u"input_vLayout")
+        self.input_vLayout.setContentsMargins(0, 0, 0, 0)
+        self.input_nameLayout = QHBoxLayout()
+        self.input_nameLayout.setObjectName(u"input_nameLayout")
+        self.input_label1 = QLabel(self.verticalLayoutWidget_3)
+        self.input_label1.setObjectName(u"input_label1")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(3)
+        sizePolicy.setVerticalStretch(1)
+        sizePolicy.setHeightForWidth(self.input_label1.sizePolicy().hasHeightForWidth())
+        self.input_label1.setSizePolicy(sizePolicy)
+        font10 = QFont()
+        font10.setPointSize(40)
+        font10.setBold(True)
+        self.input_label1.setFont(font10)
+        self.input_label1.setAlignment(Qt.AlignCenter)
+
+        self.input_nameLayout.addWidget(self.input_label1)
+
+        self.lineEdit = QLineEdit(self.verticalLayoutWidget_3)
+        self.lineEdit.setObjectName(u"lineEdit")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(5)
+        sizePolicy1.setVerticalStretch(2)
+        sizePolicy1.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy1)
+        self.lineEdit.setFont(font10)
+        self.lineEdit.setStyleSheet(u"background:#FFAB7C;color:white;\n"
+"border-radius: 20px;\n"
+"")
+        self.lineEdit.setAlignment(Qt.AlignCenter)
+
+        self.input_nameLayout.addWidget(self.lineEdit)
+
+
+        self.input_vLayout.addLayout(self.input_nameLayout)
+
+        self.verticalSpacer = QSpacerItem(20, 33, QSizePolicy.Minimum, QSizePolicy.Preferred)
+
+        self.input_vLayout.addItem(self.verticalSpacer)
+
+        self.input_relationLayout = QHBoxLayout()
+        self.input_relationLayout.setObjectName(u"input_relationLayout")
+        self.input_label2 = QLabel(self.verticalLayoutWidget_3)
+        self.input_label2.setObjectName(u"input_label2")
+        sizePolicy.setHeightForWidth(self.input_label2.sizePolicy().hasHeightForWidth())
+        self.input_label2.setSizePolicy(sizePolicy)
+        self.input_label2.setFont(font10)
+        self.input_label2.setAlignment(Qt.AlignCenter)
+
+        self.input_relationLayout.addWidget(self.input_label2)
+
+        self.input_relation_combo = QComboBox(self.verticalLayoutWidget_3)
+        self.input_relation_combo.addItem("")
+        self.input_relation_combo.addItem("")
+        self.input_relation_combo.addItem("")
+        self.input_relation_combo.addItem("")
+        self.input_relation_combo.addItem("")
+        self.input_relation_combo.addItem("")
+        self.input_relation_combo.setObjectName(u"input_relation_combo")
+        sizePolicy1.setHeightForWidth(self.input_relation_combo.sizePolicy().hasHeightForWidth())
+        self.input_relation_combo.setSizePolicy(sizePolicy1)
+        font11 = QFont()
+        font11.setPointSize(36)
+        font11.setBold(True)
+        self.input_relation_combo.setFont(font11)
+        self.input_relation_combo.setStyleSheet(u"background:#FFAB7C; color:white;\n"
+"border-radius: 20px;")
+        self.input_relation_combo.setIconSize(QSize(16, 16))
+        self.input_relation_combo.setFrame(True)
+
+        self.input_relationLayout.addWidget(self.input_relation_combo)
+
+
+        self.input_vLayout.addLayout(self.input_relationLayout)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred)
+
+        self.input_vLayout.addItem(self.verticalSpacer_2)
+
+        self.input_receiverLayout = QHBoxLayout()
+        self.input_receiverLayout.setObjectName(u"input_receiverLayout")
+        self.input_label3 = QLabel(self.verticalLayoutWidget_3)
+        self.input_label3.setObjectName(u"input_label3")
+        sizePolicy.setHeightForWidth(self.input_label3.sizePolicy().hasHeightForWidth())
+        self.input_label3.setSizePolicy(sizePolicy)
+        self.input_label3.setFont(font10)
+        self.input_label3.setAlignment(Qt.AlignCenter)
+
+        self.input_receiverLayout.addWidget(self.input_label3)
+
+        self.input_receiver_combo = QComboBox(self.verticalLayoutWidget_3)
+        self.input_receiver_combo.addItem("")
+        self.input_receiver_combo.addItem("")
+        self.input_receiver_combo.addItem("")
+        self.input_receiver_combo.setObjectName(u"input_receiver_combo")
+        sizePolicy1.setHeightForWidth(self.input_receiver_combo.sizePolicy().hasHeightForWidth())
+        self.input_receiver_combo.setSizePolicy(sizePolicy1)
+        self.input_receiver_combo.setFont(font11)
+        self.input_receiver_combo.setStyleSheet(u"background:#FFAB7C; color:white;\n"
+"border-radius:20px;")
+        self.input_receiver_combo.setIconSize(QSize(16, 16))
+        self.input_receiver_combo.setFrame(True)
+
+        self.input_receiverLayout.addWidget(self.input_receiver_combo)
+
+
+        self.input_vLayout.addLayout(self.input_receiverLayout)
+
+        self.input_home_button = QPushButton(self.input_frame)
         self.input_home_button.setObjectName(u"input_home_button")
-        self.input_home_button.setGeometry(QRect(490, 320, 75, 24))
-        self.input_label = QLabel(self.input_page)
-        self.input_label.setObjectName(u"input_label")
-        self.input_label.setGeometry(QRect(250, 190, 50, 16))
-        self.input_prev_button = QPushButton(self.input_page)
-        self.input_prev_button.setObjectName(u"input_prev_button")
-        self.input_prev_button.setGeometry(QRect(340, 400, 75, 24))
+        self.input_home_button.setGeometry(QRect(950, 410, 116, 100))
+        self.input_next_button = QPushButton(self.input_frame)
+        self.input_next_button.setObjectName(u"input_next_button")
+        self.input_next_button.setGeometry(QRect(954, 600, 108, 108))
         self.stackedWidget.addWidget(self.input_page)
         self.mode_select_page = QWidget()
         self.mode_select_page.setObjectName(u"mode_select_page")
@@ -296,8 +429,6 @@ class Ui_Form(object):
         self.end_home_button.clicked.connect(Form.go_home_page)
         self.image_next_button.clicked.connect(Form.go_end_page)
         self.image_home_button.clicked.connect(Form.go_home_page)
-        self.input_next_button.clicked.connect(Form.go_next_page)
-        self.input_home_button.clicked.connect(Form.go_home_page)
         self.mode_select_image_button.clicked.connect(Form.go_next_page)
         self.mode_select_home_button.clicked.connect(Form.go_home_page)
         self.video_home_button.clicked.connect(Form.go_home_page)
@@ -305,14 +436,13 @@ class Ui_Form(object):
         self.mode_select_video_button.clicked.connect(Form.go_next_page)
         self.mode_select_prev_button.clicked.connect(Form.go_prev_page)
         self.video_prev_button.clicked.connect(Form.go_prev_page)
-        self.input_prev_button.clicked.connect(Form.go_prev_page)
         self.image_prev_button.clicked.connect(Form.go_prev_page)
         self.srvc_chk_button.clicked.connect(Form.check_service_validation)
         self.home_next_button.clicked.connect(Form.go_next_page)
         self.info_next_button.clicked.connect(Form.go_next_page)
         self.agreement_next_button.clicked.connect(Form.go_next_page)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -381,10 +511,24 @@ class Ui_Form(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:700;\">\uadc0\ud558\ub294 \uc774\uc5d0 \ub300\ud55c \ub3d9\uc758\ub97c \uac70\ubd80\ud560 \uc218 \uc788\uc73c\uba70 \ub2e8, \ub3d9\uc758\uac00 \uc5c6\uc744 \uacbd\uc6b0 \uc774\uc640 \uad00\ub828\ub41c \ud589\uc0ac \ucc38\uc5ec\uac00 \ubd88\uac00\ub2a5\ud560 \uc218 \uc788\uc74c\uc744 \uc54c\ub824\ub4dc\ub9bd\ub2c8\ub2e4.</span></p></body></html>", None))
         self.agreement_checkBox2.setText(QCoreApplication.translate("Form", u"\ub3d9\uc758", None))
         self.agreement_next_button.setText("")
-        self.input_next_button.setText(QCoreApplication.translate("Form", u"Next", None))
-        self.input_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
-        self.input_label.setText(QCoreApplication.translate("Form", u"Input", None))
-        self.input_prev_button.setText(QCoreApplication.translate("Form", u"Prev", None))
+        self.input_title.setText(QCoreApplication.translate("Form", u"\uc815\ubcf4\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694", None))
+        self.input_label1.setText(QCoreApplication.translate("Form", u"\uc774\ub984 :", None))
+        self.lineEdit.setText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
+        self.input_label2.setText(QCoreApplication.translate("Form", u"\uad00\uacc4 :", None))
+        self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uac00\uc871", None))
+        self.input_relation_combo.setItemText(2, QCoreApplication.translate("Form", u"\uce5c\uc778\ucc99", None))
+        self.input_relation_combo.setItemText(3, QCoreApplication.translate("Form", u"\uce5c\uad6c", None))
+        self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
+        self.input_relation_combo.setItemText(5, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
+
+        self.input_label3.setText(QCoreApplication.translate("Form", u"\ub300\uc0c1 :", None))
+        self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
+        self.input_receiver_combo.setItemText(2, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
+
+        self.input_home_button.setText("")
+        self.input_next_button.setText("")
         self.mode_select_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.mode_select_image_button.setText(QCoreApplication.translate("Form", u"Image", None))
         self.mode_select_label.setText(QCoreApplication.translate("Form", u"mode select", None))
