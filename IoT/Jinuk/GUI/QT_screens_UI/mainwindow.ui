@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>960</height>
+    <width>1276</width>
+    <height>951</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -31,8 +34,11 @@
    </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
+     <property name="styleSheet">
+      <string notr="true">background: #FFF3C8;</string>
+     </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -175,14 +181,14 @@ border-radius: 40px;</string>
         <property name="geometry">
          <rect>
           <x>58</x>
-          <y>80</y>
+          <y>90</y>
           <width>1036</width>
           <height>411</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>60</pointsize>
+          <pointsize>100</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -201,9 +207,9 @@ border-radius: 40px;</string>
        <widget class="QLabel" name="home_text1">
         <property name="geometry">
          <rect>
-          <x>330</x>
+          <x>336</x>
           <y>350</y>
-          <width>481</width>
+          <width>480</width>
           <height>91</height>
          </rect>
         </property>
@@ -219,12 +225,12 @@ border-radius: 40px;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="home_text2">
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>470</y>
-          <width>901</width>
+          <x>91</x>
+          <y>500</y>
+          <width>970</width>
           <height>61</height>
          </rect>
         </property>
@@ -234,63 +240,377 @@ border-radius: 40px;</string>
          </font>
         </property>
         <property name="text">
-         <string>신혼부부 OOO, OOO 님에게 사진이나 영상 편지를 남겨보세요</string>
+         <string>신혼부부 OOO, OOO 님에게 기념사진이나 영상 편지를 남겨보세요</string>
         </property>
        </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="info_page">
-      <widget class="QLabel" name="info_label">
+      <property name="styleSheet">
+       <string notr="true">background: #FFF3C8;</string>
+      </property>
+      <widget class="QFrame" name="info_frame">
        <property name="geometry">
         <rect>
-         <x>280</x>
-         <y>190</y>
-         <width>50</width>
-         <height>16</height>
+         <x>64</x>
+         <y>48</y>
+         <width>1152</width>
+         <height>864</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Info</string>
+       <property name="acceptDrops">
+        <bool>false</bool>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFFFFF;
+border-radius: 80px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>20</number>
+       </property>
+       <property name="midLineWidth">
+        <number>10</number>
+       </property>
+       <widget class="QLabel" name="info_title">
+        <property name="geometry">
+         <rect>
+          <x>354</x>
+          <y>50</y>
+          <width>444</width>
+          <height>120</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>60</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Wedding101</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="info_image1">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>300</y>
+          <width>375</width>
+          <height>445</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>image1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="info_image2">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>300</y>
+          <width>375</width>
+          <height>445</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>image2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="info_next_button">
+        <property name="geometry">
+         <rect>
+          <x>920</x>
+          <y>590</y>
+          <width>108</width>
+          <height>108</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>850</x>
+          <y>350</y>
+          <width>251</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="info_vLayout">
+         <item>
+          <widget class="QLabel" name="info_desc1">
+           <property name="font">
+            <font>
+             <pointsize>21</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>부부에게</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="info_desc2">
+           <property name="font">
+            <font>
+             <pointsize>21</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>기념 사진과</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="info_desc3">
+           <property name="font">
+            <font>
+             <pointsize>21</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>영상 편지를</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="info_desc4">
+           <property name="font">
+            <font>
+             <pointsize>21</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>남겨보세요</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
-      <widget class="QPushButton" name="info_home_button">
+     </widget>
+     <widget class="QWidget" name="agreement_page">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <widget class="QFrame" name="agreement_frame">
        <property name="geometry">
         <rect>
-         <x>490</x>
-         <y>330</y>
-         <width>75</width>
-         <height>24</height>
+         <x>64</x>
+         <y>48</y>
+         <width>1152</width>
+         <height>864</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Home</string>
+       <property name="acceptDrops">
+        <bool>false</bool>
        </property>
-      </widget>
-      <widget class="QPushButton" name="info_next_button">
-       <property name="geometry">
-        <rect>
-         <x>480</x>
-         <y>390</y>
-         <width>75</width>
-         <height>24</height>
-        </rect>
+       <property name="styleSheet">
+        <string notr="true">background: #FFFFFF;
+border-radius: 80px;</string>
        </property>
-       <property name="text">
-        <string>Next</string>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-      </widget>
-      <widget class="QPushButton" name="info_prev_button">
-       <property name="geometry">
-        <rect>
-         <x>360</x>
-         <y>390</y>
-         <width>75</width>
-         <height>24</height>
-        </rect>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
-       <property name="text">
-        <string>Prev</string>
+       <property name="lineWidth">
+        <number>20</number>
        </property>
+       <property name="midLineWidth">
+        <number>10</number>
+       </property>
+       <widget class="QLabel" name="agreement_title">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>20</y>
+          <width>621</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>32</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>개인정보 및 초상권 사용 동의서</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="agreement_textBrowser1">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>130</y>
+          <width>881</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'맑은 고딕'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;개인정보 수집 및 활용 동의&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;제공하는 개인정보의 항목&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Wedding101은 다음의 개인정보를 제공받고자 합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt; - 성명&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:16pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;개인정보 수집 및 활용 목적&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Wedding101은 다음과 같은 이유로 개인정보를 제공받고자 합니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;- 사진/영상 촬영자 확인 및 서비스 신청자에게 제공&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:16pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;개인정보 활용 및 보유기간&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;- 제공받은 개인정보의 활용 및 보유기간은 촬영 완료시부터 6개월까지 활용될 수 있으며 이후 파기됩니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;- 개인정보는 정보주체의 동의 없이 동의한 내용 외의 다른 목적으로 활용하거나 제3자에게 제공 및 활용되지 않습니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;귀하는 이에 대한 동의를 거부할 수 있으며 단, 동의가 없을 경우 Wedding101 서비스 이용이 불가능할 수 있음을 알려드립니다.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="agreement_checkBox1">
+        <property name="geometry">
+         <rect>
+          <x>1000</x>
+          <y>220</y>
+          <width>101</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>동의</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="agreement_textBrowser2">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>430</y>
+          <width>881</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'맑은 고딕'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;초상권 사용 동의서&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Wedding101 부스에서 촬영된 사용자의 사진과 동영상은 서비스 신청자의 Wed101 앨범 자료로 사용될 수 있습니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:16pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;사용자에 대한 초상권은 Wedding101 측 이외의 다른 기관이나 기업에 공개되지 않으며, 서비스 신청자에게만 활용되도록 철저히 관리 운영됩니다.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:16pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;귀하는 이에 대한 동의를 거부할 수 있으며 단, 동의가 없을 경우 이와 관련된 행사 참여가 불가능할 수 있음을 알려드립니다.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="agreement_checkBox2">
+        <property name="geometry">
+         <rect>
+          <x>1000</x>
+          <y>520</y>
+          <width>101</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>동의</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="agreement_next_button">
+        <property name="geometry">
+         <rect>
+          <x>522</x>
+          <y>720</y>
+          <width>108</width>
+          <height>108</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
+         <rect>
+          <x>1000</x>
+          <y>600</y>
+          <width>111</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>CheckBox</string>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="input_page">
@@ -557,38 +877,6 @@ border-radius: 40px;</string>
  <resources/>
  <connections>
   <connection>
-   <sender>home_next_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>319</x>
-     <y>432</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>418</x>
-     <y>477</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>info_home_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_home_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>552</x>
-     <y>350</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>422</x>
-     <y>479</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>end_home_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -633,22 +921,6 @@ border-radius: 40px;</string>
     <hint type="destinationlabel">
      <x>637</x>
      <y>352</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>info_next_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>411</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>633</x>
-     <y>443</y>
     </hint>
    </hints>
   </connection>
@@ -792,7 +1064,7 @@ border-radius: 40px;</string>
     </hint>
     <hint type="destinationlabel">
      <x>663</x>
-     <y>-2</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -809,22 +1081,6 @@ border-radius: 40px;</string>
     <hint type="destinationlabel">
      <x>499</x>
      <y>6</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>info_prev_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_prev_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>412</x>
-     <y>404</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>538</x>
-     <y>-10</y>
     </hint>
    </hints>
   </connection>
@@ -856,7 +1112,55 @@ border-radius: 40px;</string>
     </hint>
     <hint type="destinationlabel">
      <x>599</x>
-     <y>958</y>
+     <y>950</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>home_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_next_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>432</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>418</x>
+     <y>477</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>info_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_next_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1051</x>
+     <y>701</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1047</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>agreement_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_next_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>632</x>
+     <y>823</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>-9</y>
     </hint>
    </hints>
   </connection>
