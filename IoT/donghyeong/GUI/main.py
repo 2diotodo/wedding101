@@ -210,7 +210,6 @@ class MyThread(QThread):
         self.img[alpha == 0] = 0
 
 
-
     def printImage(self):
         imgBGR = self.img
         imgRGB = cv2.cvtColor(imgBGR, cv2.COLOR_BGR2RGB)
