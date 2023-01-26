@@ -1,5 +1,8 @@
 import importlib.util
 import picamera
+import time
+from threading import Condition
+import io
 
 spec = importlib.util.find_spec("PySide2")
 if spec is None:
@@ -10,12 +13,51 @@ else:
     from PySide2.QtWidgets import *
     from PySide2.QtCore import *
     from PySide2.QtGui import *
-    import cv2
+
+from sampleui import Ui_Form
 
 
-import pyaudio, wave, threading, time, subprocess, os
+class StreamingOutput(object):
+    def __init__(self):
+        self.frame = None
+        self.buffer = io.BytesIO()
+        self.condition = Condition()
 
-from cam_write_ui import Ui_Form
+    def write(self, buf):
+        if buf.startswith(b'\xff\xd8'):
+            # New frame, copy the existing buffer's content and notify all
+            # clients it's available
+            self.buffer.truncate()
+            with self.condition:
+                self.frame = self.buffer.getvalue()
+                self.condition.notify_all()
+            self.buffer.seek(0)
+        return self.buffer.write(buf)
+
+
+class MyThread(QThread):
+    mySignal = Signal(QPixmap)
+    def __init__(self):
+        super().__init__()
+        self.cam = picamera.PiCamera()
+        self.cam.resolution = (640, 480)
+        self.cam.rotation = 180
+        self.output = StreamingOutput()
+    
+    def run(self):
+        self.cam.start_recording(self.output, format='mjpeg')
+        while True:
+            self.printImage()
+            # time.sleep(1/60) # 60 fps
+
+    def printImage(self):
+        self.output.buffer.truncate()
+        self.output.buffer.seek(0)
+        image_data = self.output.buffer.read()
+        qimg = QImage.fromData(image_data)
+        pix_img = QPixmap(qimg)
+        print(pix_img)
+        self.mySignal.emit(pix_img)
 
 
 class MainWindow(QWidget):
@@ -25,88 +67,18 @@ class MainWindow(QWidget):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        # icon
-        self.setWindowIcon(QIcon('icon.png'))
-        # set control_bt callback clicked  function
-        self.ui.save_bt.clicked.connect(self.controlSave)
-        # set video and audio record thread
-        self.open = False
-        self.video_thread = None
-        self.audio_thread = None
+        self.th = MyThread()
+        self.th.mySignal.connect(self.setImage)
+        self.th.start()
 
-    def controlSave(self):
-        if self.open:
-            self.open = False
-            self.stop_AVrecording()
-            self.ui.save_bt.setText("Record")
-            self.ui.image_label.setText("Camera")
-            # self.file_manager()
-        else:
-            self.open = True
-            self.start_AVrecording()
-            self.ui.save_bt.setText("Stop")
-            self.ui.image_label.setText("recording")
+    def setImage(self, img):
+        self.ui.label.setPixmap(img)
 
+    def close_window(self):
+        self.th.quit()
+        self.th.wait(3000)
+        self.close()
 
-    # start/stop both thread
-    def start_AVrecording(self, filename="test"):
-        self.audio_thread = AudioRecorder()
-        self.video_thread = VideoRecorder()
-        self.audio_thread.start()
-        self.video_thread.start()
-        return filename
-    
-
-    def stop_AVrecording(self, filename="test"):
-        self.audio_thread.stop()
-        frame_counts = self.video_thread.frame_counts
-        elapsed_time = time.time() - self.video_thread.start_time
-        recorded_fps = frame_counts / elapsed_time
-        print("total frames " + str(frame_counts))
-        print("elapsed time " + str(elapsed_time))
-        print("recorded fps " + str(recorded_fps))
-        self.video_thread.stop()
-
-        # # Makes sure the threads have finished    
-        # while threading.active_count() > 1:
-        #     time.sleep(1)
-
-        # Merging audio and video signal
-        if abs(recorded_fps - 6) >= 0.01:    # If the fps rate was higher/lower than expected, re-encode it to the expected
-            print("Re-encoding")
-            cmd = "ffmpeg -r " + str(recorded_fps) + " -i temp_video.avi -pix_fmt yuv420p -r 6 temp_video2.avi"
-            subprocess.call(cmd, shell=True)
-            print("Muxing")
-            cmd = "ffmpeg -y -ac 2 -channel_layout stereo -i temp_audio.wav -i temp_video2.avi -pix_fmt yuv420p " + filename + ".avi"
-            subprocess.call(cmd, shell=True)
-        else:
-            print("Normal recording\nMuxing")
-            cmd = "ffmpeg -y -ac 2 -channel_layout stereo -i temp_audio.wav -i temp_video.avi -pix_fmt yuv420p " + filename + ".avi"
-            subprocess.call(cmd, shell=True)
-            print("..")
-
-
-    def file_manager(self, filename="test"):
-        "Required and wanted processing of final files"
-        local_path = os.getcwd()
-        if os.path.exists(str(local_path) + "/temp_audio.wav"):
-            os.remove(str(local_path) + "/temp_audio.wav")
-        if os.path.exists(str(local_path) + "/temp_video.avi"):
-            os.remove(str(local_path) + "/temp_video.avi")
-        if os.path.exists(str(local_path) + "/temp_video2.avi"):
-            os.remove(str(local_path) + "/temp_video2.avi")
-        # if os.path.exists(str(local_path) + "/" + filename + ".avi"):
-        #     os.remove(str(local_path) + "/" + filename + ".avi")def file_manager(filename="test"):
-        "Required and wanted processing of final files"
-        local_path = os.getcwd()
-        if os.path.exists(str(local_path) + "/temp_audio.wav"):
-            os.remove(str(local_path) + "/temp_audio.wav")
-        if os.path.exists(str(local_path) + "/temp_video.avi"):
-            os.remove(str(local_path) + "/temp_video.avi")
-        if os.path.exists(str(local_path) + "/temp_video2.avi"):
-            os.remove(str(local_path) + "/temp_video2.avi")
-        # if os.path.exists(str(local_path) + "/" + filename + ".avi"):
-        #     os.remove(str(local_path) + "/" + filename + ".avi")
 
 app = QApplication()
 win = MainWindow()
