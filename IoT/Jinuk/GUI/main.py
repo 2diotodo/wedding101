@@ -60,8 +60,13 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
         super().__init__()
         self.setupUi(self)
         self.show()
+        self.setParent(win)
+        self.setGraphicsEffect(QGraphicsDropShadowEffect(
+            offset=QPoint(0, 8), blurRadius=20, color=QColor("#888")
+        ))
 
-    def show_modal(self):
+    def show_dialog(self):
+        self.setModal(True)
         return super().exec()
 
 
@@ -72,7 +77,6 @@ class MyApp(QWidget, Ui_Form):
         super().__init__()
         # set class variable
         self.th = None
-
 
         # set class functions
         self.setupUi(self)
@@ -94,17 +98,37 @@ class MyApp(QWidget, Ui_Form):
 
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
         self.arrow_icon = QIcon(self.arrow_button_pix)
-
         self.srvc_chk_button.setIcon(self.arrow_icon)
         self.srvc_chk_button.setIconSize(self.arrow_button_pix.rect().size())
 
-        self.home_back_pix = QPixmap("QT_Resources/Pics/home_back.png")
         self.home_background.setStyleSheet("background-image: url('QT_Resources/Pics/home_back.png')")
         self.home_font_id = QFontDatabase.addApplicationFont("QT_Resources/Fonts/BeauRivage-Regular.ttf")
-
-        self.home_background.setFont(QFont('Beau Rivage', 80))
+        self.home_background.setFont(QFont('Beau Rivage', 100))
         self.home_text1.setFont(QFont('Beau Rivage', 40))
         self.home_text1.setStyleSheet("background-color: rgba(255,255,255,0);")
+
+        self.info_title.setFont(QFont('Beau Rivage', 60))
+        self.info_next_button.setIcon(self.arrow_icon)
+        self.info_next_button.setIconSize(self.arrow_button_pix.rect().size())
+        self.info_image1.setPixmap(QPixmap("QT_Resources/Pics/congrat.png"))
+        self.info_image1.setScaledContents(True)
+        self.info_image2.setPixmap(QPixmap("QT_Resources/Pics/vidready.png"))
+        self.info_image2.setScaledContents(True)
+
+        self.agreement_checkBox1.setStyleSheet(
+            "QCheckBox::indicator"
+            "{"
+            "   width: 36px;"
+            "   height: 36px;"
+            "}"
+        )
+
+        self.disabled_button_pix = QPixmap("QT_Resources/Pics/unavailable_proceed.png")
+        self.disabled_button_icon = QIcon(self.disabled_button_pix)
+        self.agreement_next_button.setIcon(self.disabled_button_icon)
+        self.agreement_next_button.setIconSize(self.disabled_button_pix.rect().size())
+
+        self.agreement_next_button.setDisabled(True)
 
     def main(self):
         # this is video thread
@@ -153,7 +177,7 @@ class MyApp(QWidget, Ui_Form):
 
     def check_service_validation(self):
         check_validation_window = CheckDialog()
-        cd = check_validation_window.show_modal()
+        cd = check_validation_window.show_dialog()
         print(cd)
         if cd:
             current_page = self.stackedWidget.currentIndex()
@@ -162,6 +186,9 @@ class MyApp(QWidget, Ui_Form):
             if sender.objectName() == "mode_select_video_button":
                 current_page += 1
             self.stackedWidget.setCurrentIndex(current_page + 1)
+
+    def check_agreement(self):
+        pass
 
 
 app = QApplication()
