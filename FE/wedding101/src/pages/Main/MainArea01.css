@@ -1,8 +1,18 @@
-.main-area {
-background-color: #FFC0BB;
-width: 1920px;
-height: 100%;
+.main-area01 {
+  background-color: #ffc0bb;
+  height: 100vh;
+  scroll-margin-top: 100px;
+  padding: 10%;
 }
-.img {
-display: flex;
+.container {
+  height: auto;
+}
+
+img {
+  display: flex;
+  object-fit: scale-down;
+}
+.goServiceButton {
+  position: fixed;
+  bottom: 0;
 }
