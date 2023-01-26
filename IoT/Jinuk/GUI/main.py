@@ -112,6 +112,8 @@ class MyApp(QWidget, Ui_Form):
         self.agreement_checkBox1.stateChanged.connect(self.check_agreement)
         self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
+        self.input_page.setStyleSheet("QComboBox:: {text-align: center;}")
+
     def main(self):
         # this is video thread
         if spec is not None:
