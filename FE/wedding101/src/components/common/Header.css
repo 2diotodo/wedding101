@@ -1,4 +1,10 @@
 .header {
     background-color: #ffffff;
-    height: 100px;
+    width: 100%;
+    position: absolute;
+
     }
+.header.drop {
+    position: fixed;
+}
+    

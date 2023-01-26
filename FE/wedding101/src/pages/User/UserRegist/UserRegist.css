@@ -1,5 +1,8 @@
 .user-regist {
     background-color: #D9CFDE;
-    width: 1920px;
-height: 980px;
+    width: 100%;
     }
+.img {
+    position: relative;
+    
+}

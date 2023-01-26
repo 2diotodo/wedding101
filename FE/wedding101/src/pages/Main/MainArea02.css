@@ -1,5 +1,8 @@
 .main-area {
     background-color: #FFF4F3;
     width: 1920px;
-height: 980px;
+    height: 100%;
     }
+.img {
+    display: flex;
+}
