@@ -1,5 +1,7 @@
-import importlib.util
+import os
 import imutils
+import numpy as np
+import importlib.util
 import mediapipe as mp
 
 spec = importlib.util.find_spec("PySide2")
@@ -15,6 +17,7 @@ else:
 
 from MainWindow import Ui_Form
 from time import *
+from random import randrange
 
 class MyThread(QThread):
     mySignal = Signal(QPixmap)
@@ -40,7 +43,7 @@ class MyThread(QThread):
 
             if ret:
                 self.resize_image(width = 640, height = 480)
-                # self.image_processing(mode = 2, frame_check = 1)
+                self.image_processing(mode = 1, frame_check = 1)
                 self.printImage()
             else:
                 print("camera is not working")
@@ -67,13 +70,47 @@ class MyThread(QThread):
         2. Detection - right/left hand, Pose
         '''
         image = self.img
-        # 1. Selfi Segmentation
+        # 1. Selfie Segmentation
         if mode == 1:
-            # TODO: 
-            pass
+            # For webcam input:
+            BG_COLOR = (192, 192, 192) # gray
+            with self.mp_selfie_segmentation.SelfieSegmentation(model_selection=1) as selfie_segmentation:
+                bg_dir = "./BackgroundImage"
+                bg_image = os.path.join(bg_dir, f'flower1.png')
+
+                # Flip the image horizontally for a later selfie-view display, and convert
+                # the BGR image to RGB.
+                image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
+                # To improve performance, optionally mark the image as not writeable to
+                # pass by reference.
+                image.flags.writeable = False
+                results = selfie_segmentation.process(image)
+
+                image.flags.writeable = True
+                image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+                # Draw selfie segmentation on the background image.
+                # To improve segmentation around boundaries, consider applying a joint
+                # bilateral filter to "results.segmentation_mask" with "image".
+                condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.1
+                
+                # The background can be customized.
+                #   a) Load an image (with the same width and height of the input image) to
+                #      be the background, e.g., bg_image = cv2.imread('/path/to/image/file')
+                #   b) Blur the input image by applying image filtering, e.g.,
+                #      bg_image = cv2.GaussianBlur(image,(55,55),0)
+                if bg_image is None:
+                    bg_image = np.zeros(image.shape, dtype=np.uint8)
+                    bg_image[:] = BG_COLOR
+                else:
+                    bg_image = cv2.imread(bg_image)
+                    bg_image = cv2.resize(bg_image, (np.shape(image)[1], np.shape(image)[0]))
+
+                output_image = np.where(condition, image, bg_image)
+                self.img = output_image
 
         # 2. Detection
-        elif mode == 2 :
+        elif (mode == 2) and (self.frame_cnt % frame_check == 0):
             with self.mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
                 # Recolor from BGR to RGB
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -84,22 +121,22 @@ class MyThread(QThread):
                 # Recolor from RGB to BGR
                 image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-                # # Right hand
-                # self.mp_drawing.draw_landmarks(image, 
-                #                                results.right_hand_landmarks, 
-                #                                self.mp_holistic.HAND_CONNECTIONS)
+                # Right hand
+                self.mp_drawing.draw_landmarks(image, 
+                                               results.right_hand_landmarks, 
+                                               self.mp_holistic.HAND_CONNECTIONS)
                 
-                # # Left hand
-                # self.mp_drawing.draw_landmarks(image, 
-                #                                results.left_hand_landmarks, 
-                #                                self.mp_holistic.HAND_CONNECTIONS)
+                # Left hand
+                self.mp_drawing.draw_landmarks(image, 
+                                               results.left_hand_landmarks, 
+                                               self.mp_holistic.HAND_CONNECTIONS)
 
-                # Pose Detection 
+                # # Pose Detection 
                 # self.mp_drawing.draw_landmarks(image, 
                 #                                results.pose_landmarks, 
                 #                                self.mp_holistic.POSE_CONNECTIONS)
 
-        self.img = image
+                self.img = image
 
     def printImage(self):
         imgBGR = self.img
