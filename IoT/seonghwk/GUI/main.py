@@ -216,5 +216,5 @@ class MyApp(QWidget, Ui_Form):
 app = QApplication()
 win = MyApp()
 
-win.show()
+win.showFullScreen()
 app.exec_()
