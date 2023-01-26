@@ -60,13 +60,13 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
         super().__init__()
         self.setupUi(self)
         self.show()
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.chk_widget.setGraphicsEffect(QGraphicsDropShadowEffect(
-            offset=QPoint(2, 8), blurRadius=25, color=QColor("#333")
+        self.setParent(win)
+        self.setGraphicsEffect(QGraphicsDropShadowEffect(
+            offset=QPoint(0, 8), blurRadius=20, color=QColor("#888")
         ))
 
     def show_dialog(self):
+        self.setModal(True)
         return super().exec()
 
 
@@ -81,6 +81,20 @@ class MyApp(QWidget, Ui_Form):
         # set class functions
         self.setupUi(self)
         self.stackedWidget.setCurrentIndex(0)
+        self.frame_shadow_effect = QGraphicsDropShadowEffect(
+            offset=QPoint(2, 8), blurRadius=25, color=QColor("#333")
+        )
+        self.button_shadow_effect = QGraphicsDropShadowEffect(
+            offset=QPoint(2, 2), blurRadius=30, color=QColor("#555")
+        )
+        # for class_member_variable in self.__dict__.keys():
+        #     if '_frame' in class_member_variable:
+        #         self.__dict__[class_member_variable].setGraphicsEffect(self.frame_shadow_effect)
+        for class_member_variable in dir(self):
+            if '_frame' in class_member_variable:
+                exec(f'self.{class_member_variable}.setGraphicsEffect(self.frame_shadow_effect)')
+            elif '_button' in class_member_variable:
+                exec(f'self.{class_member_variable}.setGraphicsEffect(self.button_shadow_effect)')
 
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
         self.arrow_icon = QIcon(self.arrow_button_pix)
@@ -101,7 +115,13 @@ class MyApp(QWidget, Ui_Form):
         self.info_image2.setPixmap(QPixmap("QT_Resources/Pics/vidready.png"))
         self.info_image2.setScaledContents(True)
 
-        self.agreement_page.setStyleSheet("QCheckBox::indicator{width:36px;height:36px;}")
+        self.agreement_checkBox1.setStyleSheet(
+            "QCheckBox::indicator"
+            "{"
+            "   width: 36px;"
+            "   height: 36px;"
+            "}"
+        )
 
         self.disabled_button_pix = QPixmap("QT_Resources/Pics/unavailable_proceed.png")
         self.disabled_button_icon = QIcon(self.disabled_button_pix)
@@ -109,8 +129,6 @@ class MyApp(QWidget, Ui_Form):
         self.agreement_next_button.setIconSize(self.disabled_button_pix.rect().size())
 
         self.agreement_next_button.setDisabled(True)
-        self.agreement_checkBox1.stateChanged.connect(self.check_agreement)
-        self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
     def main(self):
         # this is video thread
@@ -159,7 +177,6 @@ class MyApp(QWidget, Ui_Form):
 
     def check_service_validation(self):
         check_validation_window = CheckDialog()
-        check_validation_window.setModal(True)
         cd = check_validation_window.show_dialog()
         print(cd)
         if cd:
