@@ -63,13 +63,13 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
         super().__init__()
         self.setupUi(self)
         self.show()
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.chk_widget.setGraphicsEffect(QGraphicsDropShadowEffect(
-            offset=QPoint(2, 8), blurRadius=25, color=QColor("#333")
+        self.setParent(win)
+        self.setGraphicsEffect(QGraphicsDropShadowEffect(
+            offset=QPoint(0, 8), blurRadius=20, color=QColor("#888")
         ))
 
     def show_dialog(self):
+        self.setModal(True)
         return super().exec()
 
 
@@ -131,8 +131,6 @@ class MyApp(QWidget, Ui_Form):
         self.agreement_next_button.setIcon(self.disabled_button_icon)
         self.agreement_next_button.setIconSize(self.disabled_button_pix.rect().size())
         self.agreement_next_button.setDisabled(True)
-        self.agreement_checkBox1.stateChanged.connect(self.check_agreement)
-        self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
     def set_input(self):
         self.input_page.setStyleSheet("QComboBox:: {text-align: center;}")
@@ -199,7 +197,6 @@ class MyApp(QWidget, Ui_Form):
 
     def check_service_validation(self):
         check_validation_window = CheckDialog()
-        check_validation_window.setModal(True)
         cd = check_validation_window.show_dialog()
         print(cd)
         if cd:
