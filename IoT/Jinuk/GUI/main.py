@@ -17,6 +17,9 @@ else:
     from PySide2.QtGui import *
     import cv2
 
+relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
+receiver_list = ['', 'groom', 'bride']
+
 
 class MyThread(QThread):
     mySignal = Signal(QPixmap)
@@ -60,13 +63,13 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
         super().__init__()
         self.setupUi(self)
         self.show()
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.chk_widget.setGraphicsEffect(QGraphicsDropShadowEffect(
-            offset=QPoint(2, 8), blurRadius=25, color=QColor("#333")
+        self.setParent(win)
+        self.setGraphicsEffect(QGraphicsDropShadowEffect(
+            offset=QPoint(0, 8), blurRadius=20, color=QColor("#888")
         ))
 
     def show_dialog(self):
+        self.setModal(True)
         return super().exec()
 
 
@@ -80,7 +83,7 @@ class MyApp(QWidget, Ui_Form):
 
         # set class functions
         self.setupUi(self)
-        self.stackedWidget.setCurrentIndex(0)
+        # self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -90,6 +93,10 @@ class MyApp(QWidget, Ui_Form):
         self.disabled_button_icon = QIcon(self.disabled_button_pix)
         self.home_button_pix = QPixmap("QT_Resources/Pics/home.png")
         self.home_icon = QIcon(self.home_button_pix)
+
+        self.SenderName = ''
+        self.SenderRelation = 0
+        self.SenderReceiver = 0
 
         self.setup_pages()
 
@@ -124,8 +131,6 @@ class MyApp(QWidget, Ui_Form):
         self.agreement_next_button.setIcon(self.disabled_button_icon)
         self.agreement_next_button.setIconSize(self.disabled_button_pix.rect().size())
         self.agreement_next_button.setDisabled(True)
-        self.agreement_checkBox1.stateChanged.connect(self.check_agreement)
-        self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
     def set_input(self):
         self.input_page.setStyleSheet("QComboBox:: {text-align: center;}")
@@ -133,6 +138,11 @@ class MyApp(QWidget, Ui_Form):
         self.input_home_button.setIconSize(self.home_button_pix.rect().size())
         self.input_next_button.setIcon(self.arrow_icon)
         self.input_next_button.setIconSize(self.arrow_button_pix.rect().size())
+        self.input_page.setStyleSheet("QComboBox::down-arrow{"
+                                      "image:url('QT_Resources/Pics/down_arrow.png')}"
+                                      "QComboBox::drop-down{right:50px;}")
+        self.input_relation_combo.currentIndexChanged.connect(self.select_relation)
+        self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
     def setup_pages(self):
         self.set_srvc_chk()
@@ -159,6 +169,12 @@ class MyApp(QWidget, Ui_Form):
 
     def go_home_page(self):
         self.stackedWidget.setCurrentIndex(1)
+        self.input_name_edit.clear()
+        self.input_relation_combo.setCurrentIndex(0)
+        self.input_receiver_combo.setCurrentIndex(0)
+        self.SenderName = ''
+        self.SenderRelation = 0
+        self.SenderReceiver = 0
 
     def go_video_page(self):
         current_page = self.stackedWidget.currentIndex()
@@ -181,7 +197,6 @@ class MyApp(QWidget, Ui_Form):
 
     def check_service_validation(self):
         check_validation_window = CheckDialog()
-        check_validation_window.setModal(True)
         cd = check_validation_window.show_dialog()
         print(cd)
         if cd:
@@ -203,6 +218,27 @@ class MyApp(QWidget, Ui_Form):
             self.agreement_next_button.setEnabled(False)
             self.agreement_next_button.setDisabled(True)
             print("not")
+
+    def check_input(self):
+        if not self.input_name_edit.text():
+            print("이름 없음")
+            return
+        if not self.SenderRelation:
+            print('관계 없음')
+            return
+        if not self.SenderReceiver:
+            print('대상 없음')
+            return
+        self.SenderName = self.input_name_edit.text()
+        self.go_next_page()
+
+    def select_relation(self):
+        self.SenderRelation = self.input_relation_combo.currentIndex()
+        print(self.SenderRelation)
+
+    def select_receiver(self):
+        self.SenderReceiver = self.input_receiver_combo.currentIndex()
+        print(self.SenderReceiver)
 
 
 app = QApplication()
