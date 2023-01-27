@@ -17,6 +17,8 @@ import pyaudio, wave, threading, time, subprocess, os
 from cam_write_ui import Ui_Form
 
 class VideoRecorder(QThread):
+    mySignal = Signal(QPixmap)
+
     "Video class based on openCV"
     def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
         super().__init__()
@@ -45,6 +47,14 @@ class VideoRecorder(QThread):
                 self.video_out.write(video_frame)
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
                 self.frame_counts += 1
+
+
+                imgRGB = cv2.cvtColor(video_frame, cv2.COLOR_BGR2RGB)
+                h, w, byte = imgRGB.shape
+                img = QImage(imgRGB, w, h, byte * w, QImage.Format_RGB888)
+                pix_img = QPixmap(img)
+                self.mySignal.emit(pix_img)
+
                 # counter += 1
                 # timer_current = time.time() - timer_start
                 time.sleep(1/self.fps)
@@ -127,13 +137,14 @@ class MainWindow(QWidget):
         self.video_thread = None
         self.audio_thread = None
 
+
     def controlSave(self):
         if self.open:
             self.open = False
             self.stop_AVrecording()
             self.ui.save_bt.setText("Record")
             self.ui.image_label.setText("Camera")
-            # self.file_manager()
+            self.file_manager()
         else:
             self.open = True
             self.start_AVrecording()
@@ -141,10 +152,15 @@ class MainWindow(QWidget):
             self.ui.image_label.setText("recording")
 
 
+    def setImage(self, img):
+        self.ui.image_label.setPixmap(img)
+
+
     # start/stop both thread
     def start_AVrecording(self, filename="test"):
         self.audio_thread = AudioRecorder()
         self.video_thread = VideoRecorder()
+        self.video_thread.mySignal.connect(self.setImage)
         self.audio_thread.start()
         self.video_thread.start()
         return filename
@@ -159,6 +175,8 @@ class MainWindow(QWidget):
         print("elapsed time " + str(elapsed_time))
         print("recorded fps " + str(recorded_fps))
         self.video_thread.stop()
+        self.ui.image_label.setText("Camera")
+
 
         # # Makes sure the threads have finished    
         # while threading.active_count() > 1:

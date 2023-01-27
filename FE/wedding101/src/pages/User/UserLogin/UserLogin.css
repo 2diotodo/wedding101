@@ -2,6 +2,7 @@
     background-color: #D9CFDE;
     width: 100%;
     }
-.img {
+.loginimg {
     display: flex;
+    overflow: hidden;
 }
