@@ -803,12 +803,11 @@ border: 3px solid brown;</string>
 background:#FFAB7C; color:white;
 border-radius: 20px;
 border: 3px solid brown;
-padding-left:50px;
+padding-left:80px;
 }
 
 #input_relation_combo::on{
-border: 6px solid red;
-padding-left:47px;
+border: 3px solid red;
 }
 
 #input_relation_combo::drop-down{
@@ -819,15 +818,21 @@ border:0;
 #input_relation_combo QListView{
 background:#FFAB7C;
 color:white;
-padding-left:50px;
 border:3px solid brown;
 border-radius:0;
+}
+
+#input_relation_combo QListView::item{
+
 }
 
 #input_relation_combo QListView::item::hover{
 background:#white;
 color:#A55252
 }</string>
+             </property>
+             <property name="currentText">
+              <string/>
              </property>
              <property name="iconSize">
               <size>
@@ -841,6 +846,11 @@ color:#A55252
              <property name="frame">
               <bool>true</bool>
              </property>
+             <item>
+              <property name="text">
+               <string>눌러서 선택</string>
+              </property>
+             </item>
              <item>
               <property name="text">
                <string>가족</string>
@@ -925,10 +935,40 @@ color:#A55252
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background:#FFAB7C;
+              <string notr="true">#input_receiver_combo{
+background:#FFAB7C; color:white;
+border-radius: 20px;
+border: 3px solid brown;
+padding-left:80px;
+}
+
+#input_receiver_combo::on{
+border: 3px solid red;
+}
+
+#input_receiver_combo::drop-down{
+border:0;
+}
+
+
+#input_receiver_combo QListView{
+background:#FFAB7C;
 color:white;
-border-radius:20px;
-border: 3px solid brown;</string>
+border:3px solid brown;
+border-radius:0;
+}
+
+#input_receiver_combo QListView::item{
+
+}
+
+#input_receiver_combo QListView::item::hover{
+background:#white;
+color:#A55252
+}</string>
+             </property>
+             <property name="editable">
+              <bool>false</bool>
              </property>
              <property name="iconSize">
               <size>
@@ -942,6 +982,11 @@ border: 3px solid brown;</string>
              <property name="frame">
               <bool>true</bool>
              </property>
+             <item>
+              <property name="text">
+               <string>눌러서 선택</string>
+              </property>
+             </item>
              <item>
               <property name="text">
                <string>신랑</string>
@@ -984,6 +1029,37 @@ border: 3px solid brown;</string>
          <string/>
         </property>
        </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="thanks_page">
+      <widget class="QFrame" name="thanks_frame">
+       <property name="geometry">
+        <rect>
+         <x>64</x>
+         <y>48</y>
+         <width>1152</width>
+         <height>864</height>
+        </rect>
+       </property>
+       <property name="acceptDrops">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFFFFF;
+border-radius: 80px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>20</number>
+       </property>
+       <property name="midLineWidth">
+        <number>10</number>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="mode_select_page">
@@ -1436,22 +1512,6 @@ border: 3px solid brown;</string>
    </hints>
   </connection>
   <connection>
-   <sender>input_next_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1059</x>
-     <y>712</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1025</x>
-     <y>-12</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>input_home_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -1467,6 +1527,22 @@ border: 3px solid brown;</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>input_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>check_input()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1067</x>
+     <y>696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1064</x>
+     <y>-7</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>go_next_page()</slot>
@@ -1475,5 +1551,6 @@ border: 3px solid brown;</string>
   <slot>go_prev_page()</slot>
   <slot>close_window()</slot>
   <slot>check_service_validation()</slot>
+  <slot>check_input()</slot>
  </slots>
 </ui>
