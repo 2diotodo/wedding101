@@ -1,0 +1,11 @@
+.board-review {
+    background-color: #d2dae9;
+    height: 100vh;
+}
+tablebox {
+    justify-items: center;
+}
+
+.pagination {
+    justify-items: center;
+}
