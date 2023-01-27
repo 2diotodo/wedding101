@@ -1,5 +1,9 @@
-.main-area {
-    background-color: #D2DAE9;
-    width: 1920px;
-height: 980px;
-    }
+.main-area03 {
+  background-color: #d2dae9;
+  height: 100vh;
+  padding-top: 10%;
+}
+img {
+  display: flex;
+  object-fit: scale-down;
+}
