@@ -683,7 +683,7 @@ border-radius: 80px;</string>
         </property>
         <layout class="QVBoxLayout" name="input_vLayout">
          <item>
-          <layout class="QHBoxLayout" name="input_nameLayout">
+          <layout class="QHBoxLayout" name="input_hLayout1">
            <item>
             <widget class="QLabel" name="input_label1">
              <property name="sizePolicy">
@@ -707,7 +707,7 @@ border-radius: 80px;</string>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="input_name_edit">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>5</horstretch>
@@ -720,16 +720,25 @@ border-radius: 80px;</string>
                <bold>true</bold>
               </font>
              </property>
+             <property name="focusPolicy">
+              <enum>Qt::ClickFocus</enum>
+             </property>
              <property name="styleSheet">
               <string notr="true">background:#FFAB7C;color:white;
 border-radius: 20px;
-</string>
+border: 3px solid brown;</string>
              </property>
              <property name="text">
-              <string>입력하기</string>
+              <string/>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+             <property name="placeholderText">
+              <string>입력하기</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -752,7 +761,7 @@ border-radius: 20px;
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="input_relationLayout">
+          <layout class="QHBoxLayout" name="input_hLayout2">
            <item>
             <widget class="QLabel" name="input_label2">
              <property name="sizePolicy">
@@ -790,8 +799,35 @@ border-radius: 20px;
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background:#FFAB7C; color:white;
-border-radius: 20px;</string>
+              <string notr="true">#input_relation_combo{
+background:#FFAB7C; color:white;
+border-radius: 20px;
+border: 3px solid brown;
+padding-left:50px;
+}
+
+#input_relation_combo::on{
+border: 6px solid red;
+padding-left:47px;
+}
+
+#input_relation_combo::drop-down{
+border:0;
+}
+
+
+#input_relation_combo QListView{
+background:#FFAB7C;
+color:white;
+padding-left:50px;
+border:3px solid brown;
+border-radius:0;
+}
+
+#input_relation_combo QListView::item::hover{
+background:#white;
+color:#A55252
+}</string>
              </property>
              <property name="iconSize">
               <size>
@@ -799,14 +835,12 @@ border-radius: 20px;</string>
                <height>16</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>눌러서 선택</string>
+             </property>
              <property name="frame">
               <bool>true</bool>
              </property>
-             <item>
-              <property name="text">
-               <string>눌러서 선택</string>
-              </property>
-             </item>
              <item>
               <property name="text">
                <string>가족</string>
@@ -853,7 +887,7 @@ border-radius: 20px;</string>
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="input_receiverLayout">
+          <layout class="QHBoxLayout" name="input_hLayout3">
            <item>
             <widget class="QLabel" name="input_label3">
              <property name="sizePolicy">
@@ -891,8 +925,10 @@ border-radius: 20px;</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background:#FFAB7C; color:white;
-border-radius:20px;</string>
+              <string notr="true">background:#FFAB7C;
+color:white;
+border-radius:20px;
+border: 3px solid brown;</string>
              </property>
              <property name="iconSize">
               <size>
@@ -900,14 +936,12 @@ border-radius:20px;</string>
                <height>16</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>눌러서 선택</string>
+             </property>
              <property name="frame">
               <bool>true</bool>
              </property>
-             <item>
-              <property name="text">
-               <string>눌러서 선택</string>
-              </property>
-             </item>
              <item>
               <property name="text">
                <string>신랑</string>
@@ -1398,6 +1432,38 @@ border-radius:20px;</string>
     <hint type="destinationlabel">
      <x>644</x>
      <y>-9</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>input_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_next_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1059</x>
+     <y>712</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1025</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>input_home_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_home_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1087</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1103</x>
+     <y>-12</y>
     </hint>
    </hints>
   </connection>
