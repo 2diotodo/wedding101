@@ -1,3 +1,10 @@
+.mainindex {
+  margin: 0;
+  overflow-y: hidden;
+}
+.scrollwheelhandler::-webkit-scrollbar {
+  display: none;
+}
 .goServiceButton {
   left: 50%;
   position: fixed;
