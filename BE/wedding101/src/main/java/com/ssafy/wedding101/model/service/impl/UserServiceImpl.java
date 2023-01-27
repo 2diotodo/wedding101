@@ -41,7 +41,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeUser(UserDto userDto) {
-        userRepository.delete(userRepository.findById(userDto.getUserSeq()).orElseThrow());
+        User user = userRepository.findById(userDto.getUserSeq()).orElseThrow();
+        user.updateIsValid();
+        userRepository.save(user);
     }
 
     @Override

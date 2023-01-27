@@ -32,14 +32,18 @@ public class User {
     @Column(name = "user_email", nullable = false)
     private String userEmail;
 
+    @Column(name = "is_valid", nullable = false)
+    private Integer isValid;
+
     @Builder
-    public User(Long userSeq, String userId, String userPassword, String userName, String userNickname, String userEmail){
+    public User(Long userSeq, String userId, String userPassword, String userName, String userNickname, String userEmail, Integer isValid){
         this.userSeq = userSeq;
         this.userId = userId;
         this.userPassword = userPassword;
         this.userName = userName;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
+        this.isValid = isValid;
     }
 
     public void updateUser(String userId, String userPassword, String userName, String userNickname, String userEmail){
@@ -48,6 +52,10 @@ public class User {
         this.userName = userName;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
+    }
+
+    public void updateIsValid() {
+        this.isValid = 0;
     }
 
 }

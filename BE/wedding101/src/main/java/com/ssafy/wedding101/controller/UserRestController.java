@@ -6,10 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,18 +18,54 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class UserRestController {
 
-    private final UserService userService;
+        private final UserService userService;
 
+        @Operation(summary = "회원가입")
+        @PostMapping("/signup")
+        public ResponseEntity<?> singup(String userId, String userPassword, String userName, String userNickname, String userEmail) {
+            UserDto userDto = new UserDto(0L, userId, userPassword, userName, userNickname, userEmail);
+            try {
+                userService.writeUser(userDto);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+        }
 
-    @Operation(summary = "로그인 요청")
-    @PostMapping("/login")
-    public ResponseEntity<UserDto> login(String userId, String userPassword) {
+        @Operation(summary = "로그인")
+        @PostMapping("/login")
+        public ResponseEntity<UserDto> login(String userId, String userPassword) {
 
-        UserDto userDto = userService.getUser(userId).orElseThrow();
+            UserDto userDto = userService.getUser(userId).orElseThrow();
 
-        if (userDto.getUserPassword().equals(userPassword))
+            if (userDto.getUserPassword().equals(userPassword))
+                return new ResponseEntity<>(userDto, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+
+        @Operation(summary = "회원 조회 (1)")
+        @GetMapping ("")
+        public ResponseEntity<UserDto> getUserDetail(Long userSeq) {
+            UserDto userDto = userService.getUser(userSeq).orElseThrow();
             return new ResponseEntity<>(userDto, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-    }
+        }
+
+        @Operation(summary = "회원 조회 (all)")
+        @GetMapping ("/all")
+        public ResponseEntity<Map<String, Object>> getUserList() {
+            List<UserDto> userList = userService.getAllUser();
+            Map<String, Object> result = new HashMap<>();
+            result.put("data", userList); // 전체 회원 목록
+            result.put("count", userList.size()); // 전체 회원 수
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+
+        @Operation(summary = "회원 탈퇴")
+        @GetMapping ("/delete")
+        public ResponseEntity<?> deleteUser(Long userSeq) {
+            UserDto userDto = userService.getUser(userSeq).orElseThrow();
+            userService.removeUser(userDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
 }
