@@ -7,11 +7,8 @@ import MainArea03 from '../../pages/Main/MainArea03';
 import MainArea04 from '../../pages/Main/MainArea04';
 import GoServiceButton from '../../components/common/GoServiceButton';
 import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
-// import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
 
 const MainIndex = () => {
-
-
   return (
     <div className='mainindex'>
       <ReactScrollWheelHandler
@@ -28,17 +25,14 @@ const MainIndex = () => {
       <div id='album'>
         <MainArea03 />
       </div>
-      <div id='review'>
+      <div id='process'>
         <MainArea04 />
       </div>
-      <div id='contact'>
-        <MainArea01 />
-      </div>
-      {/* </ReactScrollWheelHandler> */}
+
+      </ReactScrollWheelHandler>
       <div className='goServiceButton'>
         <GoServiceButton />
       </div>
-      </ReactScrollWheelHandler>
     </div>
   );
 };

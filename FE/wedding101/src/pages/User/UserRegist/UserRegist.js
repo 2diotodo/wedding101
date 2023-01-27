@@ -13,10 +13,12 @@ function UserRegist() {
 
         <div className='user-regist'>
             <Grid2 container spacing={2}>
-            <Grid2 xs={8}>
-                <img src={signupimg} alt='weddingLogin'></img>
+            <Grid2 lg={8} sm={0}>
+                <div className='signupimg'>
+                    <img src={signupimg} alt='weddingLogin'></img>
+                </div>
             </Grid2>
-            <Grid2 xs={4}>
+            <Grid2 lg={4} sm={8}>
 
                 <h3>회원가입</h3>
                 <form><input type='text' placeholder='아이디를 입력하세요.'></input></form>
