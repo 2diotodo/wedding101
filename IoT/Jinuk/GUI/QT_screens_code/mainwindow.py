@@ -308,6 +308,7 @@ class Ui_Form(object):
         self.input_relation_combo.addItem("")
         self.input_relation_combo.addItem("")
         self.input_relation_combo.addItem("")
+        self.input_relation_combo.addItem("")
         self.input_relation_combo.setObjectName(u"input_relation_combo")
         sizePolicy1.setHeightForWidth(self.input_relation_combo.sizePolicy().hasHeightForWidth())
         self.input_relation_combo.setSizePolicy(sizePolicy1)
@@ -319,12 +320,11 @@ class Ui_Form(object):
 "background:#FFAB7C; color:white;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;\n"
-"padding-left:50px;\n"
+"padding-left:80px;\n"
 "}\n"
 "\n"
 "#input_relation_combo::on{\n"
-"border: 6px solid red;\n"
-"padding-left:47px;\n"
+"border: 3px solid red;\n"
 "}\n"
 "\n"
 "#input_relation_combo::drop-down{\n"
@@ -335,9 +335,12 @@ class Ui_Form(object):
 "#input_relation_combo QListView{\n"
 "background:#FFAB7C;\n"
 "color:white;\n"
-"padding-left:50px;\n"
 "border:3px solid brown;\n"
 "border-radius:0;\n"
+"}\n"
+"\n"
+"#input_relation_combo QListView::item{\n"
+"\n"
 "}\n"
 "\n"
 "#input_relation_combo QListView::item::hover{\n"
@@ -370,14 +373,43 @@ class Ui_Form(object):
         self.input_receiver_combo = QComboBox(self.verticalLayoutWidget_3)
         self.input_receiver_combo.addItem("")
         self.input_receiver_combo.addItem("")
+        self.input_receiver_combo.addItem("")
         self.input_receiver_combo.setObjectName(u"input_receiver_combo")
         sizePolicy1.setHeightForWidth(self.input_receiver_combo.sizePolicy().hasHeightForWidth())
         self.input_receiver_combo.setSizePolicy(sizePolicy1)
         self.input_receiver_combo.setFont(font11)
-        self.input_receiver_combo.setStyleSheet(u"background:#FFAB7C;\n"
+        self.input_receiver_combo.setStyleSheet(u"#input_receiver_combo{\n"
+"background:#FFAB7C; color:white;\n"
+"border-radius: 20px;\n"
+"border: 3px solid brown;\n"
+"padding-left:80px;\n"
+"}\n"
+"\n"
+"#input_receiver_combo::on{\n"
+"border: 3px solid red;\n"
+"}\n"
+"\n"
+"#input_receiver_combo::drop-down{\n"
+"border:0;\n"
+"}\n"
+"\n"
+"\n"
+"#input_receiver_combo QListView{\n"
+"background:#FFAB7C;\n"
 "color:white;\n"
-"border-radius:20px;\n"
-"border: 3px solid brown;")
+"border:3px solid brown;\n"
+"border-radius:0;\n"
+"}\n"
+"\n"
+"#input_receiver_combo QListView::item{\n"
+"\n"
+"}\n"
+"\n"
+"#input_receiver_combo QListView::item::hover{\n"
+"background:#white;\n"
+"color:#A55252\n"
+"}")
+        self.input_receiver_combo.setEditable(False)
         self.input_receiver_combo.setIconSize(QSize(16, 16))
         self.input_receiver_combo.setFrame(True)
 
@@ -393,6 +425,19 @@ class Ui_Form(object):
         self.input_next_button.setObjectName(u"input_next_button")
         self.input_next_button.setGeometry(QRect(954, 600, 108, 108))
         self.stackedWidget.addWidget(self.input_page)
+        self.thanks_page = QWidget()
+        self.thanks_page.setObjectName(u"thanks_page")
+        self.thanks_frame = QFrame(self.thanks_page)
+        self.thanks_frame.setObjectName(u"thanks_frame")
+        self.thanks_frame.setGeometry(QRect(64, 48, 1152, 864))
+        self.thanks_frame.setAcceptDrops(False)
+        self.thanks_frame.setStyleSheet(u"background: #FFFFFF;\n"
+"border-radius: 80px;")
+        self.thanks_frame.setFrameShape(QFrame.StyledPanel)
+        self.thanks_frame.setFrameShadow(QFrame.Raised)
+        self.thanks_frame.setLineWidth(20)
+        self.thanks_frame.setMidLineWidth(10)
+        self.stackedWidget.addWidget(self.thanks_page)
         self.mode_select_page = QWidget()
         self.mode_select_page.setObjectName(u"mode_select_page")
         self.mode_select_home_button = QPushButton(self.mode_select_page)
@@ -470,8 +515,8 @@ class Ui_Form(object):
         self.home_next_button.clicked.connect(Form.go_next_page)
         self.info_next_button.clicked.connect(Form.go_next_page)
         self.agreement_next_button.clicked.connect(Form.go_next_page)
-        self.input_next_button.clicked.connect(Form.go_next_page)
         self.input_home_button.clicked.connect(Form.go_home_page)
+        self.input_next_button.clicked.connect(Form.check_input)
 
         self.stackedWidget.setCurrentIndex(4)
 
@@ -547,16 +592,19 @@ class Ui_Form(object):
         self.input_name_edit.setText("")
         self.input_name_edit.setPlaceholderText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
         self.input_label2.setText(QCoreApplication.translate("Form", u"\uad00\uacc4 :", None))
-        self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\uac00\uc871", None))
-        self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uce5c\uc778\ucc99", None))
-        self.input_relation_combo.setItemText(2, QCoreApplication.translate("Form", u"\uce5c\uad6c", None))
-        self.input_relation_combo.setItemText(3, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
-        self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
+        self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uac00\uc871", None))
+        self.input_relation_combo.setItemText(2, QCoreApplication.translate("Form", u"\uce5c\uc778\ucc99", None))
+        self.input_relation_combo.setItemText(3, QCoreApplication.translate("Form", u"\uce5c\uad6c", None))
+        self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
+        self.input_relation_combo.setItemText(5, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
 
+        self.input_relation_combo.setCurrentText("")
         self.input_relation_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_label3.setText(QCoreApplication.translate("Form", u"\ub300\uc0c1 :", None))
-        self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
-        self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
+        self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
+        self.input_receiver_combo.setItemText(2, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
 
         self.input_receiver_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_home_button.setText("")
