@@ -250,8 +250,8 @@ class Ui_Form(object):
         self.input_vLayout = QVBoxLayout(self.verticalLayoutWidget_3)
         self.input_vLayout.setObjectName(u"input_vLayout")
         self.input_vLayout.setContentsMargins(0, 0, 0, 0)
-        self.input_nameLayout = QHBoxLayout()
-        self.input_nameLayout.setObjectName(u"input_nameLayout")
+        self.input_hLayout1 = QHBoxLayout()
+        self.input_hLayout1.setObjectName(u"input_hLayout1")
         self.input_label1 = QLabel(self.verticalLayoutWidget_3)
         self.input_label1.setObjectName(u"input_label1")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -265,32 +265,34 @@ class Ui_Form(object):
         self.input_label1.setFont(font10)
         self.input_label1.setAlignment(Qt.AlignCenter)
 
-        self.input_nameLayout.addWidget(self.input_label1)
+        self.input_hLayout1.addWidget(self.input_label1)
 
-        self.lineEdit = QLineEdit(self.verticalLayoutWidget_3)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.input_name_edit = QLineEdit(self.verticalLayoutWidget_3)
+        self.input_name_edit.setObjectName(u"input_name_edit")
         sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy1.setHorizontalStretch(5)
         sizePolicy1.setVerticalStretch(2)
-        sizePolicy1.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy1)
-        self.lineEdit.setFont(font10)
-        self.lineEdit.setStyleSheet(u"background:#FFAB7C;color:white;\n"
+        sizePolicy1.setHeightForWidth(self.input_name_edit.sizePolicy().hasHeightForWidth())
+        self.input_name_edit.setSizePolicy(sizePolicy1)
+        self.input_name_edit.setFont(font10)
+        self.input_name_edit.setFocusPolicy(Qt.ClickFocus)
+        self.input_name_edit.setStyleSheet(u"background:#FFAB7C;color:white;\n"
 "border-radius: 20px;\n"
-"")
-        self.lineEdit.setAlignment(Qt.AlignCenter)
+"border: 3px solid brown;")
+        self.input_name_edit.setAlignment(Qt.AlignCenter)
+        self.input_name_edit.setClearButtonEnabled(False)
 
-        self.input_nameLayout.addWidget(self.lineEdit)
+        self.input_hLayout1.addWidget(self.input_name_edit)
 
 
-        self.input_vLayout.addLayout(self.input_nameLayout)
+        self.input_vLayout.addLayout(self.input_hLayout1)
 
         self.verticalSpacer = QSpacerItem(20, 33, QSizePolicy.Minimum, QSizePolicy.Preferred)
 
         self.input_vLayout.addItem(self.verticalSpacer)
 
-        self.input_relationLayout = QHBoxLayout()
-        self.input_relationLayout.setObjectName(u"input_relationLayout")
+        self.input_hLayout2 = QHBoxLayout()
+        self.input_hLayout2.setObjectName(u"input_hLayout2")
         self.input_label2 = QLabel(self.verticalLayoutWidget_3)
         self.input_label2.setObjectName(u"input_label2")
         sizePolicy.setHeightForWidth(self.input_label2.sizePolicy().hasHeightForWidth())
@@ -298,10 +300,9 @@ class Ui_Form(object):
         self.input_label2.setFont(font10)
         self.input_label2.setAlignment(Qt.AlignCenter)
 
-        self.input_relationLayout.addWidget(self.input_label2)
+        self.input_hLayout2.addWidget(self.input_label2)
 
         self.input_relation_combo = QComboBox(self.verticalLayoutWidget_3)
-        self.input_relation_combo.addItem("")
         self.input_relation_combo.addItem("")
         self.input_relation_combo.addItem("")
         self.input_relation_combo.addItem("")
@@ -314,22 +315,49 @@ class Ui_Form(object):
         font11.setPointSize(36)
         font11.setBold(True)
         self.input_relation_combo.setFont(font11)
-        self.input_relation_combo.setStyleSheet(u"background:#FFAB7C; color:white;\n"
-"border-radius: 20px;")
+        self.input_relation_combo.setStyleSheet(u"#input_relation_combo{\n"
+"background:#FFAB7C; color:white;\n"
+"border-radius: 20px;\n"
+"border: 3px solid brown;\n"
+"padding-left:50px;\n"
+"}\n"
+"\n"
+"#input_relation_combo::on{\n"
+"border: 6px solid red;\n"
+"padding-left:47px;\n"
+"}\n"
+"\n"
+"#input_relation_combo::drop-down{\n"
+"border:0;\n"
+"}\n"
+"\n"
+"\n"
+"#input_relation_combo QListView{\n"
+"background:#FFAB7C;\n"
+"color:white;\n"
+"padding-left:50px;\n"
+"border:3px solid brown;\n"
+"border-radius:0;\n"
+"}\n"
+"\n"
+"#input_relation_combo QListView::item::hover{\n"
+"background:#white;\n"
+"color:#A55252\n"
+"}")
         self.input_relation_combo.setIconSize(QSize(16, 16))
         self.input_relation_combo.setFrame(True)
 
-        self.input_relationLayout.addWidget(self.input_relation_combo)
+        self.input_hLayout2.addWidget(self.input_relation_combo)
 
 
-        self.input_vLayout.addLayout(self.input_relationLayout)
+        self.input_vLayout.addLayout(self.input_hLayout2)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred)
 
         self.input_vLayout.addItem(self.verticalSpacer_2)
 
-        self.input_receiverLayout = QHBoxLayout()
-        self.input_receiverLayout.setObjectName(u"input_receiverLayout")
+        self.input_hLayout3 = QHBoxLayout()
+        self.input_hLayout3.setObjectName(u"input_hLayout3")
         self.input_label3 = QLabel(self.verticalLayoutWidget_3)
         self.input_label3.setObjectName(u"input_label3")
         sizePolicy.setHeightForWidth(self.input_label3.sizePolicy().hasHeightForWidth())
@@ -337,25 +365,26 @@ class Ui_Form(object):
         self.input_label3.setFont(font10)
         self.input_label3.setAlignment(Qt.AlignCenter)
 
-        self.input_receiverLayout.addWidget(self.input_label3)
+        self.input_hLayout3.addWidget(self.input_label3)
 
         self.input_receiver_combo = QComboBox(self.verticalLayoutWidget_3)
-        self.input_receiver_combo.addItem("")
         self.input_receiver_combo.addItem("")
         self.input_receiver_combo.addItem("")
         self.input_receiver_combo.setObjectName(u"input_receiver_combo")
         sizePolicy1.setHeightForWidth(self.input_receiver_combo.sizePolicy().hasHeightForWidth())
         self.input_receiver_combo.setSizePolicy(sizePolicy1)
         self.input_receiver_combo.setFont(font11)
-        self.input_receiver_combo.setStyleSheet(u"background:#FFAB7C; color:white;\n"
-"border-radius:20px;")
+        self.input_receiver_combo.setStyleSheet(u"background:#FFAB7C;\n"
+"color:white;\n"
+"border-radius:20px;\n"
+"border: 3px solid brown;")
         self.input_receiver_combo.setIconSize(QSize(16, 16))
         self.input_receiver_combo.setFrame(True)
 
-        self.input_receiverLayout.addWidget(self.input_receiver_combo)
+        self.input_hLayout3.addWidget(self.input_receiver_combo)
 
 
-        self.input_vLayout.addLayout(self.input_receiverLayout)
+        self.input_vLayout.addLayout(self.input_hLayout3)
 
         self.input_home_button = QPushButton(self.input_frame)
         self.input_home_button.setObjectName(u"input_home_button")
@@ -441,6 +470,8 @@ class Ui_Form(object):
         self.home_next_button.clicked.connect(Form.go_next_page)
         self.info_next_button.clicked.connect(Form.go_next_page)
         self.agreement_next_button.clicked.connect(Form.go_next_page)
+        self.input_next_button.clicked.connect(Form.go_next_page)
+        self.input_home_button.clicked.connect(Form.go_home_page)
 
         self.stackedWidget.setCurrentIndex(4)
 
@@ -513,20 +544,21 @@ class Ui_Form(object):
         self.agreement_next_button.setText("")
         self.input_title.setText(QCoreApplication.translate("Form", u"\uc815\ubcf4\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694", None))
         self.input_label1.setText(QCoreApplication.translate("Form", u"\uc774\ub984 :", None))
-        self.lineEdit.setText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
+        self.input_name_edit.setText("")
+        self.input_name_edit.setPlaceholderText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
         self.input_label2.setText(QCoreApplication.translate("Form", u"\uad00\uacc4 :", None))
-        self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
-        self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uac00\uc871", None))
-        self.input_relation_combo.setItemText(2, QCoreApplication.translate("Form", u"\uce5c\uc778\ucc99", None))
-        self.input_relation_combo.setItemText(3, QCoreApplication.translate("Form", u"\uce5c\uad6c", None))
-        self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
-        self.input_relation_combo.setItemText(5, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
+        self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\uac00\uc871", None))
+        self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uce5c\uc778\ucc99", None))
+        self.input_relation_combo.setItemText(2, QCoreApplication.translate("Form", u"\uce5c\uad6c", None))
+        self.input_relation_combo.setItemText(3, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
+        self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
 
+        self.input_relation_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_label3.setText(QCoreApplication.translate("Form", u"\ub300\uc0c1 :", None))
-        self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
-        self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
-        self.input_receiver_combo.setItemText(2, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
+        self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
+        self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
 
+        self.input_receiver_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_home_button.setText("")
         self.input_next_button.setText("")
         self.mode_select_home_button.setText(QCoreApplication.translate("Form", u"Home", None))

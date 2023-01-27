@@ -82,17 +82,35 @@ class MyApp(QWidget, Ui_Form):
         self.setupUi(self)
         self.stackedWidget.setCurrentIndex(0)
 
+        # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
         self.arrow_icon = QIcon(self.arrow_button_pix)
+        QFontDatabase.addApplicationFont("QT_Resources/Fonts/BeauRivage-Regular.ttf")
+        self.disabled_button_pix = QPixmap("QT_Resources/Pics/unavailable_proceed.png")
+        self.disabled_button_icon = QIcon(self.disabled_button_pix)
+        self.home_button_pix = QPixmap("QT_Resources/Pics/home.png")
+        self.home_icon = QIcon(self.home_button_pix)
+
+        self.setup_pages()
+
+    def main(self):
+        # this is video thread
+        if spec is not None:
+            self.th = MyThread()
+            self.th.mySignal.connect(self.setImage)
+            self.th.start()
+
+    def set_srvc_chk(self):
         self.srvc_chk_button.setIcon(self.arrow_icon)
         self.srvc_chk_button.setIconSize(self.arrow_button_pix.rect().size())
 
+    def set_home(self):
         self.home_background.setStyleSheet("background-image: url('QT_Resources/Pics/home_back.png')")
-        self.home_font_id = QFontDatabase.addApplicationFont("QT_Resources/Fonts/BeauRivage-Regular.ttf")
         self.home_background.setFont(QFont('Beau Rivage', 100))
         self.home_text1.setFont(QFont('Beau Rivage', 40))
         self.home_text1.setStyleSheet("background-color: rgba(255,255,255,0);")
 
+    def set_info(self):
         self.info_title.setFont(QFont('Beau Rivage', 60))
         self.info_next_button.setIcon(self.arrow_icon)
         self.info_next_button.setIconSize(self.arrow_button_pix.rect().size())
@@ -101,25 +119,27 @@ class MyApp(QWidget, Ui_Form):
         self.info_image2.setPixmap(QPixmap("QT_Resources/Pics/vidready.png"))
         self.info_image2.setScaledContents(True)
 
+    def set_agreement(self):
         self.agreement_page.setStyleSheet("QCheckBox::indicator{width:36px;height:36px;}")
-
-        self.disabled_button_pix = QPixmap("QT_Resources/Pics/unavailable_proceed.png")
-        self.disabled_button_icon = QIcon(self.disabled_button_pix)
         self.agreement_next_button.setIcon(self.disabled_button_icon)
         self.agreement_next_button.setIconSize(self.disabled_button_pix.rect().size())
-
         self.agreement_next_button.setDisabled(True)
         self.agreement_checkBox1.stateChanged.connect(self.check_agreement)
         self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
+    def set_input(self):
         self.input_page.setStyleSheet("QComboBox:: {text-align: center;}")
+        self.input_home_button.setIcon(self.home_icon)
+        self.input_home_button.setIconSize(self.home_button_pix.rect().size())
+        self.input_next_button.setIcon(self.arrow_icon)
+        self.input_next_button.setIconSize(self.arrow_button_pix.rect().size())
 
-    def main(self):
-        # this is video thread
-        if spec is not None:
-            self.th = MyThread()
-            self.th.mySignal.connect(self.setImage)
-            self.th.start()
+    def setup_pages(self):
+        self.set_srvc_chk()
+        self.set_home()
+        self.set_info()
+        self.set_agreement()
+        self.set_input()
 
     def go_next_page(self):
         current_page = self.stackedWidget.currentIndex()
@@ -138,7 +158,7 @@ class MyApp(QWidget, Ui_Form):
         self.stackedWidget.setCurrentIndex(current_page - 1)
 
     def go_home_page(self):
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
     def go_video_page(self):
         current_page = self.stackedWidget.currentIndex()
