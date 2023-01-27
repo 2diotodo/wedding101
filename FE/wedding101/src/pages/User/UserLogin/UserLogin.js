@@ -14,7 +14,7 @@ function UserLogin() {
 
             <Grid2 xs={4}>
         <h3>Wedding101</h3>
-        <TextField id="id-input" type="text" label="아이디를 입력하세요" variant="filled" />
+        <TextField id="id-input" type="text" label="아이디를 입력하세요" variant="outlined" /><br /><br />
         <TextField id="password-input" type="password" label="비밀번호를 입력하세요" variant="outlined" /><br />
             <Button variant="text">로그인</Button><br />
             <Button variant="text">아이디 찾기</Button>

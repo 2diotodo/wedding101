@@ -38,7 +38,7 @@
       <string notr="true">background: #FFF3C8;</string>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -474,6 +474,12 @@ border-radius: 80px;</string>
           <height>261</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border:1px solid black; border-radius:0;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -497,6 +503,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;- 개인정보는 정보주체의 동의 없이 동의한 내용 외의 다른 목적으로 활용하거나 제3자에게 제공 및 활용되지 않습니다.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;귀하는 이에 대한 동의를 거부할 수 있으며 단, 동의가 없을 경우 Wedding101 서비스 이용이 불가능할 수 있음을 알려드립니다.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
        <widget class="QCheckBox" name="agreement_checkBox1">
@@ -538,6 +547,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <height>261</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border:1px solid black; border-radius:0;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="lineWidth">
+         <number>2</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -553,6 +574,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;사용자에 대한 초상권은 Wedding101 측 이외의 다른 기관이나 기업에 공개되지 않으며, 서비스 신청자에게만 활용되도록 철저히 관리 운영됩니다.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:16pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;귀하는 이에 대한 동의를 거부할 수 있으며 단, 동의가 없을 경우 이와 관련된 행사 참여가 불가능할 수 있음을 알려드립니다.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
        <widget class="QCheckBox" name="agreement_checkBox2">
@@ -601,56 +625,440 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </widget>
      <widget class="QWidget" name="input_page">
-      <widget class="QPushButton" name="input_next_button">
+      <widget class="QFrame" name="input_frame">
        <property name="geometry">
         <rect>
-         <x>460</x>
-         <y>400</y>
-         <width>75</width>
-         <height>24</height>
+         <x>64</x>
+         <y>48</y>
+         <width>1152</width>
+         <height>864</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Next</string>
+       <property name="acceptDrops">
+        <bool>false</bool>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFFFFF;
+border-radius: 80px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>20</number>
+       </property>
+       <property name="midLineWidth">
+        <number>10</number>
+       </property>
+       <widget class="QLabel" name="input_title">
+        <property name="geometry">
+         <rect>
+          <x>261</x>
+          <y>50</y>
+          <width>630</width>
+          <height>90</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>50</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>정보를 입력해주세요</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>200</y>
+          <width>781</width>
+          <height>521</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="input_vLayout">
+         <item>
+          <layout class="QHBoxLayout" name="input_hLayout1">
+           <item>
+            <widget class="QLabel" name="input_label1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>3</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>40</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>이름 :</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="input_name_edit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>5</horstretch>
+               <verstretch>2</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>40</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::ClickFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background:#FFAB7C;color:white;
+border-radius: 20px;
+border: 3px solid brown;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="placeholderText">
+              <string>입력하기</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Preferred</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>33</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="input_hLayout2">
+           <item>
+            <widget class="QLabel" name="input_label2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>3</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>40</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>관계 :</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="input_relation_combo">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>5</horstretch>
+               <verstretch>2</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>36</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#input_relation_combo{
+background:#FFAB7C; color:white;
+border-radius: 20px;
+border: 3px solid brown;
+padding-left:80px;
+}
+
+#input_relation_combo::on{
+border: 3px solid red;
+}
+
+#input_relation_combo::drop-down{
+border:0;
+}
+
+
+#input_relation_combo QListView{
+background:#FFAB7C;
+color:white;
+border:3px solid brown;
+border-radius:0;
+}
+
+#input_relation_combo QListView::item{
+
+}
+
+#input_relation_combo QListView::item::hover{
+background:#white;
+color:#A55252
+}</string>
+             </property>
+             <property name="currentText">
+              <string/>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>눌러서 선택</string>
+             </property>
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>눌러서 선택</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>가족</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>친인척</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>친구</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>동료</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>지인</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Preferred</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="input_hLayout3">
+           <item>
+            <widget class="QLabel" name="input_label3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>3</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>40</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>대상 :</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="input_receiver_combo">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>5</horstretch>
+               <verstretch>2</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>36</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#input_receiver_combo{
+background:#FFAB7C; color:white;
+border-radius: 20px;
+border: 3px solid brown;
+padding-left:80px;
+}
+
+#input_receiver_combo::on{
+border: 3px solid red;
+}
+
+#input_receiver_combo::drop-down{
+border:0;
+}
+
+
+#input_receiver_combo QListView{
+background:#FFAB7C;
+color:white;
+border:3px solid brown;
+border-radius:0;
+}
+
+#input_receiver_combo QListView::item{
+
+}
+
+#input_receiver_combo QListView::item::hover{
+background:#white;
+color:#A55252
+}</string>
+             </property>
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>눌러서 선택</string>
+             </property>
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>눌러서 선택</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>신랑</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>신부</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="input_home_button">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>410</y>
+          <width>116</width>
+          <height>100</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="input_next_button">
+        <property name="geometry">
+         <rect>
+          <x>954</x>
+          <y>600</y>
+          <width>108</width>
+          <height>108</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </widget>
-      <widget class="QPushButton" name="input_home_button">
+     </widget>
+     <widget class="QWidget" name="thanks_page">
+      <widget class="QFrame" name="thanks_frame">
        <property name="geometry">
         <rect>
-         <x>490</x>
-         <y>320</y>
-         <width>75</width>
-         <height>24</height>
+         <x>64</x>
+         <y>48</y>
+         <width>1152</width>
+         <height>864</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Home</string>
+       <property name="acceptDrops">
+        <bool>false</bool>
        </property>
-      </widget>
-      <widget class="QLabel" name="input_label">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>190</y>
-         <width>50</width>
-         <height>16</height>
-        </rect>
+       <property name="styleSheet">
+        <string notr="true">background: #FFFFFF;
+border-radius: 80px;</string>
        </property>
-       <property name="text">
-        <string>Input</string>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-      </widget>
-      <widget class="QPushButton" name="input_prev_button">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>400</y>
-         <width>75</width>
-         <height>24</height>
-        </rect>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
-       <property name="text">
-        <string>Prev</string>
+       <property name="lineWidth">
+        <number>20</number>
+       </property>
+       <property name="midLineWidth">
+        <number>10</number>
        </property>
       </widget>
      </widget>
@@ -912,38 +1320,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>input_next_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>515</x>
-     <y>418</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>636</x>
-     <y>415</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>input_home_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_home_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>548</x>
-     <y>339</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>634</x>
-     <y>343</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>mode_select_image_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -1056,22 +1432,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>input_prev_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_prev_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>387</x>
-     <y>419</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>499</x>
-     <y>6</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>image_prev_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -1151,6 +1511,38 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>input_home_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_home_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1087</x>
+     <y>519</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1103</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>input_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>check_input()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1067</x>
+     <y>696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1064</x>
+     <y>-7</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>go_next_page()</slot>
@@ -1159,5 +1551,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <slot>go_prev_page()</slot>
   <slot>close_window()</slot>
   <slot>check_service_validation()</slot>
+  <slot>check_input()</slot>
  </slots>
 </ui>

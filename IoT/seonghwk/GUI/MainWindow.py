@@ -32,6 +32,7 @@ else:
     from PySide2.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
                                    QStackedWidget, QVBoxLayout, QWidget)
 
+
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
@@ -45,16 +46,16 @@ class Ui_Form(object):
         self.video_page.setObjectName(u"video_page")
         self.video_home_button = QPushButton(self.video_page)
         self.video_home_button.setObjectName(u"video_home_button")
-        self.video_home_button.setGeometry(QRect(490, 250, 75, 24))
+        self.video_home_button.setGeometry(QRect(540, 250, 75, 24))
         self.video_next_button = QPushButton(self.video_page)
         self.video_next_button.setObjectName(u"video_next_button")
-        self.video_next_button.setGeometry(QRect(490, 350, 75, 24))
+        self.video_next_button.setGeometry(QRect(530, 350, 75, 24))
         self.video_label = QLabel(self.video_page)
         self.video_label.setObjectName(u"video_label")
-        self.video_label.setGeometry(QRect(440, 40, 50, 16))
+        self.video_label.setGeometry(QRect(550, 30, 50, 16))
         self.video_prev_button = QPushButton(self.video_page)
         self.video_prev_button.setObjectName(u"video_prev_button")
-        self.video_prev_button.setGeometry(QRect(500, 300, 75, 24))
+        self.video_prev_button.setGeometry(QRect(530, 300, 75, 24))
         self.record_stop_button = QPushButton(self.video_page)
         self.record_stop_button.setObjectName(u"record_stop_button")
         self.record_stop_button.setGeometry(QRect(200, 330, 75, 24))
@@ -63,7 +64,13 @@ class Ui_Form(object):
         self.record_start_button.setGeometry(QRect(80, 330, 75, 24))
         self.video_stream = QLabel(self.video_page)
         self.video_stream.setObjectName(u"video_stream")
-        self.video_stream.setGeometry(QRect(50, 40, 341, 251))
+        self.video_stream.setGeometry(QRect(100, 30, 640, 480))
+        self.video_background_prev_button = QPushButton(self.video_page)
+        self.video_background_prev_button.setObjectName(u"video_background_prev_button")
+        self.video_background_prev_button.setGeometry(QRect(800, 150, 75, 24))
+        self.video_background_next_button = QPushButton(self.video_page)
+        self.video_background_next_button.setObjectName(u"video_background_next_button")
+        self.video_background_next_button.setGeometry(QRect(800, 300, 75, 24))
         self.stackedWidget.addWidget(self.video_page)
         self.main_page = QWidget()
         self.main_page.setObjectName(u"main_page")
@@ -170,6 +177,8 @@ class Ui_Form(object):
         self.info_prev_button.clicked.connect(Form.go_prev_page)
         self.image_prev_button.clicked.connect(Form.go_prev_page)
         self.pushButton.clicked.connect(Form.close_window)
+        self.video_background_prev_button.clicked.connect(Form.change_prev_background)
+        self.video_background_next_button.clicked.connect(Form.change_next_background)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
@@ -183,6 +192,8 @@ class Ui_Form(object):
         self.record_stop_button.setText(QCoreApplication.translate("Form", u"Stop", None))
         self.record_start_button.setText(QCoreApplication.translate("Form", u"Record", None))
         self.video_stream.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.video_background_prev_button.setText(QCoreApplication.translate("Form", u"Left", None))
+        self.video_background_next_button.setText(QCoreApplication.translate("Form", u"Right", None))
         self.main_next_button.setText(QCoreApplication.translate("Form", u"Start", None))
         self.pushButton.setText(QCoreApplication.translate("Form", u"Close", None))
         self.info_label.setText(QCoreApplication.translate("Form", u"Info", None))

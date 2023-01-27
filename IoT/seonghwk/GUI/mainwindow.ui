@@ -20,7 +20,7 @@
       <widget class="QPushButton" name="video_home_button">
        <property name="geometry">
         <rect>
-         <x>490</x>
+         <x>540</x>
          <y>250</y>
          <width>75</width>
          <height>24</height>
@@ -33,7 +33,7 @@
       <widget class="QPushButton" name="video_next_button">
        <property name="geometry">
         <rect>
-         <x>490</x>
+         <x>530</x>
          <y>350</y>
          <width>75</width>
          <height>24</height>
@@ -46,8 +46,8 @@
       <widget class="QLabel" name="video_label">
        <property name="geometry">
         <rect>
-         <x>440</x>
-         <y>40</y>
+         <x>550</x>
+         <y>30</y>
          <width>50</width>
          <height>16</height>
         </rect>
@@ -59,7 +59,7 @@
       <widget class="QPushButton" name="video_prev_button">
        <property name="geometry">
         <rect>
-         <x>500</x>
+         <x>530</x>
          <y>300</y>
          <width>75</width>
          <height>24</height>
@@ -98,14 +98,40 @@
       <widget class="QLabel" name="video_stream">
        <property name="geometry">
         <rect>
-         <x>50</x>
-         <y>40</y>
+         <x>130</x>
+         <y>30</y>
          <width>341</width>
          <height>251</height>
         </rect>
        </property>
        <property name="text">
         <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="video_background_prev_button">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>75</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Left</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="video_background_next_button">
+       <property name="geometry">
+        <rect>
+         <x>500</x>
+         <y>150</y>
+         <width>75</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Right</string>
        </property>
       </widget>
      </widget>
@@ -567,8 +593,8 @@
    <slot>go_home_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>538</x>
-     <y>267</y>
+     <x>597</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>640</x>
@@ -583,8 +609,8 @@
    <slot>go_end_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>432</y>
+     <x>561</x>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>632</x>
@@ -704,6 +730,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>video_background_prev_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>change_prev_background()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>171</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>65</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>video_background_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>change_next_background()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>527</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>-14</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>go_next_page()</slot>
@@ -713,5 +771,7 @@
   <slot>close_window()</slot>
   <slot>record_start()</slot>
   <slot>record_stop()</slot>
+  <slot>change_prev_background()</slot>
+  <slot>change_next_background()</slot>
  </slots>
 </ui>
