@@ -62,8 +62,8 @@ class VideoRecorder(QThread):
             ret, self.video_frame = self.video_cap.read()
             if ret:
                 self.video_frame = cv2.flip(self.video_frame, 0)
-                # self.chromakey_replacement()
-                self.mediapipe_selfie_segmentation()
+                self.chromakey_replacement()
+                # self.mediapipe_selfie_segmentation()
                 self.video_out.write(self.video_frame)
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
                 self.frame_counts += 1
@@ -166,21 +166,26 @@ class VideoRecorder(QThread):
         alpha = (red_vs_green + blue_vs_green) * 255
         alpha[alpha > 50] = 255
 
-        self.video_frame[alpha == 0] = 0
+        self.video_frame[alpha == 0] = self.background_image[alpha == 0]
 
 
     def stop(self):
         "Finishes the video recording therefore the thread too"
         if self.open:
+            print("entered if statement")
             self.open=False
-            self.video_out.release()
+            print("open to False")
             self.video_cap.release()
+            print("video cap released")
+            # self.video_out.release()
+            # print("video out released")
             cv2.destroyAllWindows()
+            print("destroyed all windows")
             self.quit()
+            print("quitted thread")
             self.wait(500) #5000ms = 5s
 
 
-  
 class AudioRecorder(QThread):
     "Audio class based on pyAudio and Wave"
     def __init__(self, filename="temp_audio.wav", rate=44100, fpb=1024, channels=2):
@@ -273,6 +278,7 @@ class MainWindow(QWidget):
 
     def stop_AVrecording(self, filename="test"):
         self.audio_thread.stop()
+        print("audio thread stopped")
         frame_counts = self.video_thread.frame_counts
         elapsed_time = time.time() - self.video_thread.start_time
         recorded_fps = frame_counts / elapsed_time
@@ -280,6 +286,7 @@ class MainWindow(QWidget):
         print("elapsed time " + str(elapsed_time))
         print("recorded fps " + str(recorded_fps))
         self.video_thread.stop()
+        print("video thread stopped")
         self.ui.image_label.setText("Camera")
 
 
