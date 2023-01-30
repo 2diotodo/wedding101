@@ -40,3 +40,37 @@
 # 230127
 1. 음성 및 영상 녹화 시 실시간 피드백 가능
 - but, 녹화 종료 후 초기 화면으로 돌아가지 않음
+
+
+# 230130
+1. Python에서 class의 object 상속 : [사실 큰 의미는 없는 것이었다](https://jh-bk.tistory.com/24)
+2. Picam, start_recording 작동 원리
+  - If output is not a string, but is an object with a write method, it is assumed to be a file-like object and the video data is appended to it (the implementation only assumes the object has a write() method - no other methods are required but flush will be called at the end of recording if it is present).
+3. Picam 정보를 stream에 전송, stream에서 바이트 정보 읽어서 PIL 이미지로 변환, 배열로 변환하여 cv2 Videowriter로 파일 녹화
+4. subprocess 사용법 : [subprocess 모듈 사용법 및 예제](https://hbase.tistory.com/341)
+
+
+1. Pi Camera vs cv2
+2. 동시 처리? vs 후처리?
+
+
+# 230131
+1. 파일 정리
+- Camera/main.py
+  - GUI : only label for image streaming
+  - camera utility : picam recording stream to io.BytesIO
+  - record : cv2.VideoWriter
+  - 영상처리 아니면 매우 빠르다.
+  - 근데 영상 녹화본 속도가 프레임 설정에 따라 실제 소요 시간과 다르다
+
+- GUI/video_audio_simultaneous_record/main.py
+  - GUI : label for image streaming (small) and button for recording / stop (toggle with mode)
+  - camera utility : cv2.VideoCapture
+  - record : cv2.VideoWrite
+  - 영상 녹화, 음성 녹음 쓰레드 실행
+  - 녹화, 녹음본 통합 via ffmpeg
+
+- GUI/main.py
+  - GUI : main GUI setup
+  - camera utility : cv2.VideoCapture
+  - 영상처리 with mediapipeline selfie sementation, 속도가 많이 느려진다.

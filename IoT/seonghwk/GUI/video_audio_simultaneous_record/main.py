@@ -15,6 +15,8 @@ else:
 import pyaudio, wave, threading, time, subprocess, os
 import mediapipe as mp
 import numpy as np
+from datetime import datetime
+from uuid import uuid4
 
 
 from cam_write_ui import Ui_Form
@@ -30,7 +32,7 @@ class VideoRecorder(QThread):
         self.fps = fps                  # fps should be the minimum constant rate at which the camera can
         self.fourcc = fourcc            # capture images (with no decrease in speed over time; testing is required)
         self.frameSize = (sizex, sizey) # video formats and sizes also depend and vary according to the camera used
-        self.video_filename = name
+        self.video_filename = name + "-video.avi"
         self.video_cap = cv2.VideoCapture(self.device_index)
         self.video_writer = cv2.VideoWriter_fourcc(*self.fourcc)
         self.video_out = cv2.VideoWriter(self.video_filename, self.video_writer, self.fps, self.frameSize)
@@ -51,7 +53,7 @@ class VideoRecorder(QThread):
 
 
     def run(self):
-        self.set_background_image(bg_dir = "../BackgroundImage", bg_name = "flower1.png")
+        # self.set_background_image(bg_dir = "../BackgroundImage", bg_name = "flower1.png")
 
         "Video starts being recorded"
         # counter = 1
@@ -62,7 +64,7 @@ class VideoRecorder(QThread):
             ret, self.video_frame = self.video_cap.read()
             if ret:
                 self.video_frame = cv2.flip(self.video_frame, 0)
-                self.chromakey_replacement()
+                # self.chromakey_replacement()
                 # self.mediapipe_selfie_segmentation()
                 self.video_out.write(self.video_frame)
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
@@ -121,7 +123,6 @@ class VideoRecorder(QThread):
 
             self.video_frame = np.where(condition, self.video_frame, self.background_image)
 
-
     def chromakey_replacement(self):
         # # check hsv value from image
         # hsv = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2HSV)
@@ -168,21 +169,14 @@ class VideoRecorder(QThread):
 
         self.video_frame[alpha == 0] = self.background_image[alpha == 0]
 
-
     def stop(self):
         "Finishes the video recording therefore the thread too"
         if self.open:
-            print("entered if statement")
             self.open=False
-            print("open to False")
             self.video_cap.release()
-            print("video cap released")
             # self.video_out.release()
-            # print("video out released")
             cv2.destroyAllWindows()
-            print("destroyed all windows")
             self.quit()
-            print("quitted thread")
             self.wait(500) #5000ms = 5s
 
 
@@ -195,7 +189,7 @@ class AudioRecorder(QThread):
         self.frames_per_buffer = fpb
         self.channels = channels
         self.format = pyaudio.paInt16
-        self.audio_filename = filename
+        self.audio_filename = filename + "-audio.wav"
         self.audio = pyaudio.PyAudio()
         self.stream = self.audio.open(format=self.format,
                                       channels=self.channels,
@@ -246,6 +240,7 @@ class MainWindow(QWidget):
         self.open = False
         self.video_thread = None
         self.audio_thread = None
+        self.name = None
 
 
     def controlSave(self):
@@ -254,7 +249,7 @@ class MainWindow(QWidget):
             self.stop_AVrecording()
             self.ui.save_bt.setText("Record")
             self.ui.image_label.setText("Camera")
-            # self.file_manager()
+            self.file_manager()
         else:
             self.open = True
             self.start_AVrecording()
@@ -268,8 +263,9 @@ class MainWindow(QWidget):
 
     # start/stop both thread
     def start_AVrecording(self, filename="test"):
-        self.audio_thread = AudioRecorder()
-        self.video_thread = VideoRecorder()
+        self.name = datetime.now().strftime('%Y-%m%d-%H%M%S-') + str(uuid4())
+        self.audio_thread = AudioRecorder(filename = self.name)
+        self.video_thread = VideoRecorder(name = self.name)
         self.video_thread.mySignal.connect(self.setImage)
         self.audio_thread.start()
         self.video_thread.start()
@@ -297,14 +293,14 @@ class MainWindow(QWidget):
         # Merging audio and video signal
         if abs(recorded_fps - 6) >= 0.01:    # If the fps rate was higher/lower than expected, re-encode it to the expected
             print("Re-encoding")
-            cmd = "ffmpeg -r " + str(recorded_fps) + " -i temp_video.avi -pix_fmt yuv420p -r 6 temp_video2.avi"
+            cmd = "ffmpeg -r " + str(recorded_fps) + f" -i {self.name}-video.avi -pix_fmt yuv420p -r 6 {self.name}2-video.avi"
             subprocess.call(cmd, shell=True)
             print("Muxing")
-            cmd = "ffmpeg -y -ac 2 -channel_layout stereo -i temp_audio.wav -i temp_video2.avi -pix_fmt yuv420p " + filename + ".avi"
+            cmd = f"ffmpeg -y -ac 2 -channel_layout stereo -i {self.name}-audio.wav -i {self.name}2-video.avi -pix_fmt yuv420p " + self.name + ".avi"
             subprocess.call(cmd, shell=True)
         else:
             print("Normal recording\nMuxing")
-            cmd = "ffmpeg -y -ac 2 -channel_layout stereo -i temp_audio.wav -i temp_video.avi -pix_fmt yuv420p " + filename + ".avi"
+            cmd = f"ffmpeg -y -ac 2 -channel_layout stereo -i {self.name}-audio.wav -i {self.name}-video.avi -pix_fmt yuv420p " + self.name + ".avi"
             subprocess.call(cmd, shell=True)
             print("..")
 
@@ -312,22 +308,22 @@ class MainWindow(QWidget):
     def file_manager(self, filename="test"):
         "Required and wanted processing of final files"
         local_path = os.getcwd()
-        if os.path.exists(str(local_path) + "/temp_audio.wav"):
-            os.remove(str(local_path) + "/temp_audio.wav")
-        if os.path.exists(str(local_path) + "/temp_video.avi"):
-            os.remove(str(local_path) + "/temp_video.avi")
-        if os.path.exists(str(local_path) + "/temp_video2.avi"):
-            os.remove(str(local_path) + "/temp_video2.avi")
+        if os.path.exists(str(local_path) + f"/{self.name}-audio.wav"):
+            os.remove(str(local_path) + f"/{self.name}-audio.wav")
+        if os.path.exists(str(local_path) + f"/{self.name}-video.avi"):
+            os.remove(str(local_path) + f"/{self.name}-video.avi")
+        if os.path.exists(str(local_path) + f"/{self.name}2-video.avi"):
+            os.remove(str(local_path) + f"/{self.name}2-video.avi")
         # if os.path.exists(str(local_path) + "/" + filename + ".avi"):
         #     os.remove(str(local_path) + "/" + filename + ".avi")def file_manager(filename="test"):
         "Required and wanted processing of final files"
         local_path = os.getcwd()
-        if os.path.exists(str(local_path) + "/temp_audio.wav"):
-            os.remove(str(local_path) + "/temp_audio.wav")
-        if os.path.exists(str(local_path) + "/temp_video.avi"):
-            os.remove(str(local_path) + "/temp_video.avi")
-        if os.path.exists(str(local_path) + "/temp_video2.avi"):
-            os.remove(str(local_path) + "/temp_video2.avi")
+        if os.path.exists(str(local_path) + f"/{self.name}-audio.wav"):
+            os.remove(str(local_path) + f"/{self.name}-audio.wav")
+        if os.path.exists(str(local_path) + f"/{self.name}-video.avi"):
+            os.remove(str(local_path) + f"/{self.name}-video.avi")
+        if os.path.exists(str(local_path) + f"/{self.name}2-video.avi"):
+            os.remove(str(local_path) + f"/{self.name}2-video.avi")
         # if os.path.exists(str(local_path) + "/" + filename + ".avi"):
         #     os.remove(str(local_path) + "/" + filename + ".avi")
 

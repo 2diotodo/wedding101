@@ -83,7 +83,7 @@ class MyThread(QThread):
             self.video_frame = np.array(img)
             # print(f'frame size: {np.shape(self.video_frame)}')
             self.video_frame = self.video_frame[:,:,::-1]
-            self.chromakey_replacement()
+            # self.chromakey_replacement()
             self.output.out.write(self.video_frame)
         # image_data = 
         qimg = QImage.fromData(image_data)
