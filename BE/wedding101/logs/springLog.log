@@ -1,3 +1,0 @@
-2023-1월-30 14:35:02 INFO  [SpringApplicationShutdownHook] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-1월-30 14:35:02 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
-2023-1월-30 14:35:02 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
