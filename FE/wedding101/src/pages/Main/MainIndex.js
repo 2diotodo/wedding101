@@ -6,16 +6,26 @@ import MainArea02 from '../../pages/Main/MainArea02';
 import MainArea03 from '../../pages/Main/MainArea03';
 import MainArea04 from '../../pages/Main/MainArea04';
 import GoServiceButton from '../../components/common/GoServiceButton';
-import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
+import { SectionsContainer, Header, Footer} from 'react-fullpage';
+import Headers from '../../components/common/Header';
+import Footers from '../../components/common/Footer';
 
 const MainIndex = () => {
+  const options ={
+    anchors: ['MainArea01', 'MainArea02', 'MainArea03', 'MainArea04'],
+    navigation: false,
+  }
+
   return (
     <div className='mainindex'>
-      <ReactScrollWheelHandler
-      className='scrollwheelhandler'
-        upHandler={(e) => console.log('scroll up')}
-        downHandler={(e) => console.log('scroll down')}
-      >
+
+      <Header>
+        <Headers />
+      </Header>
+      <Footer>
+        <Footers />
+      </Footer>
+      <SectionsContainer {...options}>
       <div id='about'>
         <MainArea01 />
       </div>
@@ -28,8 +38,7 @@ const MainIndex = () => {
       <div id='process'>
         <MainArea04 />
       </div>
-
-      </ReactScrollWheelHandler>
+      </SectionsContainer>
       <div className='goServiceButton'>
         <GoServiceButton />
       </div>
