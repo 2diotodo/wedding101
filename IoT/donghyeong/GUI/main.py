@@ -52,7 +52,7 @@ class MyThread(QThread):
 
             if ret:
                 self.resize_image()
-                self.image_processing(mode = 3, frame_check = 1)
+                self.image_processing(mode = 1, frame_check = 1)
                 self.printImage()
             else:
                 print("camera is not working")
