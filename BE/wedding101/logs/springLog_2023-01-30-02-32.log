@@ -1,0 +1,4 @@
+2023-1월-30 14:32:09 FATAL [http-nio-8081-exec-6] [com.ssafy.wedding101.controller.TestController] - fatal log
+2023-1월-30 14:32:09 ERROR [http-nio-8081-exec-6] [com.ssafy.wedding101.controller.TestController] - error
+2023-1월-30 14:32:09 WARN  [http-nio-8081-exec-6] [com.ssafy.wedding101.controller.TestController] - warn
+2023-1월-30 14:32:09 INFO  [http-nio-8081-exec-6] [com.ssafy.wedding101.controller.TestController] - info

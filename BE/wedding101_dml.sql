@@ -17,7 +17,7 @@ CREATE TABLE `tbl_user` (
 	`is_banned`	TINYINT(1)	NOT NULL	DEFAULT 0, -- COMMENT '비활성화테이블에 필드 생성시 true 로 변경',
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,
-	`is_vaild`	TINYINT(1)	NOT NULL	DEFAULT 1
+	`is_valid`	TINYINT(1)	NOT NULL	DEFAULT 1
 );
 
 DROP TABLE IF EXISTS `tbl_album`;

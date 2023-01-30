@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class InfoRestController {
 
-    private final InfoService infoService;
-
-    @Operation(summary = "결혼정보 등록")
-    @PostMapping("")
-    public ResponseEntity<?> registInfo(){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "결혼정보 조회")
-    @GetMapping("")
-    public ResponseEntity<?> getInfo(){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    private final InfoService infoService;
+//
+//    @Operation(summary = "결혼정보 등록")
+//    @PostMapping("")
+//    public ResponseEntity<?> registInfo(){
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+//
+//    @Operation(summary = "결혼정보 조회")
+//    @GetMapping("")
+//    public ResponseEntity<?> getInfo(){
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
