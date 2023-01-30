@@ -74,3 +74,25 @@
   - GUI : main GUI setup
   - camera utility : cv2.VideoCapture
   - 영상처리 with mediapipeline selfie sementation, 속도가 많이 느려진다.
+
+2. 영상 전송 테스트 코드 작성
+  - Python 'request' module
+    ```python
+    import requests
+
+    url = "http://localhost:3000/upload"
+    file_path = "test.avi"
+
+    with open(file_path, 'rb') as f:
+        files = {'file': f}
+        response = requests.post(url, files=files)
+
+    print(response.status_code)
+    ```
+
+3. What should I do from now on..
+- 영상 녹화 페이지라고 생각하고
+  - 화면 지속적으로 재생하는 스레드
+  - 녹화시작 누르면 영상녹화 스레드, 음성녹음 스레드 실행
+  - 중지 누르면 다음 화면 넘어가야 한다. (지금까지 가져온 정보를 지니고 있는채로, 녹화한 영상 재생하기)
+  - 제출 누르면 request로 POST 요청하기
