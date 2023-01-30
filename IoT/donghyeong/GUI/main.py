@@ -205,8 +205,7 @@ class MyThread(QThread):
         set an alpha layer with valid alpha-values.
         """
         alpha = (red_vs_green + blue_vs_green) * 255
-        alpha[alpha > 50] = 255
-
+        
         self.img[alpha == 0] = 0
 
 
