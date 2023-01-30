@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDto> getUser(String userId) {
-        return Optional.ofNullable(toDto(userRepository.findByUserId(userId)));
+        return Optional.ofNullable(toDto(userRepository.findByUserId(userId).orElseThrow()));
     }
 
     @Override
@@ -49,10 +49,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void modifyUser(UserDto userDto) {
         User user = userRepository.findById(userDto.getUserSeq()).orElseThrow();
+        System.out.println(userDto.toString());
         user.updateUser(userDto.getUserId(),
                 userDto.getUserPassword(),
                 userDto.getUserName(),
                 userDto.getUserNickname(),
                 userDto.getUserEmail());
+        userRepository.save(user);
     }
 }

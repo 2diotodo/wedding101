@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tbl_user")

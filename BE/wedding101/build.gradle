@@ -47,6 +47,8 @@ dependencies {
 //    implementation 'org.springframework.boot::spring-boot-starter-web'
     // log4j2
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    //유효성 검사 처리
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
