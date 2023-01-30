@@ -18,13 +18,13 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long infoSeq;
 
-    @Column(name = "user_seq")
+    @Column(name = "user_seq", nullable = false)
     private Long userSeq;
 
-    @Column(name = "wedding_day")
+    @Column(name = "wedding_day", nullable = false)
     private Date weddingDay;
 
-    @Column(name = "wedding_hall_name")
+    @Column(name = "wedding_hall_name", nullable = false)
     private String weddingHallName;
 
     @Column(name = "wedding_hall_address")
@@ -33,16 +33,16 @@ public class Info {
     @Column(name = "wedding_hall_number")
     private String weddingHallNumber;
 
-    @Column(name = "groom_name")
+    @Column(name = "groom_name", nullable = false)
     private String groomName;
 
-    @Column(name = "bride_name")
+    @Column(name = "bride_name", nullable = false)
     private String brideName;
 
-    @Column(name = "groom_phone_number")
+    @Column(name = "groom_phone_number", nullable = false)
     private String groomPhoneNumber;
 
-    @Column(name = "bride_phone_number")
+    @Column(name = "bride_phone_number", nullable = false)
     private String bridePhoneNumber;
 
     @Column(name = "groom_account_number")
@@ -81,17 +81,17 @@ public class Info {
     @Column(name = "bride_mother_name")
     private String brideMotherName;
 
-    @Column(name = "groom_father_is_alive")
-    private Integer groomFatherIsAlive;
+    @Column(name = "groom_father_is_alive", columnDefinition = "TINYINT")
+    private boolean groomFatherIsAlive;
 
-    @Column(name = "groom_mother_is_alive")
-    private Integer groomMotherIsAlive;
+    @Column(name = "groom_mother_is_alive", columnDefinition = "TINYINT")
+    private boolean groomMotherIsAlive;
 
-    @Column(name = "bride_father_is_alive")
-    private Integer brideFatherIsAlive;
+    @Column(name = "bride_father_is_alive", columnDefinition = "TINYINT")
+    private boolean brideFatherIsAlive;
 
-    @Column(name = "bride_mother_is_alive")
-    private Integer brideMotherIsAlive;
+    @Column(name = "bride_mother_is_alive", columnDefinition = "TINYINT")
+    private boolean brideMotherIsAlive;
 
     @Builder
     public Info(Long infoSeq, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
@@ -99,8 +99,8 @@ public class Info {
                 String bridePhoneNumber, String groomAccountNumber, String groomAccountBank, String groomAccountName,
                 String brideAccountNumber, String brideAccountBank, String brideAccountName, String groomRelation,
                 String brideRelation, String groomFatherName, String groomMotherName, String brideFatherName,
-                String brideMotherName, Integer groomFatherIsAlive, Integer groomMotherIsAlive, Integer brideFatherIsAlive,
-                Integer brideMotherIsAlive) {
+                String brideMotherName, boolean groomFatherIsAlive, boolean groomMotherIsAlive, boolean brideFatherIsAlive,
+                boolean brideMotherIsAlive) {
         this.infoSeq = infoSeq;
         this.userSeq = userSeq;
         this.weddingDay = weddingDay;
@@ -134,8 +134,8 @@ public class Info {
                             String bridePhoneNumber, String groomAccountNumber, String groomAccountBank, String groomAccountName,
                             String brideAccountNumber, String brideAccountBank, String brideAccountName, String groomRelation,
                             String brideRelation, String groomFatherName, String groomMotherName, String brideFatherName,
-                            String brideMotherName, Integer groomFatherIsAlive, Integer groomMotherIsAlive, Integer brideFatherIsAlive,
-                            Integer brideMotherIsAlive){
+                            String brideMotherName, boolean groomFatherIsAlive, boolean groomMotherIsAlive, boolean brideFatherIsAlive,
+                            boolean brideMotherIsAlive){
         this.weddingDay = weddingDay;
         this.weddingHallName = weddingHallName;
         this.weddingHallAddress = weddingHallAddress;

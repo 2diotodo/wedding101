@@ -21,6 +21,8 @@ public interface UserService {
 
     void modifyUser(UserDto userDto);
 
+    boolean checkNicknameDuplicate(String nickname);
+
     default User toEntity(UserDto userDto){
         return User.builder()
                 .userSeq(userDto.getUserSeq())
@@ -42,4 +44,5 @@ public interface UserService {
                 .userEmail(user.getUserEmail())
                 .build();
     }
+
 }
