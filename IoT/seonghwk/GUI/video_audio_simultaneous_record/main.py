@@ -19,7 +19,7 @@ from datetime import datetime
 from uuid import uuid4
 
 
-from cam_write_ui import Ui_Form
+from simpleui import Ui_Form
 
 class VideoRecorder(QThread):
     mySignal = Signal(QPixmap)
@@ -79,7 +79,7 @@ class VideoRecorder(QThread):
 
                 # counter += 1
                 # timer_current = time.time() - timer_start
-                time.sleep(1/self.fps)
+                # time.sleep(1/self.fps)
                 # gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
                 # cv2.imshow('video_frame', gray)
                 # cv2.waitKey(1)
@@ -235,7 +235,7 @@ class MainWindow(QWidget):
         # icon
         self.setWindowIcon(QIcon('icon.png'))
         # set control_bt callback clicked  function
-        self.ui.save_bt.clicked.connect(self.controlSave)
+        self.ui.control_bt.clicked.connect(self.controlSave)
         # set video and audio record thread
         self.open = False
         self.video_thread = None
@@ -247,28 +247,33 @@ class MainWindow(QWidget):
         if self.open:
             self.open = False
             self.stop_AVrecording()
-            self.ui.save_bt.setText("Record")
-            self.ui.image_label.setText("Camera")
+            self.ui.control_bt.setText("Record")
+            self.ui.label.setText("Camera")
             self.file_manager()
         else:
             self.open = True
             self.start_AVrecording()
-            self.ui.save_bt.setText("Stop")
-            self.ui.image_label.setText("recording")
+            self.ui.control_bt.setText("Stop")
+            self.ui.label.setText("recording")
 
 
     def setImage(self, img):
-        self.ui.image_label.setPixmap(img)
+        self.ui.label.setPixmap(img)
 
 
     # start/stop both thread
     def start_AVrecording(self, filename="test"):
         self.name = datetime.now().strftime('%Y-%m%d-%H%M%S-') + str(uuid4())
-        self.audio_thread = AudioRecorder(filename = self.name)
         self.video_thread = VideoRecorder(name = self.name)
+        print("created video thread")
+        self.audio_thread = AudioRecorder(filename = self.name)
+        print("created audio thread")
         self.video_thread.mySignal.connect(self.setImage)
+        print("add signal from video thread")
         self.audio_thread.start()
+        print("started audio thread")
         self.video_thread.start()
+        print("started video thread")
         return filename
     
 
@@ -283,7 +288,7 @@ class MainWindow(QWidget):
         print("recorded fps " + str(recorded_fps))
         self.video_thread.stop()
         print("video thread stopped")
-        self.ui.image_label.setText("Camera")
+        self.ui.label.setText("Camera")
 
 
         # # Makes sure the threads have finished    

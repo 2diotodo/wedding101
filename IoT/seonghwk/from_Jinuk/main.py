@@ -1,5 +1,3 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
 from QT_screens_code.mainwindow import Ui_Form
 from QT_screens_code.chk_Dialog import Ui_chk_Dialog
 from time import *
@@ -70,7 +68,7 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
 
     def show_dialog(self):
         self.setModal(True)
-        return super().exec()
+        return super().exec_()
 
 
 class MyApp(QWidget, Ui_Form):
@@ -93,6 +91,14 @@ class MyApp(QWidget, Ui_Form):
         self.disabled_button_icon = QIcon(self.disabled_button_pix)
         self.home_button_pix = QPixmap("QT_Resources/Pics/home.png")
         self.home_icon = QIcon(self.home_button_pix)
+        self.home_button2_pix = QPixmap("QT_Resources/Pics/home_2.png")
+        self.home_icon2 = QIcon(self.home_button2_pix)
+
+        self.font_id1 = QFontDatabase.addApplicationFont(
+            "QT_Resources/Fonts/BeauRivage-Regular.ttf")
+        self.font_id2 = QFontDatabase.addApplicationFont(
+            "QT_Resources/Fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf")
+
 
         self.SenderName = ''
         self.SenderRelation = 0
@@ -189,6 +195,9 @@ class MyApp(QWidget, Ui_Form):
     def record_stop(self):
         pass
 
+    def record_video(self):
+        pass
+
     def close_window(self):
         if spec is not None:
             self.th.terminate()
@@ -247,4 +256,4 @@ app.setApplicationName("Wed101")
 win = MyApp()
 win.show()
 
-app.exec()
+app.exec_()
