@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -68,4 +69,24 @@ public class UserRestController {
             userService.removeUser(userDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+
+        @Operation(summary = "회원 정보 수정")
+        @PutMapping("")
+        public ResponseEntity<UserDto> modifyUser(String userId, String userPassword, String userName, String userNickname, String userEmail) {
+            UserDto userDto = new UserDto(userService.getUser(userId).orElseThrow().getUserSeq(), userId, userPassword, userName, userNickname, userEmail);
+            System.out.println("컨트롤러");
+            System.out.println(userDto.toString()
+            );
+            userService.modifyUser(userDto);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        }
+
+        @Operation(summary = "닉네임 중복 확인")
+        @GetMapping("/exist/nickname/{nickname}")
+        public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
+            return ResponseEntity.ok(userService.checkNicknameDuplicate(nickname));
+        }
+
+
+
 }

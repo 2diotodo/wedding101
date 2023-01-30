@@ -3,8 +3,12 @@ package com.ssafy.wedding101.model.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.springframework.data.jpa.repository.Temporal;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tbl_user")
@@ -32,11 +36,12 @@ public class User {
     @Column(name = "user_email", nullable = false)
     private String userEmail;
 
-    @Column(name = "is_valid", nullable = false)
-    private Integer isValid;
+    @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
+    private boolean isValid;
+
 
     @Builder
-    public User(Long userSeq, String userId, String userPassword, String userName, String userNickname, String userEmail, Integer isValid){
+    public User(Long userSeq, String userId, String userPassword, String userName, String userNickname, String userEmail, boolean isValid){
         this.userSeq = userSeq;
         this.userId = userId;
         this.userPassword = userPassword;
@@ -55,7 +60,7 @@ public class User {
     }
 
     public void updateIsValid() {
-        this.isValid = 0;
+        this.isValid = false;
     }
 
 }
