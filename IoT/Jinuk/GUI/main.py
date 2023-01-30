@@ -1,8 +1,9 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
+from PySide6.QtMultimedia import *
+from PySide6.QtMultimediaWidgets import *
 from QT_screens_code.mainwindow import Ui_Form
 from QT_screens_code.chk_Dialog import Ui_chk_Dialog
-from time import *
 
 import importlib.util
 
@@ -15,47 +16,10 @@ else:
     from PySide2.QtWidgets import *
     from PySide2.QtCore import *
     from PySide2.QtGui import *
-    import cv2
+
 
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
 receiver_list = ['', 'groom', 'bride']
-
-
-class MyThread(QThread):
-    mySignal = Signal(QPixmap)
-
-    def __init__(self):
-        super().__init__()
-        if spec is not None:
-            self.cam = cv2.VideoCapture(0)
-            self.img = None
-            self.video_stream = None
-            self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            self.record = False
-
-    def run(self):
-        while True:
-            ret, self.img = self.cam.read()
-            if ret:
-                self.resize_image(width=1024)
-                self.printImage()
-            else:
-                print("camera is not working")
-            sleep(0.05)
-
-    def resize_image(self):
-        self.img = cv2.flip(self.img, -1)
-
-    def set_image(self, img):
-        self.video_stream.setPixmap(img)
-
-    def print_image(self):
-        imgBGR = self.img
-        imgRGB = cv2.cvtColor(imgBGR, cv2.COLOR_BGR2RGB)
-        h, w, byte = imgRGB.shape
-        img = QImage(imgRGB, w, h, byte * w, QImage.Format_RGB888)
-        pix_img = QPixmap(img)
-        self.mySignal.emit(pix_img)
 
 
 class CheckDialog(QDialog, Ui_chk_Dialog):
@@ -83,16 +47,26 @@ class MyApp(QWidget, Ui_Form):
 
         # set class functions
         self.setupUi(self)
+        self.media_player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
         # self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
         self.arrow_icon = QIcon(self.arrow_button_pix)
-        QFontDatabase.addApplicationFont("QT_Resources/Fonts/BeauRivage-Regular.ttf")
         self.disabled_button_pix = QPixmap("QT_Resources/Pics/unavailable_proceed.png")
         self.disabled_button_icon = QIcon(self.disabled_button_pix)
+        self.prev_button_pix = QPixmap("QT_Resources/Pics/prev.png")
+        self.prev_icon = QIcon(self.prev_button_pix)
         self.home_button_pix = QPixmap("QT_Resources/Pics/home.png")
         self.home_icon = QIcon(self.home_button_pix)
+        self.home_button2_pix = QPixmap("QT_Resources/Pics/home_2.png")
+        self.home_icon2 = QIcon(self.home_button2_pix)
+
+        self.font_id1 = QFontDatabase.addApplicationFont(
+            "QT_Resources/Fonts/BeauRivage-Regular.ttf")
+        self.font_id2 = QFontDatabase.addApplicationFont(
+            "QT_Resources/Fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf")
 
         self.SenderName = ''
         self.SenderRelation = 0
@@ -103,7 +77,6 @@ class MyApp(QWidget, Ui_Form):
     def main(self):
         # this is video thread
         if spec is not None:
-            self.th = MyThread()
             self.th.mySignal.connect(self.setImage)
             self.th.start()
 
@@ -146,12 +119,33 @@ class MyApp(QWidget, Ui_Form):
         self.input_relation_combo.currentIndexChanged.connect(self.select_relation)
         self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
+    def set_thanks(self):
+        self.thanks_title.setFont(QFont('Playfair Display', 40))
+        self.media_player.setSource(QUrl('QT_Resources/Videos/몸이 고생하면 머리가 나빠진다.mkv'))
+        self.media_player.setVideoOutput(self.thanks_video_screen)
+        self.thanks_video_screen.show()
+        self.media_player.setAudioOutput(self.audio_output)
+        self.audio_output.setVolume(80)
+
+    def set_select(self):
+        self.select_home_button.setIcon(self.home_icon2)
+        self.select_home_button.setIconSize(self.home_button2_pix.rect().size())
+        self.select_prev_button.setIcon(self.prev_icon)
+        self.select_prev_button.setIconSize(self.prev_button_pix.rect().size())
+        self.select_sample_img1.setStyleSheet("background-image: url('QT_Resources/Pics/congrat_sample.png');"
+                                              "border-radius: 0;")
+        cong_gif = QMovie("QT_Resources/Pics/congrat_vid.gif")
+        self.select_sample_img2.setMovie(cong_gif)
+        cong_gif.start()
+
     def setup_pages(self):
         self.set_srvc_chk()
         self.set_home()
         self.set_info()
         self.set_agreement()
         self.set_input()
+        self.set_thanks()
+        self.set_select()
 
     def go_next_page(self):
         current_page = self.stackedWidget.currentIndex()
@@ -160,6 +154,7 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "mode_select_video_button":
             current_page += 1
         self.stackedWidget.setCurrentIndex(current_page + 1)
+        self.media_player.stop()
 
     def go_prev_page(self):
         current_page = self.stackedWidget.currentIndex()
@@ -234,6 +229,7 @@ class MyApp(QWidget, Ui_Form):
             return
         self.SenderName = self.input_name_edit.text()
         self.go_next_page()
+        self.media_player.play()
 
     def select_relation(self):
         self.SenderRelation = self.input_relation_combo.currentIndex()
