@@ -81,6 +81,12 @@ public class UserRestController {
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
 
+        @Operation(summary = "닉네임 중복 확인")
+        @GetMapping("/exist/nickname/{nickname}")
+        public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
+            return ResponseEntity.ok(userService.checkNicknameDuplicate(nickname));
+        }
+
 
 
 }
