@@ -1,30 +1,29 @@
 import './Header.css';
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 function Header() {
-const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
-const onLogout = () =>{
-  // sessionStorage에 userId로 저장되어 있는 아이템을 삭제
-  sessionStorage.removeItem('userId');
-  // 메인으로 이동(새로고침)
-  document.location.href = '/';
-}
+  const onLogout = () => {
+    // sessionStorage에 userId로 저장되어 있는 아이템을 삭제
+    sessionStorage.removeItem('userId');
+    // 메인으로 이동(새로고침)
+    document.location.href = '/';
+  };
 
-useEffect(() => {
-  if(sessionStorage.getItem("name") === null){
-    console.log("isLogin?? ::", isLogin);
-  }else {
-    // sessionStorage에 name이라는 key 값으로 저장된 값이 있다면
-    // 로그인 상태 변경
-    setIsLogin(true);
-    console.log("isLogin?? ::", isLogin);
-  }
-});
+  useEffect(() => {
+    if (sessionStorage.getItem('name') === null) {
+      console.log('isLogin?? ::', isLogin);
+    } else {
+      // sessionStorage에 name이라는 key 값으로 저장된 값이 있다면
+      // 로그인 상태 변경
+      setIsLogin(true);
+      console.log('isLogin?? ::', isLogin);
+    }
+  });
 
   return (
     <div className='header'>
@@ -32,29 +31,29 @@ useEffect(() => {
         <img src='#' alt='wedding101' />
       </div>
       <div className='nav-tabs'>
-        <NavLink labe="About" to='/'>
+        <NavLink labe='About' to='/'>
           <Button variant='text' size='large' color='secondary'>
             About{' '}
           </Button>
         </NavLink>
-        <NavLink label='Invitation' to='/invitation' >
+        <NavLink label='Invitation' to='/invitation'>
           <Button variant='text' size='large' color='secondary'>
             Invitation{' '}
           </Button>
         </NavLink>
-        <NavLink label='Album' to='/album' >
+        <NavLink label='Album' to='/album'>
           <Button variant='text' size='large' color='secondary'>
             {' '}
             Album{' '}
           </Button>
         </NavLink>
-        <NavLink label='Process' to='/user/service01' >
+        <NavLink label='Process' to='/user/service01'>
           <Button variant='text' size='large' color='secondary'>
             Process{' '}
           </Button>
         </NavLink>
         <NavLink label='Review' to='/review'>
-          <Button variant='text' size='large' color='secondary' >
+          <Button variant='text' size='large' color='secondary'>
             Review
           </Button>
         </NavLink>
@@ -64,21 +63,21 @@ useEffect(() => {
           </Button>
         </NavLink>
 
-{isLogin ? (
-        <div>
-          <NavLink label='LogIn' to='/user/mypage'>
-            <Button variant='text' color='secondary'>
-              {sessionStorage.getItem("name")}
-            </Button>
-          </NavLink>
-          <NavLink label='LogOut' to='/user/login'>
+        {isLogin ? (
+          <div>
+            <NavLink label='LogIn' to='/user/mypage'>
+              <Button variant='text' color='secondary'>
+                {sessionStorage.getItem('name')}
+              </Button>
+            </NavLink>
+            <NavLink label='LogOut' to='/user/login'>
               <Button variant='text' color='secondary' onClick={onLogout}>
                 Logout{' '}
               </Button>
             </NavLink>
-        </div>
-          ) :(
-            <div>
+          </div>
+        ) : (
+          <div>
             <NavLink label='LogIn' to='/user/login'>
               <Button variant='text' color='secondary'>
                 LogIn{' '}
@@ -90,10 +89,7 @@ useEffect(() => {
               </Button>
             </NavLink>
           </div>
-          )
-
-}
-
+        )}
       </div>
     </div>
   );
