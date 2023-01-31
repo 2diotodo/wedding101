@@ -74,9 +74,6 @@ public class UserRestController {
         @PutMapping("")
         public ResponseEntity<UserDto> modifyUser(String userId, String userPassword, String userName, String userNickname, String userEmail) {
             UserDto userDto = new UserDto(userService.getUser(userId).orElseThrow().getUserSeq(), userId, userPassword, userName, userNickname, userEmail);
-            System.out.println("컨트롤러");
-            System.out.println(userDto.toString()
-            );
             userService.modifyUser(userDto);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
@@ -99,6 +96,18 @@ public class UserRestController {
             return ResponseEntity.ok(userService.checkEmailDuplicate(userEmail));
         }
 
+        @Operation(summary = "이메일로 아이디 찾기")
+        @GetMapping("/find/id/{userEmail}")
+        public ResponseEntity<Map<String, Object>> findIdByEmail(@PathVariable String userEmail) {
+            Map<String, Object> result = new HashMap<>();
+            try {
+                UserDto userDto = userService.getUserIdByUserEmail(userEmail).orElseThrow();
+                result.put("userId", userDto.getUserId());
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
 
 
 }

@@ -24,6 +24,7 @@ public interface UserService {
     boolean checkNicknameDuplicate(String userNickname);
     boolean checkIdDuplicate(String userId);
     boolean checkEmailDuplicate(String userEmail);
+    Optional<UserDto> getUserIdByUserEmail(String userEmail);
 
     default User toEntity(UserDto userDto){
         return User.builder()

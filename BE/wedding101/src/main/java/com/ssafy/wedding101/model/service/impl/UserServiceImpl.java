@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void modifyUser(UserDto userDto) {
         User user = userRepository.findById(userDto.getUserSeq()).orElseThrow();
-        System.out.println(userDto.toString());
+//        System.out.println(userDto.toString());
         user.updateUser(userDto.getUserId(),
                 userDto.getUserPassword(),
                 userDto.getUserName(),
@@ -72,4 +72,12 @@ public class UserServiceImpl implements UserService {
                 userDto.getUserEmail());
 //        userRepository.save(user);
     }
+
+    @Override
+    public Optional<UserDto> getUserIdByUserEmail(String userEmail) {
+//        Optional<User> user = userRepository.findByUserEmail(userEmail).orElseThrow();
+        return Optional.ofNullable(toDto(userRepository.findByUserEmail(userEmail).orElseThrow()));
+    }
+
+
 }
