@@ -93,6 +93,12 @@ public class UserRestController {
             return ResponseEntity.ok(userService.checkIdDuplicate(userId));
         }
 
+        @Operation(summary = "이메일 중복 확인")
+        @GetMapping("/exist/email/{userEmail}")
+        public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String userEmail) {
+            return ResponseEntity.ok(userService.checkEmailDuplicate(userEmail));
+        }
+
 
 
 }

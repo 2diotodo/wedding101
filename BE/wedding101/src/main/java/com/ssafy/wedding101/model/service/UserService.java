@@ -23,6 +23,7 @@ public interface UserService {
 
     boolean checkNicknameDuplicate(String userNickname);
     boolean checkIdDuplicate(String userId);
+    boolean checkEmailDuplicate(String userEmail);
 
     default User toEntity(UserDto userDto){
         return User.builder()
@@ -45,6 +46,7 @@ public interface UserService {
                 .userEmail(user.getUserEmail())
                 .build();
     }
+
 
 
 }
