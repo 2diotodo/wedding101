@@ -65,7 +65,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #FFAB7C;color: white;</string>
+      <string notr="true">background: #FFAB7C;color: #FFFFFF;</string>
      </property>
      <property name="text">
       <string>확인</string>
@@ -87,7 +87,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #FFAB7C;color: white;</string>
+      <string notr="true">background: #FFAB7C;color: #FFFFFF;</string>
      </property>
      <property name="text">
       <string>취소</string>

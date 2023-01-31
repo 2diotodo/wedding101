@@ -1,21 +1,20 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtMultimedia import *
-from PySide6.QtMultimediaWidgets import *
 from QT_screens_code.mainwindow import Ui_Form
 from QT_screens_code.chk_Dialog import Ui_chk_Dialog
 
 import importlib.util
-
 spec = importlib.util.find_spec("PySide2")
 if spec is None:
     from PySide6.QtWidgets import *
     from PySide6.QtCore import *
     from PySide6.QtGui import *
+    from PySide6.QtMultimedia import *
+    from PySide6.QtMultimediaWidgets import *
 else:
     from PySide2.QtWidgets import *
     from PySide2.QtCore import *
     from PySide2.QtGui import *
+    from PySide2.QtMultimedia import *
+    from PySide2.QtMultimediaWidgets import *
 
 
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
@@ -128,7 +127,7 @@ class MyApp(QWidget, Ui_Form):
 
     def set_thanks(self):
         self.thanks_title.setFont(QFont('Playfair Display', 40))
-        self.media_player.setSource(QUrl('QT_Resources/Videos/몸이 고생하면 머리가 나빠진다.mkv'))
+        self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
         self.media_player.setVideoOutput(self.thanks_video_screen)
         self.thanks_video_screen.show()
         self.media_player.setAudioOutput(self.audio_output)

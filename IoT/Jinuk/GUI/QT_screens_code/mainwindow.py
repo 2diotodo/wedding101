@@ -71,7 +71,7 @@ class Ui_Form(object):
         self.home_frame = QFrame(self.home_page)
         self.home_frame.setObjectName(u"home_frame")
         self.home_frame.setGeometry(QRect(64, 48, 1152, 864))
-        self.home_frame.setStyleSheet(u"background:white;border-radius:100px;")
+        self.home_frame.setStyleSheet(u"background:#FFFFFF;border-radius:100px;")
         self.home_frame.setFrameShape(QFrame.StyledPanel)
         self.home_frame.setFrameShadow(QFrame.Raised)
         self.home_next_button = QPushButton(self.home_frame)
@@ -81,7 +81,7 @@ class Ui_Form(object):
         font1.setPointSize(48)
         font1.setBold(True)
         self.home_next_button.setFont(font1)
-        self.home_next_button.setStyleSheet(u"background: #FFAB7C;color: white;border-radius:50px;")
+        self.home_next_button.setStyleSheet(u"background: #FFAB7C;color: #FFFFFF;border-radius:50px;")
         self.home_background = QLabel(self.home_frame)
         self.home_background.setObjectName(u"home_background")
         self.home_background.setGeometry(QRect(58, 90, 1036, 411))
@@ -277,7 +277,7 @@ class Ui_Form(object):
         self.input_name_edit.setSizePolicy(sizePolicy1)
         self.input_name_edit.setFont(font10)
         self.input_name_edit.setFocusPolicy(Qt.ClickFocus)
-        self.input_name_edit.setStyleSheet(u"background:#FFAB7C;color:white;\n"
+        self.input_name_edit.setStyleSheet(u"background:#FFAB7C;color:#FFFFFF;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;")
         self.input_name_edit.setAlignment(Qt.AlignCenter)
@@ -318,7 +318,7 @@ class Ui_Form(object):
         font11.setBold(True)
         self.input_relation_combo.setFont(font11)
         self.input_relation_combo.setStyleSheet(u"#input_relation_combo{\n"
-"background:#FFAB7C; color:white;\n"
+"background:#FFAB7C; color:#FFFFFF;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;\n"
 "padding-left:80px;\n"
@@ -335,7 +335,7 @@ class Ui_Form(object):
 "\n"
 "#input_relation_combo QListView{\n"
 "background:#FFAB7C;\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border:3px solid brown;\n"
 "border-radius:0;\n"
 "}\n"
@@ -345,7 +345,7 @@ class Ui_Form(object):
 "}\n"
 "\n"
 "#input_relation_combo QListView::item::hover{\n"
-"background:#white;\n"
+"background:#FFFFFF;\n"
 "color:#A55252\n"
 "}")
         self.input_relation_combo.setIconSize(QSize(16, 16))
@@ -380,7 +380,7 @@ class Ui_Form(object):
         self.input_receiver_combo.setSizePolicy(sizePolicy1)
         self.input_receiver_combo.setFont(font11)
         self.input_receiver_combo.setStyleSheet(u"#input_receiver_combo{\n"
-"background:#FFAB7C; color:white;\n"
+"background:#FFAB7C; color:#FFFFFF;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;\n"
 "padding-left:80px;\n"
@@ -397,7 +397,7 @@ class Ui_Form(object):
 "\n"
 "#input_receiver_combo QListView{\n"
 "background:#FFAB7C;\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border:3px solid brown;\n"
 "border-radius:0;\n"
 "}\n"
@@ -407,7 +407,7 @@ class Ui_Form(object):
 "}\n"
 "\n"
 "#input_receiver_combo QListView::item::hover{\n"
-"background:#white;\n"
+"background:#FFFFFF;\n"
 "color:#A55252\n"
 "}")
         self.input_receiver_combo.setEditable(False)
@@ -454,7 +454,7 @@ class Ui_Form(object):
         self.thanks_next_button.setFont(font1)
         self.thanks_next_button.setStyleSheet(u"background:#FFAB7C;\n"
 "border-radius: 25;\n"
-"color: white;\n"
+"color: #FFFFFF;\n"
 "")
         self.thanks_slider = QSlider(self.thanks_frame)
         self.thanks_slider.setObjectName(u"thanks_slider")
@@ -479,14 +479,14 @@ class Ui_Form(object):
         self.select_pic_widget = QWidget(self.select_page)
         self.select_pic_widget.setObjectName(u"select_pic_widget")
         self.select_pic_widget.setGeometry(QRect(40, 160, 500, 750))
-        self.select_pic_widget.setStyleSheet(u"background: white; border-radius: 50px;")
+        self.select_pic_widget.setStyleSheet(u"background: #FFFFFF; border-radius: 50px;")
         self.select_pic_button = QPushButton(self.select_pic_widget)
         self.select_pic_button.setObjectName(u"select_pic_button")
         self.select_pic_button.setGeometry(QRect(100, 620, 300, 100))
         self.select_pic_button.setFont(font10)
         self.select_pic_button.setStyleSheet(u"background: #FFAB7C;\n"
 "border-radius: 25px;\n"
-"color: white;")
+"color: #FFFFFF;")
         self.select_sample_img1 = QLabel(self.select_pic_widget)
         self.select_sample_img1.setObjectName(u"select_sample_img1")
         self.select_sample_img1.setGeometry(QRect(40, 40, 420, 550))
@@ -501,20 +501,20 @@ class Ui_Form(object):
         self.select_sample_opac1.setGeometry(QRect(40, 40, 420, 550))
         self.select_sample_opac1.setFont(font12)
         self.select_sample_opac1.setStyleSheet(u"background-color: rgba(128, 128, 128, 128);\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border-radius:0;")
         self.select_sample_opac1.setAlignment(Qt.AlignCenter)
         self.select_vid_widget = QWidget(self.select_page)
         self.select_vid_widget.setObjectName(u"select_vid_widget")
         self.select_vid_widget.setGeometry(QRect(560, 160, 500, 750))
-        self.select_vid_widget.setStyleSheet(u"background: white; border-radius: 50px;")
+        self.select_vid_widget.setStyleSheet(u"background: #FFFFFF; border-radius: 50px;")
         self.select_vid_button = QPushButton(self.select_vid_widget)
         self.select_vid_button.setObjectName(u"select_vid_button")
         self.select_vid_button.setGeometry(QRect(100, 620, 300, 100))
         self.select_vid_button.setFont(font10)
         self.select_vid_button.setStyleSheet(u"background: #FFAB7C;\n"
 "border-radius: 25px;\n"
-"color: white;")
+"color: #FFFFFF;")
         self.select_sample_img2 = QLabel(self.select_vid_widget)
         self.select_sample_img2.setObjectName(u"select_sample_img2")
         self.select_sample_img2.setGeometry(QRect(40, 40, 420, 550))
@@ -524,7 +524,7 @@ class Ui_Form(object):
         self.select_sample_opac2.setGeometry(QRect(40, 40, 420, 550))
         self.select_sample_opac2.setFont(font12)
         self.select_sample_opac2.setStyleSheet(u"background-color: rgba(128, 128, 128, 128);\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border-radius:0;")
         self.select_sample_opac2.setAlignment(Qt.AlignCenter)
         self.stackedWidget.addWidget(self.select_page)
@@ -534,12 +534,12 @@ class Ui_Form(object):
         self.photo_take_3sec.setObjectName(u"photo_take_3sec")
         self.photo_take_3sec.setGeometry(QRect(970, 370, 271, 91))
         self.photo_take_3sec.setFont(font7)
-        self.photo_take_3sec.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: white;")
+        self.photo_take_3sec.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: #FFFFFF;")
         self.photo_take_10sec = QPushButton(self.photo_page)
         self.photo_take_10sec.setObjectName(u"photo_take_10sec")
         self.photo_take_10sec.setGeometry(QRect(970, 510, 271, 91))
         self.photo_take_10sec.setFont(font7)
-        self.photo_take_10sec.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: white;")
+        self.photo_take_10sec.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: #FFFFFF;")
         self.photo_prev_button = QPushButton(self.photo_page)
         self.photo_prev_button.setObjectName(u"photo_prev_button")
         self.photo_prev_button.setGeometry(QRect(970, 700, 123, 107))
@@ -549,7 +549,7 @@ class Ui_Form(object):
         self.photo_widget = QWidget(self.photo_page)
         self.photo_widget.setObjectName(u"photo_widget")
         self.photo_widget.setGeometry(QRect(30, 30, 900, 900))
-        self.photo_widget.setStyleSheet(u"background: white;border-radius:80;")
+        self.photo_widget.setStyleSheet(u"background: #FFFFFF;border-radius:80;")
         self.photo_viewfinder = QWidget(self.photo_widget)
         self.photo_viewfinder.setObjectName(u"photo_viewfinder")
         self.photo_viewfinder.setGeometry(QRect(66, 66, 768, 768))
@@ -558,7 +558,7 @@ class Ui_Form(object):
         self.photo_take_now.setObjectName(u"photo_take_now")
         self.photo_take_now.setGeometry(QRect(970, 230, 271, 91))
         self.photo_take_now.setFont(font7)
-        self.photo_take_now.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: white;")
+        self.photo_take_now.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: #FFFFFF;")
         self.stackedWidget.addWidget(self.photo_page)
         self.image_page = QWidget()
         self.image_page.setObjectName(u"image_page")

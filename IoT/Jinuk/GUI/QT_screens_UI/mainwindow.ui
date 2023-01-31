@@ -147,7 +147,7 @@ border-radius: 40px;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background:white;border-radius:100px;</string>
+        <string notr="true">background:#FFFFFF;border-radius:100px;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -171,7 +171,7 @@ border-radius: 40px;</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background: #FFAB7C;color: white;border-radius:50px;</string>
+         <string notr="true">background: #FFAB7C;color: #FFFFFF;border-radius:50px;</string>
         </property>
         <property name="text">
          <string>시작하기</string>
@@ -724,7 +724,7 @@ border-radius: 80px;</string>
               <enum>Qt::ClickFocus</enum>
              </property>
              <property name="styleSheet">
-              <string notr="true">background:#FFAB7C;color:white;
+              <string notr="true">background:#FFAB7C;color:#FFFFFF;
 border-radius: 20px;
 border: 3px solid brown;</string>
              </property>
@@ -800,7 +800,7 @@ border: 3px solid brown;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">#input_relation_combo{
-background:#FFAB7C; color:white;
+background:#FFAB7C; color:#FFFFFF;
 border-radius: 20px;
 border: 3px solid brown;
 padding-left:80px;
@@ -817,7 +817,7 @@ border:0;
 
 #input_relation_combo QListView{
 background:#FFAB7C;
-color:white;
+color:#FFFFFF;
 border:3px solid brown;
 border-radius:0;
 }
@@ -827,7 +827,7 @@ border-radius:0;
 }
 
 #input_relation_combo QListView::item::hover{
-background:#white;
+background:#FFFFFF;
 color:#A55252
 }</string>
              </property>
@@ -936,7 +936,7 @@ color:#A55252
              </property>
              <property name="styleSheet">
               <string notr="true">#input_receiver_combo{
-background:#FFAB7C; color:white;
+background:#FFAB7C; color:#FFFFFF;
 border-radius: 20px;
 border: 3px solid brown;
 padding-left:80px;
@@ -953,7 +953,7 @@ border:0;
 
 #input_receiver_combo QListView{
 background:#FFAB7C;
-color:white;
+color:#FFFFFF;
 border:3px solid brown;
 border-radius:0;
 }
@@ -963,7 +963,7 @@ border-radius:0;
 }
 
 #input_receiver_combo QListView::item::hover{
-background:#white;
+background:#FFFFFF;
 color:#A55252
 }</string>
              </property>
@@ -1113,7 +1113,7 @@ border-radius:0;</string>
         <property name="styleSheet">
          <string notr="true">background:#FFAB7C;
 border-radius: 25;
-color: white;
+color: #FFFFFF;
 </string>
         </property>
         <property name="text">
@@ -1200,7 +1200,7 @@ color: white;
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: white; border-radius: 50px;</string>
+        <string notr="true">background: #FFFFFF; border-radius: 50px;</string>
        </property>
        <widget class="QPushButton" name="select_pic_button">
         <property name="geometry">
@@ -1220,7 +1220,7 @@ color: white;
         <property name="styleSheet">
          <string notr="true">background: #FFAB7C;
 border-radius: 25px;
-color: white;</string>
+color: #FFFFFF;</string>
         </property>
         <property name="text">
          <string>사진 찍기</string>
@@ -1268,7 +1268,7 @@ color: white;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgba(128, 128, 128, 128);
-color:white;
+color:#FFFFFF;
 border-radius:0;</string>
         </property>
         <property name="text">
@@ -1292,7 +1292,7 @@ border-radius:0;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: white; border-radius: 50px;</string>
+        <string notr="true">background: #FFFFFF; border-radius: 50px;</string>
        </property>
        <widget class="QPushButton" name="select_vid_button">
         <property name="geometry">
@@ -1312,7 +1312,7 @@ border-radius:0;</string>
         <property name="styleSheet">
          <string notr="true">background: #FFAB7C;
 border-radius: 25px;
-color: white;</string>
+color: #FFFFFF;</string>
         </property>
         <property name="text">
          <string>영상 찍기</string>
@@ -1351,7 +1351,7 @@ color: white;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgba(128, 128, 128, 128);
-color:white;
+color:#FFFFFF;
 border-radius:0;</string>
         </property>
         <property name="text">
@@ -1380,7 +1380,7 @@ border-radius:0;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: #FFAB7C;border-radius:25px; color: white;</string>
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
        </property>
        <property name="text">
         <string>3초 타이머</string>
@@ -1402,7 +1402,7 @@ border-radius:0;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: #FFAB7C;border-radius:25px; color: white;</string>
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
        </property>
        <property name="text">
         <string>10초 타이머</string>
@@ -1444,7 +1444,7 @@ border-radius:0;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: white;border-radius:80;</string>
+        <string notr="true">background: #FFFFFF;border-radius:80;</string>
        </property>
        <widget class="QWidget" name="photo_viewfinder" native="true">
         <property name="geometry">
@@ -1476,7 +1476,7 @@ border-radius:0;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: #FFAB7C;border-radius:25px; color: white;</string>
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
        </property>
        <property name="text">
         <string>바로 찍기</string>
