@@ -15,7 +15,7 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide2.QtWidgets import (QApplication, QGridLayout, QLabel, QSizePolicy,
+from PySide2.QtWidgets import (QApplication, QGridLayout, QLabel, QPushButton, QSizePolicy,
     QWidget)
 
 class Ui_Form(object):
@@ -27,8 +27,12 @@ class Ui_Form(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
+        self.control_bt = QPushButton(Form)
+        self.control_bt.setObjectName(u"control_bt")
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 2)
+
 
 
         self.retranslateUi(Form)
@@ -39,5 +43,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.control_bt.setText(QCoreApplication.translate("Form", u"Start", None))
+
     # retranslateUi
 
