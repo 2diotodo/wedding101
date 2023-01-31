@@ -18,7 +18,11 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long infoSeq;
 
-    @Column(name = "user_seq", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_seq", updatable = false, insertable = false)
+    private User user;
+
+    @Column(name="user_seq", nullable = false)
     private Long userSeq;
 
     @Column(name = "wedding_day", nullable = false)
@@ -93,15 +97,19 @@ public class Info {
     @Column(name = "bride_mother_is_alive", columnDefinition = "TINYINT")
     private boolean brideMotherIsAlive;
 
+    @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
+    private boolean isValid;
+
     @Builder
-    public Info(Long infoSeq, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
+    public Info(Long infoSeq, User user, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
                 String weddingHallNumber, String groomName, String brideName, String groomPhoneNumber,
                 String bridePhoneNumber, String groomAccountNumber, String groomAccountBank, String groomAccountName,
                 String brideAccountNumber, String brideAccountBank, String brideAccountName, String groomRelation,
                 String brideRelation, String groomFatherName, String groomMotherName, String brideFatherName,
                 String brideMotherName, boolean groomFatherIsAlive, boolean groomMotherIsAlive, boolean brideFatherIsAlive,
-                boolean brideMotherIsAlive) {
+                boolean brideMotherIsAlive, boolean isValid) {
         this.infoSeq = infoSeq;
+        this.user = user;
         this.userSeq = userSeq;
         this.weddingDay = weddingDay;
         this.weddingHallName = weddingHallName;
@@ -127,6 +135,7 @@ public class Info {
         this.groomMotherIsAlive = groomMotherIsAlive;
         this.brideFatherIsAlive = brideFatherIsAlive;
         this.brideMotherIsAlive = brideMotherIsAlive;
+        this.isValid = isValid;
     }
 
     public void updateInfo( Date weddingDay, String weddingHallName, String weddingHallAddress,
@@ -162,4 +171,7 @@ public class Info {
         this.brideMotherIsAlive = brideMotherIsAlive;
     }
 
+    public void updateIsValid() {
+        this.isValid = false;
+    }
 }
