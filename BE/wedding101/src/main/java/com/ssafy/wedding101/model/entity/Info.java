@@ -18,7 +18,11 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long infoSeq;
 
-    @Column(name = "user_seq", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_seq", updatable = false, insertable = false)
+    private User user;
+
+    @Column(name="user_seq", nullable = false)
     private Long userSeq;
 
     @Column(name = "wedding_day", nullable = false)
@@ -94,7 +98,7 @@ public class Info {
     private boolean brideMotherIsAlive;
 
     @Builder
-    public Info(Long infoSeq, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
+    public Info(Long infoSeq, User user, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
                 String weddingHallNumber, String groomName, String brideName, String groomPhoneNumber,
                 String bridePhoneNumber, String groomAccountNumber, String groomAccountBank, String groomAccountName,
                 String brideAccountNumber, String brideAccountBank, String brideAccountName, String groomRelation,
@@ -102,6 +106,7 @@ public class Info {
                 String brideMotherName, boolean groomFatherIsAlive, boolean groomMotherIsAlive, boolean brideFatherIsAlive,
                 boolean brideMotherIsAlive) {
         this.infoSeq = infoSeq;
+        this.user = user;
         this.userSeq = userSeq;
         this.weddingDay = weddingDay;
         this.weddingHallName = weddingHallName;
