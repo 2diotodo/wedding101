@@ -8,15 +8,15 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtMultimediaWidgets import QVideoWidget
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+from PySide2.QtMultimediaWidgets import QVideoWidget
+from PySide2.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QSlider, QSpacerItem, QStackedWidget,
     QTextBrowser, QVBoxLayout, QWidget)
@@ -670,7 +670,7 @@ class Ui_Form(object):
         self.input_title.setText(QCoreApplication.translate("Form", u"\uc815\ubcf4\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694", None))
         self.input_label1.setText(QCoreApplication.translate("Form", u"\uc774\ub984 :", None))
         self.input_name_edit.setText("")
-        self.input_name_edit.setPlaceholderText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
+        # self.input_name_edit.setPlaceholderText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
         self.input_label2.setText(QCoreApplication.translate("Form", u"\uad00\uacc4 :", None))
         self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uac00\uc871", None))
@@ -680,13 +680,13 @@ class Ui_Form(object):
         self.input_relation_combo.setItemText(5, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
 
         self.input_relation_combo.setCurrentText("")
-        self.input_relation_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        # self.input_relation_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_label3.setText(QCoreApplication.translate("Form", u"\ub300\uc0c1 :", None))
         self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
         self.input_receiver_combo.setItemText(2, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
 
-        self.input_receiver_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        # self.input_receiver_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_home_button.setText("")
         self.input_next_button.setText("")
         self.thanks_title.setText(QCoreApplication.translate("Form", u"Thank you for visiting us", None))
