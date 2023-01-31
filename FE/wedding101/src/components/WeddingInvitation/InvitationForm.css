@@ -1,5 +1,7 @@
 .guest-invitation {
     background-color: #D9CFDE;
     width: 390px;
-    height: 844px;
+    height: 650px;
+
+    overflow: hidden;
     }

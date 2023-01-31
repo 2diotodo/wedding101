@@ -15,7 +15,6 @@ function App() {
     <Routes>
       {/*Header, Footer 보여줄 페이지 */}
       <Route element={<MainLayout />}>
-        <Route exact path='/' element={<MainIndex />} />
         <Route path='/invitation' element={<UserInvitation />} />
         <Route path='/album' element={<AlbumCover />} />
         <Route path='/review' element={<BoardReview />} />
@@ -23,6 +22,7 @@ function App() {
         <Route path='/user/service01' element={<ServiceProcess01 />} />
       </Route>
       {/*Header, Footer 보여주지 않을 페이지 */}
+      <Route exact path='/' element={<MainIndex />} />
       <Route path='/user/login' element={<UserLogin />} />
       <Route path='/user/signup' element={<UserRegist />} />
     </Routes>

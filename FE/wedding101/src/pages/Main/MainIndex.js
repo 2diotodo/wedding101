@@ -13,7 +13,7 @@ import Footers from '../../components/common/Footer';
 const MainIndex = () => {
   const options = {
     anchors: ['MainArea01', 'MainArea02', 'MainArea03', 'MainArea04'],
-    navigation: true,
+    navigation: false,
   };
 
   return (

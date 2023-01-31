@@ -3,7 +3,6 @@ import './LoginForm.css';
 import axios from 'axios';
 import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import * as regEx from '../../../utils/regEx.js';
 import { useNavigate } from 'react-router';
 
 function LoginForm() {
@@ -13,22 +12,29 @@ function LoginForm() {
   // input data의 변화가 있을 때마다 value값을 변경하여 반영하는 useState
   const handleInputId = (e) => {
     setInputId(e.target.value);
+    console.log(setInputId)
   };
 
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
   };
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     console.log('click login');
+    console.log("ID: ", inputId );
+    console.log('PW: ', inputPw);
+    
     // 버튼만 누르면 리프레시되는 것 막기
     event.preventDefault();
-    axios
-      .post('http://localhost:8080/user/login', {
-        userId: inputId,
-        userPw: inputPw,
-      })
-      .then((res) => {
+    console.log('here?');
+    
+    await axios
+    .post('http://localhost:8080/user/login', {
+      userId: inputId,
+      userPw: inputPw,
+    }
+    )
+    .then((res) => {
         console.log(res);
         console.log('res.data.userId :', res.data.userId);
         console.log('res.data.msg :', res.data.msg);
@@ -56,6 +62,8 @@ function LoginForm() {
   // page rendering 후 가장 처음 호출되는 함수
   useEffect(
     () => {
+      console.log('1st render: useEffect');
+
       axios
         .get('/user/login')
         .then((res) => console.log(res))
@@ -72,7 +80,7 @@ function LoginForm() {
   return (
     <div>
       <h2>Login</h2>
-      <div>
+      <form onSubmit={onSubmitHandler}>
         <TextField
           id='id-input'
           autoFocus
@@ -94,7 +102,7 @@ function LoginForm() {
         />
         <br />
 
-        <Button variant='text' onClick={onSubmitHandler}>
+        <Button variant='text' type='submit'>
           로그인
         </Button>
         <br />
@@ -111,7 +119,7 @@ function LoginForm() {
         <br />
         <Button>네이버계정으로 로그인</Button>
         <br />
-      </div>
+      </form>
     </div>
   );
 }

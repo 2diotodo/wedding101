@@ -2,7 +2,7 @@ import './UserRegist.css';
 import signupimg from '../../../assets/img/weddingSignup.png';
 
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
-import RegistForm from '../../../components/user/UserRegist/RegistForm';
+import RegistForm from '../../../components/User/UserRegist/RegistForm';
 
 function UserRegist() {
   return (

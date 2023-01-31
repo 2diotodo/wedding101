@@ -3,6 +3,8 @@ import './RegistForm.css';
 import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
+import Modal from '../../common/Modal';
 
 
 function RegistForm() {
@@ -44,6 +46,24 @@ function RegistForm() {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        axios.post("http://localhost:8081/user/signup", {
+            id: id,
+            password: password,
+            name: name,
+            nickname: nickname,
+            email: email,
+        }).then(function (response) {
+            if(response.data.code == 0){
+                navigate("/user/login");
+            }else {
+                let message = response.data.message;
+                if(response.data.code == 10000){
+                    message = "User ID is duplicated. Please enter a different User ID"
+                }
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
         alert(`${form.id}님 회원가입 완료!`)
     }
 

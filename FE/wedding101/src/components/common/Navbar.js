@@ -1,4 +1,5 @@
 import './Navbar.css';
+
 function Navbar() {
     const navbarName = ['mypage', 'serviceApplication', 'mobileApplication', 'weddingAlbum','album','albumList','review', 'contactus'];
     

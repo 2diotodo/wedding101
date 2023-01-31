@@ -15,15 +15,18 @@ function Header() {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem('name') === null) {
+    if (sessionStorage.getItem('userId') === null) {
       console.log('isLogin?? ::', isLogin);
     } else {
       // sessionStorage에 name이라는 key 값으로 저장된 값이 있다면
       // 로그인 상태 변경
       setIsLogin(true);
       console.log('isLogin?? ::', isLogin);
-    }
-  });
+    };
+    
+  },
+  [isLogin]
+  );
 
   return (
     <div className='header'>

@@ -1,16 +1,13 @@
-import './UserInvitation.css';
+// 청첩장 프로세스1: 템플릿 선택
+import './InvitationProcess01.css';
 
-import React from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import ProgressBar from '../../../components/common/ProgressBar';
-import InvitationForm from '../../../components/WeddingInvitation/InvitationForm';
+import {Button} from '@mui/material/';
+import ProgressBar from '../common/ProgressBar';
 import Slider from 'react-slick';
-import { Button } from '@mui/material';
-// Import css files
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
 
-function UserInvitation(){
+const InvitationProcess01 = () => {
     const settings = {
         dots: true, // 슬라이드 아래 점표시
         infinite: true, // 무한반복
@@ -20,9 +17,8 @@ function UserInvitation(){
         centerMode: true,
         centerPadding: '0px', // 슬라이드 끝쪽 이미지 안잘리기
     };
-
     return(
-        <div className="user-invitation">
+        <div>
             <Grid2 container spacing={3}>
                  <Grid2 lg={3} sm={2}>
                     <h1>Mobile Invitation</h1>
@@ -56,4 +52,4 @@ function UserInvitation(){
     );
 }
 
-export default UserInvitation;
+export default InvitationProcess01;
