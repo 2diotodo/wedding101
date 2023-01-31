@@ -85,8 +85,10 @@ public class UserRestController {
 
         @Operation(summary = "회원 정보 수정")
         @PutMapping("")
-        public ResponseEntity<UserDto> modifyUser(String userId, String userPassword, String userName, String userNickname, String userEmail) {
-            UserDto userDto = new UserDto(userService.getUser(userId).orElseThrow().getUserSeq(), userId, userPassword, userName, userNickname, userEmail);
+        public ResponseEntity<UserDto> modifyUser(@RequestBody UserDto userDto) {
+//            UserDto userDto = new UserDto(userService.getUser(userId).orElseThrow().getUserSeq(), userId, userPassword, userName, userNickname, userEmail);
+            // 토큰에서 유저Seq 가져와서 넣어줘도됨
+            userDto.setUserSeq(userService.getUser(userDto.getUserId()).orElseThrow().getUserSeq());
             userService.modifyUser(userDto);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }

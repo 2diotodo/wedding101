@@ -97,6 +97,9 @@ public class Info {
     @Column(name = "bride_mother_is_alive", columnDefinition = "TINYINT")
     private boolean brideMotherIsAlive;
 
+    @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
+    private boolean isValid;
+
     @Builder
     public Info(Long infoSeq, User user, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
                 String weddingHallNumber, String groomName, String brideName, String groomPhoneNumber,
@@ -104,7 +107,7 @@ public class Info {
                 String brideAccountNumber, String brideAccountBank, String brideAccountName, String groomRelation,
                 String brideRelation, String groomFatherName, String groomMotherName, String brideFatherName,
                 String brideMotherName, boolean groomFatherIsAlive, boolean groomMotherIsAlive, boolean brideFatherIsAlive,
-                boolean brideMotherIsAlive) {
+                boolean brideMotherIsAlive, boolean isValid) {
         this.infoSeq = infoSeq;
         this.user = user;
         this.userSeq = userSeq;
@@ -132,6 +135,7 @@ public class Info {
         this.groomMotherIsAlive = groomMotherIsAlive;
         this.brideFatherIsAlive = brideFatherIsAlive;
         this.brideMotherIsAlive = brideMotherIsAlive;
+        this.isValid = isValid;
     }
 
     public void updateInfo( Date weddingDay, String weddingHallName, String weddingHallAddress,
@@ -167,4 +171,7 @@ public class Info {
         this.brideMotherIsAlive = brideMotherIsAlive;
     }
 
+    public void updateIsValid() {
+        this.isValid = false;
+    }
 }

@@ -14,7 +14,7 @@ public interface InfoService {
 
     void writeInfo(InfoDto infoDto);
 
-    void removeInfo(InfoDto infoDto);
+    void removeInfo(Long infoSeq);
 
     void modifyInfo(InfoDto infoDto);
 
