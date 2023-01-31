@@ -49,7 +49,14 @@ class MyApp(QWidget, Ui_Form):
         self.setupUi(self)
         self.media_player = QMediaPlayer()
         self.audio_output = QAudioOutput()
-        # self.stackedWidget.setCurrentIndex(0)
+        self.camera = None
+        self.image_capture = None
+        self.available_cameras = QMediaDevices.videoInputs()
+        if self.available_cameras:
+            self.camera = QCamera(self.available_cameras[0])
+            self.image_capture = QImageCapture(self.camera)
+
+        self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -138,6 +145,9 @@ class MyApp(QWidget, Ui_Form):
         self.select_sample_img2.setMovie(cong_gif)
         cong_gif.start()
 
+    def set_photo(self):
+        pass
+
     def setup_pages(self):
         self.set_srvc_chk()
         self.set_home()
@@ -146,6 +156,7 @@ class MyApp(QWidget, Ui_Form):
         self.set_input()
         self.set_thanks()
         self.set_select()
+        self.set_photo()
 
     def go_next_page(self):
         current_page = self.stackedWidget.currentIndex()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1276</width>
-    <height>951</height>
+    <width>1280</width>
+    <height>960</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <string notr="true">background: #FFF3C8;</string>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -1361,6 +1361,126 @@ border-radius:0;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="photo_page">
+      <widget class="QPushButton" name="photo_take_3sec">
+       <property name="geometry">
+        <rect>
+         <x>970</x>
+         <y>370</y>
+         <width>271</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: white;</string>
+       </property>
+       <property name="text">
+        <string>3초 타이머</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="photo_take_10sec">
+       <property name="geometry">
+        <rect>
+         <x>970</x>
+         <y>510</y>
+         <width>271</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: white;</string>
+       </property>
+       <property name="text">
+        <string>10초 타이머</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="photo_prev_button">
+       <property name="geometry">
+        <rect>
+         <x>970</x>
+         <y>700</y>
+         <width>123</width>
+         <height>107</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="photo_home_button">
+       <property name="geometry">
+        <rect>
+         <x>1120</x>
+         <y>700</y>
+         <width>123</width>
+         <height>107</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="photo_widget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>900</width>
+         <height>900</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;border-radius:80;</string>
+       </property>
+       <widget class="QWidget" name="photo_viewfinder" native="true">
+        <property name="geometry">
+         <rect>
+          <x>66</x>
+          <y>66</y>
+          <width>768</width>
+          <height>768</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background:black; border-radius:0;</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="photo_take_now">
+       <property name="geometry">
+        <rect>
+         <x>970</x>
+         <y>230</y>
+         <width>271</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: white;</string>
+       </property>
+       <property name="text">
+        <string>바로 찍기</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="image_page">
