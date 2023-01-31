@@ -82,9 +82,15 @@ public class UserRestController {
         }
 
         @Operation(summary = "닉네임 중복 확인")
-        @GetMapping("/exist/nickname/{nickname}")
-        public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
-            return ResponseEntity.ok(userService.checkNicknameDuplicate(nickname));
+        @GetMapping("/exist/nickname/{userNickname}")
+        public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String userNickname) {
+            return ResponseEntity.ok(userService.checkNicknameDuplicate(userNickname));
+        }
+
+        @Operation(summary = "아이디 중복 확인")
+        @GetMapping("/exist/id/{userId}")
+        public ResponseEntity<Boolean> checkIdDuplicate(@PathVariable String userId) {
+            return ResponseEntity.ok(userService.checkIdDuplicate(userId));
         }
 
 

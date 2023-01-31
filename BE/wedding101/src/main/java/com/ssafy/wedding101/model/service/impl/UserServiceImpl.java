@@ -43,14 +43,18 @@ public class UserServiceImpl implements UserService {
     public void removeUser(UserDto userDto) {
         User user = userRepository.findById(userDto.getUserSeq()).orElseThrow();
         user.updateIsValid();
-        userRepository.save(user);
+//        userRepository.save(usear);
     }
 
     @Override
-    public boolean checkNicknameDuplicate(String nickname) {
-        return userRepository.existsByUserNickname(nickname);
+    public boolean checkNicknameDuplicate(String userNickname) {
+        return userRepository.existsByUserNickname(userNickname);
     }
 
+    @Override
+    public boolean checkIdDuplicate(String userId) {
+        return userRepository.existsByUserId(userId);
+    }
 
     @Override
     public void modifyUser(UserDto userDto) {
@@ -61,6 +65,6 @@ public class UserServiceImpl implements UserService {
                 userDto.getUserName(),
                 userDto.getUserNickname(),
                 userDto.getUserEmail());
-        userRepository.save(user);
+//        userRepository.save(user);
     }
 }
