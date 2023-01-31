@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>958</height>
+    <width>1276</width>
+    <height>951</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <string notr="true">background: #FFF3C8;</string>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -1060,73 +1060,307 @@ border-radius: 80px;</string>
        <property name="midLineWidth">
         <number>10</number>
        </property>
+       <widget class="QVideoWidget" name="thanks_video_screen" native="true">
+        <property name="geometry">
+         <rect>
+          <x>149</x>
+          <y>170</y>
+          <width>854</width>
+          <height>480</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background:black;
+border-radius:0;</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="thanks_title">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>50</y>
+          <width>600</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>40</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Thank you for visiting us</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="thanks_next_button">
+        <property name="geometry">
+         <rect>
+          <x>376</x>
+          <y>700</y>
+          <width>400</width>
+          <height>133</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>48</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background:#FFAB7C;
+border-radius: 25;
+color: white;
+</string>
+        </property>
+        <property name="text">
+         <string>넘어가기</string>
+        </property>
+       </widget>
+       <widget class="QSlider" name="thanks_slider">
+        <property name="geometry">
+         <rect>
+          <x>149</x>
+          <y>652</y>
+          <width>854</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="mode_select_page">
-      <widget class="QPushButton" name="mode_select_home_button">
+     <widget class="QWidget" name="select_page">
+      <widget class="QPushButton" name="select_home_button">
        <property name="geometry">
         <rect>
-         <x>480</x>
-         <y>260</y>
-         <width>75</width>
-         <height>24</height>
+         <x>1115</x>
+         <y>580</y>
+         <width>123</width>
+         <height>107</height>
         </rect>
        </property>
        <property name="text">
-        <string>Home</string>
+        <string/>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="mode_select_image_button">
+      <widget class="QLabel" name="select_title">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>380</y>
-         <width>75</width>
-         <height>24</height>
+         <x>200</x>
+         <y>40</y>
+         <width>700</width>
+         <height>90</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>36</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Image</string>
+        <string>선호하는 방식을 선택해 주세요</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="mode_select_label">
+      <widget class="QPushButton" name="select_prev_button">
        <property name="geometry">
         <rect>
-         <x>260</x>
-         <y>180</y>
-         <width>101</width>
-         <height>31</height>
+         <x>1115</x>
+         <y>740</y>
+         <width>123</width>
+         <height>107</height>
         </rect>
        </property>
        <property name="text">
-        <string>mode select</string>
+        <string/>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="mode_select_video_button">
+      <widget class="QWidget" name="select_pic_widget" native="true">
        <property name="geometry">
         <rect>
-         <x>370</x>
-         <y>380</y>
-         <width>75</width>
-         <height>24</height>
+         <x>40</x>
+         <y>160</y>
+         <width>500</width>
+         <height>750</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Video</string>
+       <property name="styleSheet">
+        <string notr="true">background: white; border-radius: 50px;</string>
        </property>
+       <widget class="QPushButton" name="select_pic_button">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>620</y>
+          <width>300</width>
+          <height>100</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>40</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: #FFAB7C;
+border-radius: 25px;
+color: white;</string>
+        </property>
+        <property name="text">
+         <string>사진 찍기</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="select_sample_img1">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>40</y>
+          <width>420</width>
+          <height>550</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="select_sample_opac1">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>40</y>
+          <width>420</width>
+          <height>550</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(128, 128, 128, 128);
+color:white;
+border-radius:0;</string>
+        </property>
+        <property name="text">
+         <string>사진을 찍고
+손글씨로
+축하 메시지를
+전해주세요</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </widget>
-      <widget class="QPushButton" name="mode_select_prev_button">
+      <widget class="QWidget" name="select_vid_widget" native="true">
        <property name="geometry">
         <rect>
-         <x>480</x>
-         <y>310</y>
-         <width>75</width>
-         <height>24</height>
+         <x>560</x>
+         <y>160</y>
+         <width>500</width>
+         <height>750</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Prev</string>
+       <property name="styleSheet">
+        <string notr="true">background: white; border-radius: 50px;</string>
        </property>
+       <widget class="QPushButton" name="select_vid_button">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>620</y>
+          <width>300</width>
+          <height>100</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>40</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: #FFAB7C;
+border-radius: 25px;
+color: white;</string>
+        </property>
+        <property name="text">
+         <string>영상 찍기</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="select_sample_img2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>40</y>
+          <width>420</width>
+          <height>550</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="select_sample_opac2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>40</y>
+          <width>420</width>
+          <height>550</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(128, 128, 128, 128);
+color:white;
+border-radius:0;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;영상 편지로&lt;/p&gt;&lt;p&gt;축하하는 마음을&lt;/p&gt;&lt;p&gt;전해주세요&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="image_page">
@@ -1269,6 +1503,14 @@ border-radius: 80px;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QVideoWidget</class>
+   <extends>QWidget</extends>
+   <header>PySide6.QtMultimediaWidgets</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -1320,14 +1562,14 @@ border-radius: 80px;</string>
    </hints>
   </connection>
   <connection>
-   <sender>mode_select_image_button</sender>
+   <sender>select_pic_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
    <slot>go_next_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>396</y>
+     <x>197</x>
+     <y>796</y>
     </hint>
     <hint type="destinationlabel">
      <x>640</x>
@@ -1336,14 +1578,14 @@ border-radius: 80px;</string>
    </hints>
   </connection>
   <connection>
-   <sender>mode_select_home_button</sender>
+   <sender>select_home_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
    <slot>go_home_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>552</x>
-     <y>279</y>
+     <x>1182</x>
+     <y>599</y>
     </hint>
     <hint type="destinationlabel">
      <x>640</x>
@@ -1384,30 +1626,14 @@ border-radius: 80px;</string>
    </hints>
   </connection>
   <connection>
-   <sender>mode_select_video_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>414</x>
-     <y>406</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>651</x>
-     <y>431</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>mode_select_prev_button</sender>
+   <sender>select_prev_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
    <slot>go_prev_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>526</x>
-     <y>330</y>
+     <x>1156</x>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
      <x>639</x>
@@ -1507,7 +1733,7 @@ border-radius: 80px;</string>
     </hint>
     <hint type="destinationlabel">
      <x>644</x>
-     <y>-9</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -1523,7 +1749,7 @@ border-radius: 80px;</string>
     </hint>
     <hint type="destinationlabel">
      <x>1103</x>
-     <y>-12</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -1539,7 +1765,23 @@ border-radius: 80px;</string>
     </hint>
     <hint type="destinationlabel">
      <x>1064</x>
-     <y>-7</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>thanks_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_next_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>796</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>730</x>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
