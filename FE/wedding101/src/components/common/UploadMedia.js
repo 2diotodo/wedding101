@@ -1,11 +1,11 @@
-import './UploadImage.css';
+import './UploadMedia.css';
 
 import UploadIcon from '@mui/icons-material/Upload';
 import { Button, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 
-function UploadImage() {
+function UploadMedia() {
     const [filePreview, setFilePreview] = useState('');
     const [fileMedia, setFileMedia] = useState('');
     
@@ -120,4 +120,4 @@ function UploadImage() {
         </div>
     );
 }
-export default UploadImage;
+export default UploadMedia;

@@ -1,6 +1,6 @@
 import './AlbumCover.css';
 
-import UploadImage from '../../components/common/UploadImage';
+import UploadMedia from '../../components/common/UploadMedia';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 function AlbumCover(){
@@ -12,7 +12,10 @@ function AlbumCover(){
                 </Grid2>
                 <Grid2 lg={8} sm={10}>
                     <div className='upload-media'>
-                    <UploadImage/>
+                    <UploadMedia/>
+                    <div>
+                        
+                    </div>
                     </div>
                 </Grid2>
             </Grid2>
