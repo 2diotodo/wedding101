@@ -46,6 +46,7 @@ public interface InfoService {
                 .groomMotherIsAlive(infoDto.isGroomMotherIsAlive())
                 .brideFatherIsAlive(infoDto.isBrideFatherIsAlive())
                 .brideMotherIsAlive(infoDto.isBrideMotherIsAlive())
+                .isValid(true)
                 .build();
     }
 
