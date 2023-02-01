@@ -1,6 +1,7 @@
 package com.ssafy.wedding101.model.service.impl;
 
 import com.ssafy.wedding101.model.dto.AlbumDto;
+import com.ssafy.wedding101.model.entity.Album;
 import com.ssafy.wedding101.model.repository.AlbumRepository;
 import com.ssafy.wedding101.model.service.AlbumService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public void removeAlbum(Long albumSeq) {
-
+        Album album = albumRepository.findById(albumSeq).orElseThrow();
+        album.updateIsValid();
     }
 
     @Override
