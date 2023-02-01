@@ -21,6 +21,7 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long infoSeq;
 
+//    @Id // 식별관계 어케해욤
     @ManyToOne
     @JoinColumn(name = "user_seq", updatable = false, insertable = false)
     private User user;

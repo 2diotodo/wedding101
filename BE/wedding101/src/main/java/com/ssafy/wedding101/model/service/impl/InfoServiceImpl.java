@@ -50,4 +50,9 @@ public class InfoServiceImpl implements InfoService {
                 infoDto.isGroomMotherIsAlive(), infoDto.isBrideFatherIsAlive(), infoDto.isBrideMotherIsAlive());
 
     }
+
+    @Override
+    public Long getInfoSeqByUserSeq(Long userSeq) {
+        return infoRepository.findByUserSeq(userSeq).orElseThrow().getInfoSeq();
+    }
 }
