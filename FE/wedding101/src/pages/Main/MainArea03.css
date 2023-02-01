@@ -2,6 +2,12 @@
   background-color: #d2dae9;
   height: 100vh;
 }
+.album-form {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 img {
   display: flex;
   object-fit: scale-down;

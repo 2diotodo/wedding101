@@ -3,9 +3,9 @@ import './InvitationProcess01.css';
 
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import {Button} from '@mui/material/';
-import ProgressBar from '../common/ProgressBar';
 import Slider from 'react-slick';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
+import ProgressBar from '../../components/common/ProgressBar';
 
 const InvitationProcess01 = () => {
     const settings = {
