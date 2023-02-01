@@ -8,15 +8,15 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide2.QtMultimediaWidgets import QVideoWidget
-from PySide2.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+from PySide6.QtMultimediaWidgets import QVideoWidget
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QSlider, QSpacerItem, QStackedWidget,
     QTextBrowser, QVBoxLayout, QWidget)
@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1276, 951)
+        Form.resize(1280, 956)
         Form.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setSpacing(0)
@@ -71,7 +71,7 @@ class Ui_Form(object):
         self.home_frame = QFrame(self.home_page)
         self.home_frame.setObjectName(u"home_frame")
         self.home_frame.setGeometry(QRect(64, 48, 1152, 864))
-        self.home_frame.setStyleSheet(u"background:white;border-radius:100px;")
+        self.home_frame.setStyleSheet(u"background:#FFFFFF;border-radius:100px;")
         self.home_frame.setFrameShape(QFrame.StyledPanel)
         self.home_frame.setFrameShadow(QFrame.Raised)
         self.home_next_button = QPushButton(self.home_frame)
@@ -81,7 +81,7 @@ class Ui_Form(object):
         font1.setPointSize(48)
         font1.setBold(True)
         self.home_next_button.setFont(font1)
-        self.home_next_button.setStyleSheet(u"background: #FFAB7C;color: white;border-radius:50px;")
+        self.home_next_button.setStyleSheet(u"background: #FFAB7C;color: #FFFFFF;border-radius:50px;")
         self.home_background = QLabel(self.home_frame)
         self.home_background.setObjectName(u"home_background")
         self.home_background.setGeometry(QRect(58, 90, 1036, 411))
@@ -277,7 +277,7 @@ class Ui_Form(object):
         self.input_name_edit.setSizePolicy(sizePolicy1)
         self.input_name_edit.setFont(font10)
         self.input_name_edit.setFocusPolicy(Qt.ClickFocus)
-        self.input_name_edit.setStyleSheet(u"background:#FFAB7C;color:white;\n"
+        self.input_name_edit.setStyleSheet(u"background:#FFAB7C;color:#FFFFFF;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;")
         self.input_name_edit.setAlignment(Qt.AlignCenter)
@@ -317,37 +317,10 @@ class Ui_Form(object):
         font11.setPointSize(36)
         font11.setBold(True)
         self.input_relation_combo.setFont(font11)
-        self.input_relation_combo.setStyleSheet(u"#input_relation_combo{\n"
-"background:#FFAB7C; color:white;\n"
+        self.input_relation_combo.setStyleSheet(u"background:#FFAB7C; color:#FFFFFF;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;\n"
-"padding-left:80px;\n"
-"}\n"
-"\n"
-"#input_relation_combo::on{\n"
-"border: 3px solid red;\n"
-"}\n"
-"\n"
-"#input_relation_combo::drop-down{\n"
-"border:0;\n"
-"}\n"
-"\n"
-"\n"
-"#input_relation_combo QListView{\n"
-"background:#FFAB7C;\n"
-"color:white;\n"
-"border:3px solid brown;\n"
-"border-radius:0;\n"
-"}\n"
-"\n"
-"#input_relation_combo QListView::item{\n"
-"\n"
-"}\n"
-"\n"
-"#input_relation_combo QListView::item::hover{\n"
-"background:#white;\n"
-"color:#A55252\n"
-"}")
+"padding-left:80px;")
         self.input_relation_combo.setIconSize(QSize(16, 16))
         self.input_relation_combo.setFrame(True)
 
@@ -380,7 +353,7 @@ class Ui_Form(object):
         self.input_receiver_combo.setSizePolicy(sizePolicy1)
         self.input_receiver_combo.setFont(font11)
         self.input_receiver_combo.setStyleSheet(u"#input_receiver_combo{\n"
-"background:#FFAB7C; color:white;\n"
+"background:#FFAB7C; color:#FFFFFF;\n"
 "border-radius: 20px;\n"
 "border: 3px solid brown;\n"
 "padding-left:80px;\n"
@@ -397,7 +370,7 @@ class Ui_Form(object):
 "\n"
 "#input_receiver_combo QListView{\n"
 "background:#FFAB7C;\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border:3px solid brown;\n"
 "border-radius:0;\n"
 "}\n"
@@ -407,7 +380,7 @@ class Ui_Form(object):
 "}\n"
 "\n"
 "#input_receiver_combo QListView::item::hover{\n"
-"background:#white;\n"
+"background:#FFFFFF;\n"
 "color:#A55252\n"
 "}")
         self.input_receiver_combo.setEditable(False)
@@ -454,7 +427,7 @@ class Ui_Form(object):
         self.thanks_next_button.setFont(font1)
         self.thanks_next_button.setStyleSheet(u"background:#FFAB7C;\n"
 "border-radius: 25;\n"
-"color: white;\n"
+"color: #FFFFFF;\n"
 "")
         self.thanks_slider = QSlider(self.thanks_frame)
         self.thanks_slider.setObjectName(u"thanks_slider")
@@ -479,14 +452,14 @@ class Ui_Form(object):
         self.select_pic_widget = QWidget(self.select_page)
         self.select_pic_widget.setObjectName(u"select_pic_widget")
         self.select_pic_widget.setGeometry(QRect(40, 160, 500, 750))
-        self.select_pic_widget.setStyleSheet(u"background: white; border-radius: 50px;")
+        self.select_pic_widget.setStyleSheet(u"background: #FFFFFF; border-radius: 50px;")
         self.select_pic_button = QPushButton(self.select_pic_widget)
         self.select_pic_button.setObjectName(u"select_pic_button")
         self.select_pic_button.setGeometry(QRect(100, 620, 300, 100))
         self.select_pic_button.setFont(font10)
         self.select_pic_button.setStyleSheet(u"background: #FFAB7C;\n"
 "border-radius: 25px;\n"
-"color: white;")
+"color: #FFFFFF;")
         self.select_sample_img1 = QLabel(self.select_pic_widget)
         self.select_sample_img1.setObjectName(u"select_sample_img1")
         self.select_sample_img1.setGeometry(QRect(40, 40, 420, 550))
@@ -501,20 +474,20 @@ class Ui_Form(object):
         self.select_sample_opac1.setGeometry(QRect(40, 40, 420, 550))
         self.select_sample_opac1.setFont(font12)
         self.select_sample_opac1.setStyleSheet(u"background-color: rgba(128, 128, 128, 128);\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border-radius:0;")
         self.select_sample_opac1.setAlignment(Qt.AlignCenter)
         self.select_vid_widget = QWidget(self.select_page)
         self.select_vid_widget.setObjectName(u"select_vid_widget")
         self.select_vid_widget.setGeometry(QRect(560, 160, 500, 750))
-        self.select_vid_widget.setStyleSheet(u"background: white; border-radius: 50px;")
+        self.select_vid_widget.setStyleSheet(u"background: #FFFFFF; border-radius: 50px;")
         self.select_vid_button = QPushButton(self.select_vid_widget)
         self.select_vid_button.setObjectName(u"select_vid_button")
         self.select_vid_button.setGeometry(QRect(100, 620, 300, 100))
         self.select_vid_button.setFont(font10)
         self.select_vid_button.setStyleSheet(u"background: #FFAB7C;\n"
 "border-radius: 25px;\n"
-"color: white;")
+"color: #FFFFFF;")
         self.select_sample_img2 = QLabel(self.select_vid_widget)
         self.select_sample_img2.setObjectName(u"select_sample_img2")
         self.select_sample_img2.setGeometry(QRect(40, 40, 420, 550))
@@ -524,46 +497,93 @@ class Ui_Form(object):
         self.select_sample_opac2.setGeometry(QRect(40, 40, 420, 550))
         self.select_sample_opac2.setFont(font12)
         self.select_sample_opac2.setStyleSheet(u"background-color: rgba(128, 128, 128, 128);\n"
-"color:white;\n"
+"color:#FFFFFF;\n"
 "border-radius:0;")
         self.select_sample_opac2.setAlignment(Qt.AlignCenter)
         self.stackedWidget.addWidget(self.select_page)
+        self.photo_page = QWidget()
+        self.photo_page.setObjectName(u"photo_page")
+        self.photo_take_3sec = QPushButton(self.photo_page)
+        self.photo_take_3sec.setObjectName(u"photo_take_3sec")
+        self.photo_take_3sec.setGeometry(QRect(970, 370, 271, 91))
+        self.photo_take_3sec.setFont(font7)
+        self.photo_take_3sec.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: #FFFFFF;")
+        self.photo_take_10sec = QPushButton(self.photo_page)
+        self.photo_take_10sec.setObjectName(u"photo_take_10sec")
+        self.photo_take_10sec.setGeometry(QRect(970, 510, 271, 91))
+        self.photo_take_10sec.setFont(font7)
+        self.photo_take_10sec.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: #FFFFFF;")
+        self.photo_prev_button = QPushButton(self.photo_page)
+        self.photo_prev_button.setObjectName(u"photo_prev_button")
+        self.photo_prev_button.setGeometry(QRect(970, 700, 123, 107))
+        self.photo_home_button = QPushButton(self.photo_page)
+        self.photo_home_button.setObjectName(u"photo_home_button")
+        self.photo_home_button.setGeometry(QRect(1120, 700, 123, 107))
+        self.photo_widget = QWidget(self.photo_page)
+        self.photo_widget.setObjectName(u"photo_widget")
+        self.photo_widget.setGeometry(QRect(30, 30, 900, 900))
+        self.photo_widget.setStyleSheet(u"background: #FFFFFF;border-radius:80;")
+        self.photo_viewfinder = QWidget(self.photo_widget)
+        self.photo_viewfinder.setObjectName(u"photo_viewfinder")
+        self.photo_viewfinder.setGeometry(QRect(66, 66, 768, 768))
+        self.photo_viewfinder.setStyleSheet(u"background:black; border-radius:0;")
+        self.photo_take_now = QPushButton(self.photo_page)
+        self.photo_take_now.setObjectName(u"photo_take_now")
+        self.photo_take_now.setGeometry(QRect(970, 230, 271, 91))
+        self.photo_take_now.setFont(font7)
+        self.photo_take_now.setStyleSheet(u"background: #FFAB7C;border-radius:25px; color: #FFFFFF;")
+        self.stackedWidget.addWidget(self.photo_page)
         self.image_page = QWidget()
         self.image_page.setObjectName(u"image_page")
         self.image_next_button = QPushButton(self.image_page)
         self.image_next_button.setObjectName(u"image_next_button")
-        self.image_next_button.setGeometry(QRect(470, 410, 75, 24))
+        self.image_next_button.setGeometry(QRect(440, 360, 75, 24))
         self.image_home_button = QPushButton(self.image_page)
         self.image_home_button.setObjectName(u"image_home_button")
-        self.image_home_button.setGeometry(QRect(530, 320, 75, 24))
+        self.image_home_button.setGeometry(QRect(470, 300, 75, 24))
         self.image_label = QLabel(self.image_page)
         self.image_label.setObjectName(u"image_label")
         self.image_label.setGeometry(QRect(230, 140, 50, 16))
         self.image_prev_button = QPushButton(self.image_page)
         self.image_prev_button.setObjectName(u"image_prev_button")
-        self.image_prev_button.setGeometry(QRect(230, 430, 75, 24))
+        self.image_prev_button.setGeometry(QRect(330, 360, 75, 24))
         self.stackedWidget.addWidget(self.image_page)
         self.video_page = QWidget()
         self.video_page.setObjectName(u"video_page")
         self.video_home_button = QPushButton(self.video_page)
         self.video_home_button.setObjectName(u"video_home_button")
-        self.video_home_button.setGeometry(QRect(1000, 370, 75, 24))
+        self.video_home_button.setGeometry(QRect(790, 150, 75, 24))
         self.video_next_button = QPushButton(self.video_page)
         self.video_next_button.setObjectName(u"video_next_button")
-        self.video_next_button.setGeometry(QRect(1020, 420, 75, 24))
+        self.video_next_button.setGeometry(QRect(760, 410, 75, 24))
         self.video_label = QLabel(self.video_page)
         self.video_label.setObjectName(u"video_label")
-        self.video_label.setGeometry(QRect(630, 50, 50, 16))
+        self.video_label.setGeometry(QRect(610, 20, 50, 16))
         self.video_prev_button = QPushButton(self.video_page)
         self.video_prev_button.setObjectName(u"video_prev_button")
-        self.video_prev_button.setGeometry(QRect(1040, 490, 75, 24))
-        self.video_record_button = QPushButton(self.video_page)
-        self.video_record_button.setObjectName(u"video_record_button")
-        self.video_record_button.setGeometry(QRect(540, 710, 191, 71))
-        self.label = QLabel(self.video_page)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(260, 150, 640, 480))
+        self.video_prev_button.setGeometry(QRect(760, 330, 75, 24))
+        self.video_control_button = QPushButton(self.video_page)
+        self.video_control_button.setObjectName(u"video_control_button")
+        self.video_control_button.setGeometry(QRect(370, 590, 75, 24))
+        self.video_stream = QLabel(self.video_page)
+        self.video_stream.setObjectName(u"video_stream")
+        self.video_stream.setGeometry(QRect(90, 70, 640, 480))
         self.stackedWidget.addWidget(self.video_page)
+        self.video_review_page = QWidget()
+        self.video_review_page.setObjectName(u"video_review_page")
+        self.video_review_prev_button = QPushButton(self.video_review_page)
+        self.video_review_prev_button.setObjectName(u"video_review_prev_button")
+        self.video_review_prev_button.setGeometry(QRect(1010, 440, 75, 24))
+        self.video_review_next_button = QPushButton(self.video_review_page)
+        self.video_review_next_button.setObjectName(u"video_review_next_button")
+        self.video_review_next_button.setGeometry(QRect(1010, 500, 75, 24))
+        self.video_review_home_button = QPushButton(self.video_review_page)
+        self.video_review_home_button.setObjectName(u"video_review_home_button")
+        self.video_review_home_button.setGeometry(QRect(1020, 370, 75, 24))
+        self.widget = QVideoWidget(self.video_review_page)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(70, 130, 640, 480))
+        self.stackedWidget.addWidget(self.video_review_page)
         self.end_page = QWidget()
         self.end_page.setObjectName(u"end_page")
         self.end_home_button = QPushButton(self.end_page)
@@ -584,7 +604,6 @@ class Ui_Form(object):
         self.select_pic_button.clicked.connect(Form.go_next_page)
         self.select_home_button.clicked.connect(Form.go_home_page)
         self.video_home_button.clicked.connect(Form.go_home_page)
-        self.video_next_button.clicked.connect(Form.go_end_page)
         self.select_prev_button.clicked.connect(Form.go_prev_page)
         self.video_prev_button.clicked.connect(Form.go_prev_page)
         self.image_prev_button.clicked.connect(Form.go_prev_page)
@@ -596,9 +615,15 @@ class Ui_Form(object):
         self.input_next_button.clicked.connect(Form.check_input)
         self.thanks_next_button.clicked.connect(Form.go_next_page)
         self.select_vid_button.clicked.connect(Form.go_next_page)
-        self.video_record_button.clicked.connect(Form.record_video)
+        self.video_review_home_button.clicked.connect(Form.go_home_page)
+        self.video_review_prev_button.clicked.connect(Form.go_prev_page)
+        self.video_review_next_button.clicked.connect(Form.go_next_page)
+        self.video_control_button.clicked.connect(Form.record_control)
+        self.video_next_button.clicked.connect(Form.go_next_page)
+        self.photo_prev_button.clicked.connect(Form.go_prev_page)
+        self.photo_home_button.clicked.connect(Form.go_home_page)
 
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(9)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -670,7 +695,7 @@ class Ui_Form(object):
         self.input_title.setText(QCoreApplication.translate("Form", u"\uc815\ubcf4\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694", None))
         self.input_label1.setText(QCoreApplication.translate("Form", u"\uc774\ub984 :", None))
         self.input_name_edit.setText("")
-        # self.input_name_edit.setPlaceholderText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
+        self.input_name_edit.setPlaceholderText(QCoreApplication.translate("Form", u"\uc785\ub825\ud558\uae30", None))
         self.input_label2.setText(QCoreApplication.translate("Form", u"\uad00\uacc4 :", None))
         self.input_relation_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_relation_combo.setItemText(1, QCoreApplication.translate("Form", u"\uac00\uc871", None))
@@ -679,14 +704,12 @@ class Ui_Form(object):
         self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
         self.input_relation_combo.setItemText(5, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
 
-        self.input_relation_combo.setCurrentText("")
-        # self.input_relation_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        self.input_relation_combo.setCurrentText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_label3.setText(QCoreApplication.translate("Form", u"\ub300\uc0c1 :", None))
         self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
         self.input_receiver_combo.setItemText(2, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
 
-        # self.input_receiver_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_home_button.setText("")
         self.input_next_button.setText("")
         self.thanks_title.setText(QCoreApplication.translate("Form", u"Thank you for visiting us", None))
@@ -703,6 +726,11 @@ class Ui_Form(object):
         self.select_vid_button.setText(QCoreApplication.translate("Form", u"\uc601\uc0c1 \ucc0d\uae30", None))
         self.select_sample_img2.setText("")
         self.select_sample_opac2.setText(QCoreApplication.translate("Form", u"<html><head/><body><p>\uc601\uc0c1 \ud3b8\uc9c0\ub85c</p><p>\ucd95\ud558\ud558\ub294 \ub9c8\uc74c\uc744</p><p>\uc804\ud574\uc8fc\uc138\uc694</p></body></html>", None))
+        self.photo_take_3sec.setText(QCoreApplication.translate("Form", u"3\ucd08 \ud0c0\uc774\uba38", None))
+        self.photo_take_10sec.setText(QCoreApplication.translate("Form", u"10\ucd08 \ud0c0\uc774\uba38", None))
+        self.photo_prev_button.setText(QCoreApplication.translate("Form", u"prev", None))
+        self.photo_home_button.setText(QCoreApplication.translate("Form", u"home", None))
+        self.photo_take_now.setText(QCoreApplication.translate("Form", u"\ubc14\ub85c \ucc0d\uae30", None))
         self.image_next_button.setText(QCoreApplication.translate("Form", u"Next", None))
         self.image_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.image_label.setText(QCoreApplication.translate("Form", u"image", None))
@@ -711,8 +739,11 @@ class Ui_Form(object):
         self.video_next_button.setText(QCoreApplication.translate("Form", u"Next", None))
         self.video_label.setText(QCoreApplication.translate("Form", u"video", None))
         self.video_prev_button.setText(QCoreApplication.translate("Form", u"Prev", None))
-        self.video_record_button.setText(QCoreApplication.translate("Form", u"Record", None))
-        self.label.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.video_control_button.setText(QCoreApplication.translate("Form", u"Record", None))
+        self.video_stream.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.video_review_prev_button.setText(QCoreApplication.translate("Form", u"Retry", None))
+        self.video_review_next_button.setText(QCoreApplication.translate("Form", u"Submit", None))
+        self.video_review_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.end_home_button.setText(QCoreApplication.translate("Form", u"Home", None))
         self.end_label.setText(QCoreApplication.translate("Form", u"Thank you", None))
     # retranslateUi
