@@ -17,7 +17,7 @@ public class AlbumServiceImpl implements AlbumService {
     private final AlbumRepository albumRepository;
     @Override
     public Optional<AlbumDto> getAlbum(Long albumSeq) {
-        return Optional.empty();
+        return Optional.ofNullable(toDto(albumRepository.findById(albumSeq).orElseThrow()));
     }
 
     @Override
@@ -39,7 +39,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public void modifyAlbum(AlbumDto albumDto) {
-
+        Album album = albumRepository.findById(albumDto.getAlbumSeq()).orElseThrow();
+        album.update(albumDto.getAlbumName(), albumDto.getAlbumColor(), albumDto.getAlbumPhotoUrl());
     }
 
     @Override

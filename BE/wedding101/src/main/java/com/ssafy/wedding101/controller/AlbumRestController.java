@@ -3,8 +3,6 @@ package com.ssafy.wedding101.controller;
 import com.ssafy.wedding101.model.dto.AlbumDto;
 import com.ssafy.wedding101.model.service.AlbumService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +36,14 @@ public class AlbumRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
+    }
+
+    @Operation(summary = "앨범 수정")
+    @PutMapping("")
+    public ResponseEntity<AlbumDto> modifyAlbum(@RequestBody AlbumDto albumDto) {
+        albumService.modifyAlbum(albumDto);
+        AlbumDto albumDtoAfter = albumService.getAlbum(albumDto.getAlbumSeq()).orElseThrow();
+        return new ResponseEntity<>(albumDtoAfter, HttpStatus.OK);
     }
 
 
