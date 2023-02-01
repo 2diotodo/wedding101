@@ -3,6 +3,8 @@ from QT_screens_code.chk_Dialog import Ui_chk_Dialog
 
 import importlib.util
 spec = importlib.util.find_spec("PySide2")
+
+VERSION = "DEVELOP"
 if spec is None:
     from PySide6.QtWidgets import *
     from PySide6.QtCore import *
@@ -10,6 +12,7 @@ if spec is None:
     from PySide6.QtMultimedia import *
     from PySide6.QtMultimediaWidgets import *
 else:
+    VERSION = "RELEASE"
     from PySide2.QtWidgets import *
     from PySide2.QtCore import *
     from PySide2.QtGui import *
@@ -25,15 +28,13 @@ class CheckDialog(QDialog, Ui_chk_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.show()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.chk_widget.setGraphicsEffect(QGraphicsDropShadowEffect(
-            offset=QPoint(2, 8), blurRadius=25, color=QColor("#333")
-        ))
 
     def show_dialog(self):
-        return super().exec()
+        if VERSION == "DEVELOP":
+            return super().exec()
+        elif VERSION == "RELEASE":
+            return super().exec_()
 
 
 class MyApp(QWidget, Ui_Form):
@@ -47,7 +48,9 @@ class MyApp(QWidget, Ui_Form):
         # set class functions
         self.setupUi(self)
         self.media_player = QMediaPlayer()
-        self.audio_output = QAudioOutput()
+        self.audio_output = None
+        if VERSION == "DEVELOP":
+            self.audio_output = QAudioOutput()
         self.camera = None
         self.image_capture = None
         self.available_cameras = QMediaDevices.videoInputs()
@@ -55,7 +58,7 @@ class MyApp(QWidget, Ui_Form):
             self.camera = QCamera(self.available_cameras[0])
             self.image_capture = QImageCapture(self.camera)
 
-        self.stackedWidget.setCurrentIndex(0)
+        # self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -127,11 +130,15 @@ class MyApp(QWidget, Ui_Form):
 
     def set_thanks(self):
         self.thanks_title.setFont(QFont('Playfair Display', 40))
-        self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
+        if VERSION == "DEVELOP":
+            self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
+            self.media_player.setAudioOutput(self.audio_output)
+            self.audio_output.setVolume(80)
+        elif VERSION == "RELEASE":
+            media = QMediaContent(QUrl.fromLocalFile("QT_Resources/Videos/sample_video.mkv"))
+            self.media_player.setMedia(media)
         self.media_player.setVideoOutput(self.thanks_video_screen)
         self.thanks_video_screen.show()
-        self.media_player.setAudioOutput(self.audio_output)
-        self.audio_output.setVolume(80)
 
     def set_select(self):
         self.select_home_button.setIcon(self.home_icon2)
@@ -256,4 +263,7 @@ app.setApplicationName("Wed101")
 win = MyApp()
 win.show()
 
-app.exec()
+if VERSION == "DEVELOP":
+    app.exec()
+elif VERSION == "RELEASE":
+    app.exec_()

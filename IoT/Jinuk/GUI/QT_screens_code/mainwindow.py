@@ -622,7 +622,7 @@ class Ui_Form(object):
         self.input_next_button.clicked.connect(Form.check_input)
         self.thanks_next_button.clicked.connect(Form.go_next_page)
 
-        self.stackedWidget.setCurrentIndex(7)
+        self.stackedWidget.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -703,14 +703,12 @@ class Ui_Form(object):
         self.input_relation_combo.setItemText(4, QCoreApplication.translate("Form", u"\ub3d9\ub8cc", None))
         self.input_relation_combo.setItemText(5, QCoreApplication.translate("Form", u"\uc9c0\uc778", None))
 
-        self.input_relation_combo.setCurrentText("")
-        self.input_relation_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
+        self.input_relation_combo.setCurrentText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_label3.setText(QCoreApplication.translate("Form", u"\ub300\uc0c1 :", None))
         self.input_receiver_combo.setItemText(0, QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_receiver_combo.setItemText(1, QCoreApplication.translate("Form", u"\uc2e0\ub791", None))
         self.input_receiver_combo.setItemText(2, QCoreApplication.translate("Form", u"\uc2e0\ubd80", None))
 
-        self.input_receiver_combo.setPlaceholderText(QCoreApplication.translate("Form", u"\ub20c\ub7ec\uc11c \uc120\ud0dd", None))
         self.input_home_button.setText("")
         self.input_next_button.setText("")
         self.thanks_title.setText(QCoreApplication.translate("Form", u"Thank you for visiting us", None))
