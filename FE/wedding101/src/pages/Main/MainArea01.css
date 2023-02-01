@@ -4,10 +4,13 @@
 }
 .container {
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 img {
-  display: flex;
+  
   object-fit: scale-down;
 }
 .goServiceButton {

@@ -23,7 +23,7 @@ function UserInvitation(){
 
     return(
         <div className="user-invitation">
-            <Grid2 container spacing={3}>
+            <Grid2 container spacing={2}>
                  <Grid2 lg={3} sm={2}>
                     <h1>Mobile Invitation</h1>
                 </Grid2>
