@@ -3,6 +3,8 @@ package com.ssafy.wedding101.model.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Table(name = "tbl_info")
 @Getter
 @NoArgsConstructor
+@DynamicInsert
 public class Info {
 
     @Id
@@ -98,6 +101,7 @@ public class Info {
     private boolean brideMotherIsAlive;
 
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
+    @ColumnDefault("true")
     private boolean isValid;
 
     @Builder

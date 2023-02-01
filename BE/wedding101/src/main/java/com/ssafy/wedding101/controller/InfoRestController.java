@@ -52,7 +52,11 @@ public class InfoRestController {
     @Operation(summary = "결혼정보 삭제")
     @GetMapping("/delete/{infoSeq}")
     public ResponseEntity<?> deleteInfo(@PathVariable Long infoSeq) {
-        infoService.removeInfo(infoSeq);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            infoService.removeInfo(infoSeq);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
     }
 }
