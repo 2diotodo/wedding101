@@ -53,11 +53,11 @@ function RegistForm() {
             nickname: nickname,
             email: email,
         }).then(function (response) {
-            if(response.data.code == 0){
+            if(response.data.code === 0){
                 navigate("/user/login");
             }else {
                 let message = response.data.message;
-                if(response.data.code == 10000){
+                if(response.data.code === 10000){
                     message = "User ID is duplicated. Please enter a different User ID"
                 }
             }
@@ -75,6 +75,8 @@ function RegistForm() {
     return (
         <div>
             <h3>회원가입</h3>
+            <form onSubmit={onSubmitHandler} >
+
             <TextField
                 id="id-input" 
                 type="text" 
@@ -144,7 +146,8 @@ function RegistForm() {
                 error={checkEmail()}
                 helperText={checkEmail() ? "유효하지 않은 이메일입니다.":"" } /><br />
 
-                <Button variant="contained" onSubmit={onSubmitHandler}>회원가입</Button><br />
+                <Button variant="contained" type='submit'>회원가입</Button><br />
+                </form>
                 <Button variant="text" onClick={onClickHandler}>로그인 페이지로 이동하기</Button>
         </div>
     );

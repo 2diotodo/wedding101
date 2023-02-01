@@ -1,11 +1,11 @@
-import './UploadMedia.css';
+import './UploadImage.css';
 
 import UploadIcon from '@mui/icons-material/Upload';
 import { Button, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 
-function UploadMedia() {
+function UploadVideo() {
     const [filePreview, setFilePreview] = useState('');
     const [fileMedia, setFileMedia] = useState('');
     
@@ -18,47 +18,17 @@ function UploadMedia() {
         }
         setFileMedia(file);
 
-        if(file.type.includes('image')){
-            const image = new Image();
-            image.src = URL.createObjectURL(file);
-
-            image.onload = () => {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-
-                // 이미지 비율 맞추기
-                const aspectRatio = image.width / image.height;
-                let width = 200;
-                let height = 300;
-
-                if(image.width > image.height) {
-                    if(image.width > 200) {
-                        height = 200 / aspectRatio;
-                    }
-                } else {
-                    if(image.height > 300) {
-                        width = 300 * aspectRatio;
-                    }
-                }
-
-                canvas.width = width;
-                canvas.height = height;
-                context.drawImage(image, 0, 0, width, height);
-
-                setFilePreview(canvas.toDataURL('image/png'));
-            };
-        }else if(file.type.includes('video')){
+        if(file.type.includes('video')){
             
-            setFilePreview(URL.createObjectURL(file));
-    }
-        else {
+                setFilePreview(URL.createObjectURL(file));
+        } else {
             console.error("File type not Supported");
         }
     };
 
     const isValidFile = (file) => {
-        if(file.size > 20*1024*1024){
-            console.error("File size exceeds 20MB");
+        if(file.size > 50*1024*1024){
+            console.error("File size exceeds 50MB");
             return false;
         }
         return true;
@@ -78,7 +48,6 @@ function UploadMedia() {
         let formData = new FormData();
         formData.append("file", fileMedia);
         console.log(formData);
-
         await axios({
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -96,21 +65,13 @@ function UploadMedia() {
     return (
         <div>
             <div className='media-area'>
-                {filePreview && (
-                    <div>
-                    {fileMedia.type.includes('image') ? (
-                    <img src={filePreview} alt="preview" />
-                ) : (
-                    <video controls src={filePreview} />
-                )}
-                </div>
-                )}
+                {fileMedia && <video controls src={filePreview} />}
             </div>
             <IconButton aria-label='upload picture' component="label">
                 <input
                     hidden
                     type="file"
-                    accept='image/*'
+                    accept='video/*'
                     onChange={fileImageHandler}
                     />
                 <UploadIcon fontSize='large' />
@@ -120,4 +81,4 @@ function UploadMedia() {
         </div>
     );
 }
-export default UploadMedia;
+export default UploadVideo;
