@@ -18,6 +18,8 @@ else:
     from PySide2.QtGui import *
     from PySide2.QtMultimedia import *
     from PySide2.QtMultimediaWidgets import *
+    import os
+    os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
 
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
@@ -47,16 +49,18 @@ class MyApp(QWidget, Ui_Form):
 
         # set class functions
         self.setupUi(self)
-        self.media_player = QMediaPlayer()
+        self.media_player = None
         self.audio_output = None
+        self.available_cameras = None
         if VERSION == "DEVELOP":
             self.audio_output = QAudioOutput()
+            self.media_player = QMediaPlayer()
+            self.available_cameras = QMediaDevices.videoInputs()
+            if self.available_cameras:
+                self.camera = QCamera(self.available_cameras[0])
+                self.image_capture = QImageCapture(self.camera)
         self.camera = None
         self.image_capture = None
-        self.available_cameras = QMediaDevices.videoInputs()
-        if self.available_cameras:
-            self.camera = QCamera(self.available_cameras[0])
-            self.image_capture = QImageCapture(self.camera)
 
         # self.stackedWidget.setCurrentIndex(0)
 
@@ -117,14 +121,19 @@ class MyApp(QWidget, Ui_Form):
         self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
     def set_input(self):
-        self.input_page.setStyleSheet("QComboBox:: {text-align: center;}")
         self.input_home_button.setIcon(self.home_icon)
         self.input_home_button.setIconSize(self.home_button_pix.rect().size())
         self.input_next_button.setIcon(self.arrow_icon)
         self.input_next_button.setIconSize(self.arrow_button_pix.rect().size())
-        self.input_page.setStyleSheet("QComboBox::down-arrow{"
-                                      "image:url('QT_Resources/Pics/down_arrow.png')}"
-                                      "QComboBox::drop-down{right:50px;}")
+        self.input_relation_combo.view().setStyleSheet(
+            "QListView{background:#FFAB7C;color:#FFFFFF;border:3px solid brown;border-radius:0;}"
+            "QListView::item:hover{background:#FFFFFF;color:#A55252;}"
+        )
+        self.input_receiver_combo.view().setStyleSheet(
+            "QListView{background:#FFAB7C;color:#FFFFFF;border:3px solid brown;border-radius:0;}"
+            "QListView::item:hover{background:#FFFFFF;color:#A55252;}"
+        )
+
         self.input_relation_combo.currentIndexChanged.connect(self.select_relation)
         self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
