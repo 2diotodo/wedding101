@@ -28,7 +28,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public void writeAlbum(AlbumDto albumDto) {
-
+        albumRepository.save(toEntity(albumDto));
     }
 
     @Override
