@@ -19,6 +19,7 @@ else:
     from PySide2.QtMultimedia import *
     from PySide2.QtMultimediaWidgets import *
     import os
+    import picamera
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
 
@@ -49,19 +50,23 @@ class MyApp(QWidget, Ui_Form):
 
         # set class functions
         self.setupUi(self)
-        self.media_player = None
+        self.media_player = QMediaPlayer()
         self.audio_output = None
         self.available_cameras = None
+        self.camera = None
+        self.image_capture = None
         if VERSION == "DEVELOP":
             self.audio_output = QAudioOutput()
-            self.media_player = QMediaPlayer()
             self.available_cameras = QMediaDevices.videoInputs()
             if self.available_cameras:
                 self.camera = QCamera(self.available_cameras[0])
                 self.image_capture = QImageCapture(self.camera)
-        self.camera = None
-        self.image_capture = None
-
+        if VERSION == "RELEASE":
+            self.available_cameras = QCameraInfo.availableCameras()
+            if self.available_cameras:
+                self.camera = picamera.PiCamera()
+                self.image_capture = QCameraImageCapture(self.camera)
+        
         # self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources
@@ -133,20 +138,21 @@ class MyApp(QWidget, Ui_Form):
             "QListView{background:#FFAB7C;color:#FFFFFF;border:3px solid brown;border-radius:0;}"
             "QListView::item:hover{background:#FFFFFF;color:#A55252;}"
         )
-
         self.input_relation_combo.currentIndexChanged.connect(self.select_relation)
         self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
     def set_thanks(self):
         self.thanks_title.setFont(QFont('Playfair Display', 40))
+        self.media_player.setVideoOutput(self.thanks_video_screen)
         if VERSION == "DEVELOP":
             self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
             self.media_player.setAudioOutput(self.audio_output)
             self.audio_output.setVolume(80)
         elif VERSION == "RELEASE":
-            media = QMediaContent(QUrl.fromLocalFile("QT_Resources/Videos/sample_video.mkv"))
+            media = QMediaContent(
+                QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/Test/QT_Resources/Videos/sample_video.mkv"))
             self.media_player.setMedia(media)
-        self.media_player.setVideoOutput(self.thanks_video_screen)
+            self.media_player.setVolume(50)
         self.thanks_video_screen.show()
 
     def set_select(self):
@@ -161,7 +167,8 @@ class MyApp(QWidget, Ui_Form):
         cong_gif.start()
 
     def set_photo(self):
-        pass
+        self.photo_take_now.clicked.connect(self.take_photo_now)
+        self.camera.setViewfinder(self.photo_viewfinder)
 
     def setup_pages(self):
         self.set_srvc_chk()
@@ -177,8 +184,6 @@ class MyApp(QWidget, Ui_Form):
         current_page = self.stackedWidget.currentIndex()
         sender = self.sender()
         print(sender)
-        if sender.objectName() == "mode_select_video_button":
-            current_page += 1
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.media_player.stop()
 
@@ -199,9 +204,14 @@ class MyApp(QWidget, Ui_Form):
         self.SenderRelation = 0
         self.SenderReceiver = 0
 
+    def go_photo_page(self):
+        current_page = self.stackedWidget.currentIndex()
+        self.stackedWidget.setCurrentIndex(current_page + 1)
+        self.camera.start()
+
     def go_video_page(self):
         current_page = self.stackedWidget.currentIndex()
-        self.stackedWidget.setCurrentIndex(current_page + 2)
+        self.stackedWidget.setCurrentIndex(current_page + 3)
 
     def go_end_page(self):
         self.stackedWidget.setCurrentIndex(self.stackedWidget.count() - 1)
@@ -210,6 +220,9 @@ class MyApp(QWidget, Ui_Form):
         pass
 
     def record_stop(self):
+        pass
+
+    def record_control(self):
         pass
 
     def close_window(self):
@@ -264,6 +277,11 @@ class MyApp(QWidget, Ui_Form):
     def select_receiver(self):
         self.SenderReceiver = self.input_receiver_combo.currentIndex()
         print(self.SenderReceiver)
+
+    def take_photo_now(self):
+        print("photo now")
+        self.image_capture.capture("/home/pi/Desktop/test.jpg")
+        self.camera.unlock()
 
 
 app = QApplication()
