@@ -1,10 +1,52 @@
 package com.ssafy.wedding101.model.service;
 
 import com.ssafy.wedding101.model.dto.MediaDto;
+import com.ssafy.wedding101.model.entity.Media;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public interface MediaService {
     Optional<MediaDto> getMedia(Long mediaSeq);
 
+    List<MediaDto> getAllMedia(Long albumSeq);
+
+    void writeMedia(MediaDto mediaDto);
+
+    void throwBin(Long mediaSeq);
+
+    void restore(Long mediaSeq);
+
+    void wish(Long mediaSeq);
+
+    void unwish(Long mediaSeq);
+
+    default Media toEntity(MediaDto mediaDto) {
+        return Media.builder()
+                .mediaSeq(mediaDto.getMediaSeq())
+                .storageUrl(mediaDto.getStorageUrl())
+                .onBooth(mediaDto.isOnBooth())
+                .isVideo(mediaDto.isVideo())
+                .mediaName(mediaDto.getMediaName())
+                .mediaRelation(mediaDto.getMediaRelation())
+                .mediaReceiver(mediaDto.isMediaReceiver())
+                .build();
+    }
+
+    default MediaDto toDto(Media media) {
+        return MediaDto.builder()
+                .mediaSeq(media.getMediaSeq())
+                .albumSeq(media.getAlbum().getAlbumSeq())
+                .storageUrl(media.toString())
+                .onBooth(media.isOnBooth())
+                .isVideo(media.isVideo())
+                .mediaName(media.getMediaName())
+                .mediaRelation(media.getMediaRelation())
+                .mediaReceiver(media.isMediaReceiver())
+                .isWish(media.isWish())
+                .isInBin(media.isInBin())
+                .build();
+    }
 }
