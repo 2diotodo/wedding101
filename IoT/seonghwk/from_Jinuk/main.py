@@ -20,6 +20,8 @@ else:
     from PySide2.QtMultimedia import *
     from PySide2.QtMultimediaWidgets import *
     import cv2
+    import os
+    os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
 import pyaudio, wave, threading, time, subprocess, os
 import numpy as np
@@ -29,6 +31,19 @@ from uuid import uuid4
 
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
 receiver_list = ['', 'groom', 'bride']
+
+
+def handleVisibleChanged():
+    if not QGuiApplication.inputMethod().isVisible():
+        return
+    for w in QGuiApplication.allWindows():
+        if w.metaObject().className() == "QtVirtualKeyboard::InputView":
+            keyboard = w.findChild(QObject, "keyboard")
+            if keyboard is not None:
+                r = w.geometry()
+                r.moveTop(keyboard.property("y"))
+                w.setMask(QRegion(r))
+                return
 
 # class VideoRecorder(QThread):
 #     mySignal = Signal(np.ndarray)
@@ -378,14 +393,18 @@ class MyApp(QWidget, Ui_Form):
         self.agreement_checkBox2.stateChanged.connect(self.check_agreement)
 
     def set_input(self):
-        self.input_page.setStyleSheet("QComboBox:: {text-align: center;}")
         self.input_home_button.setIcon(self.home_icon)
         self.input_home_button.setIconSize(self.home_button_pix.rect().size())
         self.input_next_button.setIcon(self.arrow_icon)
         self.input_next_button.setIconSize(self.arrow_button_pix.rect().size())
-        self.input_page.setStyleSheet("QComboBox::down-arrow{"
-                                      "image:url('QT_Resources/Pics/down_arrow.png')}"
-                                      "QComboBox::drop-down{right:50px;}")
+        self.input_relation_combo.view().setStyleSheet(
+            "QListView{background:#FFAB7C;color:#FFFFFF;border:3px solid brown;border-radius:0;}"
+            "QListView::item:hover{background:#FFFFFF;color:#A55252;}"
+        )
+        self.input_receiver_combo.view().setStyleSheet(
+            "QListView{background:#FFAB7C;color:#FFFFFF;border:3px solid brown;border-radius:0;}"
+            "QListView::item:hover{background:#FFFFFF;color:#A55252;}"
+        )
         self.input_relation_combo.currentIndexChanged.connect(self.select_relation)
         self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
@@ -579,14 +598,24 @@ class MyApp(QWidget, Ui_Form):
         self.close()
 
     def set_review_video(self):
-        self.review_player.setVideoOutput(self.widget)
-        media = QMediaContent(QUrl.fromLocalFile(f"/home/pi/A101/IoT/seonghwk/from_Jinuk/{self.name}.avi"))
+        playlist = QMediaPlaylist()
+        url = QUrl.fromLocalFile(f"/home/pi/A101/IoT/seonghwk/from_Jinuk/{self.name}.avi")
+        # playlist.addMedia(QMediaContent(url))
+        # playlist.setPlaybackMode(QMediaPlaylist.Loop)
+
         # media = QMediaContent(QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
 
-        self.review_player.setMedia(media)
-        self.review_player.setVolume(50)
+        # self.review_player.setPlaylist(playlist)
+        self.review_player.setMedia(QMediaContent(url))
+        self.review_player.setVolume(100)
+        self.review_player.setVideoOutput(self.widget)
         self.review_player.play()
-        self.widget.show()
+        # self.widget.show()
+
+
+        player = QMediaPlayer()
+        player.setPlaylist(playlist)
+        player.play()
 
     def check_service_validation(self):
         check_validation_window = CheckDialog()
@@ -647,6 +676,8 @@ class MyApp(QWidget, Ui_Form):
 
 app = QApplication()
 app.setApplicationName("Wed101")
+
+QGuiApplication.inputMethod().visibleChanged.connect(handleVisibleChanged)
 
 win = MyApp()
 win.show()
