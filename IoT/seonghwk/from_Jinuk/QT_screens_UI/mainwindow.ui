@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>956</height>
+    <height>960</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -799,10 +799,9 @@ border: 3px solid brown;</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background:#FFAB7C; color:#FFFFFF;
-border-radius: 20px;
-border: 3px solid brown;
-padding-left:80px;</string>
+              <string notr="true">QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}
+QComboBox::drop-down{right:50px; border:0px;}
+QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}</string>
              </property>
              <property name="currentText">
               <string>눌러서 선택</string>
@@ -905,37 +904,9 @@ padding-left:80px;</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">#input_receiver_combo{
-background:#FFAB7C; color:#FFFFFF;
-border-radius: 20px;
-border: 3px solid brown;
-padding-left:80px;
-}
-
-#input_receiver_combo::on{
-border: 3px solid red;
-}
-
-#input_receiver_combo::drop-down{
-border:0;
-}
-
-
-#input_receiver_combo QListView{
-background:#FFAB7C;
-color:#FFFFFF;
-border:3px solid brown;
-border-radius:0;
-}
-
-#input_receiver_combo QListView::item{
-
-}
-
-#input_receiver_combo QListView::item::hover{
-background:#FFFFFF;
-color:#A55252
-}</string>
+              <string notr="true">QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}
+QComboBox::drop-down{right:50px; border:0px;}
+QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}</string>
              </property>
              <property name="editable">
               <bool>false</bool>
@@ -1678,6 +1649,70 @@ border-radius:0;</string>
  <resources/>
  <connections>
   <connection>
+   <sender>video_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_end_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>432</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>video_prev_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_prev_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>572</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>663</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>srvc_chk_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>check_service_validation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>652</x>
+     <y>743</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>950</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>input_next_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>check_input()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1067</x>
+     <y>696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1064</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>end_home_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -1790,22 +1825,6 @@ border-radius:0;</string>
    </hints>
   </connection>
   <connection>
-   <sender>video_prev_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_prev_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>572</x>
-     <y>319</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>663</x>
-     <y>0</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>image_prev_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -1818,22 +1837,6 @@ border-radius:0;</string>
     <hint type="destinationlabel">
      <x>589</x>
      <y>7</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>srvc_chk_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>check_service_validation()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>652</x>
-     <y>743</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>950</y>
     </hint>
    </hints>
   </connection>
@@ -1897,22 +1900,6 @@ border-radius:0;</string>
     </hint>
     <hint type="destinationlabel">
      <x>1103</x>
-     <y>0</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>input_next_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>check_input()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1067</x>
-     <y>696</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1064</x>
      <y>0</y>
     </hint>
    </hints>
@@ -2010,22 +1997,6 @@ border-radius:0;</string>
     <hint type="destinationlabel">
      <x>411</x>
      <y>956</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>video_next_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>823</x>
-     <y>424</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1280</x>
-     <y>440</y>
     </hint>
    </hints>
   </connection>
