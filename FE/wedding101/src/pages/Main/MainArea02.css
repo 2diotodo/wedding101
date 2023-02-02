@@ -1,7 +1,19 @@
 .main-area02 {
   background-color: #fff4f3;
   height: 100vh;
-  padding-top: 10%;
+}
+.area {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-territory {
+  position: relative;
+}
+.invitation-form {
+  position: relative;
+  
 }
 img {
   display: flex;

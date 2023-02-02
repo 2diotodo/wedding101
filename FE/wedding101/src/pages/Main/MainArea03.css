@@ -1,7 +1,12 @@
 .main-area03 {
   background-color: #d2dae9;
   height: 100vh;
-  padding-top: 10%;
+}
+.album-form {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 img {
   display: flex;

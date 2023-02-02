@@ -1,10 +1,14 @@
 .mainindex {
-  margin: 0;
+  height: 100%;
   overflow-y: hidden;
+  /* mobile 환경에서 스크롤 방지 */
+  touch-action: none;
 }
-.scrollwheelhandler::-webkit-scrollbar {
+/* 스크롤바 숨기기 */
+::-webkit-scrollbar {
   display: none;
 }
+
 .goServiceButton {
   left: 50%;
   position: fixed;

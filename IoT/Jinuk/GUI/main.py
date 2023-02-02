@@ -52,21 +52,15 @@ class MyApp(QWidget, Ui_Form):
         self.setupUi(self)
         self.media_player = QMediaPlayer()
         self.audio_output = None
-        self.available_cameras = None
-        self.camera = None
-        self.image_capture = None
         if VERSION == "DEVELOP":
             self.audio_output = QAudioOutput()
-            self.available_cameras = QMediaDevices.videoInputs()
-            if self.available_cameras:
-                self.camera = QCamera(self.available_cameras[0])
-                self.image_capture = QImageCapture(self.camera)
-        if VERSION == "RELEASE":
-            self.available_cameras = QCameraInfo.availableCameras()
-            if self.available_cameras:
-                self.camera = picamera.PiCamera()
-                self.image_capture = QCameraImageCapture(self.camera)
-        
+        self.camera = None
+        self.image_capture = None
+        self.available_cameras = QMediaDevices.videoInputs()
+        if self.available_cameras:
+            self.camera = QCamera(self.available_cameras[0])
+            self.image_capture = QImageCapture(self.camera)
+
         # self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources

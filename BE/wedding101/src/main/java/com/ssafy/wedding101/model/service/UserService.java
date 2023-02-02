@@ -21,6 +21,11 @@ public interface UserService {
 
     void modifyUser(UserDto userDto);
 
+    boolean checkNicknameDuplicate(String userNickname);
+    boolean checkIdDuplicate(String userId);
+    boolean checkEmailDuplicate(String userEmail);
+    Optional<UserDto> getUserIdByUserEmail(String userEmail);
+
     default User toEntity(UserDto userDto){
         return User.builder()
                 .userSeq(userDto.getUserSeq())
@@ -42,4 +47,7 @@ public interface UserService {
                 .userEmail(user.getUserEmail())
                 .build();
     }
+
+
+
 }

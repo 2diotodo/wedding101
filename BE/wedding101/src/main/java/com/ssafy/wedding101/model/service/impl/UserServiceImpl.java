@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDto> getUser(String userId) {
-        return Optional.ofNullable(toDto(userRepository.findByUserId(userId)));
+        return Optional.ofNullable(toDto(userRepository.findByUserId(userId).orElseThrow()));
     }
 
     @Override
@@ -41,16 +41,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeUser(UserDto userDto) {
-        userRepository.delete(userRepository.findById(userDto.getUserSeq()).orElseThrow());
+        User user = userRepository.findById(userDto.getUserSeq()).orElseThrow();
+        user.updateIsValid();
+//        userRepository.save(usear);
+    }
+
+    @Override
+    public boolean checkNicknameDuplicate(String userNickname) {
+        return userRepository.existsByUserNickname(userNickname);
+    }
+
+    @Override
+    public boolean checkIdDuplicate(String userId) {
+        return userRepository.existsByUserId(userId);
+    }
+
+    @Override
+    public boolean checkEmailDuplicate(String userEmail) {
+        return userRepository.existsByUserEmail(userEmail);
     }
 
     @Override
     public void modifyUser(UserDto userDto) {
         User user = userRepository.findById(userDto.getUserSeq()).orElseThrow();
+//        System.out.println(userDto.toString());
         user.updateUser(userDto.getUserId(),
                 userDto.getUserPassword(),
                 userDto.getUserName(),
                 userDto.getUserNickname(),
                 userDto.getUserEmail());
+//        userRepository.save(user);
     }
+
+    @Override
+    public Optional<UserDto> getUserIdByUserEmail(String userEmail) {
+//        Optional<User> user = userRepository.findByUserEmail(userEmail).orElseThrow();
+        return Optional.ofNullable(toDto(userRepository.findByUserEmail(userEmail).orElseThrow()));
+    }
+
+
 }

@@ -2,7 +2,7 @@
     background-color: #D9CFDE;
     width: 100%;
     }
-.img {
+.signupimg {
     position: relative;
-    
+    overflow: hidden;
 }
