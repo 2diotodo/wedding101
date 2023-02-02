@@ -7,5 +7,8 @@ import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, Long> {
     Optional<Album> findByUserSeq(Long userSeq);
+
+    boolean existsByAlbumAccessId(String albumAccessId);
+
     Optional<Album> findByAlbumAccessId(String albumAccessId);
 }
