@@ -40,11 +40,17 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public void modifyAlbum(AlbumDto albumDto) {
         Album album = albumRepository.findById(albumDto.getAlbumSeq()).orElseThrow();
-        album.update(albumDto.getAlbumName(), albumDto.getAlbumColor(), albumDto.getAlbumPhotoUrl());
+        album.update(albumDto.getAlbumName(), albumDto.getAlbumColor(), albumDto.getAlbumPhotoUrl(), albumDto.getAlbumThanksUrl());
+    }
+
+    @Override
+    public boolean existAccessId(String albumAccessId) {
+        return albumRepository.existsByAlbumAccessId(albumAccessId);
     }
 
     @Override
     public Long getAlbumSeqByAccessId(String albumAccessId) {
-        return null;
+        Album album = albumRepository.findByAlbumAccessId(albumAccessId).orElseThrow();
+        return album.getAlbumSeq();
     }
 }
