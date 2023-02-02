@@ -63,7 +63,9 @@ public class AlbumRestController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
-
+//
+//    @Operation(summary = "앨범 접근 코드로 결혼정보 조회")
+//    @GetMapping("")
 
 
 
