@@ -203,7 +203,7 @@ class VideoRecorder(QThread):
             self.open=False
             self.video_cap.release()
             # self.video_out.release()
-            cv2.destroyAllWindows()
+            # cv2.destroyAllWindows()
             self.quit()
             self.wait(500) #5000ms = 5s
 
@@ -287,6 +287,7 @@ class MyApp(QWidget, Ui_Form):
         # set class functions
         self.setupUi(self)
         self.media_player = QMediaPlayer()
+        self.review_player = QMediaPlayer()
         self.audio_output = None
         if VERSION == "DEVELOP":
             self.audio_output = QAudioOutput()
@@ -389,17 +390,18 @@ class MyApp(QWidget, Ui_Form):
         self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
     def set_thanks(self):
-        # self.thanks_title.setFont(QFont('Playfair Display', 40))
-        # if VERSION == "DEVELOP":
-        #     self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
-        #     self.media_player.setAudioOutput(self.audio_output)
-        #     self.audio_output.setVolume(80)
-        # elif VERSION == "RELEASE":
-        #     media = QMediaContent(QUrl.fromLocalFile("QT_Resources/Videos/sample_video.mkv"))
-        #     self.media_player.setMedia(media)
-        # self.media_player.setVideoOutput(self.thanks_video_screen)
-        # self.thanks_video_screen.show()
-        pass
+        self.thanks_title.setFont(QFont('Playfair Display', 40))
+        self.media_player.setVideoOutput(self.thanks_video_screen)
+        if VERSION == "DEVELOP":
+            self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
+            self.media_player.setAudioOutput(self.audio_output)
+            self.audio_output.setVolume(80)
+        elif VERSION == "RELEASE":
+            media = QMediaContent(
+                QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
+            self.media_player.setMedia(media)
+            self.media_player.setVolume(50)
+        self.thanks_video_screen.show()
 
     def set_select(self):
         self.select_home_button.setIcon(self.home_icon2)
@@ -492,6 +494,7 @@ class MyApp(QWidget, Ui_Form):
             self.video_control_button.setText("Record")
             self.video_stream.setText("Camera")
             self.file_manager()
+            self.set_review_video()
             self.go_next_page()
         else:
             self.open = True
@@ -575,6 +578,15 @@ class MyApp(QWidget, Ui_Form):
         #     self.th.wait(3000)
         self.close()
 
+    def set_review_video(self):
+        self.review_player.setVideoOutput(self.widget)
+        media = QMediaContent(QUrl.fromLocalFile(f"/home/pi/A101/IoT/seonghwk/from_Jinuk/{self.name}.avi"))
+        # media = QMediaContent(QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
+
+        self.review_player.setMedia(media)
+        self.review_player.setVolume(50)
+        self.review_player.play()
+        self.widget.show()
 
     def check_service_validation(self):
         check_validation_window = CheckDialog()
