@@ -39,7 +39,6 @@ public class MediaServiceImpl implements MediaService {
         Album album = albumRepository.findById(mediaDto.getAlbumSeq()).orElseThrow();
         System.out.println("앨범 entity");
         media.setAlbum(album);
-        System.out.println("앨범set");
         mediaRepository.save(media);
         System.out.println("됨");
     }
