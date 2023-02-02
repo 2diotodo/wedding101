@@ -1,7 +1,7 @@
 echo "DOCKER_ID Check..."
 
 PRE_DOCKER_ID=$(docker ps | grep service-server | awk '{print $1}')
-PRE_DOCKER_IMAGE=$(docker images | grep service-server | awk '{print $3}')
+PRE_DOCKER_IMAGE=$(docker images | grep spring-server | awk '{print $3}')
 
 if [ -z $PRE_DOCKER_ID ] ; then
 	echo "Docker is not running"
@@ -15,7 +15,8 @@ else
 	docker system prune -y
 	echo "Done"
 	echo "Do remove docker image"
-    docker rmi service-server:latest
+    docker rmi spring-server:latest
+    docker system prune -y
 	echo "Done"
 	echo "{$PRE_DOCKER_ID} has been stopped"
 fi
