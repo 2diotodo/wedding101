@@ -11,6 +11,6 @@ insert into tbl_info (user_seq, wedding_day, wedding_hall_name, groom_name, brid
 
 select * From tbl_info;
 
+insert into tbl_album (info_seq, user_seq, album_name, album_access_id, album_thanks_url) values
+(1, 1, "추억앨범", "123456789a", "1245364");
 select * from tbl_album;
-insert into tbl_album (info_seq, user_seq, album_name, album_access_id) values
-(1, 1, "추억앨범", "123456789a");

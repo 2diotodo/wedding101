@@ -31,7 +31,7 @@ server:
 spring:
   # ?????? ?? - MySQL
   datasource:
-    url: jdbc:mysql://http://i8a101.p.ssafy.io:3306/wedding101_db?characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/wedding101_db?characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ssafy

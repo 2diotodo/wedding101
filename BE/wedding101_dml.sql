@@ -30,6 +30,7 @@ CREATE TABLE `tbl_album` (
 	`album_color`	VARCHAR(255)	NULL,
 	`album_photo_url`	VARCHAR(100)	NULL,
 	`album_access_id`	VARCHAR(10)	NOT NULL,
+	`album_thanks_url`	VARCHAR(100)	NULL,
 	`album_media_cnt`	INT	NOT NULL	DEFAULT 0,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,

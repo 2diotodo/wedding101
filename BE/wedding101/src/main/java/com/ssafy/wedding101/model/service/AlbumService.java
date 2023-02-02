@@ -17,6 +17,8 @@ public interface AlbumService {
 
     void modifyAlbum(AlbumDto albumDto);
 
+    boolean existAccessId(String albumAccessId);
+
     Long getAlbumSeqByAccessId(String albumAccessId);
 
     default Album toEntity(AlbumDto albumDto) {
@@ -28,6 +30,7 @@ public interface AlbumService {
                 .albumColor(albumDto.getAlbumColor())
                 .albumPhotoUrl(albumDto.getAlbumPhotoUrl())
                 .albumAccessId(albumDto.getAlbumAccessId())
+                .albumThanksUrl(albumDto.getAlbumThanksUrl())
                 .albumMediaCnt(albumDto.getAlbumMediaCnt())
                 .isValid(true)
                 .build();
@@ -42,6 +45,7 @@ public interface AlbumService {
                 .albumColor(album.getAlbumColor())
                 .albumPhotoUrl(album.getAlbumPhotoUrl())
                 .albumAccessId(album.getAlbumAccessId())
+                .albumThanksUrl(album.getAlbumThanksUrl())
                 .albumMediaCnt(album.getAlbumMediaCnt())
                 .isValid(album.isValid())
                 .build();
