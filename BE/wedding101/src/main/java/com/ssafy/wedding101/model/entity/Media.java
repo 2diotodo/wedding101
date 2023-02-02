@@ -1,9 +1,6 @@
 package com.ssafy.wedding101.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -56,11 +53,15 @@ public class Media {
     @ColumnDefault("true")
     private boolean isValid;
 
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
     public void wish(boolean isWish) {
         this.isWish = true;
     }
 
-    public void unWish(boolean isWish) {
+    public void unwish(boolean isWish) {
         this.isWish = false;
     }
 
