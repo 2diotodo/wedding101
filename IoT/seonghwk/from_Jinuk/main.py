@@ -242,9 +242,9 @@ class AudioRecorder(QThread):
             self.open = False
             self.stream.stop_stream()
             print("1")
-            self.stream.close()
+            # self.stream.close()
             print("2")
-            self.audio.terminate()
+            # self.audio.terminate()
             print("3")
             waveFile = wave.open(self.audio_filename, 'wb')
             print("4")
@@ -297,7 +297,7 @@ class MyApp(QWidget, Ui_Form):
         #     self.camera = QCamera(self.available_cameras[0])
         #     self.image_capture = QImageCapture(self.camera)
 
-        # self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -322,22 +322,29 @@ class MyApp(QWidget, Ui_Form):
 
         self.setup_pages()
 
-                # set control_bt callback clicked  function
+        # set control_bt callback clicked  function
         # set video and audio record thread
         self.open = False
         self.video_thread = None
         self.audio_thread = None
         self.name = None
+        self.main()
 
     def main(self):
         # this is video thread
         # if spec is not None:
         #     self.th.mySignal.connect(self.setImage)
         #     self.th.start()
-        self.video_thread = VideoRecorder(name = self.name)
-        self.video_thread.mySignal.connect(self.setImage)
-        self.video_thread.start()
+        # self.video_thread = VideoRecorder(name = self.name)
+        # self.video_thread.mySignal.connect(self.setImage)
+        # self.video_thread.start()
+        self.set_only_int()
         pass
+
+    def set_only_int(self):
+        self.onlyInt = QIntValidator()
+        self.srvc_chk_lineEdit.setValidator(self.onlyInt)
+
 
     def setImage(self, img):
         self.video_stream.setPixmap(img)
@@ -443,6 +450,8 @@ class MyApp(QWidget, Ui_Form):
         self.input_name_edit.clear()
         self.input_relation_combo.setCurrentIndex(0)
         self.input_receiver_combo.setCurrentIndex(0)
+        self.agreement_checkBox1.setChecked(False)
+        self.agreement_checkBox2.setChecked(False)
         self.SenderName = ''
         self.SenderRelation = 0
         self.SenderReceiver = 0
@@ -464,8 +473,11 @@ class MyApp(QWidget, Ui_Form):
     def submit_info(self):
         url = "http://localhost:3000/upload"
         file_path = f"{self.name}.avi"
-
-        data = {"hello" : "world", "nice to": "meet you"}
+        data = {
+            "author" : self.SenderName,
+            "relation" : self.SenderRelation,
+            "receiver" : self.SenderReceiver,
+        }
 
         with open(file_path, 'rb') as f:
             files = {'file': (file_path, f, '/')}
@@ -563,18 +575,24 @@ class MyApp(QWidget, Ui_Form):
         #     self.th.wait(3000)
         self.close()
 
+
     def check_service_validation(self):
         check_validation_window = CheckDialog()
         check_validation_window.setModal(True)
         cd = check_validation_window.show_dialog()
         print(cd)
         if cd:
-            current_page = self.stackedWidget.currentIndex()
-            sender = self.sender()
-            print(sender)
-            if sender.objectName() == "select_vid_button":
-                current_page += 2
-            self.stackedWidget.setCurrentIndex(current_page + 1)
+            self.request_album_info()
+            self.go_next_page()
+    
+    def request_album_info(self):
+        album_seq = self.srvc_chk_lineEdit.text()
+        print(album_seq)
+        URL = "http://localhost:3000/album"
+        with open("test_received.avi", "wb") as file:
+            res = requests.get(URL) 
+            file.write(res.content)
+
 
     def check_agreement(self):
         if self.agreement_checkBox1.isChecked() and self.agreement_checkBox2.isChecked():
@@ -605,10 +623,14 @@ class MyApp(QWidget, Ui_Form):
     def select_relation(self):
         self.SenderRelation = self.input_relation_combo.currentIndex()
         print(self.SenderRelation)
+        print(relation_list[self.SenderRelation])
 
     def select_receiver(self):
         self.SenderReceiver = self.input_receiver_combo.currentIndex()
         print(self.SenderReceiver)
+        print(receiver_list[self.SenderReceiver])
+
+
 
 
 app = QApplication()
