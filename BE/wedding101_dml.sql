@@ -23,7 +23,7 @@ CREATE TABLE `tbl_user` (
 DROP TABLE IF EXISTS `tbl_album`;
 
 CREATE TABLE `tbl_album` (
-	`album_seq`	INT	NOT NULL  ,
+	`album_seq`	INT	NULL  ,
 	`info_seq`	INT	NULL,
 	`user_seq`	INT	NULL,
 	`album_name`	VARCHAR(30)	NULL,
