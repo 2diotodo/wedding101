@@ -388,6 +388,7 @@ class MyApp(QWidget, Ui_Form):
         self.recording_now = False
         self.name = None
         self.main()
+        self.playlist = None
 
     def main(self):
         # this is video thread
@@ -497,7 +498,7 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "select_vid_button":
             current_page += 2
         if sender.objectName() == "video_review_next_button":
-            self.submit_info()    
+            self.submit_info()
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.media_player.stop()
         if sender.objectName() == "select_pic_button":
@@ -653,24 +654,24 @@ class MyApp(QWidget, Ui_Form):
         self.close()
 
     def set_review_video(self):
-        playlist = QMediaPlaylist()
+        self.playlist = QMediaPlaylist()
         url = QUrl.fromLocalFile(f"/home/pi/A101/IoT/seonghwk/from_Jinuk/{self.name}.avi")
-        # playlist.addMedia(QMediaContent(url))
-        # playlist.setPlaybackMode(QMediaPlaylist.Loop)
+        self.playlist.addMedia(QMediaContent(url))
+        self.playlist.setPlaybackMode(QMediaPlaylist.Loop)
 
         # media = QMediaContent(QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
 
-        # self.review_player.setPlaylist(playlist)
-        self.review_player.setMedia(QMediaContent(url))
+        self.review_player.setPlaylist(self.playlist)
+        # self.review_player.setMedia(QMediaContent(url))
         self.review_player.setVolume(100)
         self.review_player.setVideoOutput(self.widget)
         self.review_player.play()
         # self.widget.show()
 
 
-        player = QMediaPlayer()
-        player.setPlaylist(playlist)
-        player.play()
+        # player = QMediaPlayer()
+        # player.setPlaylist(playlist)
+        # player.play()
 
     def check_service_validation(self):
         self.request_album_info()
@@ -755,8 +756,8 @@ app.setApplicationName("Wed101")
 QGuiApplication.inputMethod().visibleChanged.connect(handleVisibleChanged)
 
 win = MyApp()
-# win.show()
-win.showFullScreen()
+win.show()
+# win.showFullScreen()
 
 if VERSION == "DEVELOP":
     app.exec()
