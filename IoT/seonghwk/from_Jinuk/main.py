@@ -1,6 +1,7 @@
 from QT_screens_code.mainwindow import Ui_Form
 from QT_screens_code.chk_Dialog import Ui_chk_Dialog
 
+import requests
 import importlib.util
 spec = importlib.util.find_spec("PySide2")
 
@@ -28,6 +29,21 @@ from uuid import uuid4
 
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
 receiver_list = ['', 'groom', 'bride']
+
+# class VideoRecorder(QThread):
+#     mySignal = Signal(np.ndarray)
+
+#     def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
+#         super().__init__()
+#         self.video_writer = cv2.VideoWriter_fourcc(*self.fourcc)
+#         self.video_out = cv2.VideoWriter(self.video_filename, self.video_writer, self.fps, self.frameSize)
+#         self.frame_counts = 1
+#         self.start_time = time.time()
+#         self.video_frame = None
+
+#         self.fps = 60
+#         self.width = 640
+#         self.height = 480
 
 
 class VideoRecorder(QThread):
@@ -225,13 +241,21 @@ class AudioRecorder(QThread):
         if self.open:
             self.open = False
             self.stream.stop_stream()
+            print("1")
             self.stream.close()
+            print("2")
             self.audio.terminate()
+            print("3")
             waveFile = wave.open(self.audio_filename, 'wb')
+            print("4")
             waveFile.setnchannels(self.channels)
+            print("5")
             waveFile.setsampwidth(self.audio.get_sample_size(self.format))
+            print("6")
             waveFile.setframerate(self.rate)
+            print("7")
             waveFile.writeframes(b''.join(self.audio_frames))
+            print("8")
             waveFile.close()
             self.quit()
             self.wait(500) #5000ms = 5s
@@ -310,6 +334,9 @@ class MyApp(QWidget, Ui_Form):
         # if spec is not None:
         #     self.th.mySignal.connect(self.setImage)
         #     self.th.start()
+        self.video_thread = VideoRecorder(name = self.name)
+        self.video_thread.mySignal.connect(self.setImage)
+        self.video_thread.start()
         pass
 
     def setImage(self, img):
@@ -355,16 +382,17 @@ class MyApp(QWidget, Ui_Form):
         self.input_receiver_combo.currentIndexChanged.connect(self.select_receiver)
 
     def set_thanks(self):
-        self.thanks_title.setFont(QFont('Playfair Display', 40))
-        if VERSION == "DEVELOP":
-            self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
-            self.media_player.setAudioOutput(self.audio_output)
-            self.audio_output.setVolume(80)
-        elif VERSION == "RELEASE":
-            media = QMediaContent(QUrl.fromLocalFile("QT_Resources/Videos/sample_video.mkv"))
-            self.media_player.setMedia(media)
-        self.media_player.setVideoOutput(self.thanks_video_screen)
-        self.thanks_video_screen.show()
+        # self.thanks_title.setFont(QFont('Playfair Display', 40))
+        # if VERSION == "DEVELOP":
+        #     self.media_player.setSource(QUrl('QT_Resources/Videos/sample_video.mkv'))
+        #     self.media_player.setAudioOutput(self.audio_output)
+        #     self.audio_output.setVolume(80)
+        # elif VERSION == "RELEASE":
+        #     media = QMediaContent(QUrl.fromLocalFile("QT_Resources/Videos/sample_video.mkv"))
+        #     self.media_player.setMedia(media)
+        # self.media_player.setVideoOutput(self.thanks_video_screen)
+        # self.thanks_video_screen.show()
+        pass
 
     def set_select(self):
         self.select_home_button.setIcon(self.home_icon2)
@@ -397,6 +425,8 @@ class MyApp(QWidget, Ui_Form):
         print(sender)
         if sender.objectName() == "select_vid_button":
             current_page += 2
+        if sender.objectName() == "video_review_next_button":
+            self.submit_info()    
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.media_player.stop()
 
@@ -429,6 +459,19 @@ class MyApp(QWidget, Ui_Form):
 
     def record_stop(self):
         pass
+
+
+    def submit_info(self):
+        url = "http://localhost:3000/upload"
+        file_path = f"{self.name}.avi"
+
+        data = {"hello" : "world", "nice to": "meet you"}
+
+        with open(file_path, 'rb') as f:
+            files = {'file': (file_path, f, '/')}
+            response = requests.post(url, files=files, data=data)
+
+        print(response.status_code)
 
     def record_control(self):
         if self.open:
