@@ -1,6 +1,6 @@
 echo "DOCKER_ID Check..."
 
-PRE_DOCKER_ID=$(docker ps | grep 8085->8080 | awk '{print $1}')
+PRE_DOCKER_ID=$(docker ps | grep spring-server | awk '{print $1}')
 PRE_DOCKER_IMAGE=$(docker ps | grep spring-server | awk '{print $2}')
 NONE_DOCKER_IMAGE=$(docker images -f "dangling=true" -q)
 
