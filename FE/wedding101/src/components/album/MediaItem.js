@@ -41,7 +41,7 @@ const MediaItem = ({media}) => {
     return (
       <div>
       <Card sx={{ maxWidth: 345 }}>
-        {/* 사진/비디오여부표시 및 즐찾표시 */}
+        {/* 사진/비디오여부표시 및 좋아요표시 */}
         <CardHeader
           avatar={
             isVideo ? (
