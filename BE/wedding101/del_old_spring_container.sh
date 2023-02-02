@@ -11,9 +11,12 @@ else
 	docker stop $PRE_DOCKER_ID
 	sleep 10
 	echo "Done."
-	echo "Do image pruning.."
-	docker image prune -y
-	echo "Done."
+	echo "Do system pruning.."
+	docker system prune -y
+	echo "Done"
+	echo "Do remove docker image"
+    docker rmi service-server:latest
+	echo "Done"
 	echo "{$PRE_DOCKER_ID} has been stopped"
 fi
 
