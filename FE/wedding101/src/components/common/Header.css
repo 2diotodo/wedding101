@@ -10,6 +10,7 @@
   float: left;
 }
 .nav-tabs {
+  display: flex;
   margin-top: 1%;
   float: right;
 }
