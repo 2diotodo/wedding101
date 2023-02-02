@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import MainLayout from './pages/Main/MainLayout';
 import UserLogin from './pages/User/UserLogin/UserLogin';
 import UserRegist from './pages/User/UserRegist/UserRegist';
-import UserInvitation from './pages/WeddingInvitation/UserInvitation/UserInvitation';
+import UserInvitation from './pages/WeddingInvitation/UserInvitation';
 import BoardReview from './pages/BoardReview/BoardReview';
 import AlbumCover from './pages/Album/AlbumCover';
 import ServiceProcess01 from './pages/ServiceProcess/ServiceProcess01';

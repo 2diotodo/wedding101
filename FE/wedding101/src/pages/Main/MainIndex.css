@@ -1,5 +1,4 @@
 .mainindex {
-  margin: 0;
   height: 100%;
   overflow-y: hidden;
   /* mobile 환경에서 스크롤 방지 */
@@ -10,12 +9,6 @@
   display: none;
 }
 
-.scrollwheelhandler > div {
-  height: 100vh;
-  /* display: flex; */
-  justify-content: center;
-  /* align-items: center; */
-}
 .goServiceButton {
   left: 50%;
   position: fixed;

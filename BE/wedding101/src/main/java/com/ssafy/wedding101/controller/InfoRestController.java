@@ -46,7 +46,8 @@ public class InfoRestController {
     public ResponseEntity<InfoDto> modifyInfo(@RequestBody InfoDto infoDto) {
 //        infoDto.setUserSeq();
         infoService.modifyInfo(infoDto);
-        return new ResponseEntity<>(infoDto, HttpStatus.OK);
+        InfoDto infoDtoAfter = infoService.getInfo(infoDto.getInfoSeq()).orElseThrow();
+        return new ResponseEntity<>(infoDtoAfter, HttpStatus.OK);
     }
 
     @Operation(summary = "결혼정보 삭제")

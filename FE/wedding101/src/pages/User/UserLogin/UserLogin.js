@@ -2,7 +2,7 @@ import './UserLogin.css';
 import loginimg from '../../../assets/img/weddingLogin.png';
 
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
-import LoginForm from '../../../components/User/UserLogin/LoginForm';
+import LoginForm from '../../../components/user/UserLogin/LoginForm';
 
 function UserLogin() {
   return (

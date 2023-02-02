@@ -1,0 +1,11 @@
+.album-cover {
+    background-color: #C5DAD1;
+    height: 100vh;
+    padding: 10%;
+    }
+
+.upload-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -3,6 +3,8 @@ package com.ssafy.wedding101.model.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.format.annotation.NumberFormat;
@@ -14,6 +16,7 @@ import javax.validation.constraints.Size;
 @Table(name = "tbl_user")
 @Getter
 @NoArgsConstructor
+@DynamicInsert
 public class User {
 
     @Id
@@ -37,6 +40,7 @@ public class User {
     private String userEmail;
 
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
+    @ColumnDefault("true")
     private boolean isValid;
 
 

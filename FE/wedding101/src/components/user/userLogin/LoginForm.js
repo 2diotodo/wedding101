@@ -106,6 +106,7 @@ function LoginForm() {
           로그인
         </Button>
         <br />
+      </form>
         <Button variant='text'>아이디 찾기</Button>
         <Button variant='text'>비밀번호 찾기</Button>
         <Button variant='text' onClick={onClickHandler}>
@@ -119,7 +120,6 @@ function LoginForm() {
         <br />
         <Button>네이버계정으로 로그인</Button>
         <br />
-      </form>
     </div>
   );
 }

@@ -21,6 +21,7 @@ from uuid import uuid4
 
 from simpleui import Ui_Form
 
+
 class VideoRecorder(QThread):
     mySignal = Signal(QPixmap)
 
@@ -80,7 +81,7 @@ class VideoRecorder(QThread):
                 # counter += 1
                 # timer_current = time.time() - timer_start
                 # time.sleep(1/self.fps)
-                # gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
+                # gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)                 
                 # cv2.imshow('video_frame', gray)
                 # cv2.waitKey(1)
             else:

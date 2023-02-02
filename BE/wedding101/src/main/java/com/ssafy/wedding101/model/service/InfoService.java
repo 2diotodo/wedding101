@@ -18,6 +18,8 @@ public interface InfoService {
 
     void modifyInfo(InfoDto infoDto);
 
+    Long getInfoSeqByUserSeq(Long userSeq);
+
     default Info toEntity(InfoDto infoDto) {
         return Info.builder()
                 .infoSeq(infoDto.getInfoSeq())

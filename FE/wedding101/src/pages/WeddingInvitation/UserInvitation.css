@@ -1,0 +1,15 @@
+.user-invitation {
+    background-color: #C5DAD1;
+    height: 100vh;
+    }
+navbar {
+    padding: 10%;
+}
+
+.invitation-form{
+    margin: 10px;
+    display: flex;
+}
+.cancel-button {
+    padding: 10px;
+}
