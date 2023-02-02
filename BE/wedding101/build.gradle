@@ -49,6 +49,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     //유효성 검사 처리
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    //JUnit4 추가
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: "org.hamcrest", module: "hamcrest-core"
+	}
+
 }
 
 test {
