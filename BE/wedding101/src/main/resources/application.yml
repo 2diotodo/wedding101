@@ -1,6 +1,6 @@
 # Spring boot server port set
 server:
-  port: 8081
+  port: 8085
 
 # Spring security Oauth2 client registration
 #spring.security.oauth2.client.registration.naver.client-id=<client id>
