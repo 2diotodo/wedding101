@@ -299,7 +299,7 @@ class MyApp(QWidget, Ui_Form):
         #     self.camera = QCamera(self.available_cameras[0])
         #     self.image_capture = QImageCapture(self.camera)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -402,7 +402,7 @@ class MyApp(QWidget, Ui_Form):
             self.audio_output.setVolume(80)
         elif VERSION == "RELEASE":
             media = QMediaContent(
-                QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/Test/QT_Resources/Videos/sample_video.mkv"))
+                QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
             self.media_player.setMedia(media)
             self.media_player.setVolume(50)
         self.thanks_video_screen.show()
@@ -465,10 +465,6 @@ class MyApp(QWidget, Ui_Form):
         current_page = self.stackedWidget.currentIndex()
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.camera.start()
-
-    def go_video_page(self):
-        current_page = self.stackedWidget.currentIndex()
-        self.stackedWidget.setCurrentIndex(current_page + 3)
 
     def go_end_page(self):
         self.stackedWidget.setCurrentIndex(self.stackedWidget.count() - 1)
