@@ -317,37 +317,9 @@ class Ui_Form(object):
         font11.setPointSize(36)
         font11.setBold(True)
         self.input_relation_combo.setFont(font11)
-        self.input_relation_combo.setStyleSheet(u"#input_relation_combo{\n"
-"background:#FFAB7C; color:#FFFFFF;\n"
-"border-radius: 20px;\n"
-"border: 3px solid brown;\n"
-"padding-left:80px;\n"
-"}\n"
-"\n"
-"#input_relation_combo::on{\n"
-"border: 3px solid red;\n"
-"}\n"
-"\n"
-"#input_relation_combo::drop-down{\n"
-"border:0;\n"
-"}\n"
-"\n"
-"\n"
-"#input_relation_combo QListView{\n"
-"background:#FFAB7C;\n"
-"color:#FFFFFF;\n"
-"border:3px solid brown;\n"
-"border-radius:0;\n"
-"}\n"
-"\n"
-"#input_relation_combo QListView::item{\n"
-"\n"
-"}\n"
-"\n"
-"#input_relation_combo QListView::item::hover{\n"
-"background:#FFFFFF;\n"
-"color:#A55252\n"
-"}")
+        self.input_relation_combo.setStyleSheet(u"QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}\n"
+"QComboBox::drop-down{right:50px; border:0px;}\n"
+"QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}")
         self.input_relation_combo.setIconSize(QSize(16, 16))
         self.input_relation_combo.setFrame(True)
 
@@ -379,37 +351,9 @@ class Ui_Form(object):
         sizePolicy1.setHeightForWidth(self.input_receiver_combo.sizePolicy().hasHeightForWidth())
         self.input_receiver_combo.setSizePolicy(sizePolicy1)
         self.input_receiver_combo.setFont(font11)
-        self.input_receiver_combo.setStyleSheet(u"#input_receiver_combo{\n"
-"background:#FFAB7C; color:#FFFFFF;\n"
-"border-radius: 20px;\n"
-"border: 3px solid brown;\n"
-"padding-left:80px;\n"
-"}\n"
-"\n"
-"#input_receiver_combo::on{\n"
-"border: 3px solid red;\n"
-"}\n"
-"\n"
-"#input_receiver_combo::drop-down{\n"
-"border:0;\n"
-"}\n"
-"\n"
-"\n"
-"#input_receiver_combo QListView{\n"
-"background:#FFAB7C;\n"
-"color:#FFFFFF;\n"
-"border:3px solid brown;\n"
-"border-radius:0;\n"
-"}\n"
-"\n"
-"#input_receiver_combo QListView::item{\n"
-"\n"
-"}\n"
-"\n"
-"#input_receiver_combo QListView::item::hover{\n"
-"background:#FFFFFF;\n"
-"color:#A55252\n"
-"}")
+        self.input_receiver_combo.setStyleSheet(u"QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}\n"
+"QComboBox::drop-down{right:50px; border:0px;}\n"
+"QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}")
         self.input_receiver_combo.setEditable(False)
         self.input_receiver_combo.setIconSize(QSize(16, 16))
         self.input_receiver_combo.setFrame(True)
