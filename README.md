@@ -10,5 +10,3 @@ and should rebuild and test.
 ```
 
 before setting the pipeline on the jenkins
-
-Final test .. 3
