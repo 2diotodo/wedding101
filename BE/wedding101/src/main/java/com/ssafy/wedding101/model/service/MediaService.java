@@ -5,6 +5,7 @@ import com.ssafy.wedding101.model.entity.Media;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -13,7 +14,7 @@ public interface MediaService {
 
     List<MediaDto> getAllMedia(Long albumSeq);
 
-    List<MediaDto> getMediaList(Long albumSeq, String type, String to, String relation);
+    List<MediaDto> getMediaListByOptions(Long albumSeq, int optionNum, Map<String, String> options);
 
     void writeMedia(MediaDto mediaDto);
 
