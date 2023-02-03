@@ -19,6 +19,7 @@ select * from tbl_album;
 
 insert into tbl_media (album_seq, storage_url, media_name, media_relation) values
 (1, "s3_url1", "kny", "Friend"),
-(1, "s3_url2", "nki", "Friend");
+(1, "s3_url2", "nki", "Friend"),
+(1, "유알엘", "강시몬", "친구");
 select * from tbl_media;
 
