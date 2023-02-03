@@ -21,15 +21,15 @@ public class MediaRestController {
     @Operation(summary = "미디어 등록")
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> writeMedia(@RequestBody MediaDto mediaDto) {
-        System.out.println("컨트롤러 들어옴" + mediaDto.getAlbumSeq());
         Map<String, Object> result = new HashMap<>();
         try {
             mediaService.writeMedia(mediaDto);
-            System.out.println("이거");
             result.put("message", "미디어 등록 SUCCESS");
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+
 }
