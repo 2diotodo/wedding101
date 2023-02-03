@@ -20,7 +20,7 @@ public class Media {
     private Long mediaSeq;
 
     @ManyToOne // 하나의 앨범의 여러개의 미디어가 있다. 주인은 media
-    @JoinColumn(name = "album_seq", updatable = false, insertable = false)
+    @JoinColumn(name = "album_seq")
     private Album album;
 
     @Column(name = "storage_url")

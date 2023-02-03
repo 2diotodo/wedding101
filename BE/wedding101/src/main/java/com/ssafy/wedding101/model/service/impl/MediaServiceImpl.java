@@ -33,14 +33,10 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public void writeMedia(MediaDto mediaDto) {
-        System.out.println("서비스임플" + mediaDto.getAlbumSeq());
         Media media = toEntity(mediaDto);
-        System.out.println("미디어 entity");
         Album album = albumRepository.findById(mediaDto.getAlbumSeq()).orElseThrow();
-        System.out.println("앨범 entity");
         media.setAlbum(album);
         mediaRepository.save(media);
-        System.out.println("됨");
     }
 
     @Override
