@@ -26,11 +26,23 @@ else:
     from PySide2.QtMultimediaWidgets import *
     import cv2
     import os
-    import picamera
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
 receiver_list = ['', 'groom', 'bride']
+
+
+def handleVisibleChanged():
+    if not QGuiApplication.inputMethod().isVisible():
+        return
+    for w in QGuiApplication.allWindows():
+        if w.metaObject().className() == "QtVirtualKeyboard::InputView":
+            keyboard = w.findChild(QObject, "keyboard")
+            if keyboard is not None:
+                r = w.geometry()
+                r.moveTop(keyboard.property("y"))
+                w.setMask(QRegion(r))
+                return
 
 # class VideoRecorder(QThread):
 #     mySignal = Signal(np.ndarray)
@@ -627,6 +639,8 @@ class MyApp(QWidget, Ui_Form):
 
 app = QApplication()
 app.setApplicationName("Wed101")
+
+QGuiApplication.inputMethod().visibleChanged.connect(handleVisibleChanged)
 
 win = MyApp()
 win.show()

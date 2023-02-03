@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>956</height>
+    <height>960</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -799,10 +799,9 @@ border: 3px solid brown;</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background:#FFAB7C; color:#FFFFFF;
-border-radius: 20px;
-border: 3px solid brown;
-padding-left:80px;</string>
+              <string notr="true">QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}
+QComboBox::drop-down{right:50px; border:0px;}
+QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}</string>
              </property>
              <property name="currentText">
               <string>눌러서 선택</string>
@@ -905,37 +904,9 @@ padding-left:80px;</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">#input_receiver_combo{
-background:#FFAB7C; color:#FFFFFF;
-border-radius: 20px;
-border: 3px solid brown;
-padding-left:80px;
-}
-
-#input_receiver_combo::on{
-border: 3px solid red;
-}
-
-#input_receiver_combo::drop-down{
-border:0;
-}
-
-
-#input_receiver_combo QListView{
-background:#FFAB7C;
-color:#FFFFFF;
-border:3px solid brown;
-border-radius:0;
-}
-
-#input_receiver_combo QListView::item{
-
-}
-
-#input_receiver_combo QListView::item::hover{
-background:#FFFFFF;
-color:#A55252
-}</string>
+              <string notr="true">QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}
+QComboBox::drop-down{right:50px; border:0px;}
+QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}</string>
              </property>
              <property name="editable">
               <bool>false</bool>
