@@ -7,6 +7,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_album")
@@ -33,15 +35,20 @@ public class Album {
     private String albumPhotoUrl;
     @Column(name = "album_access_id")
     private String albumAccessId;
+    @Column(name = "album_thanks_url")
+    private String albumThanksUrl;
     @Column(name = "album_media_cnt")
     private int albumMediaCnt;
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
     @ColumnDefault("true")
     private boolean isValid;
 
+    @OneToMany(mappedBy = "album")
+    private List<Media> mediaList = new ArrayList<>();
+
     @Builder
     public Album(Long albumSeq, Long infoSeq, Long userSeq, String albumName, String albumColor, String albumPhotoUrl,
-                 String albumAccessId, int albumMediaCnt, boolean isValid) {
+                 String albumAccessId, String albumThanksUrl, int albumMediaCnt, boolean isValid) {
         this.albumSeq = albumSeq;
         this.infoSeq = infoSeq;
         this.userSeq = userSeq;
@@ -49,14 +56,16 @@ public class Album {
         this.albumColor = albumColor;
         this.albumPhotoUrl = albumPhotoUrl;
         this.albumAccessId = albumAccessId;
+        this.albumThanksUrl = albumThanksUrl;
         this.albumMediaCnt = albumMediaCnt;
         this.isValid = isValid;
     }
 
-    public void update(String albumName, String albumColor, String albumPhotoUrl) {
+    public void update(String albumName, String albumColor, String albumPhotoUrl, String albumThanksUrl) {
         this.albumName = albumName;
         this.albumColor = albumColor;
         this.albumPhotoUrl = albumPhotoUrl;
+        this.albumThanksUrl = albumThanksUrl;
     }
 
     public void updateIsValid() {

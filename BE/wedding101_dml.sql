@@ -15,6 +15,7 @@ CREATE TABLE `tbl_user` (
 	`user_email`	VARCHAR(50)	NOT NULL,
 	`user_nickname`	VARCHAR(30)	NULL,
 	`is_banned`	TINYINT(1)	NOT NULL	DEFAULT 0, -- COMMENT '비활성화테이블에 필드 생성시 true 로 변경',
+    `refresh_token` VARCHAR(250) NULL,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,
 	`is_valid`	TINYINT(1)	NOT NULL	DEFAULT 1
@@ -23,13 +24,14 @@ CREATE TABLE `tbl_user` (
 DROP TABLE IF EXISTS `tbl_album`;
 
 CREATE TABLE `tbl_album` (
-	`album_seq`	INT	NOT NULL  ,
+	`album_seq`	INT	NOT NULL,
 	`info_seq`	INT	NULL,
 	`user_seq`	INT	NULL,
 	`album_name`	VARCHAR(30)	NULL,
 	`album_color`	VARCHAR(255)	NULL,
 	`album_photo_url`	VARCHAR(100)	NULL,
 	`album_access_id`	VARCHAR(10)	NOT NULL,
+	`album_thanks_url`	VARCHAR(100)	NULL,
 	`album_media_cnt`	INT	NOT NULL	DEFAULT 0,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,

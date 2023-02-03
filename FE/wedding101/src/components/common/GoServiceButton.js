@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router';
 function GoServiceButton() {
   const navigate = useNavigate();
   const navigateToService = () => {
-    navigate('/user/service01');
+    if(sessionStorage.getItem('userId') ==='ssafy'){
+      navigate('/user/service01');
+    }else{
+      alert('로그인 후 이용 가능합니다.');
+      navigate('/user/login');
+    }
   };
   return (
     <Button

@@ -1,13 +1,18 @@
 package com.ssafy.wedding101.controller;
 
 import com.ssafy.wedding101.model.dto.AlbumDto;
+import com.ssafy.wedding101.model.dto.InfoDto;
 import com.ssafy.wedding101.model.service.AlbumService;
 import com.ssafy.wedding101.model.service.InfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.dialect.lock.PessimisticReadUpdateLockingStrategy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,9 +68,23 @@ public class AlbumRestController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
-//
-//    @Operation(summary = "앨범 접근 코드로 결혼정보 조회")
-//    @GetMapping("")
+
+    @Operation(summary = "앨범 접근 코드로 결혼정보 조회")
+    @GetMapping("/access/{albumAccessId}")
+    public ResponseEntity<Map<String, Object>> getInfoByAccessId(@PathVariable String albumAccessId) {
+        Map<String, Object> result = new HashMap<>();
+        if(!albumService.existAccessId(albumAccessId)) {
+            result.put("message", "존재하지 않는 접근 ID 입니다.");
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        Long albumSeq = albumService.getAlbumSeqByAccessId(albumAccessId);
+        AlbumDto albumDto = albumService.getAlbum(albumSeq).orElseThrow();
+        InfoDto infoDto = infoService.getInfo(albumDto.getInfoSeq()).orElseThrow();
+        result.put("infoData", infoDto);
+        result.put("albumSeq", albumSeq);
+        result.put("albumThanksUrl", albumDto.getAlbumThanksUrl());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
 

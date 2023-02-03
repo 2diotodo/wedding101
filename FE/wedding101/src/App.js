@@ -6,7 +6,9 @@ import UserLogin from './pages/User/UserLogin/UserLogin';
 import UserRegist from './pages/User/UserRegist/UserRegist';
 import UserInvitation from './pages/WeddingInvitation/UserInvitation';
 import BoardReview from './pages/BoardReview/BoardReview';
+import BoardQuestion from './pages/BoardQuestion/BoardQuestion';
 import AlbumCover from './pages/Album/AlbumCover';
+import AlbumList from './pages/Album/AlbumList';
 import ServiceProcess01 from './pages/ServiceProcess/ServiceProcess01';
 import MainIndex from './pages/Main/MainIndex';
 
@@ -17,8 +19,9 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path='/invitation' element={<UserInvitation />} />
         <Route path='/album' element={<AlbumCover />} />
+        <Route path='/album/list' element={<AlbumList />} />
         <Route path='/review' element={<BoardReview />} />
-        <Route path='/contact' element={<BoardReview />} />
+        <Route path='/contact' element={<BoardQuestion />} />
         <Route path='/user/service01' element={<ServiceProcess01 />} />
       </Route>
       {/*Header, Footer 보여주지 않을 페이지 */}
