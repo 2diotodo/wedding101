@@ -110,12 +110,12 @@ class VideoRecorder(QThread):
 
                 # counter += 1
                 # timer_current = time.time() - timer_start
-                # time.sleep(1/self.fps)
                 # gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
                 # cv2.imshow('video_frame', gray)
                 # cv2.waitKey(1)
             else:
                 break
+
 
     '''
         def set_background_image(self, bg_dir = "../BackgroundImage", bg_name = 'flower1.png'):

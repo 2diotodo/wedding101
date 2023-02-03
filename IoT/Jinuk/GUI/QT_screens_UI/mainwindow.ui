@@ -38,7 +38,7 @@
       <string notr="true">background: #FFF3C8;</string>
      </property>
      <property name="currentIndex">
-      <number>11</number>
+      <number>9</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -1621,6 +1621,9 @@ border-radius:0;</string>
        <property name="text">
         <string/>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="video_review_page">
@@ -1809,8 +1812,8 @@ border-radius:0;</string>
    <slot>go_prev_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>572</x>
-     <y>319</y>
+     <x>180</x>
+     <y>790</y>
     </hint>
     <hint type="destinationlabel">
      <x>663</x>
@@ -1889,8 +1892,8 @@ border-radius:0;</string>
    <slot>go_home_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>538</x>
-     <y>267</y>
+     <x>970</x>
+     <y>886</y>
     </hint>
     <hint type="destinationlabel">
      <x>640</x>
@@ -2017,8 +2020,8 @@ border-radius:0;</string>
    <slot>go_home_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1069</x>
-     <y>384</y>
+     <x>1019</x>
+     <y>794</y>
     </hint>
     <hint type="destinationlabel">
      <x>1281</x>
@@ -2033,8 +2036,8 @@ border-radius:0;</string>
    <slot>go_prev_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1074</x>
-     <y>451</y>
+     <x>554</x>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
      <x>1280</x>
@@ -2049,8 +2052,8 @@ border-radius:0;</string>
    <slot>go_next_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
-     <y>507</y>
+     <x>141</x>
+     <y>777</y>
     </hint>
     <hint type="destinationlabel">
      <x>1283</x>
@@ -2065,8 +2068,8 @@ border-radius:0;</string>
    <slot>record_control()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>596</y>
+     <x>528</x>
+     <y>776</y>
     </hint>
     <hint type="destinationlabel">
      <x>411</x>
@@ -2225,8 +2228,8 @@ border-radius:0;</string>
    <slot>go_home_page()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>508</x>
-     <y>400</y>
+     <x>1052</x>
+     <y>758</y>
     </hint>
     <hint type="destinationlabel">
      <x>634</x>

@@ -560,6 +560,7 @@ class Ui_Form(object):
         self.video_stream.setObjectName(u"video_stream")
         self.video_stream.setGeometry(QRect(0, 0, 1280, 720))
         self.video_stream.setStyleSheet(u"background:#000000;")
+        self.video_stream.setAlignment(Qt.AlignCenter)
         self.stackedWidget.addWidget(self.video_page)
         self.video_review_page = QWidget()
         self.video_review_page.setObjectName(u"video_review_page")
@@ -645,7 +646,7 @@ class Ui_Form(object):
         self.photo_take_button_3.clicked.connect(Form.photo_take_10sec)
         self.end_home_button.clicked.connect(Form.go_home_page)
 
-        self.stackedWidget.setCurrentIndex(11)
+        self.stackedWidget.setCurrentIndex(9)
 
 
         QMetaObject.connectSlotsByName(Form)
