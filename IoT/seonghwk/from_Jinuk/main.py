@@ -67,7 +67,7 @@ class VideoRecorder(QThread):
     "Video class based on openCV"
     def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
         super().__init__()
-        self.open = True
+        self.recording_now = True
         self.device_index = camindex
         self.fps = fps                  # fps should be the minimum constant rate at which the camera can
         self.fourcc = fourcc            # capture images (with no decrease in speed over time; testing is required)
@@ -93,14 +93,15 @@ class VideoRecorder(QThread):
 
 
     def run(self):
-        # self.set_background_image(bg_dir = "../BackgroundImage", bg_name = "flower1.png")
+        # self.set_background_image(bg_dir = "QT_Resources/Pics", bg_name = 'home_back.png')
 
         "Video starts being recorded"
         # counter = 1
         timer_start = time.time()
         timer_current = 0
-        self.open = True
-        while self.open:
+
+        self.recording_now = True
+        while self.recording_now:
             ret, self.video_frame = self.video_cap.read()
             if ret:
                 self.video_frame = cv2.flip(self.video_frame, 0)
@@ -126,12 +127,12 @@ class VideoRecorder(QThread):
             else:
                 break
     
+    def set_background_image(self, bg_dir = "QT_Resources/Pics", bg_name = 'home_back.png'):
+        background_path = os.path.join(bg_dir, bg_name)
+        background_image = cv2.imread(background_path)
+        background_image = cv2.resize(background_image, (self.width, self.height))
+        self.background_image = background_image
     '''
-        def set_background_image(self, bg_dir = "../BackgroundImage", bg_name = 'flower1.png'):
-            background_path = os.path.join(bg_dir, bg_name)
-            background_image = cv2.imread(background_path)
-            background_image = cv2.resize(background_image, (self.width, self.height))
-            self.background_image = background_image
 
         def mediapipe_selfie_segmentation(self) :
             # For webcam input:
@@ -163,59 +164,59 @@ class VideoRecorder(QThread):
                     self.background_image[:] = BG_COLOR
 
                 self.video_frame = np.where(condition, self.video_frame, self.background_image)
-
-        def chromakey_replacement(self):
-            # # check hsv value from image
-            # hsv = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2HSV)
-            
-            # # make a mask from hsv values
-            # mask = cv2.inRange(hsv, (50, 150, 0), (70, 255, 255)) # 영상, 최솟값, 최댓값
-            
-            # # utilizing mask to input image
-            # # copyTo(src, mask, dst)
-            # cv2.copyTo(self.background_image, mask, self.video_frame)
-
-            norm_factor = 255
-            b = self.video_frame[:, :, 0] / norm_factor
-            g = self.video_frame[:, :, 1] / norm_factor
-            r = self.video_frame[:, :, 2] / norm_factor
-
-            red_vs_green = (r - g) + .3
-            blue_vs_green = (b - g) + .3
-
-            """
-            Darker pixels would be around 0.
-            In order to ommit removing dark pixels we
-            sum .3 to make small negative numbers to be
-            above 0.
-            """
-
-            red_vs_green = (r - g) + .3
-            blue_vs_green = (b - g) + .3
-
-            """
-            Now pixels below 0. value would have a
-            high probability to be background green
-            pixels.
-            """
-            red_vs_green[red_vs_green < 0] = 0
-            blue_vs_green[blue_vs_green < 0] = 0
-
-            """
-            Combine the red(blue) vs green ratios to
-            set an alpha layer with valid alpha-values.
-            """
-            alpha = (red_vs_green + blue_vs_green) * 255
-            alpha[alpha > 50] = 255
-
-            self.video_frame[alpha == 0] = self.background_image[alpha == 0]
     '''
+
+    def chromakey_replacement(self):
+        # # check hsv value from image
+        # hsv = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2HSV)
+        
+        # # make a mask from hsv values
+        # mask = cv2.inRange(hsv, (50, 150, 0), (70, 255, 255)) # 영상, 최솟값, 최댓값
+        
+        # # utilizing mask to input image
+        # # copyTo(src, mask, dst)
+        # cv2.copyTo(self.background_image, mask, self.video_frame)
+
+        norm_factor = 255
+        b = self.video_frame[:, :, 0] / norm_factor
+        g = self.video_frame[:, :, 1] / norm_factor
+        r = self.video_frame[:, :, 2] / norm_factor
+
+        red_vs_green = (r - g) + .3
+        blue_vs_green = (b - g) + .3
+
+        """
+        Darker pixels would be around 0.
+        In order to ommit removing dark pixels we
+        sum .3 to make small negative numbers to be
+        above 0.
+        """
+
+        red_vs_green = (r - g) + .3
+        blue_vs_green = (b - g) + .3
+
+        """
+        Now pixels below 0. value would have a
+        high probability to be background green
+        pixels.
+        """
+        red_vs_green[red_vs_green < 0] = 0
+        blue_vs_green[blue_vs_green < 0] = 0
+
+        """
+        Combine the red(blue) vs green ratios to
+        set an alpha layer with valid alpha-values.
+        """
+        alpha = (red_vs_green + blue_vs_green) * 255
+        alpha[alpha > 50] = 255
+
+        self.video_frame[alpha == 0] = self.background_image[alpha == 0]
 
 
     def stop(self):
         "Finishes the video recording therefore the thread too"
-        if self.open:
-            self.open=False
+        if self.recording_now:
+            self.recording_now=False
             self.video_cap.release()
             # self.video_out.release()
             # cv2.destroyAllWindows()
@@ -227,7 +228,7 @@ class AudioRecorder(QThread):
     "Audio class based on pyAudio and Wave"
     def __init__(self, filename="temp_audio.wav", rate=44100, fpb=1024, channels=2):
         super().__init__()
-        self.open = True
+        self.recording_now = True
         self.rate = rate
         self.frames_per_buffer = fpb
         self.channels = channels
@@ -244,17 +245,17 @@ class AudioRecorder(QThread):
     def run(self):
         "Audio starts being recorded"
         self.stream.start_stream()
-        self.open = True
-        while self.open:
+        self.recording_now = True
+        while self.recording_now:
             data = self.stream.read(self.frames_per_buffer) 
             self.audio_frames.append(data)
-            if not self.open:
+            if not self.recording_now:
                 break
 
     def stop(self):
         "Finishes the audio recording therefore the thread too"
-        if self.open:
-            self.open = False
+        if self.recording_now:
+            self.recording_now = False
             self.stream.stop_stream()
             print("1")
             # self.stream.close()
@@ -275,6 +276,47 @@ class AudioRecorder(QThread):
             self.quit()
             self.wait(500) #5000ms = 5s
 
+class PhotoViewfinder(QThread):
+    mySignal = Signal(QPixmap)
+    def __init__(self, name="name", fourcc="MJPG", sizex=768, sizey=768, camindex=0, fps=60):
+        super().__init__()
+        self.recording_now = True
+        self.device_index = camindex
+        self.fps = fps  # fps should be the minimum constant rate at which the camera can
+        self.fourcc = fourcc  # capture images (with no decrease in speed over time; testing is required)
+        self.frameSize = (sizex, sizey)  # video formats and sizes also depend and vary according to the camera used
+        self.photo_filename = name + "-photo.jpg"
+        self.video_cap = cv2.VideoCapture(self.device_index)
+        self.frame_counts = 1
+        self.start_time = time.time()
+        self.video_frame = None
+        self.background_image = None
+        self.img = None
+
+    def run(self):
+
+        self.recording_now = True
+        while self.recording_now:
+            ret, self.video_frame = self.video_cap.read()
+            if ret:
+                self.video_frame = cv2.flip(self.video_frame, 0)
+
+                imgRGB = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2RGB)
+                h, w, byte = imgRGB.shape
+                self.img = QImage(imgRGB, w, h, byte * w, QImage.Format_RGB888)
+                pix_img = QPixmap(self.img)
+                self.mySignal.emit(pix_img)
+
+            else:
+                break
+
+    def stop(self):
+        "Finishes the video recording therefore the thread too"
+        if self.recording_now:
+            self.recording_now = False
+            self.video_cap.release()
+            self.quit()
+            self.wait(500)  # 5000ms = 5s
 
 
 
@@ -296,8 +338,10 @@ class MyApp(QWidget, Ui_Form):
 
     def __init__(self):
         super().__init__()
-        # set class variable
-        self.th = None
+        # set Qthread variable
+        self.photo_thread = None
+        self.video_thread = None
+        self.audio_thread = None
 
         # set class functions
         self.setupUi(self)
@@ -331,6 +375,7 @@ class MyApp(QWidget, Ui_Form):
             "QT_Resources/Fonts/BeauRivage-Regular.ttf")
         self.font_id2 = QFontDatabase.addApplicationFont(
             "QT_Resources/Fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf")
+        self.photo_image = None
 
         self.SenderName = ''
         self.SenderRelation = 0
@@ -340,11 +385,10 @@ class MyApp(QWidget, Ui_Form):
 
         # set control_bt callback clicked  function
         # set video and audio record thread
-        self.open = False
-        self.video_thread = None
-        self.audio_thread = None
+        self.recording_now = False
         self.name = None
         self.main()
+        self.playlist = None
 
     def main(self):
         # this is video thread
@@ -354,7 +398,7 @@ class MyApp(QWidget, Ui_Form):
         # self.video_thread = VideoRecorder(name = self.name)
         # self.video_thread.mySignal.connect(self.setImage)
         # self.video_thread.start()
-        self.set_only_int()
+        # self.set_only_int()
         pass
 
     def set_only_int(self):
@@ -454,9 +498,13 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "select_vid_button":
             current_page += 2
         if sender.objectName() == "video_review_next_button":
-            self.submit_info()    
+            self.submit_info()
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.media_player.stop()
+        if sender.objectName() == "select_pic_button":
+            self.photo_thread = PhotoViewfinder(name=self.SenderName)
+            self.photo_thread.mySignal.connect(self.photo_make_preview)
+            self.photo_thread.start()
 
     def go_prev_page(self):
         current_page = self.stackedWidget.currentIndex()
@@ -464,6 +512,8 @@ class MyApp(QWidget, Ui_Form):
         print(sender.objectName())
         if sender.objectName() == "video_prev_button":
             current_page -= 2
+        if sender.objectName() == "photo_prev_button":
+            self.photo_thread.stop()
         self.stackedWidget.setCurrentIndex(current_page - 1)
 
     def go_home_page(self):
@@ -492,7 +542,8 @@ class MyApp(QWidget, Ui_Form):
 
 
     def submit_info(self):
-        url = "http://localhost:3000/upload"
+
+        url = "http://i8a101.p.ssafy.io:8085/album/access/123456789a"
         file_path = f"{self.name}.avi"
         data = {
             "author" : self.SenderName,
@@ -507,8 +558,8 @@ class MyApp(QWidget, Ui_Form):
         print(response.status_code)
 
     def record_control(self):
-        if self.open:
-            self.open = False
+        if self.recording_now:
+            self.recording_now = False
             self.stop_AVrecording()
             self.video_control_button.setText("Record")
             self.video_stream.setText("Camera")
@@ -516,7 +567,7 @@ class MyApp(QWidget, Ui_Form):
             self.set_review_video()
             self.go_next_page()
         else:
-            self.open = True
+            self.recording_now = True
             self.start_AVrecording()
             self.video_control_button.setText("Stop")
             self.video_stream.setText("recording")
@@ -591,6 +642,11 @@ class MyApp(QWidget, Ui_Form):
         # if os.path.exists(str(local_path) + "/" + filename + ".avi"):
         #     os.remove(str(local_path) + "/" + filename + ".avi")
 
+
+    def set_video_preview(self, img):
+        self.video_stream.setPixmap(img)
+
+
     def close_window(self):
         # if spec is not None:
         #     self.th.terminate()
@@ -598,41 +654,52 @@ class MyApp(QWidget, Ui_Form):
         self.close()
 
     def set_review_video(self):
-        playlist = QMediaPlaylist()
+        self.playlist = QMediaPlaylist()
         url = QUrl.fromLocalFile(f"/home/pi/A101/IoT/seonghwk/from_Jinuk/{self.name}.avi")
-        # playlist.addMedia(QMediaContent(url))
-        # playlist.setPlaybackMode(QMediaPlaylist.Loop)
+        self.playlist.addMedia(QMediaContent(url))
+        self.playlist.setPlaybackMode(QMediaPlaylist.Loop)
 
         # media = QMediaContent(QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
 
-        # self.review_player.setPlaylist(playlist)
-        self.review_player.setMedia(QMediaContent(url))
+        self.review_player.setPlaylist(self.playlist)
+        # self.review_player.setMedia(QMediaContent(url))
         self.review_player.setVolume(100)
         self.review_player.setVideoOutput(self.widget)
         self.review_player.play()
         # self.widget.show()
 
 
-        player = QMediaPlayer()
-        player.setPlaylist(playlist)
-        player.play()
+        # player = QMediaPlayer()
+        # player.setPlaylist(playlist)
+        # player.play()
 
     def check_service_validation(self):
+        self.request_album_info()
         check_validation_window = CheckDialog()
         check_validation_window.setModal(True)
+        check_validation_window.chk_D_label_2.setText(f"신혼부부\n{self.groom_name}, {self.bride_name}\n님의 결혼식이 맞습니까?")
         cd = check_validation_window.show_dialog()
         print(cd)
         if cd:
-            self.request_album_info()
             self.go_next_page()
+            self.request_thankyou_video()
+
+    def request_thankyou_video(self):
+        url = "http://i8a101.p.ssafy.io:8085/album/"
+        params = {'userSeq': self.user_seq}
+        response = requests.get(url, params=params).json()
+        print(response['albumThanksUrl'])
+        pass
     
     def request_album_info(self):
-        album_seq = self.srvc_chk_lineEdit.text()
-        print(album_seq)
-        URL = "http://localhost:3000/album"
-        with open("test_received.avi", "wb") as file:
-            res = requests.get(URL) 
-            file.write(res.content)
+        album_access_id = self.srvc_chk_lineEdit.text()
+        url = "http://i8a101.p.ssafy.io:8085/album/access/" + album_access_id
+        res = requests.get(url).json()
+
+        self.user_seq = res['infoData']['userSeq']
+        self.groom_name = res['infoData']['groomName']
+        self.bride_name = res['infoData']['brideName']
+        self.home_text2.setText(f"신혼부부 {self.groom_name}, {self.bride_name} 님에게 기념 사진이나 영상 편지를 남겨보세요")
 
 
     def check_agreement(self):
@@ -671,6 +738,15 @@ class MyApp(QWidget, Ui_Form):
         print(self.SenderReceiver)
         print(receiver_list[self.SenderReceiver])
 
+    def photo_take_now(self):
+        self.photo_thread.stop()
+        self.photo_image = self.photo_viewfinder.pixmap()
+        self.image_viewer.setPixmap(self.photo_image)
+        self.go_next_page()
+
+    def photo_make_preview(self, qimg):
+        self.photo_viewfinder.setPixmap(qimg)
+
 
 
 
@@ -681,6 +757,7 @@ QGuiApplication.inputMethod().visibleChanged.connect(handleVisibleChanged)
 
 win = MyApp()
 win.show()
+# win.showFullScreen()
 
 if VERSION == "DEVELOP":
     app.exec()
