@@ -15,6 +15,7 @@ CREATE TABLE `tbl_user` (
 	`user_email`	VARCHAR(50)	NOT NULL,
 	`user_nickname`	VARCHAR(30)	NULL,
 	`is_banned`	TINYINT(1)	NOT NULL	DEFAULT 0, -- COMMENT '비활성화테이블에 필드 생성시 true 로 변경',
+    `refresh_token` VARCHAR(250) NULL,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,
 	`is_valid`	TINYINT(1)	NOT NULL	DEFAULT 1

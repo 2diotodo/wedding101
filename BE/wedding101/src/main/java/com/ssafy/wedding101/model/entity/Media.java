@@ -39,7 +39,7 @@ public class Media {
     private String mediaRelation;
 
     @Column(name = "media_receiver", columnDefinition = "TINYINT")
-    private boolean mediaReceiver;
+    private String mediaReceiver;
 
     @Column(name = "is_wish", columnDefinition = "TINYINT")
     @ColumnDefault("false")

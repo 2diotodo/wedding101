@@ -17,7 +17,7 @@ public class MediaDto {
     private boolean isVideo;
     private String mediaName;
     private String mediaRelation;
-    private boolean mediaReceiver;
+    private String mediaReceiver;
     private boolean isWish;
     private boolean isInBin;
 }
