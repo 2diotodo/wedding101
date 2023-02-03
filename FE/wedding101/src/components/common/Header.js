@@ -46,7 +46,6 @@ function Header() {
         </NavLink>
         <NavLink label='Album' to='/album'>
           <Button variant='text' size='large' color='secondary'>
-            {' '}
             Album{' '}
           </Button>
         </NavLink>
@@ -57,24 +56,24 @@ function Header() {
         </NavLink>
         <NavLink label='Review' to='/review'>
           <Button variant='text' size='large' color='secondary'>
-            Review
+            Review{' '}
           </Button>
         </NavLink>
         <NavLink label='Contact Us' to='/contact'>
-          <Button variant='text' color='secondary'>
-            Contact Us
+          <Button variant='text' size='large' color='secondary'>
+            Contact Us{' '}
           </Button>
         </NavLink>
 
         {isLogin ? (
           <div>
             <NavLink label='LogIn' to='/user/mypage'>
-              <Button variant='text' color='secondary'>
-                {sessionStorage.getItem('name')}
+              <Button variant='text' size='large' color='secondary'>
+                {sessionStorage.getItem('name')}님 환영합니다.
               </Button>
             </NavLink>
             <NavLink label='LogOut' to='/user/login'>
-              <Button variant='text' color='secondary' onClick={onLogout}>
+              <Button variant='text' size='large' color='secondary' onClick={onLogout}>
                 Logout{' '}
               </Button>
             </NavLink>
@@ -82,12 +81,12 @@ function Header() {
         ) : (
           <div>
             <NavLink label='LogIn' to='/user/login'>
-              <Button variant='text' color='secondary'>
+              <Button variant='text' size='large' color='secondary'>
                 LogIn{' '}
               </Button>
             </NavLink>
             <NavLink label='SignUp' to='/user/signup'>
-              <Button variant='text' color='secondary'>
+              <Button variant='text' size='large' color='secondary'>
                 SignUp{' '}
               </Button>
             </NavLink>
