@@ -10,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,24 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public List<MediaDto> getAllMedia(Long albumSeq) {
+//        List<Media> medias = mediaRepository.findAll();
+        List<MediaDto> mediaList = mediaRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+        List<MediaDto> result = new ArrayList<>();
+        for (MediaDto mediaDto : mediaList) {
+            if (Objects.equals(mediaDto.getAlbumSeq(), albumSeq)) {
+                result.add(mediaDto);
+            }
+        }
+//        for(Media m : medias) {
+//            if (Objects.equals(m.getAlbum().getAlbumSeq(), albumSeq)) {
+//                mediaList.add(this.toDto(m));
+//            }
+//        }
+        return result;
+    }
+
+    @Override
+    public List<MediaDto> getMediaList(Long albumSeq, String type, String to, String relation) {
         return null;
     }
 

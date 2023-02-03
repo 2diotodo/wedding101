@@ -7,6 +7,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_album")
@@ -40,6 +42,9 @@ public class Album {
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
     @ColumnDefault("true")
     private boolean isValid;
+
+    @OneToMany(mappedBy = "album")
+    private List<Media> mediaList = new ArrayList<>();
 
     @Builder
     public Album(Long albumSeq, Long infoSeq, Long userSeq, String albumName, String albumColor, String albumPhotoUrl,

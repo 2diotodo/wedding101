@@ -13,6 +13,8 @@ public interface MediaService {
 
     List<MediaDto> getAllMedia(Long albumSeq);
 
+    List<MediaDto> getMediaList(Long albumSeq, String type, String to, String relation);
+
     void writeMedia(MediaDto mediaDto);
 
     void throwBin(Long mediaSeq);
@@ -31,7 +33,7 @@ public interface MediaService {
                 .isVideo(mediaDto.isVideo())
                 .mediaName(mediaDto.getMediaName())
                 .mediaRelation(mediaDto.getMediaRelation())
-                .mediaReceiver(mediaDto.isMediaReceiver())
+                .mediaReceiver(mediaDto.getMediaReceiver())
                 .build();
     }
 
@@ -39,12 +41,12 @@ public interface MediaService {
         return MediaDto.builder()
                 .mediaSeq(media.getMediaSeq())
                 .albumSeq(media.getAlbum().getAlbumSeq())
-                .storageUrl(media.toString())
+                .storageUrl(media.getStorageUrl())
                 .onBooth(media.isOnBooth())
                 .isVideo(media.isVideo())
                 .mediaName(media.getMediaName())
                 .mediaRelation(media.getMediaRelation())
-                .mediaReceiver(media.isMediaReceiver())
+                .mediaReceiver(media.getMediaReceiver())
                 .isWish(media.isWish())
                 .isInBin(media.isInBin())
                 .build();
