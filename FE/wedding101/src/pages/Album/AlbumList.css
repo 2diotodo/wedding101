@@ -1,19 +1,21 @@
-.album-cover {
+.album-list {
     background-color: #C5DAD1;
     height: 100vh;
     padding: 10%;
     }
 
-.cover-image {
+.media-items{
     display: flex;
+    flex-wrap: wrap; /*크기변형없이 한줄 넘으면 다음줄로*/
     justify-content: center;
-    align-items: center;
     background-color: bisque;
-    width: 500px;
-    height: 600px;
 }
-.upload-media {
+.pagination {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.bin-icon {
+    justify-content: end;
 }
