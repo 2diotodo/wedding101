@@ -2,7 +2,7 @@
     {
     "albumSeq": 1,
     "mediaSeq": 1,
-    "title": "Big Buck Bunny",
+    "title": "Small Buck Bunny",
     "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "urlToImg": "https://picsum.photos/200",
     "onBooth": false,
@@ -11,12 +11,13 @@
     "isVideo": true,
     "isWish": true,
     "isBin": false,
+    "createdAt": "2023-02-02 03:43:16",
     "isValid": false
     },
     {
     "albumSeq": 1,
     "mediaSeq": 2,
-    "title": "Small Buck Bunny",
+    "title": "Middle Buck Bunny",
     "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "urlToImg": "https://picsum.photos/200",
     "onBooth": false,
@@ -25,12 +26,13 @@
     "isVideo": false,
     "isWish": true,
     "isBin": false,
+    "createdAt": "2023-02-01 03:43:16",
     "isValid": false
     },
     {
     "albumSeq": 1,
     "mediaSeq": 3,
-    "title": "Middle Buck Bunny",
+    "title": "Big Buck Bunny",
     "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "urlToImg": "https://picsum.photos/200",
     "onBooth": false,
@@ -39,6 +41,7 @@
     "isVideo": true,
     "isWish": false,
     "isBin": false,
+    "createdAt": "2023-02-01 00:43:16",
     "isValid": false
     },
     {
@@ -48,11 +51,12 @@
     "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "urlToImg": "https://picsum.photos/200",
     "onBooth": false,
-    "name": "Good Doe",
+    "name": "Song Doe",
     "relation": "부",
     "isVideo": true,
-    "isWish": true,
+    "isWish": false,
     "isBin": false,
+    "createdAt": "2023-02-03 11:43:16",
     "isValid": false
     },
     {
@@ -67,6 +71,7 @@
     "isVideo": true,
     "isWish": true,
     "isBin": false,
+    "createdAt": "2023-02-01 01:43:16",
     "isValid": false
     },
     {
@@ -81,6 +86,67 @@
     "isVideo": true,
     "isWish": true,
     "isBin": false,
+    "createdAt": "2023-02-01 06:40:16",
+    "isValid": false
+    },
+    {
+    "albumSeq": 1,
+    "mediaSeq": 7,
+    "title": "Big Buck Bunny",
+    "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "urlToImg": "https://picsum.photos/200",
+    "onBooth": false,
+    "name": "Good Doe",
+    "relation": "부",
+    "isVideo": true,
+    "isWish": true,
+    "isBin": false,
+    "createdAt": "2023-02-03 03:43:16",
+    "isValid": false
+    },
+    {
+    "albumSeq": 1,
+    "mediaSeq": 8,
+    "title": "Big Buck Bunny",
+    "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "urlToImg": "https://picsum.photos/200",
+    "onBooth": false,
+    "name": "Good Doe",
+    "relation": "부",
+    "isVideo": true,
+    "isWish": true,
+    "isBin": false,
+    "createdAt": "2023-02-03 05:43:16",
+    "isValid": false
+    },
+    {
+    "albumSeq": 1,
+    "mediaSeq": 9,
+    "title": "Big Buck Bunny",
+    "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "urlToImg": "https://picsum.photos/200",
+    "onBooth": false,
+    "name": "Good Doe",
+    "relation": "부",
+    "isVideo": true,
+    "isWish": true,
+    "isBin": false,
+    "createdAt": "2023-01-03 03:43:16",
+    "isValid": false
+    },
+    {
+    "albumSeq": 1,
+    "mediaSeq": 10,
+    "title": "Big Buck Bunny",
+    "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "urlToImg": "https://picsum.photos/200",
+    "onBooth": false,
+    "name": "Good Doe",
+    "relation": "부",
+    "isVideo": true,
+    "isWish": true,
+    "isBin": false,
+    "createdAt": "2023-01-23 03:43:16",
     "isValid": false
     }
 ]

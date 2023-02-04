@@ -1,7 +1,10 @@
+import './MediaItem.css';
+
 import { useEffect, useState } from "react";
-import { Box, CardActions, CardHeader, Modal } from "@mui/material";
+import { Box, CardActions, CardHeader, makeStyles, Modal } from "@mui/material";
 import { Card, CardActionArea, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
 import { CameraAlt, Videocam, Star, StarBorder } from "@mui/icons-material";
+
 import axios from "axios";
 
 const style = {
@@ -23,23 +26,23 @@ const MediaItem = ({media}) => {
   const handleClose = () => setOpen(false);
   const {albumSeq, mediaSeq, title, url, urlToImg, name, relation, isVideo, isWish, isBin, isValid} = media;
 
-  useEffect(async () => {
-    const fetchData = async() => {
-      const res = await axios.get({
-        url: "http://localhost:8080",
-        media,
-      })
-    if(res.data.type === 'liked') setLike(true);
-  }
-  fetchData()
-}, []);
+//   useEffect(async () => {
+//     const fetchData = async () => {
+//       const res = await axios.get({
+//         url: "http://localhost:8080",
+//         media,
+//       })
+//     if(res.data.type === 'liked') setLike(true);
+//   }
+//   fetchData()
+// }, []);
 
  const toggleLike = async (e) => {
       const res = await axios.post() // [POST] 사용자가 좋아요를 누름 -> DB 갱신
       setLike(!like)
     }
     return (
-      <div>
+      <div className='media-item'>
       <Card sx={{ maxWidth: 345 }}>
         {/* 사진/비디오여부표시 및 좋아요표시 */}
         <CardHeader
