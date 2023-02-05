@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:18.13.0
 
 WORKDIR /usr/src/app
 
@@ -10,4 +10,6 @@ COPY ./ /usr/src/app/
 
 EXPOSE 3000
 
-CMD ["npm", "run", "build"]
+RUN npm run build
+
+CMD ["/bin/bash"]
