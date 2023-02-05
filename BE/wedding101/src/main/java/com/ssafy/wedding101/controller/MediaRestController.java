@@ -43,6 +43,16 @@ public class MediaRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "휴지통 미디어 조회")
+    @GetMapping("/{albumSeq}/bin")
+    public ResponseEntity<Map<String, Object>> getMediaListInBin(@PathVariable Long albumSeq) {
+        Map<String, Object> result = new HashMap<>();
+        List<MediaDto> mediaList = mediaService.getmediaListInBin(albumSeq);
+        result.put("data", mediaList);
+        result.put("count", mediaList.size());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @Operation(summary = "옵션으로 미디어 조회")
     @GetMapping("/{albumSeq}")
     public ResponseEntity<Map<String, Object>> getMediaListByOptions(@PathVariable Long albumSeq,
@@ -94,4 +104,25 @@ public class MediaRestController {
         }
     }
 
+    @Operation(summary = "미디어 북마크 생성")
+    @GetMapping("/wish/{mediaSeq}")
+    public ResponseEntity<?> wishMedia(@PathVariable Long mediaSeq) {
+        try {
+            mediaService.wish(mediaSeq);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @Operation(summary = "미디어 북마크 삭제")
+    @GetMapping("/unwish/{mediaSeq}")
+    public ResponseEntity<?> unwishMedia(@PathVariable Long mediaSeq) {
+        try {
+            mediaService.unwish(mediaSeq);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 }

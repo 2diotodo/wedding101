@@ -57,28 +57,28 @@ public class Media {
         this.album = album;
     }
 
-    public void wish(boolean isWish) {
+    public void wish() {
         this.isWish = true;
     }
 
-    public void unwish(boolean isWish) {
+    public void unwish() {
         this.isWish = false;
     }
 
-    public void throwBin(boolean isInBin) {
+    public void throwBin() {
         this.isInBin = true;
     }
 
-    public void restore(boolean isInBin) {
+    public void restore() {
         this.isInBin = false;
     }
 
-    public void updateIsInBinTrue() {
-        this.isInBin = true;
+    public void updateIsValidTrue() {
+        this.isValid = true;
     }
 
-    public void updateIsInBinFalse() {
-        this.isInBin = false;
+    public void updateIsValidFalse() {
+        this.isValid = false;
     }
 }
 
