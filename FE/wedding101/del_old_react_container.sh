@@ -7,7 +7,7 @@ DANGLING_DOCKER_IMAGE=$(docker images -f "dangling=true" -q)
 # 2. for removing 'react' container previously made
 #    'PRE_REACT_CONTAINER' has all the value which has been made before
 #    'PRE_REACT_IMAGE', 'PRE_REACT_TAG' for checking docker images which has "react"
-PRE_REACT_CONTAINER=$(docker ps -a | grep "java -jar" | awk '{print $2}')
+PRE_REACT_CONTAINER=$(docker ps -a | grep "npm" | awk '{print $2}')
 PRE_REACT_IMAGE=$(docker images -a | grep "react" | awk '{print $1}')
 PRE_REACT_TAG=$(docker images -a | grep "react" | awk '{print $2}')
 
