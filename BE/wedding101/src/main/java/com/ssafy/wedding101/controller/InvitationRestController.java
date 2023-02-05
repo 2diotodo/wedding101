@@ -43,6 +43,12 @@ public class InvitationRestController {
         }
     }
 
-    
+    @Operation(summary = "청첩장 수정")
+    @PutMapping("")
+    public ResponseEntity<InvitationDto> modifyInvitation(@RequestBody InvitationDto invitationDto) {
+        invitationService.modifyInvitation(invitationDto);
+        InvitationDto invitationDtoAfter = invitationService.getInvitation(invitationDto.getInvitationSeq()).orElseThrow();
+        return new ResponseEntity<>(invitationDtoAfter, HttpStatus.OK);
+    }
 
 }
