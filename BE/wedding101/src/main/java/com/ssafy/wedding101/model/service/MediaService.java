@@ -52,4 +52,6 @@ public interface MediaService {
                 .isInBin(media.isInBin())
                 .build();
     }
+
+    List<MediaDto> getmediaListInBin(Long albumSeq);
 }
