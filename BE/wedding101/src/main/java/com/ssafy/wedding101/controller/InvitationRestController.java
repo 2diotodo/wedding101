@@ -51,4 +51,14 @@ public class InvitationRestController {
         return new ResponseEntity<>(invitationDtoAfter, HttpStatus.OK);
     }
 
+    @Operation(summary = "청첩장 삭제")
+    @GetMapping("/delete/{invitationSeq}")
+    public ResponseEntity<?> deleteInvitation(@PathVariable Long invitationSeq) {
+        try {
+            invitationService.deleteInvitation(invitationSeq);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 }
