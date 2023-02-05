@@ -8,7 +8,6 @@ RUN npm install
 
 COPY ./ /usr/src/app/
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 3000
 
 CMD ["npm", "run", "build"]
