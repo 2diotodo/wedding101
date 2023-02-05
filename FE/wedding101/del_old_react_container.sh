@@ -12,12 +12,12 @@ PRE_REACT_IMAGE=$(docker images -a | grep "react" | awk '{print $1}')
 PRE_REACT_TAG=$(docker images -a | grep "react" | awk '{print $2}')
 
 if [ -n $PRE_REACT_CONTAINER ] ; then
-	echo "Removing $PRE_REACT_CONTAINER where command including 'npm'"
+	echo "Removing $PRE_REACT_CONTAINER where command including 'react'"
 	echo 'y' | docker system prune
 	docker stop $PRE_REACT_CONTAINER
 	docker rm $PRE_REACT_CONTAINER
 else 
-	echo "Great. There's no pre-container where command is 'npm'.."
+	echo "Great. There's no pre-container where command is 'react'.."
 fi
 
 if [ -n $DANGLING_DOCKER_IMAGE ] ; then
