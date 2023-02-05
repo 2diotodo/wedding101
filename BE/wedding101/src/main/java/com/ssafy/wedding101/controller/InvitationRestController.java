@@ -31,4 +31,18 @@ public class InvitationRestController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+    @Operation(summary = "청첩장 조회")
+    @GetMapping("/{invitationSeq}")
+    public ResponseEntity<InvitationDto> getInvitation(@PathVariable Long invitationSeq) {
+        try {
+            InvitationDto invitationDto = invitationService.getInvitation(invitationSeq).orElseThrow();
+            return new ResponseEntity<>(invitationDto, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    
+
 }
