@@ -73,8 +73,12 @@ public class Media {
         this.isInBin = false;
     }
 
-    public void updateIsValid() {
-        this.isValid = false;
+    public void updateIsInBinTrue() {
+        this.isInBin = true;
+    }
+
+    public void updateIsInBinFalse() {
+        this.isInBin = false;
     }
 }
 

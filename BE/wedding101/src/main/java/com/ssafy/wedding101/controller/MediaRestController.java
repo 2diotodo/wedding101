@@ -72,5 +72,26 @@ public class MediaRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "미디어 삭제")
+    @GetMapping("/delete/{mediaSeq}")
+    public ResponseEntity<?> deleteMedia(@PathVariable Long mediaSeq) {
+        try {
+            mediaService.throwBin(mediaSeq);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @Operation(summary = "미디어 복원")
+    @GetMapping("/restore/{mediaSeq}")
+    public ResponseEntity<?> restoreMedia(@PathVariable Long mediaSeq) {
+        try {
+            mediaService.restore(mediaSeq);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 
 }
