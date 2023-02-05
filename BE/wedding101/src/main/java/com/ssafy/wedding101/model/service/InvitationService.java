@@ -11,5 +11,7 @@ public interface InvitationService {
 
     void writeInvitation(InvitationDto invitationDto);
 
-    
+    void deleteInvitation(Long invitationSeq);
+
+    void modifyInvitation(Long invitationSeq);
 }
