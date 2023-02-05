@@ -51,8 +51,22 @@ public class Invitation {
     @ColumnDefault("true")
     private boolean isValid;
 
+    public void update(Long templateSeq, String photoUrl1, String photoUrl2, String templateHeader,
+                       String templateFooter, String templateEtc) {
+        this.templateSeq = templateSeq;
+        this.photoUrl1 = photoUrl1;
+        this.photoUrl2 = photoUrl2;
+        this.templateHeader = templateHeader;
+        this.templateFooter = templateFooter;
+        this.templateEtc = templateEtc;
+    }
+
     public void setInfo(Info info) {
         this.info = info;
         this.userSeq = info.getUserSeq();
+    }
+
+    public void updateIsValid() {
+        this.isValid = false;
     }
 }

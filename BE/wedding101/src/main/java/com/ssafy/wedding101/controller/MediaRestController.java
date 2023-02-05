@@ -60,7 +60,6 @@ public class MediaRestController {
                                                                      @RequestParam(value = "to", required = false) String to,
                                                                      @RequestParam(value = "relation", required = false) String relation) {
         Map<String, String> options = new HashMap<>();
-        System.out.println(type + "***" + to + "***" + relation);
         int optionNum = 0;
         if (!StringUtils.isEmpty(type) && type.equals("all")) { // 전체거나 빈 옶션이 아닐 때
             options.put("type", type);
