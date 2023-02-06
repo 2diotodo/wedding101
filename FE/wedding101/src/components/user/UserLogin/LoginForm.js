@@ -32,27 +32,27 @@ function LoginForm() {
     await axios
     .post('http://localhost:8080/user/login', {
       userId: inputId,
-      userPw: inputPw,
+      userPassword: inputPw,
     }
     )
     .then((res) => {
         console.log(res);
-        console.log('res.data.userId :', res.data.userId);
-        console.log('res.data.msg :', res.data.msg);
-        if (res.data.userId === undefined) {
+        console.log('res.data.userId :', res.data.data.userId);
+        console.log('res.data.msg :', res.data.message);
+        if (res.data.data.userId === undefined) {
           // id 불일치, msg= '가입되지 않은 id입니다.'
-          console.log('=========================', res.data.msg);
+          console.log('=========================', res.data.message);
           alert('가입되지 않은 id입니다.');
-        } else if (res.data.userId === null) {
+        } else if (res.data.data.userId === null) {
           // id는 있지만, pw 다른 경우 userId = null
           console.log('====================', '입력하신 비밀번호가 일치하지 않습니다.');
           alert('입력하신 비밀번호가 일치하지 않습니다.');
-        } else if (res.data.userId === inputId) {
+        } else if (res.data.data.userId === inputId) {
           // id, pw 모두 일치
           console.log('=====================', '로그인 성공');
           // sessionStorage에 id를 userId라는 key 값으로 저장
           sessionStorage.setItem('userId', inputId);
-          sessionStorage.setItem('name', res.data.name);
+          sessionStorage.setItem('name', res.data.data.userName);
         }
         //작업 완료되면 페이지 이동
         document.location.href = '/';
