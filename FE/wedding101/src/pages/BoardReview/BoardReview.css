@@ -1,6 +1,7 @@
 .board-review {
     background-color: #d2dae9;
     height: 100vh;
+    padding: 10%;
 }
 tablebox {
     justify-items: center;
