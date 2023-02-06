@@ -1,14 +1,22 @@
 // 청첩장 프로세스3: 문구 변경
 import './InvitationProcess03.css';
 
+import { useNavigate } from 'react-router';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import {Button} from '@mui/material/';
-import ProgressBar from '../common/ProgressBar';
+import ProgressBar from '../../components/common/ProgressBar';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
-import UploadText from './UploadText';
+import UploadText from '../../components/WeddingInvitation/UploadText';
 
 const InvitationProcess03 = () => {
     
+
+    const navigate = useNavigate();
+    const toProcess04 = () => {
+      navigate('/invitation04');
+    };
+
+
     return(
         <div>
             <Grid2 container spacing={3}>
@@ -26,8 +34,12 @@ const InvitationProcess03 = () => {
                             <UploadText />
                         </div>
                         
-                    <Button className='next-button' variant='contained'>다음</Button>
-                    <Button className='prev-button' variant='contained'>이전</Button>
+                    <div className='buttons'>
+                    <Button variant='contained' onClick={() => navigate(-1)}>이전</Button>
+                    </div>
+                    <div className='buttons'>
+                    <Button variant='contained' onClick={toProcess04}>다음</Button>
+                    </div>
                 </Grid2>
             </Grid2>
         </div>

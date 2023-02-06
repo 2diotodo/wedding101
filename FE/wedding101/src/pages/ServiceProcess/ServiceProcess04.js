@@ -1,6 +1,6 @@
 import './ServiceProcess04.css';
 
-import ProgressBar from "../common/ProgressBar";
+import ProgressBar from '../../components/common/ProgressBar';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { Button } from "@mui/material";
 
