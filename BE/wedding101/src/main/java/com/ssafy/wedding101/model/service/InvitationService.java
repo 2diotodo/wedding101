@@ -32,7 +32,7 @@ public interface InvitationService {
         return InvitationDto.builder()
                 .invitationSeq(invitation.getInvitationSeq())
                 .infoSeq(invitation.getInfo().getInfoSeq())
-                .userSeq(invitation.getInfo().getUserSeq())
+                .userSeq(invitation.getInfo().getUser().getUserSeq())
                 .tempateSeq(invitation.getTemplateSeq())
                 .photoUrl1(invitation.getPhotoUrl1())
                 .photoUrl2(invitation.getPhotoUrl2())
