@@ -1,10 +1,23 @@
 import './MainArea02.css';
 
 import main02_1 from '../../assets/img/mainArea02_1.png';
+import Slider from 'react-slick';
+
 const MainArea02 = () => {
+  const settings = {
+    dots: true, // 슬라이드 아래 점표시
+    infinite: true, // 무한반복
+    speed: 500, // 넘어가는 속도
+    slidesToShow: 3,    // 화면에 보일 슬라이드 수
+    slidesToScroll: 1,  // 스크롤 단위
+    centerMode: true,
+    centerPadding: '0px', // 슬라이드 끝쪽 이미지 안잘리기
+  };
   return (
+    
     <div className='main-area02'>
-      <div className='container' id='container_p2'>
+      
+      {/* <div className='container' id='container_p2'>
         <div className='horizontalLayout' id='HL_p2_01'>
           <div className='verticalLayout' id='VL_p2_01'>
             <div className='title_explain'>
@@ -23,11 +36,27 @@ const MainArea02 = () => {
               </div>
             </div>
           </div>
-          <div className='exampleSlider'>
-            <img src={main02_1} alt='main02_1'></img>
-          </div>
+          
         </div>
-      </div>
+      </div> */}
+      <Slider {...settings}>
+            <div>
+              <img src={main02_1} alt='main02_1'></img>
+            </div>
+            <div>
+              <img src={main02_1} alt='main02_1'></img>
+            </div>
+            <div>
+              <img src={main02_1} alt='main02_1'></img>
+            </div>
+              <img src={main02_1} alt='main02_1'></img>
+            <div>
+              <img src={main02_1} alt='main02_1'></img>
+            </div>
+            <div>
+              <img src={main02_1} alt='main02_1'></img>
+            </div>
+      </Slider>
       
     </div>
   );
