@@ -11,7 +11,7 @@ function ProgressBar (){
 
     return(
         <div>
-            <Stepper activeStep={1} alternativeLabel>
+            <Stepper activeStep={0} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>

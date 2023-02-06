@@ -1,13 +1,20 @@
 // 청첩장 프로세스4: 모바일 청첩장 생성완료
 import './InvitationProcess02.css';
 
+import { useNavigate } from 'react-router';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import {Button} from '@mui/material/';
-import ProgressBar from '../common/ProgressBar';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
+import ProgressBar from '../../components/common/ProgressBar';
 
 const InvitationProcess04 = () => {
     
+
+    const navigate = useNavigate();
+    const toProcess02 = () => {
+      navigate('/invitation02');
+    };
+
     return(
         <div>
             <Grid2 container spacing={3}>
@@ -16,14 +23,18 @@ const InvitationProcess04 = () => {
                 </Grid2>
                 <Grid2 lg={8} sm={10}>
                 <br /><br /><br /><br /><br />
-                    <ProgressBar />
+                <ProgressBar />
                     <h2>모바일 청첩장이 생성되었습니다.</h2>
                         <div>
                             <InvitationForm />
                         </div>
                         
-                    <Button className='next-button' variant='contained'>완료</Button>
-                    <Button className='prev-button' variant='contained'>이전</Button>
+                    <div className='buttons'>
+                        <Button  variant='contained' onClick={() => navigate(-1)}>이전</Button>
+                    </div>
+                    <div className='buttons'>
+                        <Button variant='contained' onClick={toProcess02}>완료</Button>
+                    </div>
                 </Grid2>
             </Grid2>
         </div>

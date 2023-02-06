@@ -1,14 +1,13 @@
 import './UserInvitation.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import ProgressBar from '../../components/common/ProgressBar';
 import { Button } from '@mui/material';
-// Import css files
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 function UserInvitation(){
+
+    const [invitationForm, setInvitationForm] = useState([]);
 
     return(
         <div className="user-invitation">
