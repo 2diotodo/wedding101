@@ -21,25 +21,26 @@ public interface AlbumService {
 
     Long getAlbumSeqByAccessId(String albumAccessId);
 
+    Optional<AlbumDto> getAlbumByInfoSeq(Long infoSeq);
+
+    boolean checkAlbumDuplicate(Long userSeq);
+
     default Album toEntity(AlbumDto albumDto) {
         return Album.builder()
                 .albumSeq(albumDto.getAlbumSeq())
-                .infoSeq(albumDto.getInfoSeq())
-                .userSeq(albumDto.getUserSeq())
                 .albumName(albumDto.getAlbumName())
                 .albumColor(albumDto.getAlbumColor())
                 .albumPhotoUrl(albumDto.getAlbumPhotoUrl())
                 .albumAccessId(albumDto.getAlbumAccessId())
                 .albumThanksUrl(albumDto.getAlbumThanksUrl())
                 .albumMediaCnt(albumDto.getAlbumMediaCnt())
-                .isValid(true)
                 .build();
     }
 
     default AlbumDto toDto(Album album) {
         return AlbumDto.builder()
                 .albumSeq(album.getAlbumSeq())
-                .infoSeq(album.getInfoSeq())
+                .infoSeq(album.getInfo().getInfoSeq())
                 .userSeq(album.getUserSeq())
                 .albumName(album.getAlbumName())
                 .albumColor(album.getAlbumColor())

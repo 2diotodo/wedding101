@@ -1,5 +1,6 @@
 package com.ssafy.wedding101.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tbl_user")
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @DynamicInsert
 public class User {
 
@@ -42,18 +45,6 @@ public class User {
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
     @ColumnDefault("true")
     private boolean isValid;
-
-
-    @Builder
-    public User(Long userSeq, String userId, String userPassword, String userName, String userNickname, String userEmail, boolean isValid){
-        this.userSeq = userSeq;
-        this.userId = userId;
-        this.userPassword = userPassword;
-        this.userName = userName;
-        this.userNickname = userNickname;
-        this.userEmail = userEmail;
-        this.isValid = isValid;
-    }
 
     public void updateUser(String userId, String userPassword, String userName, String userNickname, String userEmail){
         this.userId = userId;
