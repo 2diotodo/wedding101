@@ -22,6 +22,7 @@ const style = {
 const MediaItem = ({media}) => {
   const [like, setLike] = useState(false);
   const [open, setOpen] = useState(false);
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const {albumSeq, mediaSeq, title, url, urlToImg, name, relation, isVideo, isWish, isBin, isValid} = media;
@@ -65,6 +66,7 @@ const MediaItem = ({media}) => {
           
         >
         </CardHeader>
+        {/* Card 본문 */}
       <CardActionArea onClick={handleOpen}>
         <CardMedia
           component="img"
