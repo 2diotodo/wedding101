@@ -1,6 +1,8 @@
 package com.ssafy.wedding101.controller;
 
+import com.ssafy.wedding101.model.dto.AlbumDto;
 import com.ssafy.wedding101.model.dto.InfoDto;
+import com.ssafy.wedding101.model.service.AlbumService;
 import com.ssafy.wedding101.model.service.InfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.NoSuchElementException;
 public class InfoRestController {
 
     private final InfoService infoService;
+    private final AlbumService albumService;
 
     @Operation(summary = "결혼정보 조회")
     @GetMapping("")
@@ -31,7 +34,7 @@ public class InfoRestController {
             result.put("message", "정보 조회 SUCCESS");
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            result.put("message", "정보 조회 FAIL - userSeq로 결혼 정보를 찾을 수 없음");
+            result.put("message", "정보 조회 FAIL - userSeq로 결혼 정보를 찾을 수 없습니다.");
             return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
         }
     }
@@ -77,9 +80,16 @@ public class InfoRestController {
     public ResponseEntity<?> deleteInfo(@PathVariable Long infoSeq) {
         try {
             infoService.removeInfo(infoSeq);
-            return new ResponseEntity<>("결혼 정보 SUCCESS", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("정보 삭제 FAIL", HttpStatus.EXPECTATION_FAILED);
+            try { // 해당 결혼 정보의 앨범도 isValid = false 로 바꿔줌
+                AlbumDto albumDto = albumService.getAlbumByInfoSeq(infoSeq).orElseThrow(() -> new NoSuchElementException("album is null"));
+                albumService.removeAlbum(albumDto.getAlbumSeq());
+
+            } catch (NoSuchElementException e) {
+                return new ResponseEntity<>("결혼 삭제 SUCCESS - 연결된 앨범 없음", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("결혼 삭제 SUCCESS - 연결된 앨범 삭제 완료", HttpStatus.OK);
+        } catch (Exception e) { // remove에 딸린 catch
+            return new ResponseEntity<>("결혼 삭제 FAIL", HttpStatus.EXPECTATION_FAILED);
         }
     }
 }
