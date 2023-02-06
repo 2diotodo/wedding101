@@ -27,7 +27,7 @@ function LoginForm() {
 
     // 버튼만 누르면 리프레시되는 것 막기
     event.preventDefault();
-    console.log('here?');
+    console.log('here');
     
     await axios
     .post('http://localhost:8080/user/login', {

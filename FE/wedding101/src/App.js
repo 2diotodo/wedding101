@@ -11,6 +11,7 @@ import AlbumCover from './pages/Album/AlbumCover';
 import AlbumList from './pages/Album/AlbumList';
 import ServiceProcess01 from './pages/ServiceProcess/ServiceProcess01';
 import MainIndex from './pages/Main/MainIndex';
+import AlbumDeleted from './pages/Album/AlbumDeleted';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/invitation' element={<UserInvitation />} />
         <Route path='/album' element={<AlbumCover />} />
         <Route path='/album/list' element={<AlbumList />} />
+        <Route path='/album/deleted' element={<AlbumDeleted />} />
         <Route path='/review' element={<BoardReview />} />
         <Route path='/contact' element={<BoardQuestion />} />
         <Route path='/user/service01' element={<ServiceProcess01 />} />
