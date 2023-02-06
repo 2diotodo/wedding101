@@ -16,10 +16,11 @@ import time
 import subprocess
 import cv2
 import boto3
+import json
 
 os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
-receiver_list = ['', 'groom', 'bride']
+receiver_list = ['', 'G', 'B']
 
 
 def handle_visible_changed():
@@ -33,22 +34,6 @@ def handle_visible_changed():
                 r.moveTop(keyboard.property("y"))
                 w.setMask(QRegion(r))
                 return
-
-
-# class VideoRecorder(QThread):
-#     mySignal = Signal(np.ndarray)
-
-#     def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
-#         super().__init__()
-#         self.video_writer = cv2.VideoWriter_fourcc(*self.fourcc)
-#         self.video_out = cv2.VideoWriter(self.video_filename, self.video_writer, self.fps, self.frameSize)
-#         self.frame_counts = 1
-#         self.start_time = time.time()
-#         self.video_frame = None
-
-#         self.fps = 60
-#         self.width = 640
-#         self.height = 480
 
 
 class VideoRecorder(QThread):
@@ -117,91 +102,6 @@ class VideoRecorder(QThread):
             else:
                 break
 
-
-    '''
-        def set_background_image(self, bg_dir = "../BackgroundImage", bg_name = 'flower1.png'):
-            background_path = os.path.join(bg_dir, bg_name)
-            background_image = cv2.imread(background_path)
-            background_image = cv2.resize(background_image, (self.width, self.height))
-            self.background_image = background_image
-
-        def mediapipe_selfie_segmentation(self) :
-            # For webcam input:
-            BG_COLOR = (192, 192, 192) # gray
-            with self.mp_selfie_segmentation.SelfieSegmentation(model_selection=1) as selfie_segmentation:
-
-                # Flip the image horizontally for a later selfie-view display, and convert
-                # the BGR image to RGB.
-                self.video_frame = cv2.cvtColor(cv2.flip(self.video_frame, 1), cv2.COLOR_BGR2RGB)
-
-                # To improve performance, optionally mark the image as not writeable to
-                # pass by reference.
-                self.video_frame.flags.writeable = False
-                self.video_frame.flags.writeable = True
-                self.video_frame = cv2.cvtColor(self.video_frame, cv2.COLOR_RGB2BGR)
-
-                # Draw selfie segmentation on the background image.
-                # To improve segmentation around boundaries, consider applying a joint
-                # bilateral filter to "results.segmentation_mask" with "image".
-                condition = np.stack((selfie_segmentation.process(self.video_frame).segmentation_mask,) * 3, axis=-1) > 0.1
-
-                # The background can be customized.
-                #   a) Load an image (with the same width and height of the input image) to
-                #      be the background, e.g., bg_image = cv2.imread('/path/to/image/file')
-                #   b) Blur the input image by applying image filtering, e.g.,
-                #      bg_image = cv2.GaussianBlur(image,(55,55),0)
-                if self.background_image is None:
-                    self.background_image = np.zeros(self.video_frame.shape, dtype=np.uint8)
-                    self.background_image[:] = BG_COLOR
-
-                self.video_frame = np.where(condition, self.video_frame, self.background_image)
-
-        def chromakey_replacement(self):
-            # # check hsv value from image
-            # hsv = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2HSV)
-
-            # # make a mask from hsv values
-            # mask = cv2.inRange(hsv, (50, 150, 0), (70, 255, 255)) # 영상, 최솟값, 최댓값
-
-            # # utilizing mask to input image
-            # # copyTo(src, mask, dst)
-            # cv2.copyTo(self.background_image, mask, self.video_frame)
-
-            norm_factor = 255
-            b = self.video_frame[:, :, 0] / norm_factor
-            g = self.video_frame[:, :, 1] / norm_factor
-            r = self.video_frame[:, :, 2] / norm_factor
-
-            red_vs_green = (r - g) + .3
-            blue_vs_green = (b - g) + .3
-
-            """
-            Darker pixels would be around 0.
-            In order to ommit removing dark pixels we
-            sum .3 to make small negative numbers to be
-            above 0.
-            """
-
-            red_vs_green = (r - g) + .3
-            blue_vs_green = (b - g) + .3
-
-            """
-            Now pixels below 0. value would have a
-            high probability to be background green
-            pixels.
-            """
-            red_vs_green[red_vs_green < 0] = 0
-            blue_vs_green[blue_vs_green < 0] = 0
-
-            """
-            Combine the red(blue) vs green ratios to
-            set an alpha layer with valid alpha-values.
-            """
-            alpha = (red_vs_green + blue_vs_green) * 255
-            alpha[alpha > 50] = 255
-
-            self.video_frame[alpha == 0] = self.background_image[alpha == 0]
-    '''
 
     def stop(self):
         "Finishes the video recording therefore the thread too"
@@ -341,6 +241,8 @@ class MyApp(QWidget, Ui_Form):
         self.SenderName = ''
         self.SenderRelation = 0
         self.SenderReceiver = 0
+        self.user_id = None
+        self.album_seq = None
 
         self.setup_pages()
 
@@ -468,7 +370,7 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "select_vid_button":
             current_page += 2
         if sender.objectName() == "video_review_next_button":
-            self.submit_info()
+            self.submit_video_info()
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.media_player.stop()
         if sender.objectName() == "select_pic_button":
@@ -513,21 +415,82 @@ class MyApp(QWidget, Ui_Form):
     def go_end_page(self):
         self.stackedWidget.setCurrentIndex(self.stackedWidget.count() - 1)
 
-    def submit_info(self):
-        url = "http://i8a101.p.ssafy.io:8085/album/access/123456789a"
+    def submit_video_info(self):
+
+        url = "http://i8a101.p.ssafy.io:8085/s3/uploadVideo"
         file_path = f"{self.name}.avi"
-        data = {
-            "author" : self.SenderName,
-            "relation" : self.SenderRelation,
-            "receiver" : self.SenderReceiver,
+
+        payload = {
+            'userId' : self.user_id
         }
 
         with open(file_path, 'rb') as f:
-            files = {'file': (file_path, f, '/')}
-            response = requests.post(url, files=files, data=data)
+            files = {
+                'multipartFile' : (file_path, f, '/')
+            } 
+            response = requests.post(url, files=files, data=payload)
 
-        print(response.status_code)
+        print(response.text)
 
+        url = "http://i8a101.p.ssafy.io:8085/media"
+
+        parser = "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/"
+        s3_path = (response.text).split(parser)[1]
+
+        data = {
+            "albumSeq": self.album_seq,
+            "storageUrl": s3_path,
+            "onBooth": True,
+            "mediaName": self.SenderName,
+            "mediaRelation": relation_list[self.SenderRelation],
+            "mediaReceiver": receiver_list[self.SenderReceiver],
+            "wish": False,
+            "inBin": False,
+            "video": True
+        }
+
+        headers = {'Content-Type': 'application/json',}
+
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+        print(response.json())
+    
+    def submit_image_info(self):
+        url = "http://i8a101.p.ssafy.io:8085/s3/uploadImage"
+        file_path = f"{self.name}.jpg"
+
+        payload = {
+            'userId' : self.user_id
+        }
+
+        with open(file_path, 'rb') as f:
+            files = {
+                'multipartFile' : (file_path, f, '/')
+            }
+            response = requests.post(url, files=files, data=payload)
+
+        print(response.text)
+
+        url = "http://i8a101.p.ssafy.io:8085/media"
+
+        parser = "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/"
+        s3_path = (response.text).split(parser)[1]
+
+        data = {
+            "albumSeq": self.album_seq,
+            "storageUrl": s3_path,
+            "onBooth": True,
+            "mediaName": self.SenderName,
+            "mediaRelation": relation_list[self.SenderRelation],
+            "mediaReceiver": receiver_list[self.SenderReceiver],
+            "wish": False,
+            "inBin": False,
+            "video": False
+        }
+
+        headers = {'Content-Type': 'application/json',}
+
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+        print(response.json())
 
     def record_control(self):
         if self.recording_now:
@@ -537,6 +500,10 @@ class MyApp(QWidget, Ui_Form):
             self.video_stream.setText("Camera")
             self.file_manager()
             self.set_review_video()
+
+            # self.video_stream.setPixmap(QPixmap())
+            self.video_stream.clear()
+
             self.go_next_page()
         else:
             self.recording_now = True
@@ -624,12 +591,11 @@ class MyApp(QWidget, Ui_Form):
 
     def set_review_video(self):
         self.playlist = QMediaPlaylist()
-        url = QUrl.fromLocalFile(f"/home/pi/A101/IoT/seonghwk/from_Jinuk/{self.name}.avi")
+        url = QUrl.fromLocalFile(f"/home/pi/A101/IoT/Jinuk/GUI/{self.name}.avi")
         self.playlist.addMedia(QMediaContent(url))
         self.playlist.setPlaybackMode(QMediaPlaylist.Loop)
 
         # media = QMediaContent(QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/sample_video.mkv"))
-
         self.review_player.setPlaylist(self.playlist)
         # self.review_player.setMedia(QMediaContent(url))
         self.review_player.setVolume(100)
@@ -678,10 +644,16 @@ class MyApp(QWidget, Ui_Form):
         url = "http://i8a101.p.ssafy.io:8085/album/access/" + album_access_id
         res = requests.get(url).json()
 
+        self.album_seq = res['albumSeq']
         self.user_seq = res['infoData']['userSeq']
         self.groom_name = res['infoData']['groomName']
         self.bride_name = res['infoData']['brideName']
         self.home_text2.setText(f"신혼부부 {self.groom_name}, {self.bride_name} 님에게 기념 사진이나 영상 편지를 남겨보세요")
+
+        url = "http://i8a101.p.ssafy.io:8085/user"
+        params = {'userSeq': self.user_seq}
+        res = requests.get(url, params=params).json()
+        self.user_id = res['userId']
 
 
     def check_agreement(self):
@@ -747,7 +719,9 @@ class MyApp(QWidget, Ui_Form):
         self.photo_thread.start()
 
     def photo_save(self):
-        self.photo_image.toImage().save("./"+self.SenderName+"Test.jpg", "JPEG", 100)
+        self.name = datetime.now().strftime('%Y-%m%d-%H%M%S-') + str(uuid4())
+        self.photo_image.toImage().save("./"+self.name+".jpg", "JPEG", 100)
+        self.submit_image_info()
         self.go_end_page()
 
 
