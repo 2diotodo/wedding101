@@ -63,7 +63,7 @@ public class Invitation {
 
     public void setInfo(Info info) {
         this.info = info;
-        this.userSeq = info.getUserSeq();
+        this.userSeq = info.getUser().getUserSeq();
     }
 
     public void updateIsValid() {

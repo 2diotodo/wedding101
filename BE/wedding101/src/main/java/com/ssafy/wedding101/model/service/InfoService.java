@@ -20,10 +20,11 @@ public interface InfoService {
 
     Long getInfoSeqByUserSeq(Long userSeq);
 
+    boolean checkInfoDuplicate(Long userSeq);
+
     default Info toEntity(InfoDto infoDto) {
         return Info.builder()
                 .infoSeq(infoDto.getInfoSeq())
-                .userSeq(infoDto.getUserSeq())
                 .weddingDay(infoDto.getWeddingDay())
                 .weddingHallName(infoDto.getWeddingHallName())
                 .weddingHallAddress(infoDto.getWeddingHallAddress())
@@ -55,7 +56,7 @@ public interface InfoService {
     default InfoDto toDto(Info info) {
         return InfoDto.builder()
                 .infoSeq(info.getInfoSeq())
-                .userSeq(info.getUserSeq())
+                .userSeq(info.getUser().getUserSeq())
                 .weddingDay(info.getWeddingDay())
                 .weddingHallName(info.getWeddingHallName())
                 .weddingHallAddress(info.getWeddingHallAddress())
