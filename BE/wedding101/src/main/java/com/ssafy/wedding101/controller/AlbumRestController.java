@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,6 +53,7 @@ public class AlbumRestController {
                 result.put("message", "이미 앨범이 생성되어 있습닝다. 수정 또는 삭제 후 재생성 해주세요.");
                 return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
             } else { // 해당 userSeq로 앨범 생성 가능
+                albumDto.setAlbumAccessId(generateAccessId());
                 albumService.writeAlbum(albumDto);
                 AlbumDto newAblumDto = albumService.getAlbumByUserSeq(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
                 result.put("data", newAblumDto); // db에 저장된 정보
@@ -62,6 +64,21 @@ public class AlbumRestController {
             result.put("message", "앨범 생성 FAIL");
             return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
         }
+    }
+
+    private String generateAccessId() {
+        int leftLimit = 48; // 0
+        int rightLimit = 122; // z
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit+1)
+                .filter(i -> (i <= 57 || i>= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        System.out.println(generatedString);
+        return generatedString;
     }
 
     @Operation(summary = "앨범 수정")
