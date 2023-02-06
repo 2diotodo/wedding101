@@ -5,10 +5,7 @@ COPY ./package* /usr/src/app/
 
 RUN npm install
 COPY ./ /usr/src/app/
-
-RUN npm run build
-RUN npm install -g serve
-RUN serve -s build
+RUN npm start
 
 EXPOSE 3000
 
