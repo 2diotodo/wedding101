@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 COPY ./package* /usr/src/app/
 
+RUN cd ./FE/wedding101
 RUN npm install
 RUN npm run build
 RUN npm install -g serve
