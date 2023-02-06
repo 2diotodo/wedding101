@@ -11,7 +11,7 @@ PRE_JAVA_CONTAINER=$(docker ps -a | grep "java -jar" | awk '{print $1}')
 PRE_JAVA_IMAGE=$(docker images -a | grep "spring-server" | awk '{print $1}')
 PRE_JAVA_TAG=$(docker images -a | grep "spring-server" | awk '{print $2}')
 
-if [ -n $PRE_JAVA_CONTAINER ] ; then
+if [ -n "$PRE_JAVA_CONTAINER" ] ; then
 	echo "Removing $PRE_JAVA_CONTAINER where command including 'java -jar'"
 	echo 'y' | docker system prune
 	docker stop $PRE_JAVA_CONTAINER
@@ -20,14 +20,14 @@ else
 	echo "Great. There's no pre-container where command is 'java -jar'.."
 fi
 
-if [ -n $DANGLING_DOCKER_IMAGE ] ; then
+if [ -n "$DANGLING_DOCKER_IMAGE" ] ; then
 	echo "Removing image-$DANGLING_DOCKER_IMAGE(<none>:<none>).."
 	docker rmi $DANGLING_DOCKER_IMAGE
 else
 	echo "Great. There's no danling docker images(<none>:<none>).."
 fi
 
-if [ -n $PRE_JAVA_IMAGE ] ; then
+if [ -n "$PRE_JAVA_IMAGE" ] ; then
 	echo "Removing previous $PRE_JAVA_IMAGE:$PRE_JAVA_TAG.."
 	docker rmi -f $PRE_JAVA_IMAGE:$PRE_JAVA_TAG
 	echo 'y' | docker system prune

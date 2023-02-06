@@ -86,21 +86,30 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public void throwBin(Long mediaSeq) {
-
+        Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+        media.throwBin();
     }
 
     @Override
     public void restore(Long mediaSeq) {
-
+        Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+        media.restore();
     }
 
     @Override
     public void wish(Long mediaSeq) {
-
+        Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+        media.wish();
     }
 
     @Override
     public void unwish(Long mediaSeq) {
+        Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+        media.unwish();
+    }
 
+    @Override
+    public List<MediaDto> getmediaListInBin(Long albumSeq) {
+        return mediaRepository.findAllInBinByAlbumSeq(albumSeq).stream().map(this::toDto).collect(Collectors.toList());
     }
 }
