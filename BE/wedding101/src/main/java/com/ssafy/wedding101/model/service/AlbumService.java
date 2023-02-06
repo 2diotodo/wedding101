@@ -34,6 +34,7 @@ public interface AlbumService {
                 .albumAccessId(albumDto.getAlbumAccessId())
                 .albumThanksUrl(albumDto.getAlbumThanksUrl())
                 .albumMediaCnt(albumDto.getAlbumMediaCnt())
+                .isValid(albumDto.isValid())
                 .build();
     }
 
