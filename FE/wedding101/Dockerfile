@@ -2,8 +2,6 @@ FROM node:18.13.0
 
 WORKDIR /usr/src/app
 
-VOLUME . /usr/src/app
-
 RUN npm install
 RUN npm run build
 RUN npm install -g serve
