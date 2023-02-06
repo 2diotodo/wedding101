@@ -7,6 +7,16 @@
 }
 .invitation-item{
     margin: 1px;
+    display: flex;
+}
+.upload-input {
+    padding-top: 50%;
+}
+.upload01 {
+    display: flex;
+}
+.upload02 {
+    display: flex;
 }
 .buttons {
     display: inline;

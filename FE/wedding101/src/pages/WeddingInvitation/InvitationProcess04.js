@@ -22,7 +22,6 @@ const InvitationProcess04 = () => {
                     <h1>Mobile Invitation</h1>
                 </Grid2>
                 <Grid2 lg={8} sm={10}>
-                <br /><br /><br /><br /><br />
                 <ProgressBar />
                     <h2>모바일 청첩장이 생성되었습니다.</h2>
                         <div>

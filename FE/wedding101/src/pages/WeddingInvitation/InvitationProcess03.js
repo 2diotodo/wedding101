@@ -23,16 +23,20 @@ const InvitationProcess03 = () => {
                  <Grid2 lg={3} sm={2}>
                     <h1>Mobile Invitation</h1>
                 </Grid2>
-                <Grid2 lg={8} sm={10}>
-                <br /><br /><br /><br /><br />
+                <Grid2 lg={9} sm={10}>
+                    <div className='process-main'>
+
                     <ProgressBar />
                     <h2>모바일 청첩장 문구 변경</h2>
-                        <div>
+                    <div className='text-form'>
+                        <div className='invitation-form'>
                             <InvitationForm />
                         </div>
-                        <div>
+                        <div className='upload-text'>
                             <UploadText />
                         </div>
+                    </div>
+                    </div>
                         
                     <div className='buttons'>
                     <Button variant='contained' onClick={() => navigate(-1)}>이전</Button>
