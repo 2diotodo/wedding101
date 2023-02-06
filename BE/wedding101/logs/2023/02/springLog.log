@@ -1,3 +1,1 @@
-2023-2월-06 15:58:21 INFO  [SpringApplicationShutdownHook] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-2월-06 15:58:21 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
-2023-2월-06 15:58:21 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2023-2월-06 16:43:10 INFO  [http-nio-8080-exec-9] [org.springdoc.api.AbstractOpenApiResource] - Init duration for springdoc-openapi is: 213 ms

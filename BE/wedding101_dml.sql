@@ -31,7 +31,7 @@ CREATE TABLE `tbl_album` (
 	`album_color`	VARCHAR(255)	NULL,
 	`album_photo_url`	VARCHAR(100)	NULL,
 	`album_access_id`	VARCHAR(10)	NOT NULL,
-	`album_thanks_url`	VARCHAR(100)	NULL,
+	`album_thanks_url`	VARCHAR(300)	NULL,
 	`album_media_cnt`	INT	NOT NULL	DEFAULT 0,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,
@@ -193,7 +193,7 @@ DROP TABLE IF EXISTS `tbl_media`;
 CREATE TABLE `tbl_media` (
 	`media_seq`	INT	NOT NULL  ,
 	`album_seq`	INT	NOT NULL,
-	`storage_url`	VARCHAR(100)	NOT NULL,
+	`storage_url`	VARCHAR(300)	NOT NULL,
 	`on_booth`	TINYINT(1)	NOT NULL	DEFAULT 1, -- COMMENT '1:booth / 0:online',
 	`is_video`	TINYINT(1)	NOT NULL	DEFAULT 1, -- COMMENT '1:video/0:photo',
 	`media_name`	VARCHAR(30)	NOT NULL,
