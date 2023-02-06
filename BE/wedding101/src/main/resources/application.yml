@@ -56,6 +56,11 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
+  servlet:
+    multipart:
+      max-file-size: 70MB
+      max-request-size: 70MB
+
 #spring.jpa.show-sql=true
 
 springdoc:
@@ -73,3 +78,25 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
   paths-to-match: /**
+
+
+cloud:
+  aws:
+    s3:
+      bucket: a101-wedding101-project
+    credentials:
+      access-key: AKIASAR2BR5LC5PPCM5K
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
