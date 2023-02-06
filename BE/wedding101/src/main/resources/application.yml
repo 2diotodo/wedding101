@@ -83,10 +83,10 @@ springdoc:
 cloud:
   aws:
     s3:
-      bucket: a101-wedding101-project
+      bucket: a101-wedding101-pjt
     credentials:
-      access-key: AKIASAR2BR5LC5PPCM5K
-      secret-key: 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
+      access-key: AKIASAR2BR5LCYLEDGWM
+      secret-key: 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
     region:
       static: ap-northeast-2
       auto: false
