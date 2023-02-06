@@ -20,46 +20,55 @@ public class UserRestController {
 
         @Operation(summary = "회원가입")
         @PostMapping("/signup")
-        public ResponseEntity<?> singup(@RequestBody UserDto userDto) {
-//            UserDto userDto = new UserDto(0L, userId, userPassword, userName, userNickname, userEmail);
+        public ResponseEntity<Map<String, Object>> singup(@RequestBody UserDto userDto) {
+            Map<String, Object> result = new HashMap<>();
             try {
                 userService.writeUser(userDto);
-                return new ResponseEntity<>(HttpStatus.OK);
+                UserDto newUserDto = userService.getUser(userDto.getUserId()).orElseThrow();
+                result.put("message", "회원가입 SUCCESS");
+                result.put("data", newUserDto);
+                return new ResponseEntity<>(result, HttpStatus.OK);
+
             } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+                result.put("message", "회원가입 FAIL");
+                result.put("data", userDto); // 회원가입 시 입력했던 정보
+                return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
             }
         }
 
         @Operation(summary = "로그인")
         @PostMapping("/login")
         public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto) {
-//            UserDto userDto = userService.getUser(userId).orElseThrow();
             Map<String, Object> result = new HashMap<>();
             try {
-                UserDto checkUserDto  = userService.getUser(userDto.getUserId()).orElseThrow();
+                UserDto checkUserDto  = userService.getUser(userDto.getUserId()).orElseThrow(() -> new NoSuchElementException("data is null"));
                 if (checkUserDto.getUserPassword().equals(userDto.getUserPassword())) {
                     result.put("data", checkUserDto);
-                    result.put("message", "login success");
+                    result.put("message", "로그인 SUCCESS");
                 }
                 else {
-                    result.put("message", "password incorrect");
+                    result.put("message", "비밀번호  INCORRECT");
                     return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
                 }
             } catch (NoSuchElementException e) {
-                result.put("message", "id incorrect");
-                return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
+                result.put("message", "아이디 INCORRECT");
+                return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
         @Operation(summary = "회원 조회 (1)")
         @GetMapping ("")
-        public ResponseEntity<UserDto> getUserDetail(Long userSeq) {
+        public ResponseEntity<Map<String, Object>> getUserDetail(Long userSeq) {
+            Map<String, Object> result = new HashMap<>();
             // 세션에서 seq 가져옴
             try {
-                UserDto userDto = userService.getUser(userSeq).orElseThrow();
-                return new ResponseEntity<>(userDto, HttpStatus.OK);
-            } catch (Exception e) {
+                UserDto userDto = userService.getUser(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
+                result.put("message", "회원 조회 SUCCESS");
+                result.put("data", userDto);
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            } catch (NoSuchElementException e) {
+                result.put("message", "회원 조회 FAIL - user Seq  INCORRECT");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         }
@@ -78,19 +87,26 @@ public class UserRestController {
         @GetMapping ("/delete")
         public ResponseEntity<?> deleteUser(Long userSeq) {
             // 세션에서 seq 가져옴
-            UserDto userDto = userService.getUser(userSeq).orElseThrow();
+            UserDto userDto = userService.getUser(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
             userService.removeUser(userDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("회원 탈퇴 SUCCESS", HttpStatus.OK);
         }
 
         @Operation(summary = "회원 정보 수정")
         @PutMapping("")
-        public ResponseEntity<UserDto> modifyUser(@RequestBody UserDto userDto) {
-//            UserDto userDto = new UserDto(userService.getUser(userId).orElseThrow().getUserSeq(), userId, userPassword, userName, userNickname, userEmail);
-            // 토큰에서 유저Seq 가져와서 넣어줘도됨
-            userDto.setUserSeq(userService.getUser(userDto.getUserId()).orElseThrow().getUserSeq());
-            userService.modifyUser(userDto);
-            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        public ResponseEntity<Map<String, Object>> modifyUser(@RequestBody UserDto userDto) {
+//            userDto.setUserSeq(userService.getUser(userDto.getUserId()).orElseThrow().getUserSeq());
+            Map<String, Object> result = new HashMap<>();
+            try {
+                userService.modifyUser(userDto);
+                result.put("message", "회원 수정 SUCCESS");
+                result.put("data", userService.getUser(userDto.getUserId()));
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            } catch (Exception e) {
+                result.put("message", "회원 수정 FAIL - 아이디 INCORRECT");
+                result.put("data", userDto); // 수정 전 dto
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
         }
 
         @Operation(summary = "닉네임 중복 확인")
@@ -116,12 +132,14 @@ public class UserRestController {
         public ResponseEntity<Map<String, Object>> findIdByEmail(@PathVariable String userEmail) {
             Map<String, Object> result = new HashMap<>();
             try {
-                UserDto userDto = userService.getUserIdByUserEmail(userEmail).orElseThrow();
+                UserDto userDto = userService.getUserIdByUserEmail(userEmail).orElseThrow(() -> new NoSuchElementException("data is null"));
                 result.put("userId", userDto.getUserId());
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            } catch (NoSuchElementException e) {
+                result.put("data", userEmail); // 입력한 이메일
+                result.put("message", "이메일을 찾을 수 없습니다.");
+                return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
             }
-            return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
 
