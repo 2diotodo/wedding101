@@ -13,8 +13,8 @@ insert into tbl_info (user_seq, wedding_day, wedding_hall_name, groom_name, brid
 select * From tbl_info;
 
 insert into tbl_album (info_seq, user_seq, album_name, album_access_id, album_thanks_url) values
-(1, 1, "albumName", "123456789a", "thanks_url1"),
-(2, 2, "HappyDay!", "123456789b", "thanks_url2");
+(1, 1, "albumName", "123456789a", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"),
+(2, 2, "HappyDay!", "123456789b", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4");
 select * from tbl_album;
 
 insert into tbl_media (album_seq, storage_url, media_name, media_relation) values
