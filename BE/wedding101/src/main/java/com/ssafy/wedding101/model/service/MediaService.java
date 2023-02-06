@@ -26,6 +26,8 @@ public interface MediaService {
 
     void unwish(Long mediaSeq);
 
+    List<MediaDto> getmediaListInBin(Long albumSeq);
+
     default Media toEntity(MediaDto mediaDto) {
         return Media.builder()
                 .mediaSeq(mediaDto.getMediaSeq())
@@ -52,4 +54,5 @@ public interface MediaService {
                 .isInBin(media.isInBin())
                 .build();
     }
+
 }
