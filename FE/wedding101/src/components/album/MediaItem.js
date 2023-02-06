@@ -45,7 +45,7 @@ const MediaItem = ({media}) => {
 
     return (
       <div className='media-item'>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 300 }}>
         {/* 사진/비디오여부표시 및 좋아요표시 */}
         <CardHeader
           avatar={
