@@ -39,7 +39,7 @@ function Header() {
             About{' '}
           </Button>
         </NavLink>
-        <NavLink label='Invitation' to='/invitation'>
+        <NavLink label='Invitation' to='/invitation01'>
           <Button variant='text' size='large' color='secondary'>
             Invitation{' '}
           </Button>
