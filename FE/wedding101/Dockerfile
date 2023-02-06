@@ -9,5 +9,6 @@ RUN npm install --silent
 RUN npm install react-scripts@5.0.1 -g --silent
 
 
+ENV CHOKIDAR_USEPOLLING=ture
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
