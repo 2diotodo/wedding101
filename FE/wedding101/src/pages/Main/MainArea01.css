@@ -1,19 +1,70 @@
 .main-area01 {
+  display: flex;
+  margin-top: 8vh;
+  padding-bottom: 8vh;
+  height: 92vh;
   background-color: #ffc0bb;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 .container {
-  height: auto;
+  width:1775px;
+  height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-img {
-  
-  object-fit: scale-down;
+.emptyBox{
+  width:200px;
+  height:200px;
+}
+.title_explain{
+ display: flex;
+ flex-direction: column;
+}
+.title{
+  font-size:72px;
+}
+.explainText{
+  font-size: 48px;
+}
+.verticalLayout {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.horizontalLayout{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 .goServiceButton {
   position: fixed;
   bottom: 0;
+}
+#title_p1_01{
+  height:100px;
+}
+#explain_p1_01{
+  height:305px;
+}
+#VL_p1_01{
+  left: 5px;
+}
+#VL_p1_02{
+  left: 5px;
+}
+#HL_p1_02{
+  top:2.5px;
+}
+#HL_p1_03{
+  bottom: 2.5px;
+}
+
+img {
+  object-fit: scale-down;
 }
