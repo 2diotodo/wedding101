@@ -23,6 +23,8 @@ repositories {
 }
 
 dependencies {
+    // Spring Cloud Starter AWS
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -49,6 +51,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     //유효성 검사 처리
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
+
+jar {
+	    enabled = false
 }
 
 test{

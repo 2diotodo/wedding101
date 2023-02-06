@@ -31,7 +31,7 @@ server:
 spring:
   # ?????? ?? - MySQL
   datasource:
-    url: jdbc:mysql://i8a101.p.ssafy.io:3306/wedding101_db?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/wedding101_db?characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ssafy
@@ -56,6 +56,11 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
+  servlet:
+    multipart:
+      max-file-size: 70MB
+      max-request-size: 70MB
+
 #spring.jpa.show-sql=true
 
 springdoc:
@@ -73,3 +78,25 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
   paths-to-match: /**
+
+
+cloud:
+  aws:
+    s3:
+      bucket: a101-wedding101-pjt
+    credentials:
+      access-key: AKIASAR2BR5LCYLEDGWM
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
