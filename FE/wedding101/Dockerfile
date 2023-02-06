@@ -5,7 +5,6 @@ COPY ./package* /usr/src/app/
 
 RUN npm install
 COPY ./ /usr/src/app/
-RUN npm start
 
 EXPOSE 3000
 
