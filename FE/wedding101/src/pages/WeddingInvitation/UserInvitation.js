@@ -16,7 +16,7 @@ function UserInvitation(){
                  <Grid2 lg={3} sm={2}>
                     <h1>Mobile Invitation</h1>
                 </Grid2>
-                <Grid2 lg={8} sm={10}>
+                <Grid2 lg={9} sm={10}>
                 <br /><br /><br /><br /><br />
                     <ProgressBar />
                     <h2>모바일 청첩장 템플릿 선택하기</h2>

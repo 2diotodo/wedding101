@@ -1,7 +1,7 @@
 import './MediaItem.css';
 
 import { useEffect, useState } from "react";
-import { Box, CardActions, CardHeader, makeStyles, Modal } from "@mui/material";
+import { Box, CardHeader, Modal } from "@mui/material";
 import { Card, CardActionArea, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
 import { CameraAlt, Videocam, Star, StarBorder } from "@mui/icons-material";
 
@@ -22,7 +22,7 @@ const style = {
 const MediaItem = ({media}) => {
   const [like, setLike] = useState(false);
   const [open, setOpen] = useState(false);
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const {albumSeq, mediaSeq, title, url, urlToImg, name, relation, isVideo, isWish, isBin, isValid} = media;
@@ -42,6 +42,7 @@ const MediaItem = ({media}) => {
       const res = await axios.post() // [POST] 사용자가 좋아요를 누름 -> DB 갱신
       setLike(!like)
     }
+
     return (
       <div className='media-item'>
       <Card sx={{ maxWidth: 345 }}>
