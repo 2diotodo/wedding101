@@ -17,7 +17,7 @@ const MainArea02 = () => {
     
     <div className='main-area02'>
       
-      {/* <div className='container' id='container_p2'>
+      <div className='container' id='container_p2'>
         <div className='horizontalLayout' id='HL_p2_01'>
           <div className='verticalLayout' id='VL_p2_01'>
             <div className='title_explain'>
@@ -36,9 +36,8 @@ const MainArea02 = () => {
               </div>
             </div>
           </div>
-          
         </div>
-      </div> */}
+      </div>
       <Slider {...settings}>
             <div>
               <img src={main02_1} alt='main02_1'></img>

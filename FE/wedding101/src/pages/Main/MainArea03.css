@@ -1,9 +1,8 @@
 .main-area03 {
-  height: 100vh;
   background-color: #d2dae9;
-}
-.album-form {
-  height: auto;
+  display: flex;
+  padding-bottom: 8vh;
+  height: 92vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,4 +10,15 @@
 img {
   display: flex;
   object-fit: scale-down;
+}
+#container_p3 {
+  height:750px;
+}
+#HL_p3_01 {
+  width: 100%;
+  height: 100%;
+}
+#VL_p3_01 {
+  height: 100%;
+  justify-content: space-between;
 }
