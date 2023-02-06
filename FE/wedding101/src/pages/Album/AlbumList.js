@@ -16,17 +16,25 @@ import usePagination from '../../utils/Pagination';
 const AlbumList = (props) => {
     const [ page, setPage ] = useState(1);
     // axios 통신으로 DB 데이터 가져오기 구현필요
-    // const [ media, setMedia ] = useState([]);
-    
+    const [ media, setMedia ] = useState(testMedia);
     
     // sorting
     const [order, setOrder] = useState('createdAt');
-    const sortedItems = testMedia.sort((a,b) => b[order] - a[order]);
-    
+
+    console.log("order: ",order);
     const orderHandler = (e) => {
-        setOrder(e.target.value);
-        console.log(e.target.value);
-    }
+        const orderBy = e.target.value;
+        setOrder(orderBy);
+        console.log("orderBy: ", orderBy);
+        const optoins = {
+            "name": [...media].sort((a,b) => (a.name < b.name ? -1 : 1)),
+            "createdAt": [...media].sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt)),
+            "createdAtRev": [...media].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+        }
+        setMedia(optoins[orderBy]);
+        
+    };
+    console.log(media);
 
     // 검색 Deprecated.
     // const [ input, setInput ]= useState('');
@@ -38,7 +46,7 @@ const AlbumList = (props) => {
 
     //     item.name.toLowerCase().includes(input));
 
-    // 휴지통 이동
+    // Album Deleted로 이동
     const navigate = useNavigate();
         const onMoveToDeletedHandler = () =>{
             navigate('/album/deleted');
@@ -47,8 +55,8 @@ const AlbumList = (props) => {
     // pagination
     const PER_PAGE = 6;
 
-    const count = Math.ceil(sortedItems.length / PER_PAGE);
-    const mediaData = usePagination(sortedItems, PER_PAGE);
+    const count = Math.ceil(media.length / PER_PAGE);
+    const mediaData = usePagination(media, PER_PAGE);
 
     const pageHandler = (e,p) => {
         setPage(p);
@@ -70,8 +78,9 @@ const AlbumList = (props) => {
                             label="Sort"
                             onChange={orderHandler}
                         >
-                        <MenuItem value={'name'}>이름</MenuItem>
                         <MenuItem value={'createdAt'}>날짜</MenuItem>
+                        <MenuItem value={'createdAtRev'}>날짜역순</MenuItem>
+                        <MenuItem value={'name'}>이름</MenuItem>
                     </Select>
                     </FormControl>
                     <br />

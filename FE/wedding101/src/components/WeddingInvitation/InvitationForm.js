@@ -1,11 +1,11 @@
 import './InvitationForm.css';
 
-function GuestInvitation() {
+function InvitationForm() {
   return (
-    <div className='guest-invitation'>
+    <div className='invitation-form'>
       look at this weddinginvitation!
     </div>
   );
 }
 
-export default GuestInvitation;
+export default InvitationForm;
