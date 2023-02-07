@@ -40,7 +40,7 @@ const InvitationProcess02 = () => {
                 <Grid2 lg={9} sm={10}>
 
                 <div className='process-main'>
-                    <ProgressBar />
+                    <ProgressBar steps={1}/>
                     <h2>모바일 청첩장 사진 넣기</h2>
                         <div className='invitation-item'>
                             <InvitationForm />
