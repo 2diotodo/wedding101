@@ -10,7 +10,7 @@ const MainArea01 = () => {
   return (
     <div className='main-area01'>
       
-      <div className='container'>
+      {/* <div className='container'>
         <div className='verticalLayout' id='VL_p1_01'>
           <div className='title' id='title_p1_01'>Wedding101</div>
           <div className='explainText' id='explain_p1_01'><p>당신의 특별한 순간을 간직하세요</p></div>
@@ -22,8 +22,8 @@ const MainArea01 = () => {
                 <img src={main01_3} alt='main01_3'></img>
               </div>
               <div className='horizontalLayout' id='HL_p1_03'>
-                {/* <img src={main01_6} alt='main01_6' style={{position:"relative", left:"10px"}}></img>
-                <img src={main01_5} alt='main01_5' style={{position:"relative", left:"5px"}}></img> */}
+                <img src={main01_6} alt='main01_6' style={{position:"relative", left:"10px"}}></img>
+                <img src={main01_5} alt='main01_5' style={{position:"relative", left:"5px"}}></img>
                 <img src={main01_4} alt='main01_4'></img>
               </div>
             </div>
@@ -31,7 +31,7 @@ const MainArea01 = () => {
           </div>
         </div>
         <img src={main01_1} alt='main01_1'></img>
-      </div>
+      </div> */}
     </div>
   );
 };
