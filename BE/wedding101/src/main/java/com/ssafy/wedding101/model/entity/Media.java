@@ -42,16 +42,16 @@ public class Media {
     private String mediaReceiver;
 
     @Column(name = "is_wish", columnDefinition = "TINYINT")
-    @ColumnDefault("false")
-    private boolean isWish;
+    @Builder.Default
+    private boolean isWish = false;
 
     @Column(name = "is_in_bin", columnDefinition = "TINYINT")
-    @ColumnDefault("false")
-    private boolean isInBin;
+    @Builder.Default
+    private boolean isInBin = false;
 
     @Column(name = "is_valid", columnDefinition = "TINYINT")
-    @ColumnDefault("true")
-    private boolean isValid;
+    @Builder.Default
+    private boolean isValid = true;
 
     public void setAlbum(Album album) {
         this.album = album;
