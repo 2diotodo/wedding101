@@ -7,12 +7,26 @@ import {Button} from '@mui/material/';
 import ProgressBar from '../../components/common/ProgressBar';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
 import UploadMedia from '../../components/common/UploadMedia';
+import { useState } from 'react';
 
 const InvitationProcess02 = () => {
-    
+    const [form, setForm] = useState({
+        photoUrl01: '',
+        photoUrl02: '',
+    });
 
+    const handleChange = (e) =>{
+        const newForm = {
+            ...form,
+            [e.target.name] : e.target.value
+        };
+        setForm(newForm);
+        console.log(form.photoUrl01);
+    }
     const navigate = useNavigate();
     const toProcess03 = () => {
+        sessionStorage.setItem('photoUrl01', form.photoUrl01);
+        sessionStorage.setItem('photoUrl02', form.photoUrl02);
       navigate('/invitation03');
     };
 
@@ -24,6 +38,7 @@ const InvitationProcess02 = () => {
                     <h1>Mobile Invitation</h1>
                 </Grid2>
                 <Grid2 lg={9} sm={10}>
+
                 <div className='process-main'>
                     <ProgressBar />
                     <h2>모바일 청첩장 사진 넣기</h2>
@@ -34,10 +49,19 @@ const InvitationProcess02 = () => {
                         </div>
                     <div className='upload-input'>
                     <div className='upload01'>
-                        <UploadMedia />
+                        <UploadMedia 
+                            type='photoUrl01'
+                            name='photoUrl01'
+                            value={form.photoUrl01}
+                            onChange={handleChange}/>
                     </div>
+                    <br />
                     <div className='upload02'>
-                        <UploadMedia />
+                        <UploadMedia 
+                            type='photoUrl02'
+                            name='photoUrl02'
+                            value={form.photoUrl02}
+                            onChange={handleChange}/>
                     </div>
                     </div>
                     <div className='buttons'>
