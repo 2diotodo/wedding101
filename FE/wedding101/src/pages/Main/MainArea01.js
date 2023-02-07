@@ -22,8 +22,8 @@ const MainArea01 = () => {
                 <img src={main01_3} alt='main01_3'></img>
               </div>
               <div className='horizontalLayout' id='HL_p1_03'>
-                <img src={main01_6} alt='main01_6' style={{position:"relative", left:"10px"}}></img>
-                <img src={main01_5} alt='main01_5' style={{position:"relative", left:"5px"}}></img>
+                <img src={main01_6} alt='main01_4' style={{position:"relative", left:"10px"}}></img>
+                <img src={main01_5} alt='main01_4' style={{position:"relative", left:"5px"}}></img>
                 <img src={main01_4} alt='main01_4'></img>
               </div>
             </div>
