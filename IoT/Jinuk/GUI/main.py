@@ -220,6 +220,7 @@ class MyApp(QWidget, Ui_Form):
         self.review_player = QMediaPlayer()
         self.stackedWidget.setCurrentIndex(0)
         self.timer = QTimer(self)
+        self.timer.timeout.connect(self.photo_take_now)
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -237,6 +238,8 @@ class MyApp(QWidget, Ui_Form):
         self.font_id2 = QFontDatabase.addApplicationFont(
             "QT_Resources/Fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf")
         self.photo_image = None
+        self.hand_image = None
+        self.joined_image = None
 
         self.SenderName = ''
         self.SenderRelation = 0
@@ -252,12 +255,9 @@ class MyApp(QWidget, Ui_Form):
         self.main()
         self.playlist = None
 
-        
         self.file_name = 'downloaded_thanks_video.mp4'
         self.bucket = 'a101-wedding101-pjt'
         self.key = None
-
-
 
 
     def main(self):
@@ -336,11 +336,19 @@ class MyApp(QWidget, Ui_Form):
         self.photo_prev_button.setIcon(self.prev_icon)
         self.photo_prev_button.setIconSize(self.prev_button_pix.rect().size())
 
+    def set_handwrite(self):
+        self.handwrite_graphicsView.setRenderHint(QPainter.Antialiasing)
+        self.hand_image = QImage(960, 320, QImage.Format_RGB32)
+        self.hand_image.fill(Qt.white)
+        self.handwrite_graphicsView.setScene(QGraphicsScene(self))
+        self.handwrite_graphicsView.scene().addPixmap(QPixmap.fromImage(self.hand_image))
+        self.brush = QBrush(Qt.black)
+        self.pen = QPen(self.brush, 5, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
+        self.handwrite_graphicsView.mousePressEvent = self.brush_press_event
+        self.handwrite_graphicsView.mouseMoveEvent = self.brush_move_event
+
     def set_pic_review(self):
-        self.image_home_button.setIcon(self.home_icon2)
-        self.image_home_button.setIconSize(self.home_button2_pix.rect().size())
-        self.image_prev_button.setIcon(self.prev_icon)
-        self.image_prev_button.setIconSize(self.prev_button_pix.rect().size())
+        pass
 
     def set_vid_record(self):
         self.video_home_button.setIcon(self.home_icon2)
@@ -365,6 +373,7 @@ class MyApp(QWidget, Ui_Form):
         self.set_thanks()
         self.set_select()
         self.set_photo()
+        self.set_handwrite()
         self.set_pic_review()
         self.set_vid_record()
         self.set_vid_review()
@@ -375,17 +384,12 @@ class MyApp(QWidget, Ui_Form):
         sender = self.sender()
         print(sender)
         if sender.objectName() == "select_vid_button":
-            # print(dir(self.video_stream))
             self.video_stream.clear()
-            current_page += 2
+            current_page += 3
         if sender.objectName() == "video_review_next_button":
             self.submit_video_info()
         self.stackedWidget.setCurrentIndex(current_page + 1)
         self.media_player.stop()
-        if sender.objectName() == "select_pic_button":
-            self.photo_thread = PhotoViewfinder()
-            self.photo_thread.mySignal.connect(self.photo_make_preview)
-            self.photo_thread.start()
 
     def go_prev_page(self):
         current_page = self.stackedWidget.currentIndex()
@@ -397,7 +401,6 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "image_prev_button":
             current_page -= 1
         if sender.objectName() == "video_prev_button":
-            # self.video_stream.clear()
             current_page -= 2
         if sender.objectName() == "video_review_prev_button":
             self.review_player.stop()
@@ -423,6 +426,14 @@ class MyApp(QWidget, Ui_Form):
         current_page = self.stackedWidget.currentIndex()
         self.stackedWidget.setCurrentIndex(current_page + 2)
 
+    def go_photo_page(self):
+        self.stackedWidget.setCurrentIndex(7)
+        self.media_player.stop()
+        self.handwrite_clear()
+        self.photo_thread = PhotoViewfinder()
+        self.photo_thread.mySignal.connect(self.photo_make_preview)
+        self.photo_thread.start()
+
     def go_end_page(self):
         self.stackedWidget.setCurrentIndex(self.stackedWidget.count() - 1)
 
@@ -438,7 +449,7 @@ class MyApp(QWidget, Ui_Form):
         with open(file_path, 'rb') as f:
             files = {
                 'multipartFile' : (file_path, f, '/')
-            } 
+            }
             response = requests.post(url, files=files, data=payload)
 
         print(response.text)
@@ -464,7 +475,7 @@ class MyApp(QWidget, Ui_Form):
 
         response = requests.post(url, headers=headers, data=json.dumps(data))
         print(response.json())
-    
+
     def submit_image_info(self):
         url = "http://i8a101.p.ssafy.io:8085/s3/uploadImage"
         file_path = f"{self.name}.jpg"
@@ -646,8 +657,8 @@ class MyApp(QWidget, Ui_Form):
         self.media_player.setMedia(media)
         self.media_player.setVolume(50)
         self.thanks_video_screen.show()
-        pass
-    
+
+
     def request_album_info(self):
         album_access_id = self.srvc_chk_lineEdit.text()
         url = "http://i8a101.p.ssafy.io:8085/album/access/" + album_access_id
@@ -659,12 +670,10 @@ class MyApp(QWidget, Ui_Form):
         self.bride_name = res['infoData']['brideName']
         self.home_text2.setText(f"신혼부부 {self.groom_name}, {self.bride_name} 님에게 기념 사진이나 영상 편지를 남겨보세요")
 
-
         url = "http://i8a101.p.ssafy.io:8085/user"
         params = {'userSeq': self.user_seq}
         res = requests.get(url, params=params).json()
         self.user_id = res['data']['userId']
-
 
     def check_agreement(self):
         if self.agreement_checkBox1.isChecked() and self.agreement_checkBox2.isChecked():
@@ -706,17 +715,18 @@ class MyApp(QWidget, Ui_Form):
         self.photo_thread.stop()
         self.timer.stop()
         self.photo_image = self.photo_viewfinder.pixmap()
-        self.image_viewer.setPixmap(self.photo_image)
         self.go_next_page()
+        self.photo_take_button_2.setEnabled(True)
+        self.photo_take_button_3.setEnabled(True)
 
     def photo_take_3sec(self):
+        self.photo_take_button_2.setDisabled(True)
         self.timer.setInterval(3000)
-        self.timer.timeout.connect(self.photo_take_now)
         self.timer.start()
 
     def photo_take_10sec(self):
+        self.photo_take_button_3.setDisabled(True)
         self.timer.setInterval(10000)
-        self.timer.timeout.connect(self.photo_take_now)
         self.timer.start()
 
     def photo_make_preview(self, qimg):
@@ -733,6 +743,34 @@ class MyApp(QWidget, Ui_Form):
         self.photo_image.toImage().save("./"+self.name+".jpg", "JPEG", 100)
         self.submit_image_info()
         self.go_end_page()
+
+    def brush_press_event(self, event):
+        self.last_point = event.pos()
+
+    def brush_move_event(self, event):
+        painter = QPainter(self.hand_image)
+        painter.setPen(self.pen)
+        painter.drawLine(self.last_point, event.pos())
+        self.last_point = event.pos()
+        self.handwrite_graphicsView.scene().clear()
+        self.handwrite_graphicsView.scene().addPixmap(QPixmap.fromImage(self.hand_image))
+
+    def handwrite_fin(self):
+        self.joined_image = QImage(600, 800, QImage.Format_RGB32)
+        self.joined_image.fill(0xffffff)
+        photo_resized = self.photo_image.toImage().scaled(600,600)
+        handwrite_resized = self.hand_image.scaled(600,200)
+        joiner = QPainter(self.joined_image)
+        joiner.drawImage(0, 0, photo_resized)
+        joiner.drawImage(0,600,handwrite_resized)
+        self.go_next_page()
+        self.photo_review_screen.setPixmap(QPixmap.fromImage(self.joined_image))
+
+    def handwrite_clear(self):
+        self.hand_image = QImage(960, 320, QImage.Format_RGB32)
+        self.hand_image.fill(Qt.white)
+        self.handwrite_graphicsView.scene().clear()
+        self.handwrite_graphicsView.scene().addPixmap(QPixmap.fromImage(self.hand_image))
 
 
 app = QApplication()
