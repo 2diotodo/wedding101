@@ -14,3 +14,18 @@
   position: fixed;
   padding-bottom: 10%;
 }
+
+#invitation{
+  position: relative;
+  top:-8vh;
+}
+
+#album{
+  position: relative;
+  top:-8vh;
+}
+
+#process{
+  position: relative;
+  top:-8vh; 
+}

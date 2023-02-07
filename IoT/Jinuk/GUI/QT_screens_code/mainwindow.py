@@ -8,15 +8,15 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtMultimediaWidgets import QVideoWidget
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+from PySide2.QtMultimediaWidgets import QVideoWidget
+from PySide2.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QSlider, QSpacerItem, QStackedWidget,
     QTextBrowser, QVBoxLayout, QWidget)
@@ -560,7 +560,6 @@ class Ui_Form(object):
         self.video_stream.setObjectName(u"video_stream")
         self.video_stream.setGeometry(QRect(0, 0, 1280, 720))
         self.video_stream.setStyleSheet(u"background:#000000;")
-        self.video_stream.setAlignment(Qt.AlignCenter)
         self.stackedWidget.addWidget(self.video_page)
         self.video_review_page = QWidget()
         self.video_review_page.setObjectName(u"video_review_page")
@@ -646,7 +645,7 @@ class Ui_Form(object):
         self.photo_take_button_3.clicked.connect(Form.photo_take_10sec)
         self.end_home_button.clicked.connect(Form.go_home_page)
 
-        self.stackedWidget.setCurrentIndex(9)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Form)

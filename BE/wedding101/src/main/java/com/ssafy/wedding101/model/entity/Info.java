@@ -1,5 +1,6 @@
 package com.ssafy.wedding101.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import java.util.Date;
 @Entity
 @Table(name = "tbl_info")
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @DynamicInsert
 public class Info {
 
@@ -21,13 +24,9 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long infoSeq;
 
-//    @Id // 식별관계 어케해욤
     @ManyToOne
-    @JoinColumn(name = "user_seq", updatable = false, insertable = false)
+    @JoinColumn(name = "user_seq")
     private User user;
-
-    @Column(name="user_seq", nullable = false)
-    private Long userSeq;
 
     @Column(name = "wedding_day", nullable = false)
     private Date weddingDay;
@@ -105,44 +104,9 @@ public class Info {
     @ColumnDefault("true")
     private boolean isValid;
 
-    @Builder
-    public Info(Long infoSeq, User user, Long userSeq, Date weddingDay, String weddingHallName, String weddingHallAddress,
-                String weddingHallNumber, String groomName, String brideName, String groomPhoneNumber,
-                String bridePhoneNumber, String groomAccountNumber, String groomAccountBank, String groomAccountName,
-                String brideAccountNumber, String brideAccountBank, String brideAccountName, String groomRelation,
-                String brideRelation, String groomFatherName, String groomMotherName, String brideFatherName,
-                String brideMotherName, boolean groomFatherIsAlive, boolean groomMotherIsAlive, boolean brideFatherIsAlive,
-                boolean brideMotherIsAlive, boolean isValid) {
-        this.infoSeq = infoSeq;
+    public void setUser(User user) {
         this.user = user;
-        this.userSeq = userSeq;
-        this.weddingDay = weddingDay;
-        this.weddingHallName = weddingHallName;
-        this.weddingHallAddress = weddingHallAddress;
-        this.weddingHallNumber = weddingHallNumber;
-        this.groomName = groomName;
-        this.brideName = brideName;
-        this.groomPhoneNumber = groomPhoneNumber;
-        this.bridePhoneNumber = bridePhoneNumber;
-        this.groomAccountNumber = groomAccountNumber;
-        this.groomAccountBank = groomAccountBank;
-        this.groomAccountName = groomAccountName;
-        this.brideAccountNumber = brideAccountNumber;
-        this.brideAccountBank = brideAccountBank;
-        this.brideAccountName = brideAccountName;
-        this.groomRelation = groomRelation;
-        this.brideRelation = brideRelation;
-        this.groomFatherName = groomFatherName;
-        this.groomMotherName = groomMotherName;
-        this.brideFatherName = brideFatherName;
-        this.brideMotherName = brideMotherName;
-        this.groomFatherIsAlive = groomFatherIsAlive;
-        this.groomMotherIsAlive = groomMotherIsAlive;
-        this.brideFatherIsAlive = brideFatherIsAlive;
-        this.brideMotherIsAlive = brideMotherIsAlive;
-        this.isValid = isValid;
     }
-
     public void updateInfo( Date weddingDay, String weddingHallName, String weddingHallAddress,
                             String weddingHallNumber, String groomName, String brideName, String groomPhoneNumber,
                             String bridePhoneNumber, String groomAccountNumber, String groomAccountBank, String groomAccountName,

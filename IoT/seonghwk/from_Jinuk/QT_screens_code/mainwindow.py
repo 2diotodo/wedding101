@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1280, 956)
+        Form.resize(1280, 960)
         Form.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setSpacing(0)
@@ -317,10 +317,9 @@ class Ui_Form(object):
         font11.setPointSize(36)
         font11.setBold(True)
         self.input_relation_combo.setFont(font11)
-        self.input_relation_combo.setStyleSheet(u"background:#FFAB7C; color:#FFFFFF;\n"
-"border-radius: 20px;\n"
-"border: 3px solid brown;\n"
-"padding-left:80px;")
+        self.input_relation_combo.setStyleSheet(u"QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}\n"
+"QComboBox::drop-down{right:50px; border:0px;}\n"
+"QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}")
         self.input_relation_combo.setIconSize(QSize(16, 16))
         self.input_relation_combo.setFrame(True)
 
@@ -352,37 +351,9 @@ class Ui_Form(object):
         sizePolicy1.setHeightForWidth(self.input_receiver_combo.sizePolicy().hasHeightForWidth())
         self.input_receiver_combo.setSizePolicy(sizePolicy1)
         self.input_receiver_combo.setFont(font11)
-        self.input_receiver_combo.setStyleSheet(u"#input_receiver_combo{\n"
-"background:#FFAB7C; color:#FFFFFF;\n"
-"border-radius: 20px;\n"
-"border: 3px solid brown;\n"
-"padding-left:80px;\n"
-"}\n"
-"\n"
-"#input_receiver_combo::on{\n"
-"border: 3px solid red;\n"
-"}\n"
-"\n"
-"#input_receiver_combo::drop-down{\n"
-"border:0;\n"
-"}\n"
-"\n"
-"\n"
-"#input_receiver_combo QListView{\n"
-"background:#FFAB7C;\n"
-"color:#FFFFFF;\n"
-"border:3px solid brown;\n"
-"border-radius:0;\n"
-"}\n"
-"\n"
-"#input_receiver_combo QListView::item{\n"
-"\n"
-"}\n"
-"\n"
-"#input_receiver_combo QListView::item::hover{\n"
-"background:#FFFFFF;\n"
-"color:#A55252\n"
-"}")
+        self.input_receiver_combo.setStyleSheet(u"QComboBox{background:#FFAB7C;border-radius:20px;color:#FFFFFF;border:3px solid brown;padding-left:80px;}\n"
+"QComboBox::drop-down{right:50px; border:0px;}\n"
+"QComboBox::down-arrow{image:url(QT_Resources/Pics/down_arrow.png); width:50px; height:50px;}")
         self.input_receiver_combo.setEditable(False)
         self.input_receiver_combo.setIconSize(QSize(16, 16))
         self.input_receiver_combo.setFrame(True)
@@ -523,10 +494,11 @@ class Ui_Form(object):
         self.photo_widget.setObjectName(u"photo_widget")
         self.photo_widget.setGeometry(QRect(30, 30, 900, 900))
         self.photo_widget.setStyleSheet(u"background: #FFFFFF;border-radius:80;")
-        self.photo_viewfinder = QWidget(self.photo_widget)
+        self.photo_viewfinder = QLabel(self.photo_widget)
         self.photo_viewfinder.setObjectName(u"photo_viewfinder")
         self.photo_viewfinder.setGeometry(QRect(66, 66, 768, 768))
         self.photo_viewfinder.setStyleSheet(u"background:black; border-radius:0;")
+        self.photo_viewfinder.setAlignment(Qt.AlignCenter)
         self.photo_take_now = QPushButton(self.photo_page)
         self.photo_take_now.setObjectName(u"photo_take_now")
         self.photo_take_now.setGeometry(QRect(970, 230, 271, 91))
@@ -598,6 +570,10 @@ class Ui_Form(object):
 
 
         self.retranslateUi(Form)
+        self.video_next_button.clicked.connect(Form.go_end_page)
+        self.video_prev_button.clicked.connect(Form.go_prev_page)
+        self.srvc_chk_button.clicked.connect(Form.check_service_validation)
+        self.input_next_button.clicked.connect(Form.check_input)
         self.end_home_button.clicked.connect(Form.go_home_page)
         self.image_next_button.clicked.connect(Form.go_end_page)
         self.image_home_button.clicked.connect(Form.go_home_page)
@@ -605,21 +581,17 @@ class Ui_Form(object):
         self.select_home_button.clicked.connect(Form.go_home_page)
         self.video_home_button.clicked.connect(Form.go_home_page)
         self.select_prev_button.clicked.connect(Form.go_prev_page)
-        self.video_prev_button.clicked.connect(Form.go_prev_page)
         self.image_prev_button.clicked.connect(Form.go_prev_page)
-        self.srvc_chk_button.clicked.connect(Form.check_service_validation)
         self.home_next_button.clicked.connect(Form.go_next_page)
         self.info_next_button.clicked.connect(Form.go_next_page)
         self.agreement_next_button.clicked.connect(Form.go_next_page)
         self.input_home_button.clicked.connect(Form.go_home_page)
-        self.input_next_button.clicked.connect(Form.check_input)
         self.thanks_next_button.clicked.connect(Form.go_next_page)
         self.select_vid_button.clicked.connect(Form.go_next_page)
         self.video_review_home_button.clicked.connect(Form.go_home_page)
         self.video_review_prev_button.clicked.connect(Form.go_prev_page)
         self.video_review_next_button.clicked.connect(Form.go_next_page)
         self.video_control_button.clicked.connect(Form.record_control)
-        self.video_next_button.clicked.connect(Form.go_next_page)
         self.photo_prev_button.clicked.connect(Form.go_prev_page)
         self.photo_home_button.clicked.connect(Form.go_home_page)
 

@@ -1,22 +1,70 @@
 .main-area02 {
+  display: flex;
+  margin-top: 8vh;
+  padding-bottom: 8vh;
+  height: 92vh;
   background-color: #fff4f3;
-  height: 100vh;
-}
-.area {
-  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.side-territory {
-  position: relative;
-}
-.invitation-form {
-  position: relative;
-  
-}
-img {
+
+.detailLayout{
   display: flex;
-  size: 50%;
-  object-fit: scale-down;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  height: 200px;
+}
+
+.detailButton{
+  width: 100%;
+  height: 70px;
+  border-radius: 20px;
+}
+
+.indexIndicator{
+  display: flex;
+  width:50px;
+  height:50px;
+  background-color: yellow;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.exampleSlider{
+  display: flex;
+  flex-grow: 2;
+  justify-content: center;
+  align-items: center;
+}
+#container_02{
+  height:750px;
+}
+
+#HL_p2_01{
+  width: 100%;
+  height:100%;
+}
+#HL_p2_02{
+  width:100%;
+  justify-content: space-around;
+}
+#VL_p2_01{
+  height:100%;
+  justify-content: space-between;
+}
+
+#title_p2_01{
+  width:100%;
+}
+
+#explain_p2_01{
+  width:100%;
+}
+#explain_p2_02{
+  display: flex;
+  width:100%;
 }
