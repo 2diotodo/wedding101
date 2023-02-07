@@ -5,7 +5,7 @@ import { Button, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 
-function UploadMedia() {
+function UploadMedia(props) {
     const [filePreview, setFilePreview] = useState('');
     const [fileMedia, setFileMedia] = useState('');
     
@@ -84,7 +84,7 @@ function UploadMedia() {
                 "Content-Type": "multipart/form-data",
             },
             method: "POST",
-            url: "http://localhost:8081/",  // 파일 업로드 요청 URL
+            url: "http://localhost:8080/",  // 파일 업로드 요청 URL
             data: formData,
         }).then((res) => {
             console.log(res);
@@ -110,7 +110,7 @@ function UploadMedia() {
                 <input
                     hidden
                     type="file"
-                    accept='image/*'
+                    accept='image/*, video/*'
                     onChange={fileImageHandler}
                     />
                 <UploadIcon fontSize='large' />
