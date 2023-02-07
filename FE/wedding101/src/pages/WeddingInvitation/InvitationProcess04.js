@@ -8,6 +8,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import {Button} from '@mui/material/';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
 import ProgressBar from '../../components/common/ProgressBar';
+import axios from 'axios';
 
 const InvitationProcess04 = () => {
     const [invitationForm, setInvitationForm] = useState({
@@ -26,7 +27,7 @@ const InvitationProcess04 = () => {
 
     });
 
-    const submitHandler = () =>{
+    const submitHandler = async (e) =>{
         // sessionStorage to invitationForm
 
         setInvitationForm.photoUrl01(sessionStorage.getItem('photoUrl01'));
@@ -36,8 +37,15 @@ const InvitationProcess04 = () => {
         setInvitationForm.templateEtc(sessionStorage.getItem('textInput03'));
 
         // axios 통신
+        await axios
+        .post('http://localhost:8080/', {
+            data: invitationForm,
+        })
+        .then((res) => {
 
-    }
+        })
+        .catch();
+    };
 
 
     const navigate = useNavigate();
@@ -46,13 +54,15 @@ const InvitationProcess04 = () => {
     };
 
     return(
-        <div>
+        <div className='process04'>
             <Grid2 container spacing={3}>
                  <Grid2 lg={3} sm={2}>
                     <h1>Mobile Invitation</h1>
                 </Grid2>
                 <Grid2 lg={8} sm={10}>
-                <ProgressBar />
+                    <div className='process-main'>
+
+                <ProgressBar steps={3}/>
                     <h2>모바일 청첩장이 생성되었습니다.</h2>
                         <div>
                             <InvitationForm />
@@ -65,6 +75,7 @@ const InvitationProcess04 = () => {
                         <Button variant='contained' type='submit'>완료</Button>
                     </div>
                     </form>    
+                    </div>
                 </Grid2>
             </Grid2>
         </div>

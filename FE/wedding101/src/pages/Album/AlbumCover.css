@@ -12,6 +12,17 @@
     width: 500px;
     height: 600px;
 }
+.album-img {
+    margin: auto;
+    position: absolute;
+    top: 30%;
+}
+.cover-id {
+    margin: auto;
+    position: absolute;
+    top: 60%;
+}
+
 .upload-media {
     display: flex;
     justify-content: center;
