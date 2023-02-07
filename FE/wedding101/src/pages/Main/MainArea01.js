@@ -10,7 +10,7 @@ const MainArea01 = () => {
   return (
     <div className='main-area01'>
       
-      {/* <div className='container'>
+      <div className='container'>
         <div className='verticalLayout' id='VL_p1_01'>
           <div className='title' id='title_p1_01'>Wedding101</div>
           <div className='explainText' id='explain_p1_01'><p>당신의 특별한 순간을 간직하세요</p></div>
@@ -31,7 +31,7 @@ const MainArea01 = () => {
           </div>
         </div>
         <img src={main01_1} alt='main01_1'></img>
-      </div> */}
+      </div>
     </div>
   );
 };
