@@ -1,11 +1,4 @@
-FROM node:18.13.0
-
-WORKDIR /usr/src/app
-COPY ./package* /usr/src/app/
-
-RUN npm install
-COPY ./ /usr/src/app/
-
-EXPOSE 3000
-
-CMD ["npm", "run", "start"]
+FROM nginx:latest
+RUN rm /etc/nginx/default.conf
+RUN cp ./default.conf /etc/nginx/conf.d/defualt.conf
+COPY ./build /usr/share/nginx/html
