@@ -38,7 +38,7 @@
       <string notr="true">background: #FFF3C8;</string>
      </property>
      <property name="currentIndex">
-      <number>9</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="srvc_chk_page">
       <property name="styleSheet">
@@ -1438,58 +1438,142 @@ border-radius:0;</string>
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="image_page">
-      <widget class="QPushButton" name="image_prev_button">
+     <widget class="QWidget" name="handwrite_page">
+      <widget class="QWidget" name="handwrite_widget" native="true">
        <property name="geometry">
         <rect>
-         <x>970</x>
-         <y>650</y>
-         <width>123</width>
-         <height>107</height>
+         <x>64</x>
+         <y>180</y>
+         <width>1152</width>
+         <height>384</height>
         </rect>
        </property>
-       <property name="text">
-        <string/>
+       <property name="styleSheet">
+        <string notr="true">background:#FFAFAF;border-radius:30px;</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
+       <widget class="QGraphicsView" name="handwrite_graphicsView">
+        <property name="geometry">
+         <rect>
+          <x>96</x>
+          <y>32</y>
+          <width>960</width>
+          <height>320</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
-      <widget class="QPushButton" name="image_home_button">
+      <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>1120</x>
-         <y>650</y>
-         <width>123</width>
-         <height>107</height>
+         <x>365</x>
+         <y>60</y>
+         <width>550</width>
+         <height>70</height>
         </rect>
        </property>
-       <property name="text">
-        <string/>
+       <property name="font">
+        <font>
+         <pointsize>38</pointsize>
+         <bold>true</bold>
+        </font>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="text">
+        <string>손글씨를 입력해주세요</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QWidget" name="image_widget" native="true">
+      <widget class="QPushButton" name="handwrite_fin_button">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>140</x>
+         <y>640</y>
+         <width>300</width>
+         <height>100</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
+       </property>
+       <property name="text">
+        <string>작성 완료</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="handwrite_rewrite_button">
+       <property name="geometry">
+        <rect>
+         <x>490</x>
+         <y>640</y>
+         <width>300</width>
+         <height>100</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
+       </property>
+       <property name="text">
+        <string>다시 쓰기</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="handwrite_retake_button">
+       <property name="geometry">
+        <rect>
+         <x>840</x>
+         <y>640</y>
+         <width>300</width>
+         <height>100</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
+       </property>
+       <property name="text">
+        <string>사진 재촬영</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="photo_review_page">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <widget class="QWidget" name="photo_review_widget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
          <y>30</y>
-         <width>900</width>
+         <width>700</width>
          <height>900</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: #FFFFFF;border-radius:80;</string>
+        <string notr="true">background: #FFFFFF;border-radius:60;</string>
        </property>
-       <widget class="QLabel" name="image_viewer">
+       <widget class="QLabel" name="photo_review_screen">
         <property name="geometry">
          <rect>
-          <x>66</x>
-          <y>66</y>
-          <width>768</width>
-          <height>768</height>
+          <x>50</x>
+          <y>50</y>
+          <width>600</width>
+          <height>800</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -1503,11 +1587,11 @@ border-radius:0;</string>
         </property>
        </widget>
       </widget>
-      <widget class="QPushButton" name="image_retake_button">
+      <widget class="QPushButton" name="photo_review_remake_button">
        <property name="geometry">
         <rect>
-         <x>970</x>
-         <y>350</y>
+         <x>10</x>
+         <y>435</y>
          <width>271</width>
          <height>91</height>
         </rect>
@@ -1522,14 +1606,14 @@ border-radius:0;</string>
         <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
        </property>
        <property name="text">
-        <string>다시 찍기</string>
+        <string>다시 만들기</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="image_save_button">
+      <widget class="QPushButton" name="photo_review_complete_button">
        <property name="geometry">
         <rect>
-         <x>970</x>
-         <y>490</y>
+         <x>1000</x>
+         <y>435</y>
          <width>271</width>
          <height>91</height>
         </rect>
@@ -1544,7 +1628,7 @@ border-radius:0;</string>
         <string notr="true">background: #FFAB7C;border-radius:25px; color: #FFFFFF;</string>
        </property>
        <property name="text">
-        <string>촬영 완료</string>
+        <string>보내기</string>
        </property>
       </widget>
      </widget>
@@ -1857,7 +1941,7 @@ border-radius:0;</string>
    <sender>select_pic_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
-   <slot>go_next_page()</slot>
+   <slot>go_photo_page()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>197</x>
@@ -2126,70 +2210,6 @@ border-radius:0;</string>
    </hints>
   </connection>
   <connection>
-   <sender>image_prev_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_prev_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1030</x>
-     <y>693</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>978</x>
-     <y>-13</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>image_retake_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>photo_retake()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1145</x>
-     <y>408</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1077</x>
-     <y>-7</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>image_save_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>photo_save()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1194</x>
-     <y>550</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>940</x>
-     <y>-4</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>image_home_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>go_home_page()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1187</x>
-     <y>687</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>830</x>
-     <y>-4</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>photo_take_button_2</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
@@ -2237,6 +2257,86 @@ border-radius:0;</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>handwrite_fin_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>handwrite_fin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>656</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>-15</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>handwrite_rewrite_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>handwrite_clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>633</x>
+     <y>656</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>917</x>
+     <y>-5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>photo_review_remake_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_photo_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>-10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>photo_review_complete_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_end_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1141</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1112</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>handwrite_retake_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>go_photo_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>924</x>
+     <y>664</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1095</x>
+     <y>-3</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>go_next_page()</slot>
@@ -2252,5 +2352,8 @@ border-radius:0;</string>
   <slot>photo_save()</slot>
   <slot>photo_take_3sec()</slot>
   <slot>photo_take_10sec()</slot>
+  <slot>handwrite_fin()</slot>
+  <slot>handwrite_clear()</slot>
+  <slot>go_photo_page()</slot>
  </slots>
 </ui>
