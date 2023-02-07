@@ -1,4 +1,4 @@
 FROM nginx:latest
 
-COPY ./.conf /etc/nginx/conf.d
+# COPY ./.conf /etc/nginx/conf.d
 COPY ./build /usr/share/nginx/html
