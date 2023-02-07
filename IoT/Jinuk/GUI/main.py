@@ -255,6 +255,7 @@ class MyApp(QWidget, Ui_Form):
         self.main()
         self.playlist = None
 
+
         self.file_name = 'downloaded_thanks_video.mp4'
         self.bucket = 'a101-wedding101-pjt'
         self.key = None
@@ -383,9 +384,8 @@ class MyApp(QWidget, Ui_Form):
         sender = self.sender()
         print(sender)
         if sender.objectName() == "select_vid_button":
-            # print(dir(self.video_stream))
             self.video_stream.clear()
-            current_page += 2
+            current_page += 3
         if sender.objectName() == "video_review_next_button":
             self.submit_video_info()
         self.stackedWidget.setCurrentIndex(current_page + 1)
@@ -401,7 +401,6 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "image_prev_button":
             current_page -= 1
         if sender.objectName() == "video_prev_button":
-            # self.video_stream.clear()
             current_page -= 2
         if sender.objectName() == "video_review_prev_button":
             self.review_player.stop()
@@ -658,7 +657,7 @@ class MyApp(QWidget, Ui_Form):
         self.media_player.setMedia(media)
         self.media_player.setVolume(50)
         self.thanks_video_screen.show()
-        pass
+
 
     def request_album_info(self):
         album_access_id = self.srvc_chk_lineEdit.text()
