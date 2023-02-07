@@ -44,8 +44,6 @@ public class Album {
     @ColumnDefault("true")
     private boolean isValid;
 
-    @OneToMany(mappedBy = "album")
-    private List<Media> mediaList = new ArrayList<>();
 
     public void setInfo(Info info) {
         this.info = info;

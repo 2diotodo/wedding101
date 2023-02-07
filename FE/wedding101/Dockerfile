@@ -1,11 +1,4 @@
-FROM node:18.13.0
+FROM nginx:latest
 
-WORKDIR /usr/src/app
-COPY ./package* /usr/src/app/
-
-RUN npm install
-COPY ./ /usr/src/app/
-
-EXPOSE 3000
-
-CMD ["npm", "run", "start"]
+COPY ./.conf /etc/nginx/conf.d
+COPY ./build /usr/share/nginx/html
