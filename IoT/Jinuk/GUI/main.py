@@ -255,6 +255,9 @@ class MyApp(QWidget, Ui_Form):
         self.main()
         self.playlist = None
 
+        self.file_name = 'downloaded_thanks_video.mp4'
+        self.bucket = 'a101-wedding101-pjt'
+        self.key = None
 
     def main(self):
         pass
@@ -380,6 +383,8 @@ class MyApp(QWidget, Ui_Form):
         sender = self.sender()
         print(sender)
         if sender.objectName() == "select_vid_button":
+            # print(dir(self.video_stream))
+            self.video_stream.clear()
             current_page += 2
         if sender.objectName() == "video_review_next_button":
             self.submit_video_info()
@@ -396,8 +401,10 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "image_prev_button":
             current_page -= 1
         if sender.objectName() == "video_prev_button":
+            # self.video_stream.clear()
             current_page -= 2
         if sender.objectName() == "video_review_prev_button":
+            self.review_player.stop()
             current_page -= 3
 
         self.stackedWidget.setCurrentIndex(current_page - 1)
@@ -514,12 +521,9 @@ class MyApp(QWidget, Ui_Form):
             self.stop_AVrecording()
             self.video_control_button.setText("Record")
             self.video_stream.setText("Camera")
+            self.video_stream.clear()
             self.file_manager()
             self.set_review_video()
-
-            # self.video_stream.setPixmap(QPixmap())
-            self.video_stream.clear()
-
             self.go_next_page()
         else:
             self.recording_now = True
@@ -632,24 +636,25 @@ class MyApp(QWidget, Ui_Form):
 
 
     def request_thankyou_video(self):
-        # url = "http://i8a101.p.ssafy.io:8085/album/"
-        # params = {'userSeq': self.user_seq}
-        # response = requests.get(url, params=params).json()
-        # print(response['albumThanksUrl'])
+        url = "http://i8a101.p.ssafy.io:8085/album/"
+        params = {'userSeq': self.user_seq}
+        response = requests.get(url, params=params).json()
+        print(response['data']['albumThanksUrl'])
 
-        file_name = '"/home/pi/A101/IoT/Jinuk/GUI/QT_Resources/Videos/downloaded_video.mp4'
-        bucket = 'seonghwk-bucket'
-        key = 'thankyou_by_seonghwk.mp4'
+        parser = "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/"
+
+        self.key = response['data']['albumThanksUrl'].split(parser)[1]
 
         client = boto3.client(
                 's3',
-                aws_access_key_id = 'AKIA6QEVMEANLUI7VSOI',
-                aws_secret_access_key = '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',
+                aws_access_key_id = 'AKIASAR2BR5LCYLEDGWM',
+                aws_secret_access_key = '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',
                 region_name = 'ap-northeast-2'
         )
-        client.download_file(bucket, key, file_name)
 
-        media = QMediaContent(QUrl.fromLocalFile(file_name))
+        client.download_file(self.bucket, self.key, self.file_name)
+
+        media = QMediaContent(QUrl.fromLocalFile("/home/pi/A101/IoT/Jinuk/GUI/" + self.file_name))
         self.media_player.setMedia(media)
         self.media_player.setVolume(50)
         self.thanks_video_screen.show()
@@ -669,7 +674,7 @@ class MyApp(QWidget, Ui_Form):
         url = "http://i8a101.p.ssafy.io:8085/user"
         params = {'userSeq': self.user_seq}
         res = requests.get(url, params=params).json()
-        self.user_id = res['userId']
+        self.user_id = res['data']['userId']
 
     def check_agreement(self):
         if self.agreement_checkBox1.isChecked() and self.agreement_checkBox2.isChecked():
