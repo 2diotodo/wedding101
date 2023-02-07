@@ -1,4 +1,5 @@
 FROM nginx:latest
-RUN rm /etc/nginx/default.conf 
 RUN cp ./default.conf /etc/nginx/conf.d/defualt.conf
+RUN ls ./
 COPY ./build /usr/share/nginx/html
+CMD ["rm", "/etc/nginx/default.conf"]
