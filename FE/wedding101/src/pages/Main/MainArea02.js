@@ -1,7 +1,10 @@
 import './MainArea02.css';
 
 import main02_1 from '../../assets/img/mainArea02_1.png';
-import Slider from 'react-slick';
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
 
 const MainArea02 = () => {
   const settings = {
@@ -17,7 +20,7 @@ const MainArea02 = () => {
     
     <div className='main-area02'>
       
-      {/* <div className='container' id='container_p2'>
+      <div className='container' id='container_p2'>
         <div className='horizontalLayout' id='HL_p2_01'>
           <div className='verticalLayout' id='VL_p2_01'>
             <div className='title_explain'>
@@ -27,36 +30,27 @@ const MainArea02 = () => {
             </div>
             <div className='detailLayout'>
               <button className='detailButton'>자세히 보러가기</button>
-              <div className='horizontalLayout' id='HL_p2_02'>
-                <div className='indexIndicator' id='idx1'>1</div>
-                <div className='indexIndicator' id='idx2'>2</div>
-                <div className='indexIndicator' id='idx3'>3</div>
-                <div className='indexIndicator' id='idx4'>4</div>
-                <div className='indexIndicator' id='idx5'>5</div>
-              </div>
             </div>
           </div>
-          
         </div>
-      </div> */}
-      <Slider {...settings}>
-            <div>
-              <img src={main02_1} alt='main02_1'></img>
-            </div>
-            <div>
-              <img src={main02_1} alt='main02_1'></img>
-            </div>
-            <div>
-              <img src={main02_1} alt='main02_1'></img>
-            </div>
-              <img src={main02_1} alt='main02_1'></img>
-            <div>
-              <img src={main02_1} alt='main02_1'></img>
-            </div>
-            <div>
-              <img src={main02_1} alt='main02_1'></img>
-            </div>
-      </Slider>
+          <Slider {...settings}>
+              <div>
+                <InvitationForm/>
+              </div>
+              <div>
+                <InvitationForm/>
+              </div>
+              <div>
+                <InvitationForm/>
+              </div>
+              <div>
+                <InvitationForm/>
+              </div>
+              <div>
+                <InvitationForm/>
+              </div>
+          </Slider>
+      </div>
       
     </div>
   );
