@@ -5,6 +5,9 @@
 .process-main {
     padding-top: 10%;
 }
+.inner-content {
+    display: flex;
+}
 .invitation-item{
     margin: 1px;
     display: flex;
