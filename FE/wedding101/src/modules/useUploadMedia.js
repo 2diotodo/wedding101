@@ -14,10 +14,16 @@ const useUploadMedia = (media) => {
         }
         setFileMedia(file);
 
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const base64 = event.target.result;
+            sessionStorage.setItem(media, base64);
+        };
+
         if(file.type.includes('image')){
             const image = new Image();
             image.src = URL.createObjectURL(file);
-            console.log(image.src);
             image.onload = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -89,7 +95,7 @@ const useUploadMedia = (media) => {
     });
     };
 
-    return {filePreview, fileImageHandler, deleteFileImage, onFileUpload};
+    return {fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload};
 }
 
 export default useUploadMedia;
