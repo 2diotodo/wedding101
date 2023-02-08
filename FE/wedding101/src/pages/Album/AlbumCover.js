@@ -25,17 +25,13 @@ function AlbumCover(){
         isValid: '',
         
     });
-    const {filePreview, fileImageHandler, deleteFileImage, onFileUpload} = useUploadMedia(albumForm.albumPhotoUrl);
+    const {fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload} = useUploadMedia(albumForm.albumName);
 
 
     useEffect(() => {
-        const previewURL = URL.createObjectURL(new Blob([filePreview]));
-        sessionStorage.setItem('albumPhoto',previewURL );
-
-        return () => {
-            URL.revokeObjectURL(previewURL);
-          };
-    }, [filePreview]);
+        // sessionStorage.setItem('albumPhoto',fileMedia );
+        
+    }, [fileMedia]);
 
     const userId = sessionStorage.getItem('userId');
     const onAlbumListHandler = () => {

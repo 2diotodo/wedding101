@@ -94,7 +94,14 @@ const MediaItem = ({media}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <video src={url} controls autoPlay loop width='100%' />
+          {
+            media.isVideo === true ? (
+              <video src={url} controls autoPlay loop width='100%' />
+
+            ) :(
+              <img src={url} alt={urlToImg} />
+            )
+          }
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {name}님의 메세지
           </Typography>
