@@ -30,7 +30,7 @@ function LoginForm() {
     console.log('here');
     
     await axios
-    .post('http://localhost:8080/user/login', {
+    .post('http://i8a101.p.ssafy.io:8085/user/login', {
       userId: inputId,
       userPassword: inputPw,
     }
