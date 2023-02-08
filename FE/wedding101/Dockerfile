@@ -1,3 +1,6 @@
-FROM nginx:latest
-
-COPY ./build /usr/share/nginx/html
+FROM node:18.13.0
+WORKDIR /usr/src/app
+COPY ./package* /usr/src/app/
+RUN npm install
+COPY ./ /usr/src/app/
+CMD ["npm", "run", "start"]
