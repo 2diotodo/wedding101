@@ -3,10 +3,10 @@ import './InvitationProcess02.css';
 
 import { useNavigate } from 'react-router';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import {Button} from '@mui/material/';
+import {Button, IconButton} from '@mui/material/';
+import UploadIcon from '@mui/icons-material/Upload';
 import ProgressBar from '../../components/common/ProgressBar';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
-import UploadMedia from '../../components/common/UploadMedia';
 import { useState } from 'react';
 import useUploadMedia from '../../modules/useUploadMedia';
 
@@ -15,7 +15,7 @@ const InvitationProcess02 = () => {
         photoUrl01: '',
         photoUrl02: '',
     });
-    const {fileImageHandler, deleteFileImage, onFileUpload} = useUploadMedia([form]);
+    const {filePreview, fileImageHandler, deleteFileImage, onFileUpload} = useUploadMedia(form.photoUrl01);
 
     const handleChange = (e) =>{
         const newForm = {
@@ -44,34 +44,48 @@ const InvitationProcess02 = () => {
                 <div className='process-main'>
                     <ProgressBar steps={1}/>
                     <h2>모바일 청첩장 사진 넣기</h2>
+                    <div className='inner-content'>
+
                         <div className='invitation-item'>
                             <InvitationForm />
                         </div>
                         
-                        </div>
                     <div className='upload-input'>
                     <div className='upload01'>
-                        <UploadMedia 
-                            type='photoUrl01'
-                            name='photoUrl01'
-                            media={form.photoUrl01}
-                            onChange={handleChange}/>
+                    <IconButton aria-label='upload picture' component="label">
+                        <input
+                            hidden
+                            type="file"
+                            accept='image/*, video/*'
+                            onChange={fileImageHandler}
+                            />
+                        <UploadIcon fontSize='large' />
+                    </IconButton>
+                    <Button onClick={deleteFileImage}>삭제</Button>
                     </div>
                     <br />
                     <div className='upload02'>
-                        <UploadMedia 
-                            type='photoUrl02'
-                            name='photoUrl02'
-                            media={form.photoUrl02}
-                            onChange={handleChange}/>
+                    <IconButton aria-label='upload picture' component="label">
+                        <input
+                            hidden
+                            type="file"
+                            accept='image/*, video/*'
+                            onChange={fileImageHandler}
+                            />
+                        <UploadIcon fontSize='large' />
+                    </IconButton>
+                    <Button onClick={deleteFileImage}>삭제</Button>
                     </div>
                     </div>
+                            </div>
                     <div className='buttons'>
                     <Button variant='contained' onClick={() => navigate(-1)}>이전</Button>
                     </div>
                     <div className='buttons'>
                     <Button variant='contained' onClick={toProcess03}>다음</Button>
                     </div>
+                    </div>
+
                 </Grid2>
             </Grid2>
         </div>
