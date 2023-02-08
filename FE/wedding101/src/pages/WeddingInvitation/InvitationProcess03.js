@@ -43,7 +43,7 @@ const InvitationProcess03 = () => {
                 <Grid2 lg={9} sm={10}>
                         
                     <div className='process-main'>
-                    <ProgressBar />
+                    <ProgressBar steps={2} />
                     <h2>모바일 청첩장 문구 변경</h2>
                     <div className='text-form'>
                         <div className='invitation-form'>

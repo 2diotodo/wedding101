@@ -1,14 +1,10 @@
-import './UploadMedia.css';
-
-import UploadIcon from '@mui/icons-material/Upload';
-import { Button, IconButton } from '@mui/material';
-import axios from 'axios';
 import { useState } from 'react';
+import axios from 'axios';
 
-function UploadMedia({media}) {
-    const [filePreview, setFilePreview] = useState(media);
-    const [fileMedia, setFileMedia] = useState(media);
-    
+const useUploadMedia = (media) => {
+    const [filePreview, setFilePreview] = useState('');
+    const [fileMedia, setFileMedia] = useState('');
+
     // 파일 미리보기 구현
     const fileImageHandler = (e) => {
         const file = e.target.files[0];
@@ -17,13 +13,11 @@ function UploadMedia({media}) {
             return
         }
         setFileMedia(file);
-        console.log(e.target);
 
         if(file.type.includes('image')){
             const image = new Image();
             image.src = URL.createObjectURL(file);
-            sessionStorage.setItem(media, image.src);
-
+            console.log(image.src);
             image.onload = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -95,31 +89,7 @@ function UploadMedia({media}) {
     });
     };
 
-    return (
-        <div>
-            <div className='media-area'>
-                {filePreview && (
-                    <div>
-                    {fileMedia.type.includes('image') ? (
-                    <img src={filePreview} alt="preview" />
-                ) : (
-                    <video controls src={filePreview} />
-                )}
-                </div>
-                )}
-            </div>
-            <IconButton aria-label='upload picture' component="label">
-                <input
-                    hidden
-                    type="file"
-                    accept='image/*, video/*'
-                    onChange={fileImageHandler}
-                    />
-                <UploadIcon fontSize='large' />
-            </IconButton>
-            <Button onClick={deleteFileImage}>삭제</Button>
-            <Button onClick={onFileUpload}>확정</Button>
-        </div>
-    );
+    return {filePreview, fileImageHandler, deleteFileImage, onFileUpload};
 }
-export default UploadMedia;
+
+export default useUploadMedia;
