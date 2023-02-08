@@ -30,7 +30,7 @@ const MainArea01 = () => {
             <img src={main01_2} alt='main01_2'></img>
           </div>
         </div>
-        <img src={main01_1} alt='main01_1'></img>
+        <img className='image_main01' src={main01_1} alt='main01_1'></img>
       </div>
     </div>
   );

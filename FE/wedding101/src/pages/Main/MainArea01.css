@@ -8,8 +8,8 @@
   align-items: center;
 }
 .container {
-  width:1775px;
-  height: 800px;
+  width: 90vw;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,6 +46,9 @@
   position: fixed;
   bottom: 0;
 }
+.image_main01{
+  height:100%;
+}
 #title_p1_01{
   height:100px;
 }
@@ -53,18 +56,11 @@
   height:305px;
 }
 #VL_p1_01{
-  left: 5px;
+  height:100%;
 }
 #VL_p1_02{
-  left: 5px;
 }
 #HL_p1_02{
-  top:2.5px;
 }
 #HL_p1_03{
-  bottom: 2.5px;
-}
-
-img {
-  object-fit: scale-down;
 }

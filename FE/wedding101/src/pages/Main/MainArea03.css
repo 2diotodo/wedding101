@@ -9,7 +9,7 @@
 }
 img {
   display: flex;
-  object-fit: scale-down;
+  object-fit: cover;
 }
 #container_p3 {
   height:750px;

@@ -1,8 +1,8 @@
 .main-area04 {
-  height: 100vh;
+  height: 92vh;
+  padding-bottom: 8vh;
   background-color: #d9cfde;
 }
 img {
-  display: flex;
-  object-fit: scale-down;
+  object-fit: cover;
 }
