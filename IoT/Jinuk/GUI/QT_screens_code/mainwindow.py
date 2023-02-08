@@ -8,15 +8,15 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide2.QtMultimediaWidgets import QVideoWidget
-from PySide2.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+from PySide6.QtMultimediaWidgets import QVideoWidget
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QGraphicsView, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QSizePolicy, QSlider, QSpacerItem,
     QStackedWidget, QTextBrowser, QVBoxLayout, QWidget)
@@ -519,14 +519,14 @@ class Ui_Form(object):
         self.handwrite_graphicsView = QGraphicsView(self.handwrite_widget)
         self.handwrite_graphicsView.setObjectName(u"handwrite_graphicsView")
         self.handwrite_graphicsView.setGeometry(QRect(96, 32, 960, 320))
-        self.label = QLabel(self.handwrite_page)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(365, 60, 550, 70))
+        self.handwrite_title = QLabel(self.handwrite_page)
+        self.handwrite_title.setObjectName(u"handwrite_title")
+        self.handwrite_title.setGeometry(QRect(365, 60, 550, 70))
         font14 = QFont()
         font14.setPointSize(38)
         font14.setBold(True)
-        self.label.setFont(font14)
-        self.label.setAlignment(Qt.AlignCenter)
+        self.handwrite_title.setFont(font14)
+        self.handwrite_title.setAlignment(Qt.AlignCenter)
         self.handwrite_fin_button = QPushButton(self.handwrite_page)
         self.handwrite_fin_button.setObjectName(u"handwrite_fin_button")
         self.handwrite_fin_button.setGeometry(QRect(140, 640, 300, 100))
@@ -673,7 +673,7 @@ class Ui_Form(object):
         self.photo_review_complete_button.clicked.connect(Form.go_end_page)
         self.handwrite_retake_button.clicked.connect(Form.go_photo_page)
 
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(8)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -782,7 +782,7 @@ class Ui_Form(object):
         self.photo_take_button.setText(QCoreApplication.translate("Form", u"\ubc14\ub85c \ucc0d\uae30", None))
         self.photo_take_button_2.setText(QCoreApplication.translate("Form", u"3\ucd08 \ud0c0\uc774\uba38", None))
         self.photo_take_button_3.setText(QCoreApplication.translate("Form", u"10\ucd08 \ud0c0\uc774\uba38", None))
-        self.label.setText(QCoreApplication.translate("Form", u"\uc190\uae00\uc528\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694", None))
+        self.handwrite_title.setText(QCoreApplication.translate("Form", u"\uc190\uae00\uc528\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694", None))
         self.handwrite_fin_button.setText(QCoreApplication.translate("Form", u"\uc791\uc131 \uc644\ub8cc", None))
         self.handwrite_rewrite_button.setText(QCoreApplication.translate("Form", u"\ub2e4\uc2dc \uc4f0\uae30", None))
         self.handwrite_retake_button.setText(QCoreApplication.translate("Form", u"\uc0ac\uc9c4 \uc7ac\ucd2c\uc601", None))

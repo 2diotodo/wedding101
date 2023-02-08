@@ -255,7 +255,6 @@ class MyApp(QWidget, Ui_Form):
         self.main()
         self.playlist = None
 
-
         self.file_name = 'downloaded_thanks_video.mp4'
         self.bucket = 'a101-wedding101-pjt'
         self.key = None
