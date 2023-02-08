@@ -8,12 +8,14 @@ import ProgressBar from '../../components/common/ProgressBar';
 import InvitationForm from '../../components/WeddingInvitation/InvitationForm';
 import UploadMedia from '../../components/common/UploadMedia';
 import { useState } from 'react';
+import useUploadMedia from '../../modules/useUploadMedia';
 
 const InvitationProcess02 = () => {
     const [form, setForm] = useState({
         photoUrl01: '',
         photoUrl02: '',
     });
+    const {fileImageHandler, deleteFileImage, onFileUpload} = useUploadMedia([form]);
 
     const handleChange = (e) =>{
         const newForm = {
@@ -21,7 +23,7 @@ const InvitationProcess02 = () => {
             [e.target.name] : e.target.value
         };
         setForm(newForm);
-        console.log(form.photoUrl01);
+        console.log("changed");
     }
     const navigate = useNavigate();
     const toProcess03 = () => {
@@ -40,7 +42,7 @@ const InvitationProcess02 = () => {
                 <Grid2 lg={9} sm={10}>
 
                 <div className='process-main'>
-                    <ProgressBar />
+                    <ProgressBar steps={1}/>
                     <h2>모바일 청첩장 사진 넣기</h2>
                         <div className='invitation-item'>
                             <InvitationForm />
@@ -52,7 +54,7 @@ const InvitationProcess02 = () => {
                         <UploadMedia 
                             type='photoUrl01'
                             name='photoUrl01'
-                            value={form.photoUrl01}
+                            media={form.photoUrl01}
                             onChange={handleChange}/>
                     </div>
                     <br />
@@ -60,7 +62,7 @@ const InvitationProcess02 = () => {
                         <UploadMedia 
                             type='photoUrl02'
                             name='photoUrl02'
-                            value={form.photoUrl02}
+                            media={form.photoUrl02}
                             onChange={handleChange}/>
                     </div>
                     </div>

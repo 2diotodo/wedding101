@@ -1,6 +1,6 @@
-FROM nginx:latest
-
-# COPY ./.conf /usr/share/nginx/
-COPY ./build /usr/share/nginx/html
-# RUN ["mv","/usr/share/nginx/default.conf","/etc/nginx/nginx.conf"]
-# RUN ["mv","/usr/share/nginx/myApp.conf","/etc/nginx/conf.d"]
+FROM node:18.13.0
+WORKDIR /usr/src/app
+COPY ./package* /usr/src/app/
+RUN npm install
+COPY ./ /usr/src/app/
+CMD ["npm", "run", "start"]
