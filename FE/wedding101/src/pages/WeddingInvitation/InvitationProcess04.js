@@ -29,12 +29,17 @@ const InvitationProcess04 = () => {
 
     const submitHandler = async (e) =>{
         // sessionStorage to invitationForm
-
+        alert("제출되었습니다.");
+        setInvitationForm.invitationSeq();
+        setInvitationForm.templateSeq();
         setInvitationForm.photoUrl01(sessionStorage.getItem('photoUrl01'));
         setInvitationForm.photoUrl02(sessionStorage.getItem('photoUrl02'));
         setInvitationForm.templateHeader(sessionStorage.getItem('textInput01'));
         setInvitationForm.templateFooter(sessionStorage.getItem('textInput02'));
         setInvitationForm.templateEtc(sessionStorage.getItem('textInput03'));
+        setInvitationForm.createdAt(new Date());
+        setInvitationForm.updatedAt(new Date());
+        setInvitationForm.isValid(false);
 
         // axios 통신
         await axios

@@ -1,9 +1,12 @@
 import './AlbumCover.css';
 
-import { useState } from 'react';
-import UploadMedia from '../../components/common/UploadMedia';
+import { useEffect, useState } from 'react';
+import useUploadMedia from '../../modules/useUploadMedia';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router';
+import { Button, IconButton } from '@mui/material';
+import UploadIcon from '@mui/icons-material/Upload';
+
 
 
 function AlbumCover(){
@@ -20,8 +23,20 @@ function AlbumCover(){
         createdAt: '',
         updatedAt: '',
         isValid: '',
-
+        
     });
+    const {filePreview, fileImageHandler, deleteFileImage, onFileUpload} = useUploadMedia(albumForm.albumPhotoUrl);
+
+
+    useEffect(() => {
+        const previewURL = URL.createObjectURL(new Blob([filePreview]));
+        sessionStorage.setItem('albumPhoto',previewURL );
+
+        return () => {
+            URL.revokeObjectURL(previewURL);
+          };
+    }, [filePreview]);
+
     const userId = sessionStorage.getItem('userId');
     const onAlbumListHandler = () => {
         navigate('/album/list');
@@ -41,14 +56,26 @@ function AlbumCover(){
                 <Grid2 lg={6} sm={8}>
                     <div className='cover-image' style={{color: albumForm.albumColor}} >
                         <div className='album-img'>
-                            <img src={albumForm.albumPhotoUrl} alt='img upload' />
+                        <div className='media-area'>
+                        {filePreview && <img src={filePreview} alt="preview" />}
+                        </div>
                         </div>
                         <div className='cover-id' onClick={onAlbumListHandler}>
                             {userId}님의 앨범
                         </div>
                     </div>
                     <div className='upload-media'>
-                        <UploadMedia media={albumForm.albumPhotoUrl}/>
+                    <IconButton aria-label='upload picture' component="label">
+                        <input
+                            hidden
+                            type="file"
+                            accept='image/*, video/*'
+                            onChange={fileImageHandler}
+                            />
+                        <UploadIcon fontSize='large' />
+                    </IconButton>
+                    <Button onClick={deleteFileImage}>삭제</Button>
+                    <Button onClick={onFileUpload}>확정</Button>
                     </div>
                 </Grid2>
                 <Grid2 lg={4} sm={2}>
