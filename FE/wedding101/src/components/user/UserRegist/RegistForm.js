@@ -4,10 +4,6 @@ import { useCallback, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import Modal from '../../common/Modal';
-import { South } from '@mui/icons-material';
-import { display } from '@mui/system';
-
 
 function RegistForm() {
     const [form, setForm] = useState({
