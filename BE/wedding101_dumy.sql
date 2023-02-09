@@ -28,3 +28,10 @@ insert into tbl_template (template_title, template_header, template_footer, temp
 ("기본템플릿", "초대합니다", "감사합니다", "돈많이주세요"),
 ("추가템플릿", "저희 결혼해요", "너무너무 감사합니다", "뷔페에 스테이크나옴");
 
+select * from tbl_invitation;
+insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2) values
+(1, 1, 1, "photourl1", "photourl2");
+insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2, template_header, template_etc) values
+(2, 2, 2, "photourl1", "photourl2", "저희 드디어 결혼합니다", "뷔페에 킹크랩나옴");
+
+
