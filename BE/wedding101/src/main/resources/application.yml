@@ -100,3 +100,13 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: ERROR
+
+
+# ffmpeg Wrapper
+ffmpeg:
+  exe:
+    location: /ffmpeg/bin/ffmpeg.exe
+ffmprobe:
+  exe:
+    location: /ffmpeg/bin/ffprobe.exe
+
