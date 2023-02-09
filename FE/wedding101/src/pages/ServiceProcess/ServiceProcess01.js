@@ -16,6 +16,14 @@ function ServiceProcess01() {
   const [mapCheck, setMapCheck] = useState(false);
   const [promoCheck, setPromoCheck] = useState(false);
 
+  const steps = [
+    'STEP1',
+    'STEP2',
+    'STEP3',
+    'STEP4',
+    'STEP5',
+  ];
+
   const allBtnEvent = () => {
     if(isCheckAll===false){
       setIsCheckAll(true);
@@ -82,7 +90,7 @@ function ServiceProcess01() {
         </Grid2>
 
         <Grid2 lg={9} sm={10}>
-          <ProgressBar steps={0}/>
+          <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={0} />
           <h2>서비스 이용 약관 동의</h2>
           <CheckCircleOutlineIcon />
             <input type='checkbox' id='all-class-checkbox' onChange={allBtnEvent} checked={isCheckAll} />
