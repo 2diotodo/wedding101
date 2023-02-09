@@ -26,6 +26,9 @@ public class Media {
     @Column(name = "storage_url")
     private String storageUrl;
 
+    @Column(name = "url_to_img")
+    private String urlToImg;
+
     @Column(name = "on_booth", columnDefinition = "TINYINT")
     private boolean onBooth;
 
