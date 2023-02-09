@@ -37,7 +37,7 @@ const MainArea02 = () => {
               </div>
             </div>
             <div className='detailLayout'>
-              <button className='detailButton'>자세히 보러가기</button>
+              <button className='detailButton' id='button02'>자세히 보러가기</button>
             </div>
           </div>
           <Slider {...settings}>
