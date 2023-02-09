@@ -1,14 +1,14 @@
-# 1. Build Image
-FROM ubuntu:20.04 AS builder
+# # 1. Build Image
+# FROM ubuntu:20.04 AS builder
  
-# Install dependencies
-RUN apt-get update &&\
-    apt install -y sudo &&\
-    sudo apt update &&\
-    apt install -y ffmpeg
+# # Install dependencies
+# RUN apt-get update &&\
+#     apt install -y sudo &&\
+#     sudo apt update &&\
+#     apt install -y ffmpeg
  
-# Build modules
-RUN echo "ffmpeg -encoders"
+# # Build modules
+# RUN echo "ffmpeg -encoders"
  
 # ------------------------------
 # # 2. Production Image
@@ -22,7 +22,7 @@ RUN echo "ffmpeg -encoders"
 FROM openjdk:11-jdk-slim
 
 RUN apt-get update &&\
-    apt install ffmpeg
+    apt install ffmpeg -y
 
 ARG JAR_FILE=build/libs/*.jar
 
