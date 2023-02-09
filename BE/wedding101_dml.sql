@@ -81,9 +81,9 @@ CREATE TABLE `tbl_invitation` (
 	`template_seq`	INT	NULL,
 	`photo_url1`	VARCHAR(100)	NULL,
 	`photo_url2`	VARCHAR(100)	NULL,
-	`template_header`	VARCHAR(30)	NULL,
-	`template_footer`	VARCHAR(30)	NULL,
-	`template_etc`	VARCHAR(30)	NULL,
+	`template_header`	VARCHAR(100)	NULL,
+	`template_footer`	VARCHAR(100)	NULL,
+	`template_etc`	VARCHAR(100)	NULL,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,
 	`is_valid`	TINYINT(1)	NOT NULL	DEFAULT 1
@@ -93,9 +93,9 @@ DROP TABLE IF EXISTS `tbl_template`;
 
 CREATE TABLE `tbl_template` (
 	`template_seq`	INT	NOT NULL  ,
-	`template_title`	VARCHAR(30)	NOT NULL,
-	`template_header`	VARCHAR(30)	NOT NULL,
-	`template_footer`	VARCHAR(30)	NULL,
+	`template_title`	VARCHAR(100)	NOT NULL,
+	`template_header`	VARCHAR(100)	NOT NULL,
+	`template_footer`	VARCHAR(100)	NULL,
 	`template_etc`	VARCHAR(30)	NULL
 );
 
