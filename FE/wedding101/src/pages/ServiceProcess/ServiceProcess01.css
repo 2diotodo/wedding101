@@ -3,3 +3,8 @@
   height: 100vh;
   padding-top: 10%;
 }
+.article-form {
+  overflow: scroll;
+  width: 600px;
+  height: 160px;
+}
