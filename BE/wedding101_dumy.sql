@@ -23,5 +23,8 @@ insert into tbl_media (album_seq, storage_url, media_name, media_relation) value
 (1, "유알엘", "강시몬", "친구");
 select * from tbl_media;
 
-select * from tbl_media m join tbl_album a on m.album_seq = a.album_seq where m.album_seq = 1;
+select * from tbl_template;
+insert into tbl_template (template_title, template_header, template_footer, template_etc) values
+("기본템플릿", "초대합니다", "감사합니다", "돈많이주세요"),
+("추가템플릿", "저희 결혼해요", "너무너무 감사합니다", "뷔페에 스테이크나옴");
 
