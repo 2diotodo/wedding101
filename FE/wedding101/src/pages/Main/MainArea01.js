@@ -14,7 +14,7 @@ const MainArea01 = () => {
         <div className='verticalLayout' id='VL_p1_01'>
           <div className='title_explain'>
             <div className='title' id='title_p1_01'>Wedding101</div>
-            <div className='explainText' id='explain_p1_01'><p>당신의 특별한 순간을 간직하세요</p></div>
+            <div className='explainText' id='explain_p1_01'>당신의 특별한 순간을 간직하세요</div>
           </div>
           <div className='horizontalLayout' id='HL_p1_01'>
             <div className='verticalLayout' id='VL_p1_02'>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bakbak+One&family=Nanum+Brush+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bakbak+One&family=Nanum+Brush+Script&family=Yusei+Magic&display=swap');
 
 .main-area01 {
   display: flex;
@@ -26,17 +26,16 @@
  height:50%;
 }
 .title{
+  height: 25%;
   font-family: 'Bakbak One';
-  font-size:72px;
+  font-size:7vh;
 }
 .explainText{
-  font-size: 48px;
+  height: 75%;
 }
 .verticalLayout {
   display: flex;
   position: relative;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
 }
 .horizontalLayout{
@@ -54,14 +53,11 @@ img {
   height: 100%;
   overflow: hidden;
 }
-#title_p1_01{
-  height:100px;
-}
 #explain_p1_01{
   font-family: "Nanum Brush Script";
   color: white;
   text-shadow: 2px 2px 4px gray;
-  height:305px;
+  font-size: 8vh;
 }
 #VL_p1_01{
   width: auto;
