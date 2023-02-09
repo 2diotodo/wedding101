@@ -4,9 +4,6 @@ import { useCallback, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import Modal from '../../common/Modal';
-import { South } from '@mui/icons-material';
-
 
 function RegistForm() {
     const [form, setForm] = useState({
@@ -29,6 +26,73 @@ function RegistForm() {
             [e.target.name] : e.target.value
         };
         setForm(newForm);
+    }
+
+    const [usableId, setUsableId] = useState(false);
+    const [usableNickname, setUsableNickname] = useState(false);
+    const [usableEmail, setUsableEmail] = useState(false);
+    const [id_duplicate_message, setIdMessage] = useState("");
+    const [nickname_duplicate_message, setNicknameMessage] = useState("");
+    const [email_duplicate_message, setEmailMessage] = useState("");
+
+    const onInputId = ()=> {
+        setUsableId(false);
+        setIdMessage("");
+    }
+
+    const onInputNickname = ()=> {
+        setUsableNickname(false);
+        setNicknameMessage("");
+    }
+
+    const onInputEmail = ()=> {
+        setUsableEmail(false);
+        setEmailMessage("");
+    }
+
+    const checkDuplicateId = (e) => {
+        const id = form.id;
+        axios
+            .get(`http://i8a101.p.ssafy.io:8085/user/exist/id/${id}`)
+            .then(res => {
+                if(res.data === false) {
+                    setUsableId(true);
+                    setIdMessage("사용 가능한 아이디 입니다.");
+                }
+                else {
+                    setIdMessage("사용할 수 없는 아이디 입니다.");
+                }
+            })
+    }
+
+    const checkDuplicateNickname = (e) => {
+        const nickname = form.nickname;
+        axios
+            .get(`http://i8a101.p.ssafy.io:8085/user/exist/nickname/${nickname}`)
+            .then(res => {
+                if(res.data === false) {
+                    setUsableNickname(true);
+                    setNicknameMessage("사용 가능한 닉네임 입니다.");
+                }
+                else {
+                    setNicknameMessage("사용할 수 없는 닉네임 입니다.");
+                }
+            })
+    }
+    
+    const checkDuplicateEmail = (e) => {
+        const email = form.email;
+        axios
+            .get(`http://i8a101.p.ssafy.io:8085/user/exist/email/${email}`)
+            .then(res => {
+                if(res.data === false) {
+                    setUsableEmail(true);
+                    setEmailMessage("사용 가능한 이메일 입니다.");
+                }
+                else {
+                    setEmailMessage("사용할 수 없는 이메일 입니다.");
+                }
+            })
     }
 
     const checkNull = (some) => {
@@ -63,9 +127,8 @@ function RegistForm() {
     }
     
     const validate = useCallback(() => {
-        console.log(!form.passwood)
-        if(!form.id && !form.password && ! form.passwordConfirm && !form.name
-            && !form.nickname && !form.email) {
+        if(!checkNull(form.id) && !checkNull(form.password) && !checkNull(form.passwordConfirm) && !checkNull(form.name)
+            && !checkNull(form.nickname) && !checkNull(form.email)) {
                 return null
         }
         else {
@@ -84,7 +147,20 @@ function RegistForm() {
             return
         }
 
-        axios.post(`http://localhost:8080/user/signup`, {
+        if(usableId === false) {
+            alert("아이디 중복확인을 해주세요")
+            return
+        }
+        if(usableNickname === false) {
+            alert("닉네임 중복확인을 해주세요")
+            return
+        }
+        if(usableEmail === false) {
+            alert("이메일 중복확인을 해주세요")
+            return
+        }
+
+        axios.post(`http://i8a101.p.ssafy.io:8085/user/signup`, {
             userId: id,
             userPassword: password,
             userName: name,
@@ -98,7 +174,9 @@ function RegistForm() {
                 navigate("/user/login");
             }
         }).catch(function (error) {
+            console.log(error)
             if(error.response.status === 417) {
+                alert('회원가입 실패')
                 console.log(error.response.data.message);
             }
             console.log(error);
@@ -111,21 +189,8 @@ function RegistForm() {
         navigate('/user/login');
     };
 
-    const checkDuplicateId = (e) => {
-        console.log('이거')
-        console.log(e.target.target.value)
-        const id = e.target.value
+    
 
-        console.log(id)
-
-        axios
-            .get(`http://localhost:8080/user/exist/id/${id}`)
-            .then(res => {
-                console.log(res)
-            })
-
-
-    }
 
     return (
         <div>
@@ -141,11 +206,16 @@ function RegistForm() {
                 size='small'
                 margin='dense'
                 value={form.id}
+                onInput={onInputId}
                 onChange={onChange}
                 error={checkId()}
                 helperText={checkId() ? "한글과 특수문자는 사용하실 수 없습니다.":"" } />
+            <span>{id_duplicate_message}</span>
+            <button type="button" onClick={checkDuplicateId} >중복확인</button>
+            <br />
             
-            <button type="button" onClick={checkDuplicateId} target='id-input'>중복확인</button><br />
+
+        
             <TextField
                 id="pw-input" 
                 type="password" 
@@ -191,7 +261,11 @@ function RegistForm() {
                 size='small'
                 margin='dense'
                 value={form.nickname}
-                onChange={onChange}  /><br />
+                onInput={onInputNickname}
+                onChange={onChange}  />
+            <span>{nickname_duplicate_message}</span>
+            <button type="button" onClick={checkDuplicateNickname} >중복확인</button>
+            <br />
             <TextField
                 id="email-input" 
                 type="text" 
@@ -201,11 +275,14 @@ function RegistForm() {
                 size='small'
                 margin='dense'
                 value={form.email}
+                onInput={onInputEmail}
                 onChange={onChange}
                 error={checkEmail()}
-                helperText={checkEmail() ? "유효하지 않은 이메일입니다.":"" } /><br />
-
-            <Button variant="contained" type='submit' >회원가입</Button><br />
+                helperText={checkEmail() ? "유효하지 않은 이메일입니다.":"" } />
+            <span>{email_duplicate_message}</span>
+            <button type="button" onClick={checkDuplicateEmail} >중복확인</button><br />
+            <Button variant="contained" type='submit' >회원가입</Button>
+            <br />
             </form>
             <Button variant="text" onClick={onClickHandler}>로그인 페이지로 이동하기</Button>
         </div>

@@ -2,5 +2,6 @@ FROM node:18.13.0
 WORKDIR /usr/src/app
 COPY ./package* /usr/src/app/
 RUN npm install
+RUN npm install -g serve
 COPY ./ /usr/src/app/
-CMD ["npm", "run", "start"]
+ENTRYPOINT ["serve", "-s", "build"]
