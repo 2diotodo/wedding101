@@ -53,7 +53,12 @@ public class AlbumRestController {
                 result.put("message", "이미 앨범이 생성되어 있습닝다. 수정 또는 삭제 후 재생성 해주세요.");
                 return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
             } else { // 해당 userSeq로 앨범 생성 가능
-                albumDto.setAlbumAccessId(generateAccessId());
+                String accessId = generateAccessId();
+                // 겹치는 값이 없으면 true
+                while (!albumService.checkAccessIdDuplicate(accessId)) {
+                    accessId = generateAccessId(); // 겹치면 다시 생성 후 반복
+                }
+                albumDto.setAlbumAccessId(accessId);
                 albumService.writeAlbum(albumDto);
                 AlbumDto newAblumDto = albumService.getAlbumByUserSeq(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
                 result.put("data", newAblumDto); // db에 저장된 정보
