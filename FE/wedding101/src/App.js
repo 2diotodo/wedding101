@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import MainLayout from './pages/Main/MainLayout';
 import UserLogin from './pages/User/UserLogin/UserLogin';
 import UserRegist from './pages/User/UserRegist/UserRegist';
+import UserMyPage from './pages/User/UserMyPage/UserMyPage'
 import InvitationProcess01 from './pages/WeddingInvitation/InvitationProcess01';
 import InvitationProcess02 from './pages/WeddingInvitation/InvitationProcess02';
 import InvitationProcess03 from './pages/WeddingInvitation/InvitationProcess03';
@@ -37,6 +38,7 @@ function App() {
         <Route path='/user/service02' element={<ServiceProcess02 />} />
         <Route path='/user/service03' element={<ServiceProcess03 />} />
         <Route path='/user/service04' element={<ServiceProcess04 />} />
+        <Route path='/user/mypage' element={<UserMyPage />} />
       </Route>
       {/*Header, Footer 보여주지 않을 페이지 */}
       <Route exact path='/' element={<MainIndex />} />
