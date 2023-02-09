@@ -53,14 +53,16 @@ function Navbar_(props) {
 }
 
 function TableHead_(){
-    <TableHead>
-        <TableRow>
-            <TableCell>문의 번호</TableCell>
-            <TableCell align="right">문의 사항</TableCell>
-            <TableCell align="right">작성자</TableCell>
-            <TableCell align="right">문의 날짜</TableCell>
-        </TableRow>
-    </TableHead>
+    return (
+        <TableHead>
+            <TableRow>
+                <TableCell>문의 번호</TableCell>
+                <TableCell align="center">문의 사항</TableCell>
+                <TableCell align="center">작성자</TableCell>
+                <TableCell align="right">문의 날짜</TableCell>
+            </TableRow>
+        </TableHead>
+    );
 }
 
 function AskTable_(props){
