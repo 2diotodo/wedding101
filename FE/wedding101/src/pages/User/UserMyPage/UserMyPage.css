@@ -1,5 +1,16 @@
 .user-mypage {
     background-color: #D9CFDE;
     width: 1920px;
-height: 980px;
+    height: 980px;
     }
+
+.user-mypage-items {
+    padding-top: 10%;
+}
+
+.user-mypage-item {
+    background-color: #ffffff;
+    width: 500px;
+    height: 400px;
+    margin: 2%;
+}

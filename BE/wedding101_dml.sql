@@ -194,6 +194,7 @@ CREATE TABLE `tbl_media` (
 	`media_seq`	INT	NOT NULL  ,
 	`album_seq`	INT	NOT NULL,
 	`storage_url`	VARCHAR(300)	NOT NULL,
+    `url_to_img` VARCHAR(300),
 	`on_booth`	TINYINT(1)	NOT NULL	DEFAULT 1, -- COMMENT '1:booth / 0:online',
 	`is_video`	TINYINT(1)	NOT NULL	DEFAULT 1, -- COMMENT '1:video/0:photo',
 	`media_name`	VARCHAR(30)	NOT NULL,
