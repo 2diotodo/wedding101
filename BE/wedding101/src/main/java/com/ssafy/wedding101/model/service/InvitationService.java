@@ -19,7 +19,6 @@ public interface InvitationService {
     default Invitation toEntity(InvitationDto invitationDto) {
         return Invitation.builder()
                 .invitationSeq(invitationDto.getInvitationSeq())
-                .templateSeq(invitationDto.getTempateSeq())
                 .photoUrl1(invitationDto.getPhotoUrl1())
                 .photoUrl2(invitationDto.getPhotoUrl2())
                 .templateHeader(invitationDto.getTemplateHeader())
@@ -33,7 +32,7 @@ public interface InvitationService {
                 .invitationSeq(invitation.getInvitationSeq())
                 .infoSeq(invitation.getInfo().getInfoSeq())
                 .userSeq(invitation.getUserSeq())
-                .tempateSeq(invitation.getTemplateSeq())
+                .tempateSeq(invitation.getTemplate().getTemplateSeq())
                 .photoUrl1(invitation.getPhotoUrl1())
                 .photoUrl2(invitation.getPhotoUrl2())
                 .templateHeader(invitation.getTemplateHeader())
