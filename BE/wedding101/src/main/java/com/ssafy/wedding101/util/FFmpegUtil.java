@@ -23,7 +23,7 @@ public class FFmpegUtil {
     private final FFprobe ffProbe;
 
     // Temp 디렉토리에 대한 basePath 설정
-    private final String basePath = "C:/Users/SSAFY/Desktop/temp/";
+    private final String basePath = "/root/ffmpeg/temp/";
 
 
     public void downloadVideo(List<String> videoList, List<String> imageList) throws IOException {

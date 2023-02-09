@@ -105,8 +105,8 @@ logging:
 # ffmpeg Wrapper
 ffmpeg:
   exe:
-    location: /ffmpeg/bin/ffmpeg.exe
+    location: /usr/bin/ffmpeg
 ffmprobe:
   exe:
-    location: /ffmpeg/bin/ffprobe.exe
+    location: /usr/bin/ffprobe
 
