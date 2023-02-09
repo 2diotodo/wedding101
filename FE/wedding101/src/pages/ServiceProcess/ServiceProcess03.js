@@ -20,7 +20,7 @@ function ServiceProcess03 () {
                 </Grid2>
 
                 <Grid2 xs={9}>
-                    <ProgressBar steps={2}/>
+                <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={2} />
                     <h2>예식장 정보 입력</h2>
 
                     <div className='buttons'>
