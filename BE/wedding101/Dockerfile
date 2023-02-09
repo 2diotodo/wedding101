@@ -5,7 +5,7 @@ FROM ubuntu:20.04 AS builder
 RUN apt-get update &&\
     apt install -y sudo &&\
     sudo apt update &&\
-    apt install ffmpeg
+    apt install -y ffmpeg
  
 # Build modules
 RUN echo "ffmpeg -encoders"
