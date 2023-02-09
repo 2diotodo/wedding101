@@ -3,6 +3,7 @@ import './MainArea04.css';
 import ProgressBar from '../../components/common/ProgressBar';
 
 const MainArea04 = () => {
+  const steps = ['Wedding101 서비스 신청', '모바일 청첩장 만들기', '앨범 생성'];
   return (
     <div className='main-area04'>
       <div style={{height:"20vh"}}>
@@ -10,7 +11,7 @@ const MainArea04 = () => {
         <p>This is MainArea04!</p>
       </div>
       
-      <ProgressBar />
+      <ProgressBar steps={steps}/>
     </div>
   );
 };

@@ -2,22 +2,15 @@ import { Step, Stepper, StepLabel } from "@mui/material";
 
 function ProgressBar (props){
 
-    const steps = [
-        'STEP1',
-        'STEP2',
-        'STEP3',
-        'STEP4',
-      ];
-
     return(
         <div>
-            <Stepper activeStep={props.steps} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+          <Stepper activeStep={props.steps} alternativeLabel>
+            {props.steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
         </div>
     );
 }
