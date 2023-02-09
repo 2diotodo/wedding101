@@ -2,8 +2,10 @@ package com.ssafy.wedding101.controller;
 
 import com.ssafy.wedding101.model.dto.InfoDto;
 import com.ssafy.wedding101.model.dto.InvitationDto;
+import com.ssafy.wedding101.model.dto.TemplateDto;
 import com.ssafy.wedding101.model.service.InfoService;
 import com.ssafy.wedding101.model.service.InvitationService;
+import com.ssafy.wedding101.model.service.TemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import java.util.NoSuchElementException;
 public class InvitationRestController {
     private final InvitationService invitationService;
     private final InfoService infoService;
+    private final TemplateService templateService;
 
     @Operation(summary = "청첩장 생성")
     @PostMapping("")
@@ -42,6 +45,16 @@ public class InvitationRestController {
         Map<String, Object> result = new HashMap<>();
         try {
             InvitationDto invitationDto = invitationService.getInvitation(invitationSeq).orElseThrow(() -> new NoSuchElementException("invitationSeq 오류"));
+            TemplateDto templateDto = templateService.getTemplate(invitationDto.getTempateSeq()).orElseThrow();
+            if(invitationDto.getTemplateHeader() == null) {
+                invitationDto.setTemplateHeader(templateDto.getTemplateHeader());
+            }
+            if(invitationDto.getTemplateFooter()  == null) {
+                invitationDto.setTemplateFooter(templateDto.getTemplateFooter());
+            }
+            if(invitationDto.getTemplateEtc() == null) {
+                invitationDto.setTemplateEtc(templateDto.getTemplateEtc());
+            }
             InfoDto infoDto = infoService.getInfo(invitationDto.getInfoSeq()).orElseThrow();
             result.put("invitationData", invitationDto);
             result.put("weddingInfoData", infoDto);
@@ -51,7 +64,7 @@ public class InvitationRestController {
             result.put("message", "청첩장 Seq 오류");
             return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
         } catch (Exception e) {
-            result.put("message", "결혼 정보 조회 FAIL");
+            result.put("message", "JOIN FAIL");
             return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
         }
     }

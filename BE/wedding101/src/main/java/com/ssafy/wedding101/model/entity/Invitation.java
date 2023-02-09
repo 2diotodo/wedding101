@@ -29,8 +29,9 @@ public class Invitation {
     @Column(name = "user_seq")
     private Long userSeq;
 
-    @Column(name = "template_seq")
-    private Long templateSeq;
+    @ManyToOne
+    @JoinColumn(name = "template_seq")
+    private Template template;
 
     @Column(name = "photo_url1")
     private String photoUrl1;
@@ -53,7 +54,6 @@ public class Invitation {
 
     public void update(Long templateSeq, String photoUrl1, String photoUrl2, String templateHeader,
                        String templateFooter, String templateEtc) {
-        this.templateSeq = templateSeq;
         this.photoUrl1 = photoUrl1;
         this.photoUrl2 = photoUrl2;
         this.templateHeader = templateHeader;
@@ -64,6 +64,10 @@ public class Invitation {
     public void setInfo(Info info) {
         this.info = info;
         this.userSeq = info.getUser().getUserSeq();
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
     }
 
     public void updateIsValid() {
