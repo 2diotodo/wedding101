@@ -9,19 +9,34 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Pagination } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import usePagination from '../../utils/Pagination';
+import axios from 'axios';
 
 const AlbumList = (props) => {
     const [ page, setPage ] = useState(1);
     // axios 통신으로 DB 데이터 가져오기 구현필요
-    const [ media, setMedia ] = useState(testMedia);
-    
+    const [ media, setMedia ] = useState([]);
+    useEffect(() => {
+
+        // media return하는 함수 result
+        async function get() {
+            const result = await axios
+            .get(`http://i8a101.p.ssafy.io:8085/media/1`)
+                setMedia(result.data);
+                console.log("result", result.data);
+                console.log("media", media.data);
+                console.log("setMedia 성공");
+                console.log(media.data.length);
+        };
+        get();
+
+    }, []);
+
     // sorting
     const [order, setOrder] = useState('createdAt');
 
-    console.log("order: ",order);
     const orderHandler = (e) => {
         const orderBy = e.target.value;
         setOrder(orderBy);
@@ -34,7 +49,6 @@ const AlbumList = (props) => {
         setMedia(optoins[orderBy]);
         
     };
-    console.log(media);
 
     // 검색 Deprecated.
     // const [ input, setInput ]= useState('');

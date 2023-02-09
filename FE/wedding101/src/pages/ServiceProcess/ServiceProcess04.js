@@ -51,7 +51,7 @@ function ServiceProcess04 () {
                 </Grid2>
 
                 <Grid2 xs={9}>
-                    <ProgressBar steps={3}/>
+                <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={3} />
                     <h2>서비스 신청이 완료되었습니다.</h2>
 
                     <div className='buttons'>
