@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @CrossOrigin
 public class TestController {
+
+    private final FFmpegUtil fFmpegUtil;
+
     @GetMapping("/log")
     public void log() throws Exception {
         log.fatal("fatal log");
