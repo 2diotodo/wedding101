@@ -9,9 +9,7 @@ const UploadText = () => {
         textInput01: '',
         textInput02: '',
         textInput03: '',
-        textInput04: '',
     });
-    const {textInput01, textInput02, textInput03, textInput04} = form;
 
     const onChange = (e)=> {
         const newForm = {
@@ -47,14 +45,7 @@ const UploadText = () => {
           value={form.textInput03}
           onChange={onChange}
         /> <br />
-        <TextField
-          id='password-input'
-          type='text'
-          label='문구를 입력하세요'
-          variant='outlined'
-          value={form.textInput04}
-          onChange={onChange}
-        /> <br />
+
         </div>
     );
 }

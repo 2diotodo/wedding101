@@ -69,4 +69,10 @@ public class AlbumServiceImpl implements AlbumService {
     public boolean checkAlbumDuplicate(Long userSeq) {
         return albumRepository.existsByUserSeq(userSeq).equals(BigInteger.ZERO);
     }
+
+    @Override
+    public boolean checkAccessIdDuplicate(String accessId) {
+        return albumRepository.existsByAccessId(accessId).equals(BigInteger.ZERO);
+    }
+
 }
