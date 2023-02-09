@@ -48,7 +48,7 @@ RUN set -eux; \
 ENV JAVA_HOME=/opt/java/openjdk \
     PATH="/opt/java/openjdk/bin:$PATH"
 
-ENTRYPOINT ["apt", "install" ,"ffmpeg"]
+ENTRYPOINT ["/bin/bash", "&&", "apt", "install" ,"ffmpeg"]
 # FROM openjdk:11-jdk-slim
 
 # RUN apt-get update &&\
