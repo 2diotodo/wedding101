@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import ProgressBar from '../../components/common/ProgressBar';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { Button } from '@mui/material';
-import WeddingInfoForm from '../../components/ServiceProcess/WeddingInfoForm';
+import WeddingInfoForm from '../../components/serviceProcess/WeddingInfoForm';
 
 function ServiceProcess02(props) {
   const navigate = useNavigate();
