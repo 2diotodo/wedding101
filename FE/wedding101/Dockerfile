@@ -4,4 +4,4 @@ COPY ./package* /usr/src/app/
 RUN npm install
 RUN npm install -g serve
 COPY ./ /usr/src/app/
-ENTRYPOINT "cd /usr/src/app/build && npm run build && serve -s build"
+ENTRYPOINT "cd /usr/src/app/build && ls"
