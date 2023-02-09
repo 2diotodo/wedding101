@@ -14,24 +14,17 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  width: 400px;
-  height: 200px;
+  width: 100%;
+  height: 50%;
 }
 
 .detailButton{
   width: 100%;
-  height: 70px;
-  border-radius: 20px;
-}
-
-.indexIndicator{
-  display: flex;
-  width:50px;
-  height:50px;
-  background-color: yellow;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  height: 25%;
+  border-radius: 4vh;
+  border-width: 0px;
+  font-size: 3vh;
+  background-color: #FFD556;
 }
 
 .exampleSlider{
@@ -42,12 +35,67 @@
 }
 
 .slick-slider {
+  position: relative;
   height: 80%;
   width: 70%;
+  left: 3.17%;
 }
 
-#container_02{
-  height:750px;
+.phoneFrame{
+  position: absolute;
+  top: 4.7%;
+  left: 56.23%;
+  height: 80%;
+}
+
+.imgContainer{
+  height: 61.35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inFrame{
+  width: 64.328%;
+  height: 80%;
+  object-fit: fill;
+  opacity: 0.75;
+}
+
+.slick-current .inFrame{
+  width: 80.41%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 1;
+}
+
+.slick-dots{
+  position: relative;
+  right: 75.6%;
+  bottom: 4%;
+}
+.slick-dots li button::before{
+  font-size: 1.5vh;
+}
+
+.slick-prev{
+  left: 0;
+  top:45%;
+  z-index: 999;
+}
+.slick-prev::before{
+  font-size: 6vh;
+  color:#B3B3B3;
+  opacity: 1;
+}
+
+.slick-next{
+  right: 2%;
+  top:45%;
+}
+.slick-next::before{
+  font-size: 6vh;
+  color:#B3B3B3;
+  opacity: 1;
 }
 
 #HL_p2_01{
@@ -69,8 +117,6 @@
 
 #explain_p2_01{
   width:100%;
-}
-#explain_p2_02{
-  display: flex;
-  width:100%;
+  font-size: 6vh;
+  font-family: 'yusei magic';
 }
