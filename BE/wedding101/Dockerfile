@@ -6,8 +6,7 @@ RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends sudo tzdata curl ca-certificates fontconfig locales \
     && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen en_US.UTF-8 \
-    && rm -rf /var/lib/apt/lists/* \
-    && sudo apt install ffmpeg
+    && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_VERSION jdk-11.0.11+9
 
