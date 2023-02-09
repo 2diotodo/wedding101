@@ -5,8 +5,11 @@ import ProgressBar from '../../components/common/ProgressBar';
 const MainArea04 = () => {
   return (
     <div className='main-area04'>
-      <h1>MainArea04</h1>
-      <p>This is MainArea04!</p>
+      <div style={{height:"20vh"}}>
+        <div className='title'>Service Outline</div>
+        <p>This is MainArea04!</p>
+      </div>
+      
       <ProgressBar />
     </div>
   );
