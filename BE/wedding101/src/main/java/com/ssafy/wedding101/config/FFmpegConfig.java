@@ -11,9 +11,9 @@ import java.io.IOException;
 @Configuration
 public class FFmpegConfig {
 
-    public final String ffmpegPath = "/usr/bin/ffmpeg.exe";
+    public final String ffmpegPath = "/usr/bin/ffmpeg";
 
-    public final String ffprobePath = "/usr/bin/ffprobe.exe";
+    public final String ffprobePath = "/usr/bin/ffprobe";
 
     @Bean(name = "ffMpeg")
     public FFmpeg fFmpeg() throws IOException {
