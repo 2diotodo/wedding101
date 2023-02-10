@@ -247,6 +247,7 @@ class MyApp(QWidget, Ui_Form):
         self.user_id = None
         self.album_seq = None
 
+        self.stackedWidget.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=10, xOffset=5, yOffset=5))
         self.setup_pages()
 
         # set control_bt callback clicked  function
@@ -401,10 +402,10 @@ class MyApp(QWidget, Ui_Form):
         if sender.objectName() == "image_prev_button":
             current_page -= 1
         if sender.objectName() == "video_prev_button":
-            current_page -= 2
+            current_page -= 3
         if sender.objectName() == "video_review_prev_button":
             self.review_player.stop()
-            current_page -= 3
+            current_page -= 4
 
         self.stackedWidget.setCurrentIndex(current_page - 1)
 
@@ -435,6 +436,10 @@ class MyApp(QWidget, Ui_Form):
         self.photo_thread.start()
 
     def go_end_page(self):
+        self.name = datetime.now().strftime('%Y-%m%d-%H%M%S-') + str(uuid4())
+        self.photo_image.toImage().save("./"+self.name+".jpg", "JPEG", 100)
+        self.submit_image_info()
+
         self.stackedWidget.setCurrentIndex(self.stackedWidget.count() - 1)
 
     def submit_video_info(self):
@@ -765,6 +770,7 @@ class MyApp(QWidget, Ui_Form):
         joiner.drawImage(0,600,handwrite_resized)
         self.go_next_page()
         self.photo_review_screen.setPixmap(QPixmap.fromImage(self.joined_image))
+        self.photo_image = self.photo_review_screen.pixmap()
 
     def handwrite_clear(self):
         self.hand_image = QImage(960, 320, QImage.Format_RGB32)
