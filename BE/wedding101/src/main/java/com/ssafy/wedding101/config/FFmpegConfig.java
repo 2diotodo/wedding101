@@ -2,7 +2,6 @@ package com.ssafy.wedding101.config;
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFprobe;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -12,11 +11,9 @@ import java.io.IOException;
 @Configuration
 public class FFmpegConfig {
 
-    @Value(value = "${ffmpeg.exe.location}")
-    public String ffmpegPath;
+    public final String ffmpegPath = "/usr/bin/ffmpeg.exe";
 
-    @Value("${ffprobe.exe.location}")
-    public String ffprobePath;
+    public final String ffprobePath = "/usr/bin/ffprobe.exe";
 
     @Bean(name = "ffMpeg")
     public FFmpeg fFmpeg() throws IOException {
@@ -33,7 +30,7 @@ public class FFmpegConfig {
         }
 
         return ffmpeg;
-}
+    }
 
     @Bean(name = "ffProbe")
     public FFprobe fFprobe() throws IOException {
