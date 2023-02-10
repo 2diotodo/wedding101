@@ -427,8 +427,12 @@ CREATE TRIGGER tbl_user_update BEFORE UPDATE ON `tbl_user` FOR EACH ROW SET NEW.
 
 CREATE TRIGGER tbl_question_create BEFORE INSERT ON `tbl_question` FOR EACH ROW SET NEW.created_at = NOW(), NEW.updated_at = NOW();
 CREATE TRIGGER tbl_question_update BEFORE UPDATE ON `tbl_question` FOR EACH ROW SET NEW.updated_at = NOW(), NEW.created_at = OLD.created_at;
-drop trigger if exists tbl_question_is_valid;
 
+-- media 추가되면 해당 앨범테이블의 album_media_cnt +1 해주는 트리거
+CREATE TRIGGER update_album_media_count AFTER INSERT ON `tbl_media` FOR EACH ROW
+UPDATE `tbl_album` SET album_media_cnt = album_media_cnt + 1 WHERE album_seq = NEW.album_seq;
+
+drop trigger if exists tbl_question_is_valid;
 delimiter $$
 create trigger tbl_question_is_valid
 after update on `tbl_question`

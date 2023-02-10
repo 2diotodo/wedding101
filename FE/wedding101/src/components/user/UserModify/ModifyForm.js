@@ -1,17 +1,10 @@
 import axios from 'axios';
 import './ModifyForm.css';
-import { useEffect, useState } from 'react';
 
 function ModifyForm() {
-    const [modalOpen, setModalOpen] = useState(false);
-
-    const showModal = () => {
-        setModalOpen(true);
-    }
-
     return (
         <div>
-            <button type='text' onClick={showModal}>내 정보</button>
+            <h1>앙</h1>
             
         </div>
     );

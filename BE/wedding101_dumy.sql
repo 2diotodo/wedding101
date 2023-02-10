@@ -29,7 +29,7 @@ insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_rel
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "mymy", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "mine", "relatives");
 
-select * from tbl_media;
+select * from tbl_media where album_seq = 1;
 
 select * from tbl_template;
 insert into tbl_template (template_title, template_header, template_footer, template_etc) values
