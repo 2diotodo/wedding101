@@ -86,7 +86,7 @@ const useUploadMedia = (media) => {
                 "Content-Type": "multipart/form-data",
             },
             method: "POST",
-            url: "http://localhost:8080/",  // 파일 업로드 요청 URL
+            url: "http://i8a101.p.ssafy.io:8085/album?userSeq=1",  // 파일 업로드 요청 URL
             data: formData,
         }).then((res) => {
             console.log(res);

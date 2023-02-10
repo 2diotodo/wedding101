@@ -10,9 +10,10 @@
 }
 
 .goServiceButton {
-  left: 50%;
   position: fixed;
-  padding-bottom: 10%;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
 }
 
 #invitation{
