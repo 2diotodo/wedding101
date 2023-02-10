@@ -31,14 +31,14 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
             "from tbl_album a where a.album_access_id = :accessId and is_valid = true")
     Object existsByAccessId(@Param("accessId") String accessId);
 
-    @Modifying(clearAutomatically = true)
-    @Query("update tbl_album " +
+    @Modifying
+    @Query(nativeQuery = true, value = "update tbl_album " +
             "set album_media_cnt = album_media_cnt - 1" +
             "where album_seq = :albumSeq")
     void minusOneMediaCnt(@Param("albumSeq") Long albumSeq);
 
-    @Modifying(clearAutomatically = true)
-    @Query("update tbl_album " +
+    @Modifying
+    @Query(nativeQuery = true, value = "update tbl_album " +
             "set album_media_cnt = album_media_cnt + 1" +
             "where album_seq = :albumSeq")
     void plusOneMediaCnt(@Param("albumSeq") Long albumSeq);
