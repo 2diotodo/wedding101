@@ -16,7 +16,7 @@
   width: 100%;
 }
 
-ul {
+.MuiStep-root ul {
   position: relative;
   left: 20%;
 }
