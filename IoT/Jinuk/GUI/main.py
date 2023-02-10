@@ -38,10 +38,11 @@ def handle_visible_changed():
 
 class VideoRecorder(QThread):
     mySignal = Signal(QPixmap)
+    textSignal = Signal(str)
 
     "Video class based on openCV"
 
-    def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=640, sizey=480, camindex=0, fps=60):
+    def __init__(self, name="temp_video.avi", fourcc="MJPG", sizex=768, sizey=768, camindex=0, fps=60):
         super().__init__()
         self.recording_now = True
         self.device_index = camindex
@@ -63,28 +64,43 @@ class VideoRecorder(QThread):
         self.width = sizex
         self.height = sizey
 
+        self.is_writing = False
         # mediapipe modules
         # self.mp_drawing = mp.solutions.drawing_utils
         # self.mp_drawing_styles = mp.solutions.drawing_styles
         # self.mp_selfie_segmentation = mp.solutions.selfie_segmentation
         # self.mp_holistic = mp.solutions.holistic
 
+    def video_write_now(self):
+        print("hello timer")
+        # self.time_tick += 1
+        # self.textSignal.emit(f"{5 - self.time_tick} 초")
+        # if time_tick == 5:
+        #     self.is_writing = True
+        #     self.timer.stop()
+        #     self.textSignal.emit("녹화중")
+
+
     def run(self):
         # self.set_background_image(bg_dir = "../BackgroundImage", bg_name = "flower1.png")
-
+        # self.timer = QTimer(self)
+        
         # Video starts being recorded
         # counter = 1
         timer_start = time.time()
         timer_current = 0
 
         self.recording_now = True
+
         while self.recording_now:
             ret, self.video_frame = self.video_cap.read()
+
             if ret:
                 self.video_frame = cv2.flip(self.video_frame, 0)
                 # self.chromakey_replacement()
                 # self.mediapipe_selfie_segmentation()
-                self.video_out.write(self.video_frame)
+                if self.is_writing:
+                    self.video_out.write(self.video_frame) # <----- 얘가 녹화하는 역할, 
                 # print(str(counter) + " " + str(self.frame_counts) + " frames written " + str(timer_current))
                 self.frame_counts += 1
 
@@ -112,6 +128,10 @@ class VideoRecorder(QThread):
             # cv2.destroyAllWindows()
             self.quit()
             self.wait(500)  # 5000ms = 5s
+
+    def set_writing(self):
+        self.is_writing = True
+        # pass
 
 
 class AudioRecorder(QThread):
@@ -218,9 +238,14 @@ class MyApp(QWidget, Ui_Form):
         self.setupUi(self)
         self.media_player = QMediaPlayer()
         self.review_player = QMediaPlayer()
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(10)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.photo_take_now)
+        
+        self.vid_timer = QTimer(self)
+        self.vid_timer.setInterval(1000)
+        self.vid_timer.timeout.connect(self.video_timer_ticking)
+        self.time_tick = 0
 
         # setting up resources
         self.arrow_button_pix = QPixmap("QT_Resources/Pics/proceed.png")
@@ -523,34 +548,60 @@ class MyApp(QWidget, Ui_Form):
         if self.recording_now:
             self.recording_now = False
             self.stop_AVrecording()
-            self.video_control_button.setText("Record")
-            self.video_stream.setText("Camera")
+            self.video_control_button.setText("record")
+            # self.video_stream.setText("Camera")
             self.video_stream.clear()
             self.file_manager()
             self.set_review_video()
             self.go_next_page()
         else:
             self.recording_now = True
+            self.video_control_button.setText("5초 후")
             self.start_AVrecording()
-            self.video_control_button.setText("Stop")
-            self.video_stream.setText("recording")
+            # self.start_5sec_timer()
+            # self.video_stream.setText("recording")
+
+    def video_timer_ticking(self):
+        self.time_tick += 1
+        self.video_control_button.setText(f"{5 - self.time_tick} 초")
+        if self.time_tick == 5:
+            self.video_thread.set_writing()
+            self.vid_timer.stop()
+            self.video_control_button.setText("녹화중")
+
+    # def start_5sec_timer(self):
+    #     start_time = time.time()
+    #     while True:
+    #         curr_time = time.time()
+    #         time_passed = int(curr_time - start_time)
+    #         self.video_control_button.setText(f"{5 - time_passed} 초")
+    #         print(5 - time_passed)
+    #         if time_passed == 5:
+    #             break
 
     # start/stop both thread
     def start_AVrecording(self, filename="test"):
+        self.vid_timer.start()
         self.name = datetime.now().strftime('%Y-%m%d-%H%M%S-') + str(uuid4())
-        self.video_thread = VideoRecorder(name=self.name, sizex=1024, sizey=576)
+        self.video_thread = VideoRecorder(name=self.name, sizex=1280, sizey=720)
         print("created video thread")
         self.audio_thread = AudioRecorder(filename=self.name)
         print("created audio thread")
         self.video_thread.mySignal.connect(self.set_video_preview)
-        print("add signal from video thread")
+        self.video_thread.textSignal.connect(self.set_video_control_button_text)
+        print("add signal from video thread") 
         self.audio_thread.start()
         print("started audio thread")
         self.video_thread.start()
         print("started video thread")
+
         return filename
 
+    def set_video_control_button_text(self, text):
+        self.video_control_button.setText(text)
+
     def stop_AVrecording(self, filename="test"):
+        self.time_tick = 0
         self.audio_thread.stop()
         print("audio thread stopped")
         frame_counts = self.video_thread.frame_counts
@@ -786,5 +837,5 @@ QGuiApplication.inputMethod().visibleChanged.connect(handle_visible_changed)
 
 win = MyApp()
 win.show()
-
+# win.showFullScreen()
 app.exec_()
