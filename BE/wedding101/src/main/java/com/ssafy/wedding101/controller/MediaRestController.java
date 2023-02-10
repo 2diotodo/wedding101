@@ -82,7 +82,7 @@ public class MediaRestController {
     }
 
     @Operation(summary = "미디어 삭제")
-    @GetMapping("/delete/{mediaSeq}")
+    @PutMapping("/delete/{mediaSeq}")
     public ResponseEntity<?> deleteMedia(@PathVariable Long mediaSeq) {
         try {
             mediaService.throwBin(mediaSeq);
@@ -93,7 +93,7 @@ public class MediaRestController {
     }
 
     @Operation(summary = "미디어 복원")
-    @GetMapping("/restore/{mediaSeq}")
+    @PutMapping("/restore/{mediaSeq}")
     public ResponseEntity<?> restoreMedia(@PathVariable Long mediaSeq) {
         try {
             mediaService.restore(mediaSeq);
