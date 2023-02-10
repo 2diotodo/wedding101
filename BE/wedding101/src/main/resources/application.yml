@@ -102,10 +102,19 @@ logging:
           EC2MetadataUtils: ERROR
 
 # ffmpeg Wrapper
-ffmpeg:
-  exe:
-    location: /usr/bin/ffmpeg
-ffmprobe:
-  exe:
-    location: /usr/bin/ffprobe
+#ffmpeg:
+#  exe:
+#    location: /usr/bin/ffmpeg
+#ffmprobe:
+#  exe:
+#    location: /usr/bin/ffprobe
+#
+#ffmpeg:
+#  exe:
+#    location: /ffmpeg/bin/ffmpeg.exe
+#
+#ffmprobe:
+#  exe:
+#    location: /ffmpeg/bin/ffprobe.exe
+#
 

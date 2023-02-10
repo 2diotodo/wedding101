@@ -24,6 +24,7 @@ public class FFmpegUtil {
 
     // Temp 디렉토리에 대한 basePath 설정
     private final String basePath = "/root/ffmpeg/temp/";
+//    private final String basePath = "C:/Users/SSAFY/Desktop/temp/";
 
 
     public void downloadVideo(List<String> videoList, List<String> imageList) throws IOException {
@@ -91,27 +92,35 @@ public class FFmpegUtil {
         for (int i = 0; i < imageList.size(); i++) {
             builder.addExtraArgs("-loop", "1")
                     .addExtraArgs("-t", "3")
-                    .addExtraArgs("-i", basePath + "image/Test" + i +".jpg");
+                    .addExtraArgs("-i", basePath + "image/Test" + i + ".jpg");
         }
 
         StringBuilder sb = new StringBuilder();
         sb.append("[0:v]scale=1280:720:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1,fade=t=out:st=2:d=1[v0];");
 
-        for (int i = 1; i < imageList.size() ; i++) {
-            sb.append("[").append(i).append(":v]scale=1280:720:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1,fade=t=in:st=0:d=1,fade=t=out:st=2:d=1[v1];");
+        for (int i = 1; i < imageList.size(); i++) {
+            sb.append("[")
+                    .append(i)
+                    .append(":v]scale=1280:720:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1,fade=t=in:st=0:d=1,fade=t=out:st=2:d=1[v")
+                    .append(i)
+                    .append("];");
         }
 
         for (int i = 0; i < imageList.size(); i++) {
             sb.append("[v").append(i).append("]");
         }
-        sb.append("concat=n=5:v=1:a=0,format=yuv420p[v]");
+        sb.append("concat=n=").append(imageList.size()).append(":v=1:a=0,format=yuv420p[v]");
+
+        System.out.println("hi");
+        System.out.println(sb.toString());
+        System.out.println("hi");
 
         builder.setComplexFilter(sb.toString())
                 .addOutput(basePath + "video/imageList.mp4")
                 .addExtraArgs("-map", "[v]")
                 .addExtraArgs("-c:v", "h264")
                 .setFormat("mp4")
-                .setVideoFrameRate(30,1)
+                .setVideoFrameRate(30, 1)
                 .setVideoCodec("libx265")
                 .done();
 
