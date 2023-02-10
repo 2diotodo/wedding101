@@ -40,10 +40,6 @@ public class Album {
     private String albumThanksUrl;
     @Column(name = "album_media_cnt")
     private int albumMediaCnt;
-    @Column(name = "created_at")
-    private String createdAt;
-    @Column(name = "updated_at")
-    private String updatedAt;
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
     @ColumnDefault("true")
     private boolean isValid;

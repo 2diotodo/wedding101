@@ -52,11 +52,6 @@ public class Media {
     @Builder.Default
     private boolean isInBin = false;
 
-    @Column(name = "created_at")
-    private String createdAt;
-    @Column(name = "updated_at")
-    private String updatedAt;
-
     @Column(name = "is_valid", columnDefinition = "TINYINT")
     @Builder.Default
     private boolean isValid = true;

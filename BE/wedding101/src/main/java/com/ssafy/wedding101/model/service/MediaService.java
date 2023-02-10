@@ -54,8 +54,6 @@ public interface MediaService {
                 .mediaReceiver(media.getMediaReceiver())
                 .isWish(media.isWish())
                 .isInBin(media.isInBin())
-                .createdAt(media.getCreatedAt())
-                .updatedAt(media.getUpdatedAt())
                 .build();
     }
 

@@ -19,7 +19,5 @@ public class AlbumDto {
     private String albumAccessId;
     private String albumThanksUrl;
     private int albumMediaCnt;
-    private String createdAt;
-    private String updatedAt;
     private boolean isValid; // 회원 탈퇴할때 앨범 삭제했냐고 물어보고 삭제
 }
