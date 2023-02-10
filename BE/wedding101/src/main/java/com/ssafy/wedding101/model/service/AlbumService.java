@@ -51,6 +51,8 @@ public interface AlbumService {
                 .albumAccessId(album.getAlbumAccessId())
                 .albumThanksUrl(album.getAlbumThanksUrl())
                 .albumMediaCnt(album.getAlbumMediaCnt())
+                .createdAt(album.getCreatedAt())
+                .updatedAt(album.getUpdatedAt())
                 .isValid(album.isValid())
                 .build();
     }
