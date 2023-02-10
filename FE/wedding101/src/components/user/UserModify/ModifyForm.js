@@ -1,26 +1,26 @@
 import axios from 'axios';
 import './ModifyForm.css';
+import { useEffect, useState } from 'react';
 
 function ModifyForm() {
-    const getUser = () => {
-        try {
-            return axios.get('http://i8a101.p.ssafy.io/user/', {
-                params: {
-                    userSeq : 1
-                }
-            });
-        } catch(error) {
-            console.log(error)
-        }
-    };
+    const [modalOpen, setModalOpen] = useState(false);
 
-    
+    const showModal = () => {
+        setModalOpen(true);
+    }
 
     return (
         <div>
-            <h3>내 정보</h3>
+            <button type='text' onClick={showModal}>내 정보</button>
             
         </div>
     );
 }
 export default ModifyForm;
+
+// function Modal({setModalOpen} : PropsType) {
+//     const closeModal = () => {
+//         setModalOpen(false);
+//     };
+
+// }
