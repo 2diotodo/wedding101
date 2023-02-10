@@ -1,10 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Mina&display=swap');
+
 .service-process01 {
   background-color: #fff4f3;
-  height: 100vh;
-  padding-top: 10%;
+  padding-top: 12vh;
+  padding-bottom: 12vh;
+  height: 82vh;
+  overflow: scroll;
+}
+.header{
+  z-index: 999;
+}
+.footer{
+  bottom: 0vh;
+  position: fixed;
+  z-index: 999;
+}
+.contentBox{
+  position:relative;
+  left: 2.5%;
 }
 .article-form {
-  overflow: scroll;
-  width: 600px;
+  
+  width: 100%;
   height: 160px;
+}
+
+.scrollable-content{
+  overflow: scroll;
+  border: 1px solid black;
+  background-color: white;
+  width: 90%;
+  height: 100%;
 }
