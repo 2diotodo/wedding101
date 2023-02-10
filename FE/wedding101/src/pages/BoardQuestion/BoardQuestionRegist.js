@@ -3,7 +3,7 @@ import './BoardQuestionRegist.css';
 function BoardQuestionRegist() {
     return (
         <div>
-
+            
         </div>
     );
 }

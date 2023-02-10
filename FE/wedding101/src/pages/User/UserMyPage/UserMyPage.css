@@ -5,12 +5,15 @@
     }
 
 .user-mypage-items {
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 .user-mypage-item {
     background-color: #ffffff;
-    width: 500px;
-    height: 400px;
+    width: 250px;
+    height: 80px;
     margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
