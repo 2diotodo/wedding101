@@ -61,7 +61,6 @@ const MediaItem = ({ media }) => {
     const res = await axios.post(); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike(!like);
   };
-
   return (
     <div className='media-item'>
       <Card sx={{ maxWidth: 300 }}>
@@ -96,10 +95,10 @@ const MediaItem = ({ media }) => {
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          {media.isVideo === true ? (
+          {media.video === true ? (
             <video src={storageUrl} controls autoPlay loop width='100%' />
           ) : (
-            <img src={storageUrl} alt={urlToImg} />
+            <img src={urlToImg} alt={urlToImg} />
           )}
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             {mediaRelation}의 메세지

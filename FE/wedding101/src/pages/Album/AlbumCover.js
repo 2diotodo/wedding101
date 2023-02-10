@@ -74,7 +74,7 @@ function AlbumCover() {
               <UploadIcon fontSize='large' />
             </IconButton>
             <Button onClick={deleteFileImage}>삭제</Button>
-            <Button onClick={onFileUpload}>확정</Button>
+            <Button onClick={onFileUpload}>적용</Button>
           </div>
         </Grid2>
         <Grid2 lg={4} sm={2}>
