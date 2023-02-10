@@ -2,7 +2,6 @@ import './AlbumList.css';
 
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import MediaItem from '../../components/album/MediaItem';
-// import testMedia from '../../test/testMedia.json';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -29,6 +28,8 @@ const AlbumList = (props) => {
         setMedia(res.data.data);
         console.log('setMedia 성공');
         console.log(media);
+        console.log('setMedia ', new Date(media[0].createdAt).getTime());
+
       })
       .catch((err) => {
         console.log('실패');
@@ -42,12 +43,13 @@ const AlbumList = (props) => {
     const orderBy = e.target.value;
     setOrder(orderBy);
     console.log('orderBy: ', orderBy);
-    const optoins = {
-      mediaName: [...media].sort((a, b) => (a.mediaName < b.mediaName ? -1 : 1)),
-      createdAt: [...media].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)),
-      createdAtRev: [...media].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+
+    const options = {
+      mediaName: [...media].sort((a, b) => (a.mediaName < b.mediaName ? -1 : a.mediaName > b.mediaName ? 1 : 0)),
+      createdAt: [...media].sort((a, b) => (b.mediaSeq < a.mediaSeq ? -1 : b.mediaSeq > a.mediaSeq ? 1 : 0)),
+      createdAtRev: [...media].sort((a, b) => (a.mediaSeq < b.mediaSeq ? -1 : a.mediaSeq > b.mediaSeq ? 1 : 0)),
     };
-    setMedia(optoins[orderBy]);
+    setMedia(options[orderBy]);
   };
 
   // Album Deleted로 이동
@@ -58,7 +60,6 @@ const AlbumList = (props) => {
 
   // pagination
   const PER_PAGE = 6;
-  console.log(media.length)
   const count = Math.ceil(media.length / PER_PAGE);
   const mediaData = usePagination(media, PER_PAGE);
 
@@ -83,8 +84,8 @@ const AlbumList = (props) => {
               label='Sort'
               onChange={orderHandler}
             >
-              <MenuItem value={'createdAt'}>날짜</MenuItem>
-              <MenuItem value={'createdAtRev'}>날짜역순</MenuItem>
+              <MenuItem value={'createdAt'}>최근순</MenuItem>
+              <MenuItem value={'createdAtRev'}>오래된순</MenuItem>
               <MenuItem value={'mediaName'}>이름</MenuItem>
             </Select>
           </FormControl>

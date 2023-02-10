@@ -27,11 +27,6 @@ const style = {
 };
 
 const MediaItem = ({ media }) => {
-  const [like, setLike] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const {
     mediaSeq,
     albumSeq,
@@ -45,6 +40,11 @@ const MediaItem = ({ media }) => {
     wish,
     inBin,
   } = media;
+  const [like, setLike] = useState(wish);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   //   useEffect(async () => {
   //     const fetchData = async () => {
@@ -58,7 +58,12 @@ const MediaItem = ({ media }) => {
   // }, []);
 
   const toggleLike = async (e) => {
-    const res = await axios.post(); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
+    const res = await axios.post({
+      url: "",
+      data:{
+        
+      }
+    }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike(!like);
   };
   return (
@@ -69,7 +74,7 @@ const MediaItem = ({ media }) => {
           avatar={video ? <Videocam /> : <CameraAlt />}
           action={
             <IconButton aria-label='star' onClick={toggleLike}>
-              {wish ? <Star fontSize='small' /> : <StarBorder fontSize='small' />}
+              {like ? <Star fontSize='small' /> : <StarBorder fontSize='small' />}
             </IconButton>
           }
         ></CardHeader>
