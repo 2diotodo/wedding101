@@ -26,6 +26,9 @@ public class Media {
     @Column(name = "storage_url")
     private String storageUrl;
 
+    @Column(name = "url_to_img")
+    private String urlToImg;
+
     @Column(name = "on_booth", columnDefinition = "TINYINT")
     private boolean onBooth;
 
@@ -48,6 +51,11 @@ public class Media {
     @Column(name = "is_in_bin", columnDefinition = "TINYINT")
     @Builder.Default
     private boolean isInBin = false;
+
+    @Column(name = "created_at")
+    private String createdAt;
+    @Column(name = "updated_at")
+    private String updatedAt;
 
     @Column(name = "is_valid", columnDefinition = "TINYINT")
     @Builder.Default

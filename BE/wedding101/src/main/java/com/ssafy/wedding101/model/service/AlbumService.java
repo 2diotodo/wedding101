@@ -25,6 +25,8 @@ public interface AlbumService {
 
     boolean checkAlbumDuplicate(Long userSeq);
 
+    boolean checkAccessIdDuplicate(String accessId);
+
     default Album toEntity(AlbumDto albumDto) {
         return Album.builder()
                 .albumSeq(albumDto.getAlbumSeq())
@@ -49,6 +51,8 @@ public interface AlbumService {
                 .albumAccessId(album.getAlbumAccessId())
                 .albumThanksUrl(album.getAlbumThanksUrl())
                 .albumMediaCnt(album.getAlbumMediaCnt())
+                .createdAt(album.getCreatedAt())
+                .updatedAt(album.getUpdatedAt())
                 .isValid(album.isValid())
                 .build();
     }

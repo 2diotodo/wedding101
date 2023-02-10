@@ -1,6 +1,6 @@
 # Spring boot server port set
 server:
-  port: 8080
+  port: 9090
 
 # Spring security Oauth2 client registration
 #spring.security.oauth2.client.registration.naver.client-id=<client id>
@@ -100,3 +100,21 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: ERROR
+
+# ffmpeg Wrapper
+#ffmpeg:
+#  exe:
+#    location: /usr/bin/ffmpeg
+#ffmprobe:
+#  exe:
+#    location: /usr/bin/ffprobe
+#
+#ffmpeg:
+#  exe:
+#    location: /ffmpeg/bin/ffmpeg.exe
+#
+#ffmprobe:
+#  exe:
+#    location: /ffmpeg/bin/ffprobe.exe
+#
+

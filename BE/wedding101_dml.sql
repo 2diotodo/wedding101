@@ -81,9 +81,9 @@ CREATE TABLE `tbl_invitation` (
 	`template_seq`	INT	NULL,
 	`photo_url1`	VARCHAR(100)	NULL,
 	`photo_url2`	VARCHAR(100)	NULL,
-	`template_header`	VARCHAR(30)	NULL,
-	`template_footer`	VARCHAR(30)	NULL,
-	`template_etc`	VARCHAR(30)	NULL,
+	`template_header`	VARCHAR(100)	NULL,
+	`template_footer`	VARCHAR(100)	NULL,
+	`template_etc`	VARCHAR(100)	NULL,
 	`created_at`	DATETIME	NOT NULL,
 	`updated_at`	DATETIME	NOT NULL,
 	`is_valid`	TINYINT(1)	NOT NULL	DEFAULT 1
@@ -93,9 +93,9 @@ DROP TABLE IF EXISTS `tbl_template`;
 
 CREATE TABLE `tbl_template` (
 	`template_seq`	INT	NOT NULL  ,
-	`template_title`	VARCHAR(30)	NOT NULL,
-	`template_header`	VARCHAR(30)	NOT NULL,
-	`template_footer`	VARCHAR(30)	NULL,
+	`template_title`	VARCHAR(100)	NOT NULL,
+	`template_header`	VARCHAR(100)	NOT NULL,
+	`template_footer`	VARCHAR(100)	NULL,
 	`template_etc`	VARCHAR(30)	NULL
 );
 
@@ -194,6 +194,7 @@ CREATE TABLE `tbl_media` (
 	`media_seq`	INT	NOT NULL  ,
 	`album_seq`	INT	NOT NULL,
 	`storage_url`	VARCHAR(300)	NOT NULL,
+    `url_to_img` VARCHAR(300),
 	`on_booth`	TINYINT(1)	NOT NULL	DEFAULT 1, -- COMMENT '1:booth / 0:online',
 	`is_video`	TINYINT(1)	NOT NULL	DEFAULT 1, -- COMMENT '1:video/0:photo',
 	`media_name`	VARCHAR(30)	NOT NULL,
@@ -426,6 +427,11 @@ CREATE TRIGGER tbl_user_update BEFORE UPDATE ON `tbl_user` FOR EACH ROW SET NEW.
 
 CREATE TRIGGER tbl_question_create BEFORE INSERT ON `tbl_question` FOR EACH ROW SET NEW.created_at = NOW(), NEW.updated_at = NOW();
 CREATE TRIGGER tbl_question_update BEFORE UPDATE ON `tbl_question` FOR EACH ROW SET NEW.updated_at = NOW(), NEW.created_at = OLD.created_at;
+
+-- media 삽입 시 album테이블의 album_media_cnt +1
+CREATE TRIGGER update_album_media_cnt AFTER INSERT ON `tbl_media` FOR EACH ROW
+UPDATE `tbl_album` SET album_media_cnt = album_media_cnt + 1 WHERE album_seq = NEW.album_seq;
+
 drop trigger if exists tbl_question_is_valid;
 
 delimiter $$

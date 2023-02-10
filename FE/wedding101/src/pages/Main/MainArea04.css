@@ -1,8 +1,22 @@
 .main-area04 {
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92vh;
+  padding-bottom: 8vh;
   background-color: #d9cfde;
 }
-img {
-  display: flex;
-  object-fit: scale-down;
+
+.content-wrapper {
+  height:75%;
+}
+
+#VL_p4_01 {
+  height: 100%;
+  width: 100%;
+}
+
+.MuiStep-root ul {
+  position: relative;
+  left: 20%;
 }

@@ -22,7 +22,7 @@ const MainIndex = () => {
         <Headers />
       </Header>
       <Footer>
-        <Footers />
+        {/* <Footers /> */}
       </Footer>
       <SectionsContainer {...options}>
         <div id='about'>

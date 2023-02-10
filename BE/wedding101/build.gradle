@@ -47,6 +47,12 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
     // logback
 //    implementation 'org.springframework.boot::spring-boot-starter-web'
+    // ffmpeg
+    implementation 'net.bramp.ffmpeg:ffmpeg:0.7.0'
+    implementation 'org.bytedeco:javacv-platform:1.5.7'
+    implementation 'org.bytedeco:ffmpeg:5.0-1.5.7'
+    implementation 'org.bytedeco:javacpp:1.5.7'
+    
     // log4j2
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     //유효성 검사 처리

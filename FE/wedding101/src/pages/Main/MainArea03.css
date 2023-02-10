@@ -1,14 +1,38 @@
 .main-area03 {
-  height: 100vh;
   background-color: #d2dae9;
-}
-.album-form {
-  height: auto;
+  display: flex;
+  padding-bottom: 8vh;
+  height: 92vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-img {
-  display: flex;
+
+#title03{
+  height: 40%;
+}
+#DL03{
+  align-items: start;
+  height: 60%;
+}
+
+#button03{
+  background-color: #A3BDED;
+  height: 20%;
+}
+#HL_p3_01 {
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+#VL_p3_01 {
+  height: 100%;
+  justify-content: space-between;
+}
+#img_main3_1{
+  height: 100%;
+}
+#img_main3_2{
+  height:60%;
   object-fit: scale-down;
 }

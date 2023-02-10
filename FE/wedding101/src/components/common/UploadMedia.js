@@ -5,9 +5,9 @@ import { Button, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 
-function UploadMedia(props) {
-    const [filePreview, setFilePreview] = useState('');
-    const [fileMedia, setFileMedia] = useState('');
+function UploadMedia({media}) {
+    const [filePreview, setFilePreview] = useState(media);
+    const [fileMedia, setFileMedia] = useState(media);
     
     // 파일 미리보기 구현
     const fileImageHandler = (e) => {
@@ -17,10 +17,12 @@ function UploadMedia(props) {
             return
         }
         setFileMedia(file);
+        console.log(e.target);
 
         if(file.type.includes('image')){
             const image = new Image();
             image.src = URL.createObjectURL(file);
+            sessionStorage.setItem(media, image.src);
 
             image.onload = () => {
                 const canvas = document.createElement('canvas');
@@ -55,7 +57,7 @@ function UploadMedia(props) {
             console.error("File type not Supported");
         }
     };
-
+    // file 크기 초과검사
     const isValidFile = (file) => {
         if(file.size > 20*1024*1024){
             console.error("File size exceeds 20MB");
@@ -63,7 +65,7 @@ function UploadMedia(props) {
         }
         return true;
     }
-    // 업로드 파일 삭제
+    // 업로드 파일 삭제(메모리관리)
     const deleteFileImage = () => {
         URL.revokeObjectURL(fileMedia);
         setFileMedia('');

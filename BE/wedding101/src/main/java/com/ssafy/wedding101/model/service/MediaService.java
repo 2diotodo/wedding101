@@ -32,6 +32,7 @@ public interface MediaService {
         return Media.builder()
                 .mediaSeq(mediaDto.getMediaSeq())
                 .storageUrl(mediaDto.getStorageUrl())
+                .urlToImg(mediaDto.getUrlToImg())
                 .onBooth(mediaDto.isOnBooth())
                 .isVideo(mediaDto.isVideo())
                 .mediaName(mediaDto.getMediaName())
@@ -45,6 +46,7 @@ public interface MediaService {
                 .mediaSeq(media.getMediaSeq())
                 .albumSeq(media.getAlbum().getAlbumSeq())
                 .storageUrl(media.getStorageUrl())
+                .urlToImg(media.getUrlToImg())
                 .onBooth(media.isOnBooth())
                 .isVideo(media.isVideo())
                 .mediaName(media.getMediaName())
@@ -52,6 +54,8 @@ public interface MediaService {
                 .mediaReceiver(media.getMediaReceiver())
                 .isWish(media.isWish())
                 .isInBin(media.isInBin())
+                .createdAt(media.getCreatedAt())
+                .updatedAt(media.getUpdatedAt())
                 .build();
     }
 
