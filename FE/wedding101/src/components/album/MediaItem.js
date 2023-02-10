@@ -46,6 +46,9 @@ const MediaItem = ({ media }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const binOpen = () =>{
+    alert('우클릭!');
+  }
   //   useEffect(async () => {
   //     const fetchData = async () => {
   //       const res = await axios.get({
@@ -58,13 +61,14 @@ const MediaItem = ({ media }) => {
   // }, []);
 
   const toggleLike = async (e) => {
+    setLike(!like);
     const res = await axios.post({
-      url: "",
+      url: ``,
       data:{
-        
+        'mediaSeq': mediaSeq,
+        'wish': like,
       }
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
-    setLike(!like);
   };
   return (
     <div className='media-item'>
@@ -79,7 +83,7 @@ const MediaItem = ({ media }) => {
           }
         ></CardHeader>
         {/* Card 본문 */}
-        <CardActionArea onClick={handleOpen}>
+        <CardActionArea onClick={handleOpen} contextMenu={binOpen}>
           <CardMedia component='img' height='140' image={urlToImg} alt='img' />
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
