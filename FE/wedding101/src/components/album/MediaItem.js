@@ -27,11 +27,6 @@ const style = {
 };
 
 const MediaItem = ({ media }) => {
-  const [like, setLike] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const {
     mediaSeq,
     albumSeq,
@@ -45,7 +40,15 @@ const MediaItem = ({ media }) => {
     wish,
     inBin,
   } = media;
+  const [like, setLike] = useState(wish);
+  const [open, setOpen] = useState(false);
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const binOpen = () =>{
+    alert('우클릭!');
+  }
   //   useEffect(async () => {
   //     const fetchData = async () => {
   //       const res = await axios.get({
@@ -58,10 +61,15 @@ const MediaItem = ({ media }) => {
   // }, []);
 
   const toggleLike = async (e) => {
-    const res = await axios.post(); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike(!like);
+    const res = await axios.post({
+      url: ``,
+      data:{
+        'mediaSeq': mediaSeq,
+        'wish': like,
+      }
+    }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
   };
-
   return (
     <div className='media-item'>
       <Card sx={{ maxWidth: 300 }}>
@@ -70,12 +78,12 @@ const MediaItem = ({ media }) => {
           avatar={video ? <Videocam /> : <CameraAlt />}
           action={
             <IconButton aria-label='star' onClick={toggleLike}>
-              {wish ? <Star fontSize='small' /> : <StarBorder fontSize='small' />}
+              {like ? <Star fontSize='small' /> : <StarBorder fontSize='small' />}
             </IconButton>
           }
         ></CardHeader>
         {/* Card 본문 */}
-        <CardActionArea onClick={handleOpen}>
+        <CardActionArea onClick={handleOpen} contextMenu={binOpen}>
           <CardMedia component='img' height='140' image={urlToImg} alt='img' />
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
@@ -96,10 +104,10 @@ const MediaItem = ({ media }) => {
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          {media.isVideo === true ? (
+          {media.video === true ? (
             <video src={storageUrl} controls autoPlay loop width='100%' />
           ) : (
-            <img src={storageUrl} alt={urlToImg} />
+            <img src={urlToImg} alt={urlToImg} />
           )}
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             {mediaRelation}의 메세지
