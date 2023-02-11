@@ -1,5 +1,3 @@
-drop schema if exists `wedding101_db`;
-create schema `wedding101_db` default character set utf8 collate utf8_bin;
 USE wedding101_db;
 
 INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_email) VALUES
@@ -15,12 +13,12 @@ insert into tbl_info (user_seq, wedding_day, wedding_hall_name, groom_name, brid
 select * From tbl_info;
 
 insert into tbl_album (info_seq, user_seq, album_name, album_access_id, album_thanks_url) values
-(1, 1, "albumName", "123456789a", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"),
-(2, 2, "HappyDay!", "123456789b", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4");
+(1, 1, "albumName", "123456789a", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"\),
+(2, 2, "HappyDay!", "123456789b", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"\)\;
 select * from tbl_album;
 
--- relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
--- receiver_list = ['', 'G', 'B']
+-- relation_list = [, family, relatives, friend, colleague, acquaintance]
+-- receiver_list = [, G, B]
 insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation) values
 (1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/76afe67e-5b83-45c3-b0d2-49febd48c378.mp4", "https://picsum.photos/200", "kny", "friend"),
 (1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend"),
@@ -43,4 +41,5 @@ insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_
 (1, 1, 1, "photourl1", "photourl2");
 insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2, template_header, template_etc) values
 (2, 2, 2, "photourl1", "photourl2", "저희 드디어 결혼합니다", "뷔페에 킹크랩나옴");
+
 
