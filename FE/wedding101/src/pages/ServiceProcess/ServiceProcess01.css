@@ -32,3 +32,110 @@
   width: 90%;
   height: 100%;
 }
+
+input#all-class-checkbox{
+  display: none;
+}
+
+input#termAgreed{
+  display:none;
+}
+
+input#privateInfoAgreed{
+  display:none;
+}
+
+input#locationInfoAgreed{
+  display:none;
+}
+
+input#promotionAgreed{
+  display:none;
+}
+
+label.checkIcons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+
+input#all-class-checkbox + label.checkIcons > .notChecked{
+  display: block;
+}
+
+input#all-class-checkbox + label.checkIcons > .checked{
+  display: none;
+}
+
+input#all-class-checkbox:checked + label.checkIcons > .notChecked{
+  display: none;
+}
+
+input#all-class-checkbox:checked + label.checkIcons > .checked{
+  display: block;
+}
+
+input#termAgreed + label.checkIcons > .notChecked{
+  display: block;
+}
+
+input#termAgreed + label.checkIcons > .checked{
+  display: none;
+}
+
+input#termAgreed:checked + label.checkIcons > .notChecked{
+  display: none;
+}
+
+input#termAgreed:checked + label.checkIcons > .checked{
+  display: block;
+}
+
+input#privateInfoAgreed + label.checkIcons > .notChecked{
+  display: block;
+}
+
+input#privateInfoAgreed + label.checkIcons > .checked{
+  display: none;
+}
+
+input#privateInfoAgreed:checked + label.checkIcons > .notChecked{
+  display: none;
+}
+
+input#privateInfoAgreed:checked + label.checkIcons > .checked{
+  display: block;
+}
+
+input#locationInfoAgreed + label.checkIcons > .notChecked{
+  display: block;
+}
+
+input#locationInfoAgreed + label.checkIcons > .checked{
+  display: none;
+}
+
+input#locationInfoAgreed:checked + label.checkIcons > .notChecked{
+  display: none;
+}
+
+input#locationInfoAgreed:checked + label.checkIcons > .checked{
+  display: block;
+}
+
+input#promotionAgreed + label.checkIcons > .notChecked{
+  display: block;
+}
+
+input#promotionAgreed + label.checkIcons > .checked{
+  display: none;
+}
+
+input#promotionAgreed:checked + label.checkIcons > .notChecked{
+  display: none;
+}
+
+input#promotionAgreed:checked + label.checkIcons > .checked{
+  display: block;
+}

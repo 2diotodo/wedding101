@@ -96,17 +96,19 @@ function ServiceProcess01() {
           </div>
         </Grid2>
 
-        <Grid2 lg={9} sm={10}>
+        <Grid2 lg={9} sm={10} className='scrollable_content'>
           <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={0} />
           <h2>서비스 이용 약관 동의</h2>
-          <CheckCircleOutlineIcon />
+          
           <input
             type='checkbox'
             id='all-class-checkbox'
             onChange={allBtnEvent}
             checked={isCheckAll}
           />
-          <label for='all-class-checkbox'>
+          <label for='all-class-checkbox' className='checkIcons'>
+            <CheckCircleOutlineIcon className='notChecked'/>
+            <CheckCircleIcon className='checked'/>
             WEDDING 101 이용약관(필수), 개인정보 수집 및 이용약관(필수), 위치기반 서비스
             이용약관(필수), 프로모션 정보 수집(선택)에 모두 동의 합니다.
           </label>
@@ -114,7 +116,9 @@ function ServiceProcess01() {
             <div className='article-form'>
               <div className='check_title'>
                 <input type='checkbox' id='termAgreed' checked={termAgreed} onChange={termBtnEvent} />
-                <label for='termAgreed'>
+                <label for='termAgreed' className='checkIcons'>
+                  <CheckCircleOutlineIcon className='notChecked'/>
+                  <CheckCircleIcon className='checked'/>
                   WEDDING 101 이용약관 동의<span className='required'>(필수)</span>
                 </label>
               </div>
@@ -133,8 +137,10 @@ function ServiceProcess01() {
             </div>
             <div className='article-form'>
               <div className='check_title'>
-              <input type='checkbox' id='privateInfoAgreed' checked={privateInfoAgreed} onChange={privateInfoBtnEvent} />
-                <label for='privateInfoAgreed'>
+                <input type='checkbox' id='privateInfoAgreed' checked={privateInfoAgreed} onChange={privateInfoBtnEvent} />
+                <label for='privateInfoAgreed' className='checkIcons'>
+                  <CheckCircleOutlineIcon className='notChecked'/>
+                  <CheckCircleIcon className='checked'/>
                   개인정보 수집 및 이용약관 동의<span className='required'>(필수)</span>
                 </label>
               </div>
@@ -154,7 +160,9 @@ function ServiceProcess01() {
             <div className='article-form'>
               <div className='check_title'>
                 <input type='checkbox' id='locationInfoAgreed' checked={locationInfoAgreed} onChange={locationInfoBtnEvent} />
-                <label for='locationInfoAgreed'>
+                <label for='locationInfoAgreed' className='checkIcons'>
+                  <CheckCircleOutlineIcon className='notChecked'/>
+                  <CheckCircleIcon className='checked'/>
                   위치기반 서비스 이용약관 동의<span className='required'>(필수)</span>
                 </label>
               </div>
@@ -174,12 +182,13 @@ function ServiceProcess01() {
             <div className='article-form'>
               <div className='check_title'>
                 <input type='checkbox' id='promotionAgreed' checked={promotionAgreed} onChange={promoBtnEvent}/>
-                <label for='promotionAgreed'>
+                <label for='promotionAgreed' className='checkIcons'>
+                  <CheckCircleOutlineIcon className='notChecked'/>
+                  <CheckCircleIcon className='checked'/>
                   프로모션 정보 수집 동의
                   <span className='not-required'>(선택)</span>
                 </label>
               </div>
-              
               <div className='content-wrapper'>
                 <div className='scrollable-content'>
                   <ServiceTerms terms={3}/>
