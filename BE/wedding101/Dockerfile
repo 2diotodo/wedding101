@@ -1,9 +1,12 @@
 FROM openjdk:11-jdk-slim
 
 RUN apt-get update &&\
-    apt install ffmpeg locale language-pack-ko -y &&\
-    mkdir -p /root/ffmpeg/temp &&\
+    apt install ffmpeg &&\
+    mkdir -p /root/ffmpeg/temp
+
+RUN apt-get install -y locales language-pack-ko \
 	locale-gen ko_KR.utf8
+
 
 ARG JAR_FILE=build/libs/*.jar
 
