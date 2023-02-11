@@ -9,7 +9,8 @@ import WeddingInfoForm from '../../components/serviceProcess/WeddingInfoForm';
 function ServiceProcess02(props) {
   const navigate = useNavigate();
   const toProcess03 = () => {
-    navigate('/user/service03');
+    // navigate('/user/service03');
+    console.log()
   };
 
   return (
@@ -22,9 +23,9 @@ function ServiceProcess02(props) {
         <Grid2 lg={9} sm={10}>
           <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={1} />
           <h2>개인정보 입력</h2>
-          <div>
-            <WeddingInfoForm info={props.processForm} />
-            <WeddingInfoForm />
+          <div className='infoContainer'>
+            <WeddingInfoForm bridegroom={0} name='groomInfo'/>
+            <WeddingInfoForm bridegroom={1} name='brideInfo'/>
           </div>
           <div className='buttons'>
             <Button variant='contained' onClick={() => navigate(-1)}>
