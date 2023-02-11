@@ -6,7 +6,9 @@ RUN apt-get update &&\
 
 RUN apt-get install -y locales
 
-RUN locale -a
+RUN locale -a &&\
+    apt-get install -y language-pack-ko &&\
+	locale -a 
 
 ARG JAR_FILE=build/libs/*.jar
 
