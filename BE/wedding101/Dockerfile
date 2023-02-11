@@ -4,7 +4,7 @@ RUN apt-get update &&\
     apt install ffmpeg -y &&\
     mkdir -p /root/ffmpeg/temp
 
-RUN apt-get install -y locales language-pack-ko \
+RUN apt-get install -y locales language-pack-ko &&\
 	locale-gen ko_KR.utf8
 
 
