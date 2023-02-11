@@ -1,8 +1,8 @@
 USE wedding101_db;
 
 INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_email) VALUES
-("dudwls624", "1234", "kwj", "dhiekd", "dudwls624@naver.com"),
-	("rla0347", "1234", "kjh", "sddlkjd", "rla0347@naver.com");
+("dudwls624", "1234", "영진", "신부", "dudwls624@naver.com"),
+	("rla0347", "1234", "성환", "신랑", "rla0347@naver.com");
 
 SELECT * FROM tbl_user;
 
