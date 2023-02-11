@@ -2,58 +2,120 @@ import './AlbumList.css';
 
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import MediaItem from '../../components/album/MediaItem';
-import testMedia from '../../test/testMedia.json';
-import SelectBox from '../../components/common/selectBox';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Pagination, TextField } from '@mui/material';
-import { useState } from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, Pagination } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import usePagination from '../../utils/Pagination';
+import axios from 'axios';
 
 const AlbumDeleted = () => {
-    const [ input, setInput ]= useState('');
-    // axios 통신으로 DB 데이터 가져오기 구현필요
-    const [ media, setMedia ] = useState([]);
+    const [page, setPage] = useState(1);
+  // axios 통신으로 DB 데이터 가져오기 구현
+  const [binMedia, setBinMedia] = useState([]);
+  useEffect(() => {
+    getDeletedMedia();
+  }, []);
+
+  async function getDeletedMedia() {
+    await axios
+      .get(`http://i8a101.p.ssafy.io:8085/media/1/bin`)
+      .then((res) => {
+        setBinMedia(res.data.data);
+        console.log('setMedia 성공');
+        console.log(binMedia);
+      })
+      .catch((err) => {
+        console.log('실패');
+      });
+  }
+
+  // sorting
+  const [order, setOrder] = useState('createdAt');
+
+  const orderHandler = (e) => {
+    const orderBy = e.target.value;
+    setOrder(orderBy);
+    console.log('orderBy: ', orderBy);
+    const optoins = {
+      mediaName: [...binMedia].sort((a, b) => (a.mediaName < b.mediaName ? -1 : 1)),
+      createdAt: [...binMedia].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)),
+      createdAtRev: [...binMedia].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+    };
+    setBinMedia(optoins[orderBy]);
+  };
+
+  // Album Deleted로 이동
+  const navigate = useNavigate();
+  const onMoveToDeletedHandler = () => {
+    navigate('/album/deleted');
+  };
+
+  // pagination
+  const PER_PAGE = 6;
+  console.log(binMedia.length)
+  const count = Math.ceil(binMedia.length / PER_PAGE);
+  const mediaData = usePagination(binMedia, PER_PAGE);
 
 
-    // 검색
-    const getValue = (e) => {
-        setInput(e.target.value.toLowerCase())
-    }
+  const pageHandler = (e, p) => {
+    setPage(p);
+    mediaData.jump(p);
+  };
 
-    const searched = testMedia.filter((item) =>
+  return (
+    <div className='album-list'>
+      <Grid2 container spacing={3}>
+        <Grid2 lg={3} sm={3}>
+          <h1>Album List</h1>
+          <br />
+          <FormControl fullWidth>
+            <InputLabel id='sort-label'>정렬조건</InputLabel>
+            <Select
+              labelId='sort-label'
+              id='sort-select'
+              value={order}
+              label='Sort'
+              onChange={orderHandler}
+            >
+              <MenuItem value={'createdAt'}>날짜</MenuItem>
+              <MenuItem value={'createdAtRev'}>날짜역순</MenuItem>
+              <MenuItem value={'mediaName'}>이름</MenuItem>
+            </Select>
+          </FormControl>
+          <br />
+          <Button>정렬</Button>
+          <br />
 
-        item.name.toLowerCase().includes(input));
-
-
-    return(
-        <div className='album-deleted'>
-            <Grid2 container spacing={3}>
-                 <Grid2 lg={3} sm={3} >
-                    <h1>Album Deleted</h1>
-                    <br />
-                    <SelectBox />
-                    <br />
-                    <SelectBox />
-                    <br />
-                    <TextField id='searchInput'
-                    type='text'
-                    label='검색'
-                    onChange={getValue}
-                    />
-                    <div className='bin-icon'>
-                    <DeleteForeverIcon />
-                    </div>
-                </Grid2>
-                <Grid2 lg={9} sm={9} spacing={2}>
-                    <div className='media-items'>
-                        {searched.map(media => (
-                        <MediaItem media={media} key={media.mediaSeq} />
-                        ))}
-                    </div>
-                    <Pagination />
-                </Grid2>
-            </Grid2>
-        </div>
-    );
+          <div className='bin-icon'>
+            <DeleteIcon onClick={onMoveToDeletedHandler} />
+          </div>
+        </Grid2>
+        <Grid2 lg={9} sm={9} spacing={2}>
+          <div className='media-items'>
+            {binMedia && (
+              <div className='media-items'>
+                {binMedia.length > 0 ? (
+                  mediaData
+                    .currentData()
+                    .map((item) => <MediaItem media={item} key={item.mediaSeq}/>)
+                ) : (
+                  <div>no binMedia</div>
+                )}
+              </div>
+            )}
+          </div>
+          <div className='pagination'>
+            <Pagination count={count} page={page} onChange={pageHandler} />
+          </div>
+        </Grid2>
+      </Grid2>
+    </div>
+  );
 };
 
 export default AlbumDeleted;
