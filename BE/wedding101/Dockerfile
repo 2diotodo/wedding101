@@ -6,6 +6,8 @@ RUN apt-get update &&\
 
 RUN apt-get install -y locales
 
+RUN locale -a
+
 ARG JAR_FILE=build/libs/*.jar
 
 COPY ${JAR_FILE} app.jar
