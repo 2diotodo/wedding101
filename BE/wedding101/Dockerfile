@@ -4,11 +4,11 @@ RUN apt-get update &&\
     apt install ffmpeg -y &&\
     mkdir -p /root/ffmpeg/temp
 
-RUN apt-get install -y locales
+RUN apt-get install -y locales &&\
+	localedef -f UTF-8 -i ko_KR.UTF-8
 
-RUN locale -a 
+ENV LC_ALL ko_KR.UTF-8
 
-RUN apt-get install -y language-pack-ko
 RUN locale -a 
 
 ARG JAR_FILE=build/libs/*.jar
