@@ -22,8 +22,10 @@ function ServiceProcess02(props) {
         <Grid2 lg={9} sm={10}>
           <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={1} />
           <h2>개인정보 입력</h2>
-          <WeddingInfoForm info={props.processForm} />
-          <WeddingInfoForm />
+          <div>
+            <WeddingInfoForm info={props.processForm} />
+            <WeddingInfoForm />
+          </div>
           <div className='buttons'>
             <Button variant='contained' onClick={() => navigate(-1)}>
               이전
