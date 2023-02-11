@@ -6,7 +6,7 @@ RUN apt-get update &&\
 
 RUN apt-get install -y locales
 
-RUN localedef -f UTF-8 -i ko_KR.UTF-8
+RUN locale-gen ko_KR.UTF-8
 
 ENV LC_ALL ko_KR.UTF-8
 ENV LANG ko_KR.UTF-8 
