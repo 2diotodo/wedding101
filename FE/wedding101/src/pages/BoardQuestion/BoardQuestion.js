@@ -1,6 +1,7 @@
 import './BoardQuestion.css';
+import './BoardQuestionModal.css';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import sampleTable from '../../test/testContact.json';
@@ -8,38 +9,75 @@ import { TableContainer, Table, TableHead, TableBody, TableRow,
          TableCell, Pagination, Box, Modal, Typography} from '@mui/material';
 import usePagination from '../../utils/Pagination';
 
-function AskTableItem({arg}){
-    const [open, setOpen] = useState(false);
+function AskModal_(props){
 
+    function ModalSubTitle1_(props){
+        return (
+            <div className="Modal_SubTitle">
+                <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
+                <div className="Modal_SubTitle_date">작성일: {props.date}</div>
+            </div>
+        );
+    }
+
+    function ModalSubTitle2_(props){
+        return (
+            <div className="Modal_SubTitle">
+                <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
+                <div className="Modal_SubTitle_date">작성일: {props.date}</div>
+            </div>
+        );
+    }
+
+    return (
+        <Modal  open={props.isOpen} 
+                onClose={props.doClose}
+                className="Modal">
+            <Box className="Modal__content">
+                <Typography id="Modal__header">{props.title}</Typography>
+                    <Typography id="Modal__body">
+                        <ModalSubTitle1_ writer={props.writer} date={props.askDate}/>
+                        <div className='Division_Line'></div>
+                        {props.content}
+                    </Typography>
+
+                    <Typography id="Modal__body">
+                        <ModalSubTitle2_ writer="관리자" date={props.ansDate}/>
+                        <div className='Division_Line'></div>
+                        잘지냈지 넌 잘 지냈어?
+                    </Typography>
+            </Box>
+        </Modal>
+    );
+}
+
+function AskTableItem_({arg}){
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const {askSeq, albumSeq, askTitle,  askContent, wrtier, createdAt, updatedAt, isValid} = arg;
+    const {askSeq, albumSeq, askTitle,  askContent, writer, createdAt, updatedAt, isValid} = arg;
     const createdDate = createdAt.split(" ")[0];
-
+    const updatedDate = updatedAt.split(" ")[0];
+    const modalData = [open, handleClose, askTitle, askContent];
+    
     return(
       <>
         <TableRow   key={askSeq}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell component="th" scope="row">{askSeq}</TableCell>
           <TableCell align="center" onClick={handleOpen}>{askTitle}</TableCell>
-          <TableCell align="center" >{wrtier}</TableCell>
+          <TableCell align="center" >{writer}</TableCell>
           <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
-
-        {/* askTitle 누르면 모달창오픈 */}
-        <Modal  open={open} 
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description">
-        <Box className="style">
-            <Typography id="modal-modal-title" 
-                        variant="h6" 
-                        component="h2">{askTitle}</Typography>
-            <Typography id="modal-modal-description" 
-                        sx={{ mt: 2 }}>{askContent}</Typography>
-        </Box>
-        </Modal>
+        <AskModal_  isOpen={open} 
+                    doClose={handleClose} 
+                    title={askTitle} 
+                    content={askContent}
+                    writer={writer}
+                    askDate={createdDate}
+                    ansDate={updatedDate} ////<- ans date 정보가 필요
+                    className="style"/>
       </>
     );
 }
@@ -69,10 +107,10 @@ function AskTable_(props){
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 550 }} aria-label="simple table">
-            <TableHead_ />
+            {/* <TableHead_ /> */}
             <TableBody>
                 {props.data.currentData().map( item => (
-                    <AskTableItem arg={item} key={item.revSeq}/>
+                    <AskTableItem_ arg={item} key={item.askSeq}/>
                 ))}
             </TableBody>
             </Table>
@@ -84,16 +122,14 @@ function AskTable_(props){
 function BoardQuestion() {
     const [ page, setPage ] = useState(1);
     const [ askItem, setAskItem ] = useState(sampleTable);
-    
     // axios 통신으로 askItem 가져오기
-
 
     // pagination
     const PER_PAGE = 8;
     
     const count = Math.ceil(askItem.length / PER_PAGE);
     const askData = usePagination(askItem, PER_PAGE);
-    
+
     const pageHandler = (e,p) => {
         setPage(p);
         askData.jump(p);
@@ -118,3 +154,4 @@ function BoardQuestion() {
     );
 }
 export default BoardQuestion;
+// export default Board;
