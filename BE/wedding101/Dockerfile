@@ -4,10 +4,13 @@ RUN apt-get update &&\
     apt install ffmpeg -y &&\
     mkdir -p /root/ffmpeg/temp
 
-RUN apt-get install -y locales &&\
-	localedef -f UTF-8 -i ko_KR.UTF-8
+RUN apt-get install -y locales
+
+RUN localedef -f UTF-8 -i ko_KR.UTF-8
 
 ENV LC_ALL ko_KR.UTF-8
+ENV LANG ko_KR.UTF-8 
+ENV LANGUAGE ko_KR.UTF-8
 
 RUN locale -a 
 
