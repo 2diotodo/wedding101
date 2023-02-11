@@ -87,12 +87,14 @@ public class MediaServiceImpl implements MediaService {
     @Override
     public void throwBin(Long mediaSeq) {
         Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+        albumRepository.minusOneMediaCnt(media.getAlbum().getAlbumSeq());
         media.throwBin();
     }
 
     @Override
     public void restore(Long mediaSeq) {
         Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+        albumRepository.plusOneMediaCnt(media.getAlbum().getAlbumSeq());
         media.restore();
     }
 
