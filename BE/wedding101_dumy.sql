@@ -1,3 +1,5 @@
+drop schema if exists `wedding101_db`;
+create schema `wedding101_db` default character set utf8 collate utf8_bin;
 USE wedding101_db;
 
 INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_email) VALUES
