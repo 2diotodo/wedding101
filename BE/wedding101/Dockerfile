@@ -8,9 +8,8 @@ RUN apt-get install -y locales
 
 RUN locale-gen ko_KR.UTF-8
 
-ENV LC_ALL ko_KR.UTF-8
-ENV LANG ko_KR.UTF-8 
-ENV LANGUAGE ko_KR.UTF-8
+RUN sed -i 's/^# \(ko_KR.UTF-8\)/\1/' /etc/locale.gen
+RUN locale-gen
 
 RUN locale -a 
 
