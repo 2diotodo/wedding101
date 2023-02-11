@@ -1,6 +1,5 @@
 import './MainArea04.css';
 import { Step, Stepper, StepLabel } from "@mui/material";
-import ProgressBar from '../../components/common/ProgressBar';
 
 const MainArea04 = () => {
   const steps = [{
@@ -22,24 +21,28 @@ const MainArea04 = () => {
   }]
   return (
     <div className='main-area04'>
-      <div className='container' id='main04'>
-        <div className='title'>Service Outline</div>
-        <p>This is MainArea04!</p>
-        <div>
-          <Stepper activeStep={0} alternativeLabel>
-            {steps.map((level) => (
-              <Step key={level.label}>
-                <StepLabel>{level.label}</StepLabel>
-                <ul>
-                  <li>
-                    1
-                  </li>
-                </ul>
-              </Step>
-            ))}
-          </Stepper>
+      <div className='container'>
+
+        <div className='verticalLayout' id='VL_p4_01'>
+          <div className='title_explain' id='title04'>
+            <div className='title'>SERVICE OUTLINE</div>
+          </div>
+          <div className='content-wrapper'>
+            <Stepper activeStep={-1} alternativeLabel>
+              {steps.map((level) => (
+                <Step key={level.label}>
+                  <StepLabel>{level.label}</StepLabel>
+                  <ul>
+                    {level.content.map((content, i)=>(
+                      <li key={i}>{content}</li>
+                    ))}
+                  </ul>
+                </Step>
+              ))}
+            </Stepper>
+          </div>
         </div>
-        
+
       </div>
     </div>
   );

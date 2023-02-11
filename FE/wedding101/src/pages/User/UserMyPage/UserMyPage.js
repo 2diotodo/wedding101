@@ -1,9 +1,15 @@
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import ModifyForm from '../../../components/user/UserModify/ModifyForm'
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import './UserMyPage.css';
+import { Modal } from '@mui/material';
 
 function UserMyPage() {
+    const [ModifyOpen, setModifyOpen] = useState(false);
+    const handleModifyOpen = () => setModifyOpen(true);
+    const handleModifyClose = () => setModifyOpen(false);
+
     const navigate = useNavigate();
     const toModifyUserPage = ()=> {
         navigate('/user/modify')
@@ -11,13 +17,6 @@ function UserMyPage() {
     const toModifyInfoPage = ()=> {
         navigate('/info/modify')
     }
-    const toInvitationPage = ()=> {
-        navigate('/invitation')
-    }
-    const toMyAlbumPage = ()=> {
-        navigate('/user/myalbum')
-    }
-
 
     return (
         <div className='user-mypage'>
@@ -31,23 +30,12 @@ function UserMyPage() {
                         <Grid2 container spacing={5}> 
                             <div className ='user-mypage-item'>
                                 <Grid2 xs={6}>
-                                    <button type="text" onClick={toModifyUserPage}>회원 정보 수정</button>
-                                    <ModifyForm />
+                                    <button type='text' onClick={handleModifyOpen}>내 정보</button>
                                 </Grid2>
                             </div>
                             <div className ='user-mypage-item'>
                                 <Grid2 xs={6}>
-                                    <button type="text" onClick={toModifyInfoPage}>결혼 정보 수정</button>
-                                </Grid2>
-                            </div>
-                            <div className ='user-mypage-item'>
-                                <Grid2 xs={6}>
-                                <button type="text" onClick={toInvitationPage}>모바일 청첩장</button>
-                                </Grid2>
-                            </div>
-                            <div className ='user-mypage-item'>
-                                <Grid2 xs={6}>
-                                <button type="text" onClick={toMyAlbumPage}>내 앨범</button>
+                                    <button type="text" onClick={toModifyInfoPage}>결혼 정보</button>
                                 </Grid2>
                             </div>
                         </Grid2>
@@ -55,6 +43,14 @@ function UserMyPage() {
                 </Grid2>
                 
             </Grid2>
+
+            {/* <Modal
+                open={ModifyOpen}
+                onClose={handleModifyClose}
+                >
+                
+
+            </Modal> */}
         </div>
     );
 }
