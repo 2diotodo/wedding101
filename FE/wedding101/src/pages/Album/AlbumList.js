@@ -29,7 +29,6 @@ const AlbumList = (props) => {
         console.log('setMedia 성공');
         console.log(media);
         console.log('setMedia ', new Date(media[0].createdAt).getTime());
-
       })
       .catch((err) => {
         console.log('실패');
@@ -45,9 +44,15 @@ const AlbumList = (props) => {
     console.log('orderBy: ', orderBy);
 
     const options = {
-      mediaName: [...media].sort((a, b) => (a.mediaName < b.mediaName ? -1 : a.mediaName > b.mediaName ? 1 : 0)),
-      createdAt: [...media].sort((a, b) => (b.mediaSeq < a.mediaSeq ? -1 : b.mediaSeq > a.mediaSeq ? 1 : 0)),
-      createdAtRev: [...media].sort((a, b) => (a.mediaSeq < b.mediaSeq ? -1 : a.mediaSeq > b.mediaSeq ? 1 : 0)),
+      mediaName: [...media].sort((a, b) =>
+        a.mediaName < b.mediaName ? -1 : a.mediaName > b.mediaName ? 1 : 0
+      ),
+      createdAt: [...media].sort((a, b) =>
+        b.mediaSeq < a.mediaSeq ? -1 : b.mediaSeq > a.mediaSeq ? 1 : 0
+      ),
+      createdAtRev: [...media].sort((a, b) =>
+        a.mediaSeq < b.mediaSeq ? -1 : a.mediaSeq > b.mediaSeq ? 1 : 0
+      ),
     };
     setMedia(options[orderBy]);
   };
@@ -57,12 +62,14 @@ const AlbumList = (props) => {
   const onMoveToDeletedHandler = () => {
     navigate('/album/deleted');
   };
+  const onMoveToSelectedHandler = () => {
+    navigate('/album/wish');
+  };
 
   // pagination
   const PER_PAGE = 6;
   const count = Math.ceil(media.length / PER_PAGE);
   const mediaData = usePagination(media, PER_PAGE);
-
 
   const pageHandler = (e, p) => {
     setPage(p);
@@ -94,6 +101,9 @@ const AlbumList = (props) => {
           <br />
 
           <div className='bin-icon'>
+            <Star onClick={onMoveToSelectedHandler} />
+          </div>
+          <div className='bin-icon'>
             <DeleteIcon onClick={onMoveToDeletedHandler} />
           </div>
         </Grid2>
@@ -104,7 +114,7 @@ const AlbumList = (props) => {
                 {media.length > 0 ? (
                   mediaData
                     .currentData()
-                    .map((item) => <MediaItem media={item} key={item.mediaSeq}/>)
+                    .map((item) => <MediaItem media={item} key={item.mediaSeq} />)
                 ) : (
                   <div>no media</div>
                 )}
