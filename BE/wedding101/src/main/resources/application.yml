@@ -74,3 +74,6 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: ERROR
+
+jwt:
+  secret-key: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa

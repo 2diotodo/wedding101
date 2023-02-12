@@ -1,5 +1,6 @@
 package com.ssafy.wedding101.util;
 
+import com.ssafy.wedding101.model.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -46,6 +46,9 @@ public class User {
     @ColumnDefault("true")
     private boolean isValid;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
     public void updateUser(String userId, String userPassword, String userName, String userNickname, String userEmail){
         this.userId = userId;
         this.userPassword = userPassword;

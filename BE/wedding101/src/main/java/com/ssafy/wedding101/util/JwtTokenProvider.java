@@ -1,5 +1,10 @@
 package com.ssafy.wedding101.util;
 
+import com.ssafy.wedding101.model.dto.CustomUserDetails;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +15,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
 
 @Component
 @RequiredArgsConstructor
