@@ -9,43 +9,38 @@ import { TableContainer, Table, TableHead, TableBody, TableRow,
          TableCell, Pagination, Box, Modal, Typography} from '@mui/material';
 import usePagination from '../../utils/Pagination';
 
-function AskModal_(props){
-
-    function ModalSubTitle1_(props){
-        return (
-            <div className="Modal_SubTitle">
-                <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
-                <div className="Modal_SubTitle_date">작성일: {props.date}</div>
-            </div>
-        );
-    }
-
-    function ModalSubTitle2_(props){
-        return (
-            <div className="Modal_SubTitle">
-                <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
-                <div className="Modal_SubTitle_date">작성일: {props.date}</div>
-            </div>
-        );
-    }
-
+function ModalSubTitle_(props){
     return (
+        <div className="Modal_SubTitle">
+            <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
+            <div className="Modal_SubTitle_date">작성일: {props.date}</div>
+        </div>
+    );
+}
+
+function AskModal_(props){
+    return (
+        
         <Modal  open={props.isOpen} 
-                onClose={props.doClose}
+                onClose={props.doClose} 
                 className="Modal">
             <Box className="Modal__content">
-                <Typography id="Modal__header">{props.title}</Typography>
-                    <Typography id="Modal__body">
-                        <ModalSubTitle1_ writer={props.writer} date={props.askDate}/>
-                        <div className='Division_Line'></div>
-                        {props.content}
-                    </Typography>
+                {/* Modal 창 제목 */}
+                <Typography component="div" id="Modal__header">{props.title}</Typography>
+                
+                {/* Modal 창 유저 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    <ModalSubTitle_ writer={props.writer} date={props.askDate}></ModalSubTitle_>
+                    <div className='Division_Line'></div>
+                    {props.content}
+                </Typography>
 
-                    <Typography id="Modal__body">
-                        <ModalSubTitle2_ writer="관리자" date={props.ansDate}/>
-                        <div className='Division_Line'></div>
-                        잘지냈지 넌 잘 지냈어?
-                    </Typography>
+                {/* Modal 창 관리자 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    <ModalSubTitle_ writer="관리자" date={props.ansDate}></ModalSubTitle_>
+                    <div className='Division_Line'></div>
+                    잘지냈지 넌 잘 지냈어?
+                </Typography>
             </Box>
         </Modal>
     );
@@ -109,9 +104,9 @@ function AskTable_(props){
             <Table sx={{ minWidth: 550 }} aria-label="simple table">
             {/* <TableHead_ /> */}
             <TableBody>
-                {props.data.currentData().map( item => (
-                    <AskTableItem_ arg={item} key={item.askSeq}/>
-                ))}
+                {props.data.currentData().map( 
+                    item => (<AskTableItem_ arg={item} key={item.askSeq}/>)
+                )}
             </TableBody>
             </Table>
         </TableContainer>
@@ -138,9 +133,7 @@ function BoardQuestion() {
     return (
         <div className='board-ask'>
             <Grid2 container spacing={2}>
-                <Grid2 lg={3} sm={3}>
-                    <Navbar_ pageTitle="Contact Us"/>
-                </Grid2>
+                <Grid2 lg={3} sm={3}><Navbar_ pageTitle="Contact ✍🏻"/></Grid2>
                 <Grid2 lg={9} sm={9}>
                     <div className='review-items'>
                         <AskTable_ data={askData}/>
