@@ -58,4 +58,12 @@ public class User {
         this.isValid = false;
     }
 
+    public String getRole() {
+        return "ROLE_USER";
+    }
+
+    public void updateRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
+    }
+
 }
