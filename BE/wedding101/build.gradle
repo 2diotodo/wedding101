@@ -22,6 +22,11 @@ repositories {
     mavenCentral()
 }
 
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 dependencies {
     // Spring Cloud Starter AWS
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
@@ -58,10 +63,7 @@ dependencies {
     //유효성 검사 처리
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
-compileJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
+
 
 jar {
 	    enabled = false
