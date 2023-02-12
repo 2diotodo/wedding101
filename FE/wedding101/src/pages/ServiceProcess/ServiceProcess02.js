@@ -64,6 +64,7 @@ function ServiceProcess02(props) {
         "weddingHallName": "string",
         "weddingHallAddress": "string",
         "weddingHallNumber": "string",
+        "weddingDay": "string",
         "groomName": groomInfo.name,
         "brideName": brideInfo.name,
         "groomPhoneNumber": groomInfo.phoneNumber,
@@ -88,6 +89,7 @@ function ServiceProcess02(props) {
       sessionStorage.setItem("integratedInfo", JSON.stringify(integratedInfo));
       // getItem : JSON.parse(sessionStorage.getItem('integratedInfo'))
       navigate('/user/service03');
+      window.scrollTo(0,0);
     }
   };
 
@@ -95,7 +97,12 @@ function ServiceProcess02(props) {
     <div className='service-process02'>
       <Grid2 container spacing={2}>
         <Grid2 lg={3} sm={2}>
-          <h1>Service Application</h1>
+          <div style={{position: 'fixed', fontSize: '5vh', fontFamily:'Bakbak One'}}>
+            <div style={{position: 'relative', left: '20%'}}>
+              SERVICE<br></br>
+              APPLICATION
+            </div>            
+          </div>
         </Grid2>
 
         <Grid2 lg={9} sm={10}>
