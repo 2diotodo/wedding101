@@ -58,6 +58,11 @@ dependencies {
     //유효성 검사 처리
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
+compileJava.options.encoding = 'UTF-8'
+t
+asks.withType(JavaCompile) {
+	    options.encoding = 'UTF-8'
+}
 
 jar {
 	    enabled = false
