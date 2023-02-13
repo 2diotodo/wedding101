@@ -37,7 +37,7 @@ public interface QuestionService {
                 .questionTitle(question.getQuestionTitle())
                 .questionContent(question.getQuestionContent())
                 .createdAt(question.getCreatedAt())
-                .createdAt(question.getUpdatedAt())
+                .updatedAt(question.getUpdatedAt())
                 .build();
     }
 
