@@ -9,6 +9,7 @@ import { TableContainer, Table, TableHead, TableBody, TableRow,
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
 import { func } from 'prop-types';
+import { TextField } from '@mui/material';
 
 function ModalSubTitle_(props){
     return (
@@ -124,6 +125,7 @@ function getCurrentDate(){
 }
 
 function AskWriteModal_(props){
+    const [content, setContent] = useState();
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
     console.log(userId);
