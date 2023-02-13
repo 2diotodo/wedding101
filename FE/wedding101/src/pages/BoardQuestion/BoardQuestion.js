@@ -10,6 +10,7 @@ import { TableContainer, Table, TableHead, TableBody, TableRow,
 import usePagination from '../../utils/Pagination';
 import TextField from '@mui/material/TextField';
 import { func } from 'prop-types';
+import { TextField } from '@mui/material';
 
 function ModalSubTitle_(props){
     return (
@@ -129,6 +130,7 @@ function eventCheck(value){
 }
 
 function AskWriteModal_(props){
+    const [content, setContent] = useState();
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
     console.log(userId);

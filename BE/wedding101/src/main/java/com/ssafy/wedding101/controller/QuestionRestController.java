@@ -26,11 +26,12 @@ public class QuestionRestController {
         Map<String, Object> result = new HashMap<>();
         //토큰에서 가져오기
         Long userSeq = questionDto.getUserSeq();
-
+        //questionDto.set(userSeq)
         try {
             questionService.writeQuestion(questionDto);
-            QuestionDto newQuestionDto = questionService.getQuestionByUserSeq(userSeq)
-                    .orElseThrow(() -> new NoSuchElementException("문의 등록 실패"));
+            QuestionDto newQuestionDto = questionService.getQuestionByUserSeq(questionDto.getUserSeq())
+                    .orElseThrow(() -> new NoSuchElementException("문의 등록 FAIL"));
+
             result.put("data", newQuestionDto);
             result.put("messsage", "문의 등록 SUCCESS");
             return new ResponseEntity<>(result, HttpStatus.OK);
