@@ -7,6 +7,8 @@ import ProgressBar from '../../components/common/ProgressBar';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { Button } from "@mui/material";
 import DatePicker from "react-datepicker";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
 
 const { kakao } = window;
@@ -22,13 +24,33 @@ function ServiceProcess03 () {
     const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
   })
 
-  const [weddingDate, setWeddingDate] = useState(new Date());
-  const [weddingTime, setWeddingTime] = useState();
+  const [weddingDateTime, setWeddingDateTime] = useState(setHours(setMinutes(new Date(), 0),9));
+  const [weddingInfo, setWeddingInfo] = useState({
+    weddingHallName: "string",
+    weddingHallAddress: "string",
+    weddingHallNumber: "string",
+    weddingDay: "string"
+  })
+
+  const onWeddingInfoChange = (e) => {
+    setWeddingInfo({
+      ...weddingInfo,
+      [e.target.id] : e.target.value
+    })
+  }
+
   const navigate = useNavigate();
+
   const toProcess04 = () => {
     let integratedInfo = JSON.parse(sessionStorage.getItem('integratedInfo'));
-
+    integratedInfo.weddingHallName = weddingInfo.weddingHallName;
+    integratedInfo.weddingHallAddress = weddingInfo.weddingHallAdress;
+    integratedInfo.weddingHallNumber = weddingInfo.weddingHallNumber;
+    integratedInfo.weddingDay = weddingDateTime.toISOString()
+    console.log(integratedInfo)
+    sessionStorage.setItem('integratedInfo', JSON.stringify(integratedInfo));
     navigate('/user/service04');
+    window.scrollTo(0,0);
   };
 
     return (
@@ -56,26 +78,35 @@ function ServiceProcess03 () {
                     </div>
                     <br></br>
                     <p style={{fontSize: '2vh'}}>예식장 이름</p>
-                    <TextField className='textInputField'/>
+                    <TextField className='textInputField' id='weddingHallName' onChange={onWeddingInfoChange}/>
                     <br></br>
                     <p style={{fontSize: '2vh'}}>예식장 위치</p>
-                    <TextField className='textInputField'/>
+                    <TextField className='textInputField' id='weddingHallAddress' onChange={onWeddingInfoChange}/>
                     <br></br>
                     <p style={{fontSize: '2vh'}}>예식장 상세</p>
-                    <TextField className='textInputField' placeholder='홀 번호 / 기타'/>
+                    <TextField className='textInputField' id='weddingHallNumber' onChange={onWeddingInfoChange} placeholder='홀 번호 / 기타'/>
                     <br></br>
                     <div className='horizontalLayout spaceBetween'>
                       <p style={{width: '30%', fontSize: '2vh'}}>예식 날짜</p>
-                      <DatePicker selected={weddingDate} onChange={date => setWeddingDate(date)}/>
+                      <DatePicker
+                        minDate={new Date()}
+                        selected={weddingDateTime}
+                        onChange={date => setWeddingDateTime(date)}/>
                     </div>
                     <div className='horizontalLayout spaceBetween'>
                       <p style={{width: '30%', fontSize: '2vh'}}>예식 시간</p>
-                      <DatePicker 
+                      <DatePicker
+                        selected={weddingDateTime}
                         showTimeSelect
                         showTimeSelectOnly
+                        minTime={setHours(setMinutes(new Date(),0),9)}
+                        maxTime={setHours(setMinutes(new Date(),0),22)}
                         timeIntervals={30}
+                        timeCaption="Time"
+                        dateFormat="HH:mm"
                         timeFormat="HH:mm"
-                        onChange={time => setWeddingTime(time)}
+                        onChange={time => {setWeddingDateTime(time);
+                        console.log(time)}}
                         />
                     </div>
                   </div>

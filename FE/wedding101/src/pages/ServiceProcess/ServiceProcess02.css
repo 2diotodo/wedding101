@@ -1,8 +1,9 @@
 .service-process02 {
     background-color: #fff4f3;
     padding-top: 12vh;
-    padding-bottom: 12vh;
     height: 88vh;
+    padding-bottom: 12vh;
+    overflow: scroll;
 }
 
 .infoContainer {

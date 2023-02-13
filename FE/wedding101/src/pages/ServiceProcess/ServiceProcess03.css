@@ -1,13 +1,14 @@
 .service-process03 {
     background-color: #fff4f3;
     padding-top: 12vh;
+    height: 92vh;
     padding-bottom: 12vh;
-    height: 94vh;
+    overflow: scroll;
 }
 
 .wedLocDayContainer{
   width: 100%;
-  height: 80%;
+  height: 75%;
 }
 
 .horizontalLayout .spaceBetween{
