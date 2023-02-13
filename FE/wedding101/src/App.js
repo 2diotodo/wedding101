@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import MainLayout from './pages/Main/MainLayout';
 import UserLogin from './pages/User/UserLogin/UserLogin';
 import UserRegist from './pages/User/UserRegist/UserRegist';
-import UserMyPage from './pages/User/UserMyPage/UserMyPage'
+import UserMyPage from './pages/User/UserMyPage/UserMyPage';
 import InvitationProcess01 from './pages/WeddingInvitation/InvitationProcess01';
 import InvitationProcess02 from './pages/WeddingInvitation/InvitationProcess02';
 import InvitationProcess03 from './pages/WeddingInvitation/InvitationProcess03';
@@ -19,6 +19,7 @@ import ServiceProcess03 from './pages/ServiceProcess/ServiceProcess03';
 import ServiceProcess04 from './pages/ServiceProcess/ServiceProcess04';
 import MainIndex from './pages/Main/MainIndex';
 import AlbumDeleted from './pages/Album/AlbumDeleted';
+import AlbumSelected from './pages/Album/AlbumSelected';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path='/album' element={<AlbumCover />} />
         <Route path='/album/list' element={<AlbumList />} />
         <Route path='/album/deleted' element={<AlbumDeleted />} />
+        <Route path='/album/wish' element={<AlbumSelected />} />
         <Route path='/review' element={<BoardReview />} />
         <Route path='/contact' element={<BoardQuestion />} />
         <Route path='/user/service01' element={<ServiceProcess01 />} />
