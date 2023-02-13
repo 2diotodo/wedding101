@@ -24,7 +24,7 @@ public interface MediaService {
 
     void wish(Long mediaSeq);
 
-    void unwish(Long mediaSeq);
+//    void unwish(Long mediaSeq);
 
     List<MediaDto> getmediaListInBin(Long albumSeq);
 
