@@ -173,7 +173,8 @@ function AskButton_(){
     // ask Modal
     function loginCheckHandler(){
         const isLogin = sessionStorage.getItem('isLogin')
-        if (isLogin == 'false'){
+        console.log(isLogin);
+        if (isLogin == 'false' || isLogin == null){
             alert("로그인을 먼저 해주세요");
         }
         else{
