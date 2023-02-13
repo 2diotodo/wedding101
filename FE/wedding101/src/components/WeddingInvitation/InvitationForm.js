@@ -243,23 +243,23 @@ function InvitationForm(props) {
   return (
     <div className="invitation">
       <Title
-        groomName={props.data.weddingInfoData.groomName}
-        brideName={props.data.weddingInfoData.brideName}
+        groomName={props.weddingInfoData.groomName}
+        brideName={props.weddingInfoData.brideName}
         // groomName="김성환"
         // brideName="권영진"
       />
       <BriefInfo
-        datetime={props.data.weddingInfoData.weddingDay}
-        place={props.data.weddingInfoData.weddingHallName}
+        datetime={props.weddingInfoData.weddingDay}
+        place={props.weddingInfoData.weddingHallName}
         //datetime="2023년 2월 17일 오후 2시"
         //place="역삼 멀티캠퍼스 8층"
       />
       <WeddingPhoto src={invitation_image_1} />
       <WeddingPhoto src={invitation_image_2} />
       <WeddingMessage
-        message1={props.data.invitationData.templateHeader}
-        message2={props.data.invitationData.templateFooter}
-        message3={props.data.invitationData.templateEtc}
+        message1={props.invitationData.templateHeader}
+        message2={props.invitationData.templateFooter}
+        message3={props.invitationData.templateEtc}
       />
       {/* <FamilyInfo/> */}
       <WeddingPhoto src={invitation_image_3} />
@@ -279,10 +279,10 @@ function InvitationForm(props) {
         place="역삼 멀티캠퍼스 8층"
       />
       <WeddingMoney
-        groomName={props.data.weddingInfoData.groomName}
-        brideName={props.data.weddingInfoData.brideName}
-        datetime={props.data.weddingInfoData.weddingDay}
-        place={props.data.weddingInfoData.weddingHallName}
+        groomName={props.weddingInfoData.groomName}
+        brideName={props.weddingInfoData.brideName}
+        datetime={props.weddingInfoData.weddingDay}
+        place={props.weddingInfoData.weddingHallName}
       />
     </div>
   );
