@@ -10,7 +10,8 @@
     display: flex;
 }
 .text-form {
-    display: inline;
+    display: flex;
+    flex-direction: row;
 }
 .invitation-form{
     display: flex;
