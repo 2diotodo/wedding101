@@ -132,80 +132,80 @@ function getCurrentDate(){
 function eventCheck(value){
     console.log(value);
 }
+
 function AskWriteModal_(props){
     // edit btn -> toggle role for Modal
     const [isEdit, setIsEdit] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
     const doEdit = () => {
         setIsEdit(true);
-        alert("해당 게시글이 등록 되었습니다")
-        console.log("edited!")
+        alert("해당 게시글이 등록 되었습니다");
+        console.log("edited!");
+        props.doClose();
     };
+    
     const doDelete = () => {
         setIsDelete(true);
-        alert("해당 게시글이 삭제 되었습니다")
-        console.log("deleted!")
+        alert("해당 게시글이 삭제 되었습니다");
+        console.log("deleted!");
+        props.doClose();
     };
 
     // write data -> userId + currDate
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
-    let isModalOpen = (!isEdit && !isDelete);
     return (
-        <>
-           {isModalOpen &&
-                <Modal  open={props.isOpen} className="Modal">
-                    <Box className="Modal__content">
-                        {/* Modal 창 제목 */}
-                        <Typography component="div" id="Modal__header">문의 작성하기</Typography>
+            <Modal  open={props.isOpen} className="Modal">
+                <Box className="Modal__content">
+                    {/* Modal 창 제목 */}
+                    <Typography component="div" id="Modal__header">문의 작성하기</Typography>
 
-                        {/* Edit + Delete  */}
-                        <div className="BQ-Edit-Delete-Buttons"> 
-                            <IconButton onClick={doEdit} color="primary" className="BQ-Edit-Button" fontSize="large">
-                                <EditIcon />
-                            </IconButton>
-                            <IconButton onClick={doDelete} color="gray" className="BQ-Delete-Button" fontSize="large" >
-                                <DeleteIcon />
-                            </IconButton>
-                        </div>
+                    {/* Edit + Delete  */}
+                    <div className="BQ-Edit-Delete-Buttons"> 
+                        <IconButton onClick={doEdit} color="primary" className="BQ-Edit-Button" fontSize="large">
+                            <EditIcon />
+                        </IconButton>
+                        <IconButton onClick={doDelete} color="gray" className="BQ-Delete-Button" fontSize="large" >
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>
+                    
+                    {/* Modal 창 유저 글 작성 */}
+                    <Typography  
+                        component="div" 
+                        id="Modal__body" 
+                        sx={{'& .MuiTextField-root': { 
+                                display: 'flex', flexDirection: 'row',
+                                justifyContent: 'left', marginLeft: '1.5%'},}}>
                         
-                        {/* Modal 창 유저 글 작성 */}
-                        <Typography  
-                            component="div" 
-                            id="Modal__body" 
-                            sx={{'& .MuiTextField-root': { 
-                                    display: 'flex', flexDirection: 'row',
-                                    justifyContent: 'left', marginLeft: '1.5%'},}}>
-                            
-                        {/* props로 받아온 유저 닉네임 넣기 */}
-                        <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
-                        
-                        {/* 구분선 */}
-                        <div className='BQ-Division-Line'></div>
-                        
-                        {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
-                        <TextField label="제목 : " 
-                            variant="standard" 
-                            InputProps={{ disableUnderline: true }}
-                            fullWidth
-                            fontSize="large"
-                            onChange={(e) => {eventCheck(e.target.value);}}
-                        />
-                        <div className="BQ-blank-for-askContent"></div>
+                    {/* props로 받아온 유저 닉네임 넣기 */}
+                    <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
+                    
+                    {/* 구분선 */}
+                    <div className='BQ-Division-Line'></div>
+                    
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    <TextField label="제목 : " 
+                        variant="standard" 
+                        InputProps={{ disableUnderline: true }}
+                        fullWidth
+                        fontSize="large"
+                        // onChange={(e) => {eventCheck(e.target.value);}}
+                    />
+                    <div className="BQ-blank-for-askContent"></div>
 
-                        <TextField  id="filled-multiline-static" 
-                                    label="내용 : " 
-                                    fullWidth
-                                    multiline 
-                                    variant="standard" 
-                                    row = {14}
-                                    InputProps={{ disableUnderline: true }}
-                                    onChange={(e) => {eventCheck(e.target.value);}}/>
-                        </Typography>
-                    </Box>
-                </Modal>
-            }
-        </>
+                    <TextField  id="filled-multiline-static" 
+                                label="내용 : " 
+                                fullWidth
+                                multiline 
+                                variant="standard" 
+                                row = {14}
+                                InputProps={{ disableUnderline: true }}
+                                // onChange={(e) => {eventCheck(e.target.value);}}
+                    />
+                    </Typography>
+                </Box>
+            </Modal>
     );
 }
 
@@ -235,6 +235,7 @@ function AskButton_(){
                     startIcon="✏️"
                     size="small"
                     onClick={loginCheckHandler}>문의 등록</Button>
+
             <AskWriteModal_ 
                 isOpen={askModalOpen} 
                 doClose={closeAskModal} 
