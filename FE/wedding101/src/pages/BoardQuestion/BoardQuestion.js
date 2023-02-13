@@ -138,22 +138,30 @@ function AskWriteModal_(props){
     const [isDelete, setIsDelete] = useState(false);
     const doEdit = () => {
         setIsEdit(true);
+        const askTitle = document.getElementsByName('newAskTitle').value;
+        const askContent = document.getElementsByName('newAskContent').value;
+        // axios 통신 추가 필요
+        document.getElementsByName('newAskTitle').value = "";
+        document.getElementsByName('newAskContent').value = "";
         alert("해당 게시글이 등록 되었습니다")
+        props.doClose();
         console.log("edited!")
     };
     const doDelete = () => {
         setIsDelete(true);
         alert("해당 게시글이 삭제 되었습니다")
+        document.getElementsByName('newAskTitle').value = "";
+        document.getElementsByName('newAskContent').value = "";
+        props.doClose();
         console.log("deleted!")
     };
 
     // write data -> userId + currDate
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
-    let isModalOpen = (!isEdit && !isDelete);
     return (
         <>
-           {isModalOpen &&
+           
                 <Modal  open={props.isOpen} className="Modal">
                     <Box className="Modal__content">
                         {/* Modal 창 제목 */}
@@ -189,7 +197,7 @@ function AskWriteModal_(props){
                             InputProps={{ disableUnderline: true }}
                             fullWidth
                             fontSize="large"
-                            onChange={(e) => {eventCheck(e.target.value);}}
+                            name='newAskTitle'
                         />
                         <div className="BQ-blank-for-askContent"></div>
 
@@ -200,11 +208,12 @@ function AskWriteModal_(props){
                                     variant="standard" 
                                     row = {14}
                                     InputProps={{ disableUnderline: true }}
-                                    onChange={(e) => {eventCheck(e.target.value);}}/>
+                                    name='newAskContent'
+                                    />
                         </Typography>
                     </Box>
                 </Modal>
-            }
+            
         </>
     );
 }
