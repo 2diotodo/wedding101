@@ -3,7 +3,7 @@ import './BoardQuestionModal.css';
 import React, { useState } from 'react';
 import usePagination from '../../utils/Pagination';
 import sampleTable from '../../test/testContact.json';
-
+import { useNavigate } from 'react-router';
 import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
@@ -167,9 +167,7 @@ function AskWriteModal_(props){
                     <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
                     <div className='Division_Line'></div>
                     {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
-                    <TextField label="제목 입력 : " multiline variant="standard" onChange={
-                        (e) => {eventCheck(e.target.value);}
-                    }/>
+                    <TextField label="제목 입력 : " multiline variant="standard"/>
                     <div className="BQ-blank-for-askContent"></div>
                     <TextField  id="filled-multiline-static" 
                                 label="내용 입력 : " 

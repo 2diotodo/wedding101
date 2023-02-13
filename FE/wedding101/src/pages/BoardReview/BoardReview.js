@@ -131,6 +131,7 @@ function ReviewWriteModal(props){
     console.log(props);
     console.log(userId);
     console.log(currDate);
+    const navigate = useNavigate();
 
     const reviewCancel = () => {
         let cancelSelect = window.confirm("작성중이던 글을 지웁니다.");
