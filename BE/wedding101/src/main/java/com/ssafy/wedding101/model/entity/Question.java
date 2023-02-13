@@ -28,8 +28,6 @@ public class Question {
     private String questionTitle;
     @Column(name = "question_content")
     private String questionContent;
-    @Column(name = "question_title")
-    private String questionTitle;
     @Column(name = "created_at")
     private String createdAt;
     @Column(name = "updated_at")
