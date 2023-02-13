@@ -39,9 +39,24 @@ function Title(props) {
 }
 
 function BriefInfo(props) {
+  console.log(props);
+
+  const date = new Date(props.datetime);
+  let dateFormat =
+    date.getFullYear() +
+    "년 " +
+    (date.getMonth() + 1) +
+    "월 " +
+    date.getDate() +
+    "일, " +
+    date.getHours() +
+    "시 " +
+    date.getMinutes() +
+    "분";
+
   return (
     <div className="briefInfo">
-      {props.datetime}
+      {dateFormat}
       <br />
       {props.place}
     </div>
