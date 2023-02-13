@@ -25,6 +25,7 @@ public interface QuestionService {
                 .questionSeq(questinoDto.getQuestionSeq())
                 .questionTitle(questinoDto.getQuestionTitle())
                 .questionContent(questinoDto.getQuestionContent())
+                .isValid(true)
                 .build();
     }
 

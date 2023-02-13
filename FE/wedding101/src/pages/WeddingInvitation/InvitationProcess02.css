@@ -7,6 +7,7 @@
 }
 .inner-content {
     display: flex;
+    flex-direction: row;
 }
 .invitation-item{
     margin: 1px;
@@ -25,4 +26,8 @@
     display: inline;
     float: right;
     margin: 5px;
+}
+.input-container{
+    display:flex;
+    flex-direction: column;
 }
