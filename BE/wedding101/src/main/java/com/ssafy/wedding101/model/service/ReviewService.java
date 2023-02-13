@@ -19,6 +19,8 @@ public interface ReviewService {
 
     void writeReview(ReviewDto reviewDto);
 
+    boolean duplicateReview(Long albumSeq);
+
     void removeReview(Long reviewSeq);
 
     void modifyReview(ReviewDto reviewDto);
@@ -27,12 +29,12 @@ public interface ReviewService {
         return ReviewDto.builder()
                 .reviewSeq(review.getReviewSeq())
                 .albumSeq(review.getAlbum().getAlbumSeq())
-//                .userId(user.getUserId())
                 .reviewTitle(review.getReviewTitle())
                 .reviewRate(review.getReviewRate())
                 .reviewContent(review.getReviewContent())
                 .createdAt(review.getCreatedAt())
                 .updatedAt(review.getUpdatedAt())
+                .isVaild(review.isValid())
                 .build();
     }
 
@@ -45,4 +47,5 @@ public interface ReviewService {
                 .isValid(true)
                 .build();
     }
+
 }

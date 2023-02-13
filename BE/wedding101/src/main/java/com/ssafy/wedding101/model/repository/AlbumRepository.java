@@ -23,11 +23,11 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
             "from tbl_album where info_seq = :infoSeq and is_valid = true")
     Optional<Album> findByInfoSeq(@Param("infoSeq") Long infoSeq);
 
-    @Query(nativeQuery = true, value = "select count(a.user_seq)" +
+    @Query(nativeQuery = true, value = "select count(a.user_seq) " +
             "from tbl_album a where a.user_seq = :userSeq and a.is_valid = true")
     Object existsByUserSeq(@Param("userSeq") Long userSeq);
 
-    @Query(nativeQuery = true, value = "select count(a.album_access_id)" +
+    @Query(nativeQuery = true, value = "select count(a.album_access_id) " +
             "from tbl_album a where a.album_access_id = :accessId and is_valid = true")
     Object existsByAccessId(@Param("accessId") String accessId);
 
