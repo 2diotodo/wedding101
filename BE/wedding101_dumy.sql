@@ -1,14 +1,14 @@
 USE wedding101_db;
 
 INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_email) VALUES
-("dudwls624", "1234", "kwj", "dhiekd", "dudwls624@naver.com"),
-("rla0347", "1234", "kjh", "sddlkjd", "rla0347@naver.com");
+("dudwls624", "1234", "영진", "신부", "dudwls624@naver.com"),
+	("rla0347", "1234", "성환", "신랑", "rla0347@naver.com");
 
 SELECT * FROM tbl_user;
 
 insert into tbl_info (user_seq, wedding_day, wedding_hall_name, groom_name, bride_name, groom_phone_number, bride_phone_number) values
 (1, now(), "theariel", "lsh", "kwj", "010-0000-0000", "010-1111-1111"),
-(2, now(), "weston", "kwg", "kjh", "010-1234-1234", "010-9999-1111");
+	(2, now(), "weston", "kwg", "kjh", "010-1234-1234", "010-9999-1111");
 
 select * From tbl_info;
 
@@ -34,11 +34,12 @@ select * from tbl_media;
 select * from tbl_template;
 insert into tbl_template (template_title, template_header, template_footer, template_etc) values
 ("기본템플릿", "초대합니다", "감사합니다", "돈많이주세요"),
-("추가템플릿", "저희 결혼해요", "너무너무 감사합니다", "뷔페에 스테이크나옴");
+	("추가템플릿", "저희 결혼해요", "너무너무 감사합니다", "뷔페에 스테이크나옴");
 
 select * from tbl_invitation;
 insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2) values
 (1, 1, 1, "photourl1", "photourl2");
 insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2, template_header, template_etc) values
 (2, 2, 2, "photourl1", "photourl2", "저희 드디어 결혼합니다", "뷔페에 킹크랩나옴");
+
 

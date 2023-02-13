@@ -21,6 +21,4 @@ public class MediaDto {
     private String mediaReceiver;
     private boolean isWish;
     private boolean isInBin;
-    private String createdAt;
-    private String updatedAt;
 }

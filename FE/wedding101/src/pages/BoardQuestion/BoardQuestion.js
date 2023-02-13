@@ -6,46 +6,41 @@ import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import sampleTable from '../../test/testContact.json';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
-         TableCell, Pagination, Box, Modal, Typography} from '@mui/material';
+         TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
+import { func } from 'prop-types';
+
+function ModalSubTitle_(props){
+    return (
+        <div className="Modal_SubTitle">
+            <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
+            <div className="Modal_SubTitle_date">작성일: {props.date}</div>
+        </div>
+    );
+}
 
 function AskModal_(props){
-
-    function ModalSubTitle1_(props){
-        return (
-            <div className="Modal_SubTitle">
-                <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
-                <div className="Modal_SubTitle_date">작성일: {props.date}</div>
-            </div>
-        );
-    }
-
-    function ModalSubTitle2_(props){
-        return (
-            <div className="Modal_SubTitle">
-                <div className="Modal_SubTitle_writer">작성자: {props.writer}</div>
-                <div className="Modal_SubTitle_date">작성일: {props.date}</div>
-            </div>
-        );
-    }
-
     return (
         <Modal  open={props.isOpen} 
-                onClose={props.doClose}
+                onClose={props.doClose} 
                 className="Modal">
             <Box className="Modal__content">
-                <Typography id="Modal__header">{props.title}</Typography>
-                    <Typography id="Modal__body">
-                        <ModalSubTitle1_ writer={props.writer} date={props.askDate}/>
-                        <div className='Division_Line'></div>
-                        {props.content}
-                    </Typography>
+                {/* Modal 창 제목 */}
+                <Typography component="div" id="Modal__header">{props.title}</Typography>
+                
+                {/* Modal 창 유저 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    <ModalSubTitle_ writer={props.writer} date={props.askDate}></ModalSubTitle_>
+                    <div className='Division_Line'></div>
+                    {props.content}
+                </Typography>
 
-                    <Typography id="Modal__body">
-                        <ModalSubTitle2_ writer="관리자" date={props.ansDate}/>
-                        <div className='Division_Line'></div>
-                        잘지냈지 넌 잘 지냈어?
-                    </Typography>
+                {/* Modal 창 관리자 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    <ModalSubTitle_ writer="관리자" date={props.ansDate}></ModalSubTitle_>
+                    <div className='Division_Line'></div>
+                    잘지냈지 넌 잘 지냈어?
+                </Typography>
             </Box>
         </Modal>
     );
@@ -56,35 +51,35 @@ function AskTableItem_({arg}){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const {askSeq, albumSeq, askTitle,  askContent, writer, createdAt, updatedAt, isValid} = arg;
+    const {questionSeq, userSeq, questionTitle, questionContent, userId, createdAt, updatedAt, isValid} = arg;
     const createdDate = createdAt.split(" ")[0];
     const updatedDate = updatedAt.split(" ")[0];
-    const modalData = [open, handleClose, askTitle, askContent];
     
     return(
       <>
-        <TableRow   key={askSeq}
+        <TableRow   key={questionSeq}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-          <TableCell component="th" scope="row">{askSeq}</TableCell>
-          <TableCell align="center" onClick={handleOpen}>{askTitle}</TableCell>
-          <TableCell align="center" >{writer}</TableCell>
-          <TableCell align="right" >{createdDate}</TableCell>
+            <TableCell component="th" scope="row">{questionSeq}</TableCell>
+            <TableCell align="center" onClick={handleOpen}>{questionTitle}</TableCell>
+            <TableCell align="center" >{userId}</TableCell>
+            <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
+
         <AskModal_  isOpen={open} 
                     doClose={handleClose} 
-                    title={askTitle} 
-                    content={askContent}
-                    writer={writer}
+                    title={questionTitle} 
+                    content={questionContent}
+                    writer={userId}
                     askDate={createdDate}
                     ansDate={updatedDate} ////<- ans date 정보가 필요
-                    className="style"/>
+                    className="BQ-style"/>
       </>
     );
 }
 
 function Navbar_(props) {
     return(
-        <div className="navbar">
+        <div className="BQ-navbar">
             <h1>{props.pageTitle}</h1>
         </div>
     );
@@ -109,15 +104,84 @@ function AskTable_(props){
             <Table sx={{ minWidth: 550 }} aria-label="simple table">
             {/* <TableHead_ /> */}
             <TableBody>
-                {props.data.currentData().map( item => (
-                    <AskTableItem_ arg={item} key={item.askSeq}/>
-                ))}
+                {props.data.currentData().map( 
+                    item => (<AskTableItem_ arg={item} key={item.askSeq}/>)
+                )}
             </TableBody>
             </Table>
         </TableContainer>
     );
 }
 
+function getCurrentDate(){
+    const today = new Date();   
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
+
+    var dateString = year + '-' + month  + '-' + day;
+    return dateString;
+}
+
+function AskWriteModal_(props){
+    const userId = sessionStorage.getItem('userId');
+    const currDate = getCurrentDate();
+    console.log(userId);
+    console.log(currDate);
+    return (
+        <Modal  open={props.isOpen} 
+                onClose={props.doClose} 
+                className="Modal">
+            <Box className="Modal__content">
+                {/* Modal 창 제목 */}
+                <Typography component="div" id="Modal__header">문의 작성하기</Typography>
+                
+                {/* Modal 창 유저 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    {/* props로 받아온 유저 닉네임 넣기 */}
+                    <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
+                    <div className='Division_Line'></div>
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    {/* <TextField className='newQuestionContent' onChange=/> */}
+                </Typography>
+            </Box>
+        </Modal>
+    );
+}
+
+function AskButton_(){
+    // ask modal
+    const [askModalOpen, setAskModalOpen] = useState(false);
+    const openAskModal = () => { setAskModalOpen(true); };
+    const closeAskModal = () => { setAskModalOpen(false); };
+
+    // ask Modal
+    function loginCheckHandler(){
+        const isLogin = sessionStorage.getItem('isLogin')
+        if (isLogin == 'false'){
+            alert("로그인을 먼저 해주세요");
+        }
+        else{
+            // Modal 창 띄우기
+            openAskModal(); // 창 열림 설정
+        }
+    }
+    return(
+        <>
+            <Button className="BQ-register_btn"
+                    color="primary" 
+                    variant="contained" 
+                    startIcon="✏️"
+                    size="small"
+                    onClick={loginCheckHandler}>문의 등록</Button>
+
+            <AskWriteModal_ 
+                isOpen={askModalOpen} 
+                doClose={closeAskModal} 
+                className="BQ-style"/>
+        </>
+    );
+}
 
 function BoardQuestion() {
     const [ page, setPage ] = useState(1);
@@ -126,26 +190,27 @@ function BoardQuestion() {
 
     // pagination
     const PER_PAGE = 8;
-    
     const count = Math.ceil(askItem.length / PER_PAGE);
     const askData = usePagination(askItem, PER_PAGE);
-
     const pageHandler = (e,p) => {
         setPage(p);
         askData.jump(p);
     };
 
     return (
-        <div className='board-ask'>
+        <div className='BQ-board-ask'>
             <Grid2 container spacing={2}>
                 <Grid2 lg={3} sm={3}>
-                    <Navbar_ pageTitle="Contact Us"/>
+                    <Navbar_ pageTitle="Contact ✍🏻"/>
                 </Grid2>
-                <Grid2 lg={9} sm={9}>
+                <Grid2 lg={9} sm={10} id="BQ-grid-align">
                     <div className='review-items'>
                         <AskTable_ data={askData}/>
                     </div>
-                    <div className='pagination'>
+                    <div className='BQ-button-style'>
+                        <AskButton_ />
+                    </div>
+                    <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
                     </div>
                 </Grid2>
