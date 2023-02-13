@@ -153,7 +153,11 @@ function AskWriteModal_(props){
 
     // write data -> userId + currDate
     const userId = sessionStorage.getItem('userId');
+    const userNickname = sessionStorage.getItem('userNickname');
     const currDate = getCurrentDate();
+    console.log(userId);
+    console.log(userNickname);
+    console.log(currDate);
     return (
             <Modal  open={props.isOpen} className="Modal">
                 <Box className="Modal__content">
@@ -179,7 +183,7 @@ function AskWriteModal_(props){
                                 justifyContent: 'left', marginLeft: '1.5%'},}}>
                         
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
+                    <ModalSubTitle_ writer={userNickname} date={currDate}></ModalSubTitle_> 
                     
                     {/* 구분선 */}
                     <div className='BQ-Division-Line'></div>
