@@ -75,5 +75,18 @@ public class UserServiceImpl implements UserService {
         return Optional.ofNullable(toDto(userRepository.findByUserEmail(userEmail).orElseThrow()));
     }
 
+    @Override
+    public String getRefreshToken(String userId) {
+
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void modifyUserRefreshToken(String userId, String refreshToken) {
+        User user = userRepository.findByUserId(userId).orElseThrow();
+        user.updateRefreshToken(refreshToken);
+    }
+
 
 }
