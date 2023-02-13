@@ -40,3 +40,15 @@
 #BQ-grid-align{
     margin-top: 6%;
 }
+
+.BQ-newQuestionContent{
+    width: 100%;
+    height: 100%;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.BQ-blank-for-askContent{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}

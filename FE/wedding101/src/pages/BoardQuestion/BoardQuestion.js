@@ -8,6 +8,7 @@ import sampleTable from '../../test/testContact.json';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
+import TextField from '@mui/material/TextField';
 import { func } from 'prop-types';
 
 function ModalSubTitle_(props){
@@ -105,7 +106,7 @@ function AskTable_(props){
             {/* <TableHead_ /> */}
             <TableBody>
                 {props.data.currentData().map( 
-                    item => (<AskTableItem_ arg={item} key={item.askSeq}/>)
+                    item => (<AskTableItem_ arg={item} key={item.questionSeq}/>)
                 )}
             </TableBody>
             </Table>
@@ -123,6 +124,10 @@ function getCurrentDate(){
     return dateString;
 }
 
+function eventCheck(value){
+    console.log(value);
+}
+
 function AskWriteModal_(props){
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
@@ -137,12 +142,21 @@ function AskWriteModal_(props){
                 <Typography component="div" id="Modal__header">문의 작성하기</Typography>
                 
                 {/* Modal 창 유저 글 작성 */}
-                <Typography  component="div" id="Modal__body">
+                <Typography  component="div" id="Modal__body" sx={{'& .MuiTextField-root': { width: '100%' },}}>
                     {/* props로 받아온 유저 닉네임 넣기 */}
                     <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
                     <div className='Division_Line'></div>
                     {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
-                    {/* <TextField className='newQuestionContent' onChange=/> */}
+                    <TextField label="제목 입력 : " multiline variant="standard" onChange={
+                        (e) => {eventCheck(e.target.value);}
+                    }/>
+                    <div className="BQ-blank-for-askContent"></div>
+                    <TextField  id="filled-multiline-static" 
+                                label="내용 입력 : " 
+                                multiline 
+                                variant="standard" 
+                                row = {14}
+                                onChange={(e) => {eventCheck(e.target.value);}}/>
                 </Typography>
             </Box>
         </Modal>
