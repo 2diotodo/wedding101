@@ -47,9 +47,9 @@ const InvitationShared = () => {
   });
 
   const [invitationData, setInvitationData] = useState({
-    templateHeader: "초대합니다",
-    templateFooter: "감사합니다",
-    templateEtc: "돈많이주세요",
+    templateHeader: "두 사람이 하나가 될 인생을 시작합니다.",
+    templateFooter: "부디 걸음하시어 축복하여 주시면",
+    templateEtc: "더없는 기쁨이 되겠습니다.",
   });
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const InvitationShared = () => {
   }, []);
 
   return (
-    <div className="invitationForm">
+    <div className="invitationShared">
       <InvitationForm
         weddingInfoData={weddingInfoData}
         invitationData={invitationData}
