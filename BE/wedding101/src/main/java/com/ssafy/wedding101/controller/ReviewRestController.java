@@ -32,15 +32,23 @@ public class ReviewRestController {
         Map<String, Object> result = new HashMap<>();
         //토큰에서 가져오기
 //        Long userSeq =
-        Long userSeq = userService.getUser(reviewDto.getUserId()).orElseThrow().getUserSeq();
+        Long userSeq = 1L;
         // reviewDto.setUserId();
         try {
-            reviewService.writeReview(reviewDto);
-            ReviewDto newReviewDto = reviewService.getReviewByUserSeq(userSeq)
-                    .orElseThrow(() -> new NoSuchElementException("리뷰 등록 FAIL"));
-            result.put("data", newReviewDto);
-            result.put("messsage", "리뷰 등록 SUCCESS");
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            if(!reviewService.duplicateReview(reviewDto.getAlbumSeq())) {
+                // 해당 앨범 Seq로 리뷰작성 불가능, 회원 당 앨범은 1개 -> 앨범 seq만 확인하면 됨
+                result.put("message", "이미 리뷰를 작성했습니다. 수정 또는 삭제 후 재작성 해주세요.");
+                return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
+            } else {
+                reviewService.writeReview(reviewDto);
+                ReviewDto newReviewDto = reviewService.getReviewByUserSeq(userSeq)
+                        .orElseThrow(() -> new NoSuchElementException("리뷰 등록 FAIL"));
+                newReviewDto.setUserId(userService.getUser(userSeq).orElseThrow().getUserId());
+                result.put("data", newReviewDto);
+                result.put("messsage", "리뷰 등록 SUCCESS");
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
+
         } catch (NoSuchElementException e) {
             result.put("message", "리뷰 등록 FAIL");
             return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
@@ -58,7 +66,7 @@ public class ReviewRestController {
             Long albumSeq = temp.getAlbumSeq();
             temp.setUserId(userService.getUser(albumService.getAlbum(albumSeq).orElseThrow().getUserSeq()).orElseThrow().getUserId());
             //2. 토큰에서 userSeq가져오면
-            //temp.setUserId(userService.getUser(userSeq).orElseThrow().getUserId()); 
+            //temp.setUserId(userService.getUser(userSeq).orElseThrow().getUserId());
             reviewList.set(i, temp);
         } // userId 넣는 과정 필요없으면 지워도됨 -> 리뷰목록에서 
         result.put("data", reviewList); // 전체 리뷰 목록
@@ -75,7 +83,10 @@ public class ReviewRestController {
             //1.
             reviewDto.setUserId(userService.getUser(albumService.getAlbum(reviewDto.getAlbumSeq()).orElseThrow().getUserSeq()).orElseThrow().getUserId());
             //2. 토큰에서 가져와서넣던가
-            
+            if(!reviewDto.isVaild()) {
+                result.put("message", "리뷰 시퀀스에 해당하는 리뷰가 없습니다.");
+                return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
+            }
             result.put("data", reviewDto);
             result.put("message", "리뷰 조회 SUCCESS");
             return new ResponseEntity<>(result, HttpStatus.OK);

@@ -6,6 +6,8 @@ INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_emai
 
 SELECT * FROM tbl_user;
 
+
+
 insert into tbl_info (user_seq, wedding_day, wedding_hall_name, groom_name, bride_name, groom_phone_number, bride_phone_number) values
 (1, now(), "theariel", "lsh", "kwj", "010-0000-0000", "010-1111-1111"),
 	(2, now(), "weston", "kwg", "kjh", "010-1234-1234", "010-9999-1111");
@@ -19,6 +21,8 @@ select * from tbl_album;
 
 -- relation_list = ['', 'family', 'relatives', 'friend', 'colleague', 'acquaintance']
 -- receiver_list = ['', 'G', 'B']
+select * from tbl_media where album_seq = 1 order by updated_at desc limit 1;
+select * from tbl_media;
 insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation) values
 (1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/76afe67e-5b83-45c3-b0d2-49febd48c378.mp4", "https://picsum.photos/200", "kny", "friend"),
 (1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend"),
@@ -26,7 +30,9 @@ insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_rel
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "dhl", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "hihi", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "meme", "acquaintance"),
-(1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "mymy", "colleague"),
+(1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "mymy", "colleague");
+
+insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation) values
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "mine", "relatives");
 
 select * from tbl_media;
@@ -43,3 +49,9 @@ insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_
 (2, 2, 2, "photourl1", "photourl2", "저희 드디어 결혼합니다", "뷔페에 킹크랩나옴");
 
 
+select * from tbl_question;
+select * from tbl_question where user_seq = 2 and is_valid = true order by updated_at desc limit 1;
+
+select * from tbl_review where is_valid = true;
+
+select * from tbl_review where album_seq = 1 and is_valid = true;
