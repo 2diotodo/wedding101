@@ -1,6 +1,6 @@
 import './BoardQuestion.css';
 import './BoardQuestionModal.css';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import usePagination from '../../utils/Pagination';
 import sampleTable from '../../test/testContact.json';
 
@@ -132,28 +132,29 @@ function getCurrentDate(){
     return dateString;
 }
 
-function eventCheck(value){
-    console.log(value);
-}
-
 function AskWriteModal_(props){
-    // edit btn -> toggle role for Modal
-    const [isEdit, setIsEdit] = useState(false);
-    const [isDelete, setIsDelete] = useState(false);
     const doEdit = () => {
-        setIsEdit(true);
-        alert("해당 게시글이 등록 되었습니다");
+        const askTitle = document.getElementById('askTitle').value;
+        const askContent = document.getElementById('filled-multiline-static').value;
+        console.log(askTitle);
+        console.log(askContent);
         console.log("edited!");
+        alert("해당 게시글이 등록 되었습니다");
         props.doClose();
     };
     
     const doCancel = () => {
-        setIsDelete(true);
         alert("게시글 작성이 취소 되었습니다");
+        document.getElementById('askTitle').value = "";
+        document.getElementById('filled-multiline-static').value  = "";
+        const askTitle = document.getElementById('askTitle').value;
+        const askContent = document.getElementById('filled-multiline-static').value;
+        console.log(askTitle);
+        console.log(askContent);
         console.log("canceled!");
         props.doClose();
     };
-
+    
     // write data -> userId + currDate
     const userId = sessionStorage.getItem('userId');
     const userNickname = sessionStorage.getItem('userNickname');
@@ -192,23 +193,22 @@ function AskWriteModal_(props){
                     <div className='BQ-Division-Line'></div>
                     
                     {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
-                    <TextField label="제목 : " 
-                        variant="standard" 
-                        InputProps={{ disableUnderline: true }}
-                        fullWidth
-                        fontSize="large"
-                        // onChange={(e) => {eventCheck(e.target.value);}}
+                    <TextField  id = "askTitle" 
+                                label="제목 : " 
+                                InputProps={{ disableUnderline: true }}
+                                fullWidth
+                                variant="standard" 
+                                fontSize="large"
                     />
                     <div className="BQ-blank-for-askContent"></div>
 
                     <TextField  id="filled-multiline-static" 
                                 label="내용 : " 
-                                fullWidth
-                                multiline 
-                                variant="standard" 
-                                row = {14}
                                 InputProps={{ disableUnderline: true }}
-                                // onChange={(e) => {eventCheck(e.target.value);}}
+                                fullWidth
+                                variant="standard" 
+                                multiline 
+                                row = {14}
                     />
                     </Typography>
                 </Box>
