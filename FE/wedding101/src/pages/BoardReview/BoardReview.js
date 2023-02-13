@@ -136,24 +136,36 @@ function ReviewWriteModal(props){
     const reviewCancel = () => {
         let cancelSelect = window.confirm("작성중이던 글을 지웁니다.");
         if (cancelSelect){
-            document.getElementById('newReviewTitle').value = "";
-            document.getElementById('newReviewContent').value = "";
+            document.getElementsByName('newReviewTitle')[0].value = "";
+            document.getElementsByName('newReviewContent')[0].value = "";
             props.doClose();
         }
         else return;
     }
 
     const reviewSubmit = () => {
-        const reviewTitle = document.getElementById('newReviewTitle').value;
-        const reviewContent = document.getElementById('newReviewContent').value;
-        console.log(reviewTitle)
-        console.log(reviewContent)
+        const reviewTitle = document.getElementsByName('newReviewTitle')[0].value;
+        const reviewContent = document.getElementsByName('newReviewContent')[0].value;
+        console.log(reviewTitle);
+        console.log(reviewContent);
         if (!reviewTitle || !reviewContent){
             alert('제목이나 내용이 비어있습니다.');
             return;
         }
 
-        axios.post(`http://i8a101.p.ssafy.io:8085/Info`, {
+        const getRes = axios
+            .get(`http://i8a101.p.ssafy.io:8085/review/all`)
+            .then((res) => {console.log(res)});
+
+        axios.post(`http://i8a101.p.ssafy.io:8085/review`, {
+            albumSeq : 0,
+            createdAt : currDate,
+            reviewContent : reviewContent,
+            reviewRate : 0,
+            reviewSeq : 1,
+            reviewTitle : reviewTitle,
+            updatedAt : "string",
+            userId : userId
         }).then(function (response) {
             console.log(response);
             console.log(response.data.message);
@@ -189,19 +201,37 @@ function ReviewWriteModal(props){
                     </IconButton>
                 </div>
                 {/* Modal 창 유저 글 작성 */}
-                <Typography  component="div" id="Modal__body" sx={{'& .MuiTextField-root': {  width: '100%' },}}>
+                <Typography  
+                    component="div" 
+                    id="Modal__body" 
+                    sx={{'& .MuiTextField-root': { 
+                        display: 'flex', flexDirection: 'row',
+                        justifyContent: 'left', marginLeft: '1.5%'},}}>
+                    
                     {/* props로 받아온 유저 닉네임 넣기 */}
                     <ModalSubTitle writer={userId} date={currDate}></ModalSubTitle> 
-                    <div className='Division_Line'></div>
-                    <div className='newReviewWrapper'>
-                        <TextField id='newReviewTitle' placeholder='제목:' variant='standard'/>
-                        <TextField
-                            id='newReviewContent'
-                            label="내용"
-                            variant='standard'
-                            multiline
-                            rows={14}/>
-                    </div>
+                
+                    {/* 구분선 */}
+                    <div className='BQ-Division-Line'></div>
+                
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    <TextField label="제목 : " 
+                        variant="standard" 
+                        InputProps={{ disableUnderline: true }}
+                        fullWidth
+                        fontSize="large"
+                        name='newReviewTitle'
+                    />
+                    <div className="BQ-blank-for-askContent"></div>
+                    <TextField  id="filled-multiline-static" 
+                        label="내용 : " 
+                        fullWidth
+                        multiline 
+                        variant="standard" 
+                        row = {14}
+                        InputProps={{ disableUnderline: true }}
+                        name='newReviewContent'
+                    />
                 </Typography>
                 
             </Box>
