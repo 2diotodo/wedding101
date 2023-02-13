@@ -69,7 +69,11 @@ public class QuestionRestController {
     @Operation(summary = "문의 삭제")
     @PutMapping("/{questionSeq}")
     public ResponseEntity<?> deleteQuestion(@PathVariable Long questionSeq) {
-        questionService.removeQuestion(questionSeq);
-        return new ResponseEntity<>("회원 탈퇴 SUCCESS", HttpStatus.OK);
+        try {
+            questionService.removeQuestion(questionSeq);
+            return new ResponseEntity<>("문의 삭제 SUCCESS", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("문의 삭제 FAIL", HttpStatus.EXPECTATION_FAILED);
+        }
     }
 }
