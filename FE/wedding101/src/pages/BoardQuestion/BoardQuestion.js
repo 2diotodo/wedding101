@@ -71,14 +71,14 @@ function AskTableItem_({arg}){
                     writer={writer}
                     askDate={createdDate}
                     ansDate={updatedDate} ////<- ans date 정보가 필요
-                    className="style"/>
+                    className="BQ-style"/>
       </>
     );
 }
 
 function Navbar_(props) {
     return(
-        <div className="navbar">
+        <div className="BQ-navbar">
             <h1>{props.pageTitle}</h1>
         </div>
     );
@@ -143,7 +143,6 @@ function AskWriteModal_(props){
                     {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
                     {/* <TextField className='newQuestionContent' onChange=/> */}
                 </Typography>
-
             </Box>
         </Modal>
     );
@@ -168,7 +167,7 @@ function AskButton_(){
     }
     return(
         <>
-            <Button className="register_btn"
+            <Button className="BQ-register_btn"
                     color="primary" 
                     variant="contained" 
                     startIcon="✏️"
@@ -177,7 +176,7 @@ function AskButton_(){
             <AskWriteModal_ 
                 isOpen={askModalOpen} 
                 doClose={closeAskModal} 
-                className="style"/>
+                className="BQ-style"/>
         </>
     );
 }
@@ -197,19 +196,19 @@ function BoardQuestion() {
     };
 
     return (
-        <div className='board-ask'>
+        <div className='BQ-board-ask'>
             <Grid2 container spacing={2}>
                 <Grid2 lg={3} sm={3}>
                     <Navbar_ pageTitle="Contact ✍🏻"/>
                 </Grid2>
-                <Grid2 lg={9} sm={10}>
+                <Grid2 lg={9} sm={10} id="BQ-grid-align">
                     <div className='review-items'>
                         <AskTable_ data={askData}/>
                     </div>
-                    <div className='button-style'>
+                    <div className='BQ-button-style'>
                         <AskButton_ />
                     </div>
-                    <div className='pagination'>
+                    <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
                     </div>
                 </Grid2>

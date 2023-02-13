@@ -1,24 +1,16 @@
-.board-ask {
+.BQ-board-ask {
     background-color: #d2dae9;
     height: 100vh;
     padding: 10%;
 }
-tablebox {
-    justify-items: center;
-}
 
-.navbar {
+.BQ-navbar {
     display: inline;
     height: 100vh;
 }
 
-h1{
-    padding-left: 5%;
-    padding-top: 20%;
-}
-
-.style {
-    position: absolute;
+.BQ-style {
+    position: flex;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -28,23 +20,23 @@ h1{
     box-shadow: 24;
 };
 
-.register_btn{
+.BQ-register_btn{
     height: 90%;
     font-size: large;
     margin-top: 10%;
     justify-content: center;
 }
 
-.blank{
-    height: 1%;
-}
-
-.button-style{
+.BQ-button-style{
     float: right;
-    margin-top: 1%;
+    margin-top: 1.5%;
 }
     
-.pagination {
-    justify-items: center;
-    margin-top: 5%;
+.BQ-pagination {
+    margin-top: 1.5%;
+    justify-content: center;
+}
+
+#BQ-grid-align{
+    margin-top: 6%;
 }
