@@ -114,14 +114,14 @@ public class MediaRestController {
         }
     }
 
-    @Operation(summary = "미디어 북마크 삭제")
-    @GetMapping("/unwish/{mediaSeq}")
-    public ResponseEntity<?> unwishMedia(@PathVariable Long mediaSeq) {
-        try {
-            mediaService.unwish(mediaSeq);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-    }
+//    @Operation(summary = "미디어 북마크 삭제")
+//    @GetMapping("/unwish/{mediaSeq}")
+//    public ResponseEntity<?> unwishMedia(@PathVariable Long mediaSeq) {
+//        try {
+//            mediaService.wish(mediaSeq);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+//        }
+//    }
 }

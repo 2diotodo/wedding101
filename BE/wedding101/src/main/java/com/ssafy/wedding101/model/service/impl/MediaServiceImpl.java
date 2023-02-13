@@ -101,14 +101,14 @@ public class MediaServiceImpl implements MediaService {
     @Override
     public void wish(Long mediaSeq) {
         Media media = mediaRepository.findById(mediaSeq).orElseThrow();
-        media.wish();
+        media.wish(media.isWish());
     }
 
-    @Override
-    public void unwish(Long mediaSeq) {
-        Media media = mediaRepository.findById(mediaSeq).orElseThrow();
-        media.unwish();
-    }
+//    @Override
+//    public void unwish(Long mediaSeq) {
+//        Media media = mediaRepository.findById(mediaSeq).orElseThrow();
+//        media.unwish();
+//    }
 
     @Override
     public List<MediaDto> getmediaListInBin(Long albumSeq) {

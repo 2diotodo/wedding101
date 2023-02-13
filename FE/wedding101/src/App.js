@@ -20,7 +20,7 @@ import ServiceProcess03 from './pages/ServiceProcess/ServiceProcess03';
 import ServiceProcess04 from './pages/ServiceProcess/ServiceProcess04';
 import MainIndex from './pages/Main/MainIndex';
 import AlbumDeleted from './pages/Album/AlbumDeleted';
-import AlbumSelected from './pages/Album/AlbumSelected';
+import InvitationFrom from './components/WeddingInvitation/InvitationForm';
 
 function App() {
   return (
@@ -47,6 +47,7 @@ function App() {
       <Route exact path='/' element={<MainIndex />} />
       <Route path='/user/login' element={<UserLogin />} />
       <Route path='/user/signup' element={<UserRegist />} />
+      <Route path='/invitationSample' element={<InvitationFrom/>} />
     </Routes>
   );
 }

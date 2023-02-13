@@ -10,6 +10,7 @@ function Header() {
   const onLogout = () => {
     // sessionStorage에 userId로 저장되어 있는 아이템을 삭제
     sessionStorage.removeItem('userId');
+    sessionStorage.setItem('isLogin', false);
     // 메인으로 이동(새로고침)
     document.location.href = '/';
   };
@@ -22,6 +23,7 @@ function Header() {
       // 로그인 상태 변경
       setIsLogin(true);
       console.log('isLogin?? ::', isLogin);
+      sessionStorage.setItem('isLogin', true);
     };
     
   },

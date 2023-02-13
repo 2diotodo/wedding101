@@ -36,7 +36,7 @@ const InvitationProcess01 = () => {
                 </Grid2>
                 <Grid2 lg={9} sm={10}>
                     <div className='process-main'>
-                    <ProgressBar steps={0} />
+                    <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={0} />
                     <h2>모바일 청첩장 템플릿 선택하기</h2>
                     <Slider {...settings}>
                         <div className='invitation-item'>

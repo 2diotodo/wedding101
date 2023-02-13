@@ -33,13 +33,13 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Modifying
     @Query(nativeQuery = true, value = "update tbl_album " +
-            "set album_media_cnt = album_media_cnt - 1" +
+            "set album_media_cnt = album_media_cnt - 1 " +
             "where album_seq = :albumSeq")
     void minusOneMediaCnt(@Param("albumSeq") Long albumSeq);
 
     @Modifying
     @Query(nativeQuery = true, value = "update tbl_album " +
-            "set album_media_cnt = album_media_cnt + 1" +
+            "set album_media_cnt = album_media_cnt + 1 " +
             "where album_seq = :albumSeq")
     void plusOneMediaCnt(@Param("albumSeq") Long albumSeq);
 }

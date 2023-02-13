@@ -24,7 +24,7 @@ public interface MediaService {
 
     void wish(Long mediaSeq);
 
-    void unwish(Long mediaSeq);
+//    void unwish(Long mediaSeq);
 
     List<MediaDto> getmediaListInBin(Long albumSeq);
 
@@ -54,8 +54,6 @@ public interface MediaService {
                 .mediaReceiver(media.getMediaReceiver())
                 .isWish(media.isWish())
                 .isInBin(media.isInBin())
-                .createdAt(media.getCreatedAt())
-                .updatedAt(media.getUpdatedAt())
                 .build();
     }
 

@@ -52,11 +52,6 @@ public class Media {
     @Builder.Default
     private boolean isInBin = false;
 
-    @Column(name = "created_at")
-    private String createdAt;
-    @Column(name = "updated_at")
-    private String updatedAt;
-
     @Column(name = "is_valid", columnDefinition = "TINYINT")
     @Builder.Default
     private boolean isValid = true;
@@ -65,13 +60,13 @@ public class Media {
         this.album = album;
     }
 
-    public void wish() {
-        this.isWish = true;
+    public void wish(boolean now) {
+        this.isWish = !now;
     }
 
-    public void unwish() {
-        this.isWish = false;
-    }
+//    public void unwish() {
+//        this.isWish = false;
+//    }
 
     public void throwBin() {
         this.isInBin = true;

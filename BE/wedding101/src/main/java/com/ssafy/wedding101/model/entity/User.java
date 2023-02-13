@@ -46,6 +46,9 @@ public class User {
     @ColumnDefault("true")
     private boolean isValid;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
     public void updateUser(String userId, String userPassword, String userName, String userNickname, String userEmail){
         this.userId = userId;
         this.userPassword = userPassword;
@@ -56,6 +59,14 @@ public class User {
 
     public void updateIsValid() {
         this.isValid = false;
+    }
+
+    public String getRole() {
+        return "ROLE_USER";
+    }
+
+    public void updateRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
     }
 
 }

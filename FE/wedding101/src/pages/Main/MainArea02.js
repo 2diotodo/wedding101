@@ -32,7 +32,6 @@ const MainArea02 = () => {
             <div className='title_explain'>
               <div className='title' id='title_p2_01'>Mobile Invitation</div>
               <div className='explainText' id='explain_p2_01'>
-                설명 설명<br></br>
                 Memory Forever
               </div>
             </div>
