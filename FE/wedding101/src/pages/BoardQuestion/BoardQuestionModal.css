@@ -27,12 +27,11 @@
 /* Modal header */
 #Modal__header {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
+  /* justify-content: space-between; */
+  margin-top: 2%;
+  margin-bottom: 1%;
   border-bottom: 1px solid rgba(170, 170, 170, 0.5);
-  color: rgba(0, 0, 0, 0.90);
+  color: rgba(0, 0, 0, 0.80);
   font-size: larger;
   font-weight: bold;
   margin-left: 1.5%;
@@ -43,23 +42,17 @@
 .Modal_SubTitle{
   display: flex;
   justify-content: space-between;
+  margin-top: 1%;
 }
 
 .Modal_SubTitle_writer{
-  font-size: small;
+  font-size: medium;
   margin-left: 1.5%;
 }
 
 .Modal_SubTitle_date{
-  font-size: small;
+  font-size: medium;
   margin-right: 1.5%;
-}
-
-/* 구분선  */
-.Division_Line{
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 2%;
-  margin-bottom: 2%;
 }
 
 #Modal__title {
