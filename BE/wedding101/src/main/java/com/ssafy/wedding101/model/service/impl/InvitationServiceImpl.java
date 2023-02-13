@@ -41,7 +41,7 @@ public class InvitationServiceImpl implements InvitationService {
     @Override
     public void modifyInvitation(InvitationDto invitationDto) {
         Invitation invitation = invitationRepository.findById(invitationDto.getInvitationSeq()).orElseThrow();
-        invitation.update(invitationDto.getTempateSeq(), invitationDto.getPhotoUrl1(), invitationDto.getPhotoUrl2(),
+        invitation.update( invitationDto.getPhotoUrl1(), invitationDto.getPhotoUrl2(),
                 invitationDto.getTemplateHeader(), invitationDto.getTemplateFooter(), invitationDto.getTemplateEtc());
     }
 }
