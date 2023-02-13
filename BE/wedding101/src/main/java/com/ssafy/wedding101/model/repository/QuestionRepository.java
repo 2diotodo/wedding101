@@ -13,8 +13,7 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query(nativeQuery = true, value =  "select * from tbl_question " +
-            "where user_seq = :userSeq and is_valid = true " +
-            "order by desc limit 1")
+            "where user_seq = :userSeq and is_valid = true ")
     Optional<Question> findByUserSeq(@Param("userSeq") Long userSeq);
 
     @Modifying

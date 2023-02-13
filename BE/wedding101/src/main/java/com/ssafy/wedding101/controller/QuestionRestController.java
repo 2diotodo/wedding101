@@ -29,7 +29,7 @@ public class QuestionRestController {
 
         try {
             questionService.writeQuestion(questionDto);
-            QuestionDto newQuestionDto = questionService.getQuestionByUserSeq(questionDto.getUserSeq())
+            QuestionDto newQuestionDto = questionService.getQuestionByUserSeq(userSeq)
                     .orElseThrow(() -> new NoSuchElementException("문의 등록 실패"));
             result.put("data", newQuestionDto);
             result.put("messsage", "문의 등록 SUCCESS");
