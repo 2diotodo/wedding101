@@ -49,10 +49,10 @@ const AlbumDeleted = () => {
     setBinMedia(optoins[orderBy]);
   };
 
-  // Album Deleted로 이동
+  // Album list로 이동
   const navigate = useNavigate();
-  const onMoveToDeletedHandler = () => {
-    navigate('/album/deleted');
+  const onMoveToListHandler = () => {
+    navigate('/album/list');
   };
 
   // pagination
@@ -87,12 +87,10 @@ const AlbumDeleted = () => {
               <MenuItem value={'mediaName'}>이름</MenuItem>
             </Select>
           </FormControl>
-          <br />
-          <Button>정렬</Button>
-          <br />
+
 
           <div className='bin-icon'>
-            <DeleteIcon onClick={onMoveToDeletedHandler} />
+            <Button onClick={onMoveToListHandler} >목록으로</Button>
           </div>
         </Grid2>
         <Grid2 lg={9} sm={9} spacing={2}>

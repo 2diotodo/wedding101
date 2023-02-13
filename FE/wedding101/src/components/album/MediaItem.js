@@ -13,7 +13,6 @@ import {
 import { CameraAlt, Videocam, Star, StarBorder } from '@mui/icons-material';
 
 import axios from 'axios';
-import useConfirm from '../../modules/useConfirm';
 import MediaDialog from './MediaDialog';
 
 const style = {
@@ -28,7 +27,7 @@ const style = {
   p: 0,
 };
 
-const MediaItem = ({ media }) => {
+const MediaItem = ({ media, getAllMedia }) => {
   const {
     mediaSeq,
     albumSeq,
@@ -44,34 +43,28 @@ const MediaItem = ({ media }) => {
   } = media;
   const [like, setLike] = useState(wish);
   const [open, setOpen] = useState(false);
+  const [isBin, setIsBin] = useState(inBin);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const deleteConfirm = '삭제하시겠습니까?';
+  const deleteConfirm = (inBin===false) ? '삭제하시겠습니까?' : '복원하시겠습니까?';
+  
 
 
-
-  //   useEffect(async () => {
-  //     const fetchData = async () => {
-  //       const res = await axios.get({
-  //         url: "http://i8a101.p.ssafy.io:8085/media",
-  //         media,
-  //       })
-  //     if(res.data.type === 'liked') setLike(true);
-  //   }
-  //   fetchData()
-  // }, []);
+    useEffect( () => {
+      console.log(mediaSeq,wish);
+  }, []);
 
   const toggleLike = async (e) => {
-    setLike(!like);
-    const res = await axios.post({
-      url: `http://i8a101.p.ssafy.io:8085/media/wish/${mediaSeq}`,
-      data:{
-        'mediaSeq': mediaSeq,
-        'wish': like,
-      }
+    console.log('likebefore',like);
+    const res = await axios.get(`http://i8a101.p.ssafy.io:8085/media/wish/${mediaSeq}`,{
+      
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
+    setLike(!like);
+    getAllMedia();
+    console.log('likeafter',like);
+
   };
 
   return (

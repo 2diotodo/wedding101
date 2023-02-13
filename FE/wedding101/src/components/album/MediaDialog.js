@@ -18,12 +18,21 @@ const [isBin, setIsBin] = useState(media.inBin);
   const handleClose = () => {
     setOpen(false);
   };
-
   const binClickHandler = async () => {
-    console.log('binclick 들어오니');
+      console.log('delete',isBin);
     setIsBin(!isBin);
     console.log(media.mediaSeq);
-    await axios.post(`http://i8a101.p.ssafy.io:8085/media/delete/${media.mediaSeq}`,{
+    await axios.put(`http://i8a101.p.ssafy.io:8085/media/delete/${media.mediaSeq}`,{
+       mediaSeq: media.mediaSeq,
+    });
+    setOpen(false);
+  }
+
+  const restoreHandler = async () => {
+    console.log('restore',isBin);
+    setIsBin(!isBin);
+    console.log(media.mediaSeq);
+    await axios.put(`http://i8a101.p.ssafy.io:8085/media/restore/${media.mediaSeq}`,{
        mediaSeq: media.mediaSeq,
     });
     setOpen(false);
@@ -46,9 +55,13 @@ const [isBin, setIsBin] = useState(media.inBin);
 
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={binClickHandler} autoFocus>
+          {isBin===false ? (<Button onClick={binClickHandler} autoFocus>
             삭제
           </Button>
+          ) :(
+          <Button onClick={restoreHandler} autoFocus>
+            복원
+          </Button>)}
         </DialogActions>
       </Dialog>
     </div>

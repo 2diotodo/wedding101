@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router';
 import usePagination from '../../utils/Pagination';
 import axios from 'axios';
 
-const AlbumList = (props) => {
+const AlbumList = () => {
   const [page, setPage] = useState(1);
   // axios 통신으로 DB 데이터 가져오기 구현
   const [media, setMedia] = useState([]);
@@ -29,16 +29,10 @@ const AlbumList = (props) => {
         setMedia(res.data.data);
         console.log('setMedia 성공');
         console.log(media);
-        console.log('setMedia ', new Date(media[0].createdAt).getTime());
       })
       .catch((err) => {
         console.log('실패');
       });
-  }
-
-  // 북마크 목록불러오기
-  const resetFilterHandler = () => {
-    setMedia([...media].filter((item) => item.albumSeq===1))
   }
 
   // 북마크 목록불러오기
@@ -73,9 +67,7 @@ const AlbumList = (props) => {
   const onMoveToDeletedHandler = () => {
     navigate('/album/deleted');
   };
-  const onMoveToSelectedHandler = () => {
-    navigate('/album/wish');
-  };
+
 
   // pagination
   const PER_PAGE = 6;
@@ -88,8 +80,7 @@ const AlbumList = (props) => {
   };
 
   const sendRequestHandler = async () => {
-    await axios.post({
-      url: ``,
+    await axios.post(`...`,{
       data:{
         'mediaSeq': media.mediaSeq,
         'AlbumSeq': media.AlbumSeq,
@@ -154,7 +145,7 @@ const AlbumList = (props) => {
             )}
           </div>
           <div className='pagination'>
-            <Pagination count={count} page={page} onChange={pageHandler} />
+            <Pagination count={count} page={page} onChange={pageHandler} getAllMedia={getAllMedia}/>
           </div>
         </Grid2>
       </Grid2>
