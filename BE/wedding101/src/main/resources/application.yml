@@ -1,6 +1,7 @@
 # Spring boot server port set
 server:
   port: 9090
+  forward-headers-strategy: framework
 
 spring:
   # ?????? ?? - MySQL
@@ -37,21 +38,21 @@ spring:
 
 #spring.jpa.show-sql=true
 
-springdoc:
-  swagger-ui:
-    path: /swagger-ui/index.html
-    groups-order: desc
-    operations-sorter: method
-    disable-swagger-default-url: true
-    display-request-duration: true
-
-  api-docs:
-    path: /api-docs
-
-  show-actuator:  true
-  default-consumes-media-type: application/json
-  default-produces-media-type: application/json
-  paths-to-match: /**
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-ui/index.html
+#    groups-order: desc
+#    operations-sorter: method
+#    disable-swagger-default-url: true
+#    display-request-duration: true
+#
+#  api-docs:
+#    path: /api-docs
+#
+#  show-actuator:  true
+#  default-consumes-media-type: application/json
+#  default-produces-media-type: application/json
+#  paths-to-match: /**
 
 
 cloud:
