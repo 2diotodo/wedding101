@@ -8,6 +8,7 @@ import sampleTable from '../../test/testContact.json';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
+import { func } from 'prop-types';
 
 function ModalSubTitle_(props){
     return (
@@ -19,34 +20,6 @@ function ModalSubTitle_(props){
 }
 
 function AskModal_(props){
-    return (
-        
-        <Modal  open={props.isOpen} 
-                onClose={props.doClose} 
-                className="Modal">
-            <Box className="Modal__content">
-                {/* Modal 창 제목 */}
-                <Typography component="div" id="Modal__header">{props.title}</Typography>
-                
-                {/* Modal 창 유저 글 작성 */}
-                <Typography  component="div" id="Modal__body">
-                    <ModalSubTitle_ writer={props.writer} date={props.askDate}></ModalSubTitle_>
-                    <div className='Division_Line'></div>
-                    {props.content}
-                </Typography>
-
-                {/* Modal 창 관리자 글 작성 */}
-                <Typography  component="div" id="Modal__body">
-                    <ModalSubTitle_ writer="관리자" date={props.ansDate}></ModalSubTitle_>
-                    <div className='Division_Line'></div>
-                    잘지냈지 넌 잘 지냈어?
-                </Typography>
-            </Box>
-        </Modal>
-    );
-}
-
-function WriteModal_(props){
     return (
         
         <Modal  open={props.isOpen} 
@@ -151,6 +124,48 @@ function getCurrentDate(){
     return dateString;
 }
 
+function AskWriteModal_(props){
+    const userId = sessionStorage.getItem('userId');
+    const currDate = getCurrentDate();
+    console.log(props);
+    console.log(userId);
+    console.log(currDate);
+    return(
+        <Modal open={props.open} close={props.close}></Modal>
+    );
+}
+
+function AskButton_(props){
+    // ask modal
+    const [askModalOpen, setAskModalOpen] = useState(false);
+    const openAskModal = () => { setAskModalOpen(true); };
+    const closeAskModal = () => { setAskModalOpen(false); };
+
+    // ask Modal
+    function loginCheckHandler(){
+        const isLogin = sessionStorage.getItem('isLogin')
+        if (isLogin == 'false'){
+            alert("로그인을 먼저 해주세요");
+        }
+        else{
+            // Modal 창 띄우기
+            openAskModal(); // 창 열림 설정
+            return(
+                <AskWriteModal_ open={askModalOpen} close={closeAskModal}></AskWriteModal_>
+            );
+        }
+    }
+
+    return(
+        <Button className="register_btn"
+                color="primary" 
+                variant="contained" 
+                startIcon="✏️"
+                size="small"
+                onClick={loginCheckHandler}>문의 등록</Button>
+    );
+}
+
 function BoardQuestion() {
     const [ page, setPage ] = useState(1);
     const [ askItem, setAskItem ] = useState(sampleTable);
@@ -158,29 +173,12 @@ function BoardQuestion() {
 
     // pagination
     const PER_PAGE = 8;
-    
     const count = Math.ceil(askItem.length / PER_PAGE);
     const askData = usePagination(askItem, PER_PAGE);
-
     const pageHandler = (e,p) => {
         setPage(p);
         askData.jump(p);
     };
-
-    const loginCheckHandler = () => {
-        const isLogin = sessionStorage.getItem('isLogin')
-        console.log(isLogin)
-        if (isLogin == 'false'){
-            alert("로그인을 먼저 해주세요");
-        }
-        else{
-            // Modal 창 띄우기
-            const userId = sessionStorage.getItem('userId');
-            const currDate = getCurrentDate();
-            console.log(currDate);
-            <WriteModal_></WriteModal_>
-        }
-    }
 
     return (
         <div className='board-ask'>
@@ -193,12 +191,7 @@ function BoardQuestion() {
                         <AskTable_ data={askData}/>
                     </div>
                     <div className='button-style'>
-                        <Button className="register_btn"
-                                color="primary" 
-                                variant="contained" 
-                                startIcon="✏️"
-                                size="small"
-                                onClick={()=>loginCheckHandler()}>문의 등록</Button>
+                        <AskButton_ />
                     </div>
                     <div className='pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
