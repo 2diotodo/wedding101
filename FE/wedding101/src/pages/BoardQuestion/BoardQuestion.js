@@ -57,14 +57,14 @@ function AskTableItem_({arg}){
     
     return(
       <>
-        <TableRow   key={askSeq}
+        <TableRow   key={questionSeq}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell component="th" scope="row">{questionSeq}</TableCell>
             <TableCell align="center" onClick={handleOpen}>{questionTitle}</TableCell>
             <TableCell align="center" >{userId}</TableCell>
             <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
-        
+
         <AskModal_  isOpen={open} 
                     doClose={handleClose} 
                     title={questionTitle} 
