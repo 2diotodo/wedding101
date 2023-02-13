@@ -9,6 +9,7 @@ import { TableContainer, Table, TableHead, TableBody, TableRow,
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
 import { func } from 'prop-types';
+import { TextField } from '@mui/material';
 
 function ModalSubTitle_(props){
     return (
@@ -125,17 +126,38 @@ function getCurrentDate(){
 }
 
 function AskWriteModal_(props){
+    const [content, setContent] = useState();
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
     console.log(props);
     console.log(userId);
     console.log(currDate);
-    return(
-        <Modal open={props.open} close={props.close}></Modal>
+
+    return (
+        
+        <Modal  open={props.isOpen} 
+                onClose={props.doClose} 
+                className="Modal">
+            <Box className="Modal__content">
+                {/* Modal 창 제목 */}
+                <Typography component="div" id="Modal__header">문의 작성하기</Typography>
+                
+                {/* Modal 창 유저 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    {/* props로 받아온 유저 닉네임 넣기 */}
+                    <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
+                    <div className='Division_Line'></div>
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    {/* <TextField className='newQuestionContent' onChange=/> */}
+                </Typography>
+
+            </Box>
+        </Modal>
     );
 }
 
 function AskButton_(props){
+
     // ask modal
     const [askModalOpen, setAskModalOpen] = useState(false);
     const openAskModal = () => { setAskModalOpen(true); };
@@ -150,19 +172,22 @@ function AskButton_(props){
         else{
             // Modal 창 띄우기
             openAskModal(); // 창 열림 설정
-            return(
-                <AskWriteModal_ open={askModalOpen} close={closeAskModal}></AskWriteModal_>
-            );
         }
     }
 
     return(
-        <Button className="register_btn"
+        <>
+            <Button className="register_btn"
                 color="primary" 
                 variant="contained" 
                 startIcon="✏️"
                 size="small"
                 onClick={loginCheckHandler}>문의 등록</Button>
+            <AskWriteModal_ 
+                isOpen={askModalOpen} 
+                doClose={closeAskModal} 
+                className="style"/>
+        </>
     );
 }
 
