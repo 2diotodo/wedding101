@@ -35,20 +35,21 @@ function AskModal_(props){
             <Box className="Modal__content">
                 {/* Modal 창 제목 */}
                 <Typography component="div" id="Modal__header">{props.title}</Typography>
-                
+
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body">
                     <ModalSubTitle_ writer={props.writer} date={props.askDate}></ModalSubTitle_>
-                    <div className='Division_Line'></div>
-                    {props.content}
+                    {/* 구분선 */}
+                    <div className='BQ-Division-Line'></div>
+                    <div className='BQ-Modal-Text-Align'>{props.content}</div>
                 </Typography>
 
                 {/* Modal 창 관리자 글 작성 */}
-                <Typography  component="div" id="Modal__body">
+                {/* <Typography  component="div" id="Modal__body">
                     <ModalSubTitle_ writer="관리자" date={props.ansDate}></ModalSubTitle_>
                     <div className='Division_Line'></div>
                     잘지냈지 넌 잘 지냈어?
-                </Typography>
+                </Typography> */}
             </Box>
         </Modal>
     );
@@ -164,7 +165,7 @@ function AskWriteModal_(props){
             <Modal  open={props.isOpen} className="Modal">
                 <Box className="Modal__content">
                     {/* Modal 창 제목 */}
-                    <Typography component="div" id="Modal__header">문의 작성하기</Typography>
+                    <Typography component="div" id="Modal__header__2">문의 작성하기</Typography>
 
                     {/* Edit + Delete  */}
                     <div className="BQ-Edit-Cancel-Buttons"> 
@@ -179,7 +180,7 @@ function AskWriteModal_(props){
                     {/* Modal 창 유저 글 작성 */}
                     <Typography  
                         component="div" 
-                        id="Modal__body" 
+                        id="Modal__body__2" 
                         sx={{'& .MuiTextField-root': { 
                                 display: 'flex', flexDirection: 'row',
                                 justifyContent: 'left', marginLeft: '1.5%'},}}>

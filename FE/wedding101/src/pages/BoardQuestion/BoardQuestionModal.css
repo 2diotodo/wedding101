@@ -15,7 +15,7 @@
   flex-direction: column;
   align-items: center;
   height: 80%;
-  width: 80%;
+  width: 60%;
   justify-content: center;
   overflow: auto;
   padding: 1rem;
@@ -26,6 +26,19 @@
 
 /* Modal header */
 #Modal__header {
+  display: flex;
+  /* justify-content: space-between; */
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-bottom: 1px solid rgba(170, 170, 170, 0.5);
+  color: rgba(0, 0, 0, 0.80);
+  font-size: larger;
+  font-weight: bold;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
+#Modal__header__2 {
   display: flex;
   /* justify-content: space-between; */
   margin-top: 2%;
@@ -67,10 +80,23 @@
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   align-self: center;
-  height: 85%;
+  height: 77%;
   width: 95%;
   overflow: auto;
   padding: 1rem;
+}
+
+#Modal__body__2{
+  margin-top: 1.5%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  align-self: center;
+  height: 77%;
+  width: 95%;
+  overflow: auto;
+  padding: 1rem;
+  margin-bottom: 1.5%;
 }
 
 #Modal__close-button {
