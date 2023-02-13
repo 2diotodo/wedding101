@@ -38,6 +38,8 @@ public class SecurityConfig {
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/swagger-ui/index.html",
             "/webjars/**",
             /* swagger v3 */
             "/v3/api-docs/**",
@@ -62,7 +64,9 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        return web -> web.ignoring()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
