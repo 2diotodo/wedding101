@@ -38,7 +38,7 @@
 }
 
 #BQ-grid-align{
-    margin-top: 6%;
+    margin-top: 3%;
 }
 
 .BQ-newQuestionContent{
@@ -51,4 +51,12 @@
 .BQ-blank-for-askContent{
     margin-top: 1%;
     margin-bottom: 1%;
+}
+
+.BQ-Edit-Delete-Buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 95%;
+    margin-bottom: -1%;
 }

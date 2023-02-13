@@ -1,15 +1,20 @@
 import './BoardQuestion.css';
 import './BoardQuestionModal.css';
-
 import React, { useState } from 'react';
+import usePagination from '../../utils/Pagination';
+import sampleTable from '../../test/testContact.json';
+
 import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import sampleTable from '../../test/testContact.json';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
-import usePagination from '../../utils/Pagination';
 import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddReactionIcon from '@mui/icons-material/AddReaction';
+import EditIcon from '@mui/icons-material/Edit';
 import { func } from 'prop-types';
+
 
 function ModalSubTitle_(props){
     return (
@@ -128,6 +133,19 @@ function eventCheck(value){
     console.log(value);
 }
 
+function ContentRegisterBtns_(){
+    return (
+        <div className="BQ-Edit-Delete-Buttons"> 
+            <IconButton color="primary" className="BQ-Edit-Button" fontSize="large">
+                <EditIcon />
+            </IconButton>
+            <IconButton color="gray" className="BQ-Delete-Button" fontSize="large" >
+                <DeleteIcon />
+            </IconButton>
+        </div>
+    );
+}
+
 function AskWriteModal_(props){
     const [content, setContent] = useState();
     const userId = sessionStorage.getItem('userId');
@@ -141,7 +159,8 @@ function AskWriteModal_(props){
             <Box className="Modal__content">
                 {/* Modal 창 제목 */}
                 <Typography component="div" id="Modal__header">문의 작성하기</Typography>
-                
+                {/* Edit + Delete  */}
+                <ContentRegisterBtns_></ContentRegisterBtns_>
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body" sx={{'& .MuiTextField-root': { width: '100%' },}}>
                     {/* props로 받아온 유저 닉네임 넣기 */}
@@ -159,6 +178,8 @@ function AskWriteModal_(props){
                                 row = {14}
                                 onChange={(e) => {eventCheck(e.target.value);}}/>
                 </Typography>
+
+               
             </Box>
         </Modal>
     );
@@ -190,7 +211,6 @@ function AskButton_(){
                     startIcon="✏️"
                     size="small"
                     onClick={loginCheckHandler}>문의 등록</Button>
-
             <AskWriteModal_ 
                 isOpen={askModalOpen} 
                 doClose={closeAskModal} 
