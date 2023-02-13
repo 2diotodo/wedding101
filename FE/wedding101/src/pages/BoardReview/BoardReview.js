@@ -5,12 +5,17 @@ import Navbar from '../../components/common/Navbar';
 import TableItem from '../../components/board/TableItem';
 import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { useNavigate } from 'react-router';
 import testTable from '../../test/testReviews.json';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
 import { func } from 'prop-types';
 import { TextField } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 function ModalSubTitle(props){
     return (
@@ -128,7 +133,12 @@ function ReviewWriteModal(props){
     console.log(currDate);
 
     const reviewCancel = () => {
-
+        let cancelSelect = window.confirm("작성중이던 글을 지웁니다.");
+        if (cancelSelect){
+            document.getElementById('newReviewTitle').value = "";
+            document.getElementById('newReviewContent').value = "";
+        }
+        else return;
     }
 
     const reviewSubmit = () => {
@@ -140,7 +150,24 @@ function ReviewWriteModal(props){
             alert('제목이나 내용이 비어있습니다.');
             return;
         }
-        
+
+        axios.post(`http://i8a101.p.ssafy.io:8085/Info`, {
+        }).then(function (response) {
+            console.log(response);
+            console.log(response.data.message);
+            if(response.status === 200){
+                alert(`서비스 신청 완료되었습니다.`);
+                navigate("/");
+                window.scrollTo(0,0);
+            }
+        }).catch(function (error) {
+            console.log(error)
+            if(error.response.status === 417) {
+                alert('서비스 신청 전송 실패')
+                console.log(error.response.data.message);
+            }
+            console.log(error);
+        });
     }
 
     return (
@@ -151,14 +178,19 @@ function ReviewWriteModal(props){
             <Box className="Modal__content">
                 {/* Modal 창 제목 */}
                 <Typography component="div" id="Modal__header">리뷰 작성하기</Typography>
-                
+                <div className="BQ-Edit-Delete-Buttons"> 
+                    <IconButton color="primary" className="BQ-Edit-Button" fontSize="large" onClick={reviewSubmit}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton color="gray" className="BQ-Delete-Button" fontSize="large" onClick={reviewCancel}>
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body" sx={{'& .MuiTextField-root': {  width: '100%' },}}>
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <div className="Modal_SubTitle">
-                        <div></div>
-                        <div className="Modal_SubTitle_date">작성일: {currDate}</div>
-                    </div>
+                    <ModalSubTitle writer={userId} date={currDate}></ModalSubTitle> 
+                    <div className='Division_Line'></div>
                     <div className='newReviewWrapper'>
                         <TextField id='newReviewTitle' placeholder='제목:' variant='standard'/>
                         <TextField
@@ -169,18 +201,6 @@ function ReviewWriteModal(props){
                             rows={14}/>
                     </div>
                 </Typography>
-                <div className='horizontalLayout' id='newReviewHL'>
-                    <Button className='register_btn' color="primary" 
-                        variant="contained"
-                        startIcon="🤔"
-                        size="small"
-                        onClick={reviewCancel}>취소</Button>
-                    <Button className='register_btn' color="primary" 
-                        variant="contained"
-                        startIcon=""
-                        size="small"
-                        onClick={reviewSubmit}>리뷰 올리기</Button>
-                </div>
                 
             </Box>
             
@@ -194,12 +214,14 @@ function WriteReviewButton(props){
     const [reviewModalOpen, setReviewModalOpen] = useState(false);
     const openReviewModal = () => { setReviewModalOpen(true); };
     const closeReviewModal = () => { setReviewModalOpen(false); };
+    const navigate = useNavigate();
 
     // review Modal
     function loginCheckHandler(){
         const isLogin = sessionStorage.getItem('isLogin')
-        if (isLogin === 'false'){
+        if (!isLogin){
             alert("로그인을 먼저 해주세요");
+            navigate("/user/login");
         }
         else{
             // Modal 창 띄우기
@@ -214,11 +236,11 @@ function WriteReviewButton(props){
                 variant="contained" 
                 startIcon="✏️"
                 size="small"
-                onClick={loginCheckHandler}>문의 등록</Button>
+                onClick={loginCheckHandler}>리뷰 등록</Button>
             <ReviewWriteModal
                 isOpen={reviewModalOpen} 
                 doClose={closeReviewModal} 
-                className="style"/>
+                className="BQ-style"/>
         </>
     );
 }
@@ -238,19 +260,19 @@ function BoardReview() {
     };
 
     return (
-        <div className='board-review'>
+        <div className='BQ-board-ask'>
             <Grid2 container spacing={2}>
                 <Grid2 lg={3} sm={3}>
                     <Navbar_ pageTitle="Review 👍"/>
                 </Grid2>
-                <Grid2 lg={9} sm={10}>
+                <Grid2 lg={9} sm={10} id='BQ-grid-align'>
                     <div className='review-items'>
                         <ReviewTable data={reviewData}/>
                     </div>
-                    <div className='button-style'>
+                    <div className='BQ-button-style'>
                         <WriteReviewButton/>
                     </div>
-                    <div className='pagination'>
+                    <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
                     </div>
                 </Grid2>
