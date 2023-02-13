@@ -59,14 +59,50 @@ function ServiceProcess02(props) {
       alert('정보가 입력되지 않았습니다.');
       return;
     }
-    else navigate('/user/service03');
+    else {
+      let integratedInfo = {
+        weddingHallName: "string",
+        weddingHallAddress: "string",
+        weddingHallNumber: "string",
+        weddingDay: "string",
+        groomName: groomInfo.name,
+        brideName: brideInfo.name,
+        groomPhoneNumber: groomInfo.phoneNumber,
+        bridePhoneNumber: brideInfo.phoneNumber,
+        groomAccountNumber: groomInfo.accountNumber,
+        groomAccountBank: groomInfo.accountBank,
+        groomAccountName: groomInfo.accountName,
+        brideAccountNumber: brideInfo.accountNumber,
+        brideAccountBank: brideInfo.accountBank,
+        brideAccountName: brideInfo.accountName,
+        groomRelation: groomInfo.siblingOrder,
+        brideRelation: brideInfo.siblingOrder,
+        groomFatherName: groomInfo.fatherName,
+        groomMotherName: groomInfo.motherName,
+        brideFatherName: brideInfo.fatherName,
+        brideMotherName: brideInfo.motherName,
+        groomFatherIsAlive: groomInfo.fatherAlive === "true",
+        groomMotherIsAlive: groomInfo.motherAlive === "true",
+        brideFatherIsAlive: brideInfo.fatherAlive === "true",
+        brideMotherIsAlive: brideInfo.motherAlive === "true"
+      };
+      sessionStorage.setItem("integratedInfo", JSON.stringify(integratedInfo));
+      // getItem : JSON.parse(sessionStorage.getItem('integratedInfo'))
+      navigate('/user/service03');
+      window.scrollTo(0,0);
+    }
   };
 
   return (
     <div className='service-process02'>
       <Grid2 container spacing={2}>
         <Grid2 lg={3} sm={2}>
-          <h1>Service Application</h1>
+          <div style={{position: 'fixed', fontSize: '5vh', fontFamily:'Bakbak One'}}>
+            <div style={{position: 'relative', left: '20%'}}>
+              SERVICE<br></br>
+              APPLICATION
+            </div>            
+          </div>
         </Grid2>
 
         <Grid2 lg={9} sm={10}>

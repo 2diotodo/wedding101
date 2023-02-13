@@ -5,43 +5,62 @@ import { useNavigate } from 'react-router';
 import ProgressBar from '../../components/common/ProgressBar';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { Button } from "@mui/material";
+import axios from 'axios';
 
 function ServiceProcess04 () {
-    const [processForm, setProcessForm] = useState({
-        infoSeq: '',
-        userSeq: '',
-        weddingDay: '',
-        weddingHallName: '',
-        weddingHalladdress: '',
-        weddingHallNumber: '',
-        groomName: '',
-        brideName: '',
-        groomPhoneNumber: '',
-        bridePhoneNumber: '',
-        groomAccountNumber: '',
-        groomAccountBank: '',
-        groomAccountName: '',
-        brideAccountNumber: '',
-        brideAccountBank: '',
-        brideAccountName: '',
-        groomRelation: '',
-        brideRelation: '',
-        templateSeq: '',
-        photoUrl01: '',
-        photoUrl02: '',
-        templateHeader: '',
-        templateFooter: '',
-        templateEtc: '',
-        createdAt: '',
-        updatedAt: '',
-        isValid: '',
-
-    });
-
-    const navigate = useNavigate();
-    const toProcess04 = () => {
-      navigate('/user/service04');
+    const integratedInfo = JSON.parse(sessionStorage.getItem('integratedInfo'));
+    const processForm = {
+        ...integratedInfo,
+        userSeq : 3,
+        infoSeq : 3
     };
+    const navigate = useNavigate();
+    const submitWeddingInfo = () => {
+        console.log(processForm);
+        axios.post(`http://i8a101.p.ssafy.io:8085/Info`, {
+            brideAccountBank: processForm.brideAccountBank,
+            brideAccountName: processForm.brideAccountName,
+            brideAccountNumber: processForm.brideAccountNumber,
+            brideFatherIsAlive: processForm.brideFatherIsAlive,
+            brideFatherName: processForm.brideFatherName,
+            brideMotherIsAlive: processForm.brideMotherIsAlive,
+            brideMotherName: processForm.brideMotherName,
+            brideName: processForm.brideName,
+            bridePhoneNumber: processForm.bridePhoneNumber,
+            brideRelation: processForm.brideRelation,
+            groomAccountBank: processForm.groomAccountBank,
+            groomAccountName: processForm.groomAccountName,
+            groomAccountNumber: processForm.groomAccountNumber,
+            groomFatherIsAlive: processForm.groomFatherIsAlive,
+            groomFatherName: processForm.groomFatherName,
+            groomMotherIsAlive: processForm.groomMotherIsAlive,
+            groomMotherName: processForm.groomMotherName,
+            groomName: processForm.groomName,
+            groomPhoneNumber: processForm.groomPhoneNumber,
+            groomRelation: processForm.groomRelation,
+            infoSeq: processForm.infoSeq,
+            userSeq: processForm.userSeq,
+            weddingDay: processForm.weddingDay,
+            weddingHallAddress: processForm.weddingHallAddress,
+            weddingHallName: processForm.weddingHallName,
+            weddingHallNumber: processForm.weddingHallNumber
+        }).then(function (response) {
+            console.log(response);
+            console.log(response.data.message);
+            if(response.status === 200){
+                alert(`서비스 신청 완료되었습니다.`);
+                navigate("/");
+                window.scrollTo(0,0);
+            }
+        }).catch(function (error) {
+            console.log(error)
+            if(error.response.status === 417) {
+                alert('서비스 신청 전송 실패')
+                console.log(error.response.data.message);
+            }
+            console.log(error);
+        });
+    }
 
     return (
         <div className='service-process04'>
@@ -52,13 +71,13 @@ function ServiceProcess04 () {
 
                 <Grid2 xs={9}>
                 <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={3} />
-                    <h2>서비스 신청이 완료되었습니다.</h2>
+                    <h2>완료 버튼을 누르시면 서비스 신청이 완료됩니다.</h2>
 
                     <div className='buttons'>
                     <Button variant='contained' onClick={() => navigate(-1)}>이전</Button>
                     </div>
                     <div className='buttons'>
-                    <Button variant='contained' type='submit'>다음</Button>
+                    <Button variant='contained' onClick={submitWeddingInfo}>완료</Button>
                     </div>
                 </Grid2>
 

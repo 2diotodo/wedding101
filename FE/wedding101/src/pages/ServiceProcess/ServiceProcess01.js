@@ -197,7 +197,7 @@ function ServiceProcess01() {
             </div>
           </div>
           <div className='buttons'>
-            <Button variant='contained' onClick={() => navigate('/')}>
+            <Button variant='contained' onClick={() => {navigate('/'); window.scrollTo(0,0)}}>
               메인으로
             </Button>
           </div>
