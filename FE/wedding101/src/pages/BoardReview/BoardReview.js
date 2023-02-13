@@ -138,6 +138,7 @@ function ReviewWriteModal(props){
         if (cancelSelect){
             document.getElementById('newReviewTitle').value = "";
             document.getElementById('newReviewContent').value = "";
+            props.doClose();
         }
         else return;
     }
@@ -240,7 +241,7 @@ function WriteReviewButton(props){
                 onClick={loginCheckHandler}>리뷰 등록</Button>
             <ReviewWriteModal
                 isOpen={reviewModalOpen} 
-                doClose={closeReviewModal} 
+                doClose={closeReviewModal}
                 className="BQ-style"/>
         </>
     );
