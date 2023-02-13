@@ -140,7 +140,6 @@ function ReviewWriteModal(props){
             alert('제목이나 내용이 비어있습니다.');
             return;
         }
-        
     }
 
     return (

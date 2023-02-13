@@ -12,6 +12,8 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import { func } from 'prop-types';
 
@@ -144,10 +146,10 @@ function AskWriteModal_(props){
         props.doClose();
     };
     
-    const doDelete = () => {
+    const doCancel = () => {
         setIsDelete(true);
-        alert("해당 게시글이 삭제 되었습니다");
-        console.log("deleted!");
+        alert("게시글 작성이 취소 되었습니다");
+        console.log("canceled!");
         props.doClose();
     };
 
@@ -165,12 +167,12 @@ function AskWriteModal_(props){
                     <Typography component="div" id="Modal__header">문의 작성하기</Typography>
 
                     {/* Edit + Delete  */}
-                    <div className="BQ-Edit-Delete-Buttons"> 
+                    <div className="BQ-Edit-Cancel-Buttons"> 
                         <IconButton onClick={doEdit} color="primary" className="BQ-Edit-Button" fontSize="large">
                             <EditIcon />
                         </IconButton>
-                        <IconButton onClick={doDelete} color="gray" className="BQ-Delete-Button" fontSize="large" >
-                            <DeleteIcon />
+                        <IconButton onClick={doCancel} color="secondary" className="BQ-Cancel-Button" fontSize="large" >
+                            <CloseRoundedIcon />
                         </IconButton>
                     </div>
                     
