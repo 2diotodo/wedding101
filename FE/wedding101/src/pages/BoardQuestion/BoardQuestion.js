@@ -21,7 +21,6 @@ function ModalSubTitle_(props){
 
 function AskModal_(props){
     return (
-        
         <Modal  open={props.isOpen} 
                 onClose={props.doClose} 
                 className="Modal">
@@ -55,16 +54,15 @@ function AskTableItem_({arg}){
     const {askSeq, albumSeq, askTitle,  askContent, writer, createdAt, updatedAt, isValid} = arg;
     const createdDate = createdAt.split(" ")[0];
     const updatedDate = updatedAt.split(" ")[0];
-    const modalData = [open, handleClose, askTitle, askContent];
     
     return(
       <>
         <TableRow   key={askSeq}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-          <TableCell component="th" scope="row">{askSeq}</TableCell>
-          <TableCell align="center" onClick={handleOpen}>{askTitle}</TableCell>
-          <TableCell align="center" >{writer}</TableCell>
-          <TableCell align="right" >{createdDate}</TableCell>
+            <TableCell component="th" scope="row">{askSeq}</TableCell>
+            <TableCell align="center" onClick={handleOpen}>{askTitle}</TableCell>
+            <TableCell align="center" >{writer}</TableCell>
+            <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
         <AskModal_  isOpen={open} 
                     doClose={handleClose} 
@@ -127,15 +125,31 @@ function getCurrentDate(){
 function AskWriteModal_(props){
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
-    console.log(props);
     console.log(userId);
     console.log(currDate);
-    return(
-        <Modal open={props.open} close={props.close}></Modal>
+    return (
+        <Modal  open={props.isOpen} 
+                onClose={props.doClose} 
+                className="Modal">
+            <Box className="Modal__content">
+                {/* Modal 창 제목 */}
+                <Typography component="div" id="Modal__header">문의 작성하기</Typography>
+                
+                {/* Modal 창 유저 글 작성 */}
+                <Typography  component="div" id="Modal__body">
+                    {/* props로 받아온 유저 닉네임 넣기 */}
+                    <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
+                    <div className='Division_Line'></div>
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    {/* <TextField className='newQuestionContent' onChange=/> */}
+                </Typography>
+
+            </Box>
+        </Modal>
     );
 }
 
-function AskButton_(props){
+function AskButton_(){
     // ask modal
     const [askModalOpen, setAskModalOpen] = useState(false);
     const openAskModal = () => { setAskModalOpen(true); };
@@ -150,19 +164,21 @@ function AskButton_(props){
         else{
             // Modal 창 띄우기
             openAskModal(); // 창 열림 설정
-            return(
-                <AskWriteModal_ open={askModalOpen} close={closeAskModal}></AskWriteModal_>
-            );
         }
     }
-
     return(
-        <Button className="register_btn"
-                color="primary" 
-                variant="contained" 
-                startIcon="✏️"
-                size="small"
-                onClick={loginCheckHandler}>문의 등록</Button>
+        <>
+            <Button className="register_btn"
+                    color="primary" 
+                    variant="contained" 
+                    startIcon="✏️"
+                    size="small"
+                    onClick={loginCheckHandler}>문의 등록</Button>
+            <AskWriteModal_ 
+                isOpen={askModalOpen} 
+                doClose={closeAskModal} 
+                className="style"/>
+        </>
     );
 }
 
