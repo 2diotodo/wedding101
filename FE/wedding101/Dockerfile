@@ -5,4 +5,5 @@ RUN npm install
 RUN npm install -g serve
 COPY ./ /usr/src/app/
 RUN npm run build
+RUN npm install --save react-helmet
 ENTRYPOINT ["serve", "-s", "build"]
