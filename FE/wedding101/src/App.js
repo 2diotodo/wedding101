@@ -21,14 +21,9 @@ import MainIndex from "./pages/Main/MainIndex";
 import AlbumDeleted from "./pages/Album/AlbumDeleted";
 import AlbumSelected from "./pages/Album/AlbumSelected";
 import InvitationShared from "./pages/WeddingInvitation/InvitationShared";
-import { Helmet } from 'react-helmet';
 
 function App() {
   return (
-    <>
-    <Helmet>
-    <title>Wedding101</title>
-    </Helmet>
     <Routes>
       {/*Header, Footer 보여줄 페이지 */}
       <Route element={<MainLayout />}>
@@ -54,7 +49,6 @@ function App() {
       <Route path="/user/signup" element={<UserRegist />} />
       <Route path="/invitationSample" element={<InvitationShared />} />
     </Routes>
-    </>
   );
 }
 
