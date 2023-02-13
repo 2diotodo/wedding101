@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Star from '@mui/icons-material/Star';
 import { Button, Pagination } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -33,6 +34,16 @@ const AlbumList = (props) => {
       .catch((err) => {
         console.log('실패');
       });
+  }
+
+  // 북마크 목록불러오기
+  const resetFilterHandler = () => {
+    setMedia([...media].filter((item) => item.albumSeq===1))
+  }
+
+  // 북마크 목록불러오기
+  const wishFilterHandler = () => {
+    setMedia([...media].filter((item) => item.wish===true))
   }
 
   // sorting
@@ -76,6 +87,22 @@ const AlbumList = (props) => {
     mediaData.jump(p);
   };
 
+  const sendRequestHandler = async () => {
+    await axios.post({
+      url: ``,
+      data:{
+        'mediaSeq': media.mediaSeq,
+        'AlbumSeq': media.AlbumSeq,
+      }
+    })
+    .then((res)=> {
+      alert('신청이 완료되었습니다.');
+    })
+    .catch((err) => {
+      console.log('실패!');
+    })
+  };
+
   return (
     <div className='album-list'>
       <Grid2 container spacing={3}>
@@ -96,15 +123,20 @@ const AlbumList = (props) => {
               <MenuItem value={'mediaName'}>이름</MenuItem>
             </Select>
           </FormControl>
-          <br />
-          <Button>정렬</Button>
-          <br />
 
-          <div className='bin-icon'>
-            <Star onClick={onMoveToSelectedHandler} />
+          <div className='filter-icons'>
+            <div className='reset-icon'>
+              <Button onClick={getAllMedia} >All</Button>
+            </div>
+            <div className='wish-icon'>
+              <Star onClick={wishFilterHandler} />
+            </div>
+            <div className='bin-icon'>
+              <DeleteIcon onClick={onMoveToDeletedHandler} />
+            </div>
           </div>
-          <div className='bin-icon'>
-            <DeleteIcon onClick={onMoveToDeletedHandler} />
+          <div className='send-request'>
+            <Button onClick={sendRequestHandler}>북마크 미디어 신청하기</Button>
           </div>
         </Grid2>
         <Grid2 lg={9} sm={9} spacing={2}>

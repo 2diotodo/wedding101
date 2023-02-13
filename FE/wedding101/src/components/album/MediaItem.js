@@ -13,6 +13,8 @@ import {
 import { CameraAlt, Videocam, Star, StarBorder } from '@mui/icons-material';
 
 import axios from 'axios';
+import useConfirm from '../../modules/useConfirm';
+import MediaDialog from './MediaDialog';
 
 const style = {
   position: 'absolute',
@@ -46,13 +48,14 @@ const MediaItem = ({ media }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const binOpen = () =>{
-    alert('우클릭!');
-  }
+  const deleteConfirm = '삭제하시겠습니까?';
+
+
+
   //   useEffect(async () => {
   //     const fetchData = async () => {
   //       const res = await axios.get({
-  //         url: "http://localhost:8080",
+  //         url: "http://i8a101.p.ssafy.io:8085/media",
   //         media,
   //       })
   //     if(res.data.type === 'liked') setLike(true);
@@ -63,13 +66,14 @@ const MediaItem = ({ media }) => {
   const toggleLike = async (e) => {
     setLike(!like);
     const res = await axios.post({
-      url: ``,
+      url: `http://i8a101.p.ssafy.io:8085/media/wish/${mediaSeq}`,
       data:{
         'mediaSeq': mediaSeq,
         'wish': like,
       }
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
   };
+
   return (
     <div className='media-item'>
       <Card sx={{ maxWidth: 300 }}>
@@ -83,7 +87,7 @@ const MediaItem = ({ media }) => {
           }
         ></CardHeader>
         {/* Card 본문 */}
-        <CardActionArea onClick={handleOpen} contextMenu={binOpen}>
+        <CardActionArea onClick={handleOpen} >
           <CardMedia component='img' height='140' image={urlToImg} alt='img' />
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
@@ -114,6 +118,8 @@ const MediaItem = ({ media }) => {
           </Typography>
         </Box>
       </Modal>
+      {/* 우클릭시 삭제확인 */}
+      <MediaDialog media={media} deleteConfirm={deleteConfirm}/>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const AlbumDeleted = () => {
   useEffect(() => {
     getDeletedMedia();
   }, []);
-
+  
   async function getDeletedMedia() {
     await axios
       .get(`http://i8a101.p.ssafy.io:8085/media/1/bin`)
