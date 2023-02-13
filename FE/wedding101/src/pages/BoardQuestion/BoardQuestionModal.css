@@ -26,9 +26,9 @@
 
 /* Modal header */
 #Modal__header {
-  align-items: center;
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(170, 170, 170, 0.5);

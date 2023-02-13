@@ -15,7 +15,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.filter-icons {
+    display: flex;
+}
 .bin-icon {
     justify-content: end;
 }

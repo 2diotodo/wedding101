@@ -22,7 +22,6 @@ function ModalSubTitle_(props){
 
 function AskModal_(props){
     return (
-        
         <Modal  open={props.isOpen} 
                 onClose={props.doClose} 
                 className="Modal">
@@ -53,35 +52,35 @@ function AskTableItem_({arg}){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const {askSeq, albumSeq, askTitle,  askContent, writer, createdAt, updatedAt, isValid} = arg;
+    const {questionSeq, userSeq, questionTitle, questionContent, userId, createdAt, updatedAt, isValid} = arg;
     const createdDate = createdAt.split(" ")[0];
     const updatedDate = updatedAt.split(" ")[0];
-    const modalData = [open, handleClose, askTitle, askContent];
     
     return(
       <>
-        <TableRow   key={askSeq}
+        <TableRow   key={questionSeq}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-          <TableCell component="th" scope="row">{askSeq}</TableCell>
-          <TableCell align="center" onClick={handleOpen}>{askTitle}</TableCell>
-          <TableCell align="center" >{writer}</TableCell>
-          <TableCell align="right" >{createdDate}</TableCell>
+            <TableCell component="th" scope="row">{questionSeq}</TableCell>
+            <TableCell align="center" onClick={handleOpen}>{questionTitle}</TableCell>
+            <TableCell align="center" >{userId}</TableCell>
+            <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
+
         <AskModal_  isOpen={open} 
                     doClose={handleClose} 
-                    title={askTitle} 
-                    content={askContent}
-                    writer={writer}
+                    title={questionTitle} 
+                    content={questionContent}
+                    writer={userId}
                     askDate={createdDate}
                     ansDate={updatedDate} ////<- ans date 정보가 필요
-                    className="style"/>
+                    className="BQ-style"/>
       </>
     );
 }
 
 function Navbar_(props) {
     return(
-        <div className="navbar">
+        <div className="BQ-navbar">
             <h1>{props.pageTitle}</h1>
         </div>
     );
@@ -129,12 +128,9 @@ function AskWriteModal_(props){
     const [content, setContent] = useState();
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
-    console.log(props);
     console.log(userId);
     console.log(currDate);
-
     return (
-        
         <Modal  open={props.isOpen} 
                 onClose={props.doClose} 
                 className="Modal">
@@ -150,14 +146,12 @@ function AskWriteModal_(props){
                     {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
                     {/* <TextField className='newQuestionContent' onChange=/> */}
                 </Typography>
-
             </Box>
         </Modal>
     );
 }
 
-function AskButton_(props){
-
+function AskButton_(){
     // ask modal
     const [askModalOpen, setAskModalOpen] = useState(false);
     const openAskModal = () => { setAskModalOpen(true); };
@@ -174,19 +168,19 @@ function AskButton_(props){
             openAskModal(); // 창 열림 설정
         }
     }
-
     return(
         <>
-            <Button className="register_btn"
-                color="primary" 
-                variant="contained" 
-                startIcon="✏️"
-                size="small"
-                onClick={loginCheckHandler}>문의 등록</Button>
+            <Button className="BQ-register_btn"
+                    color="primary" 
+                    variant="contained" 
+                    startIcon="✏️"
+                    size="small"
+                    onClick={loginCheckHandler}>문의 등록</Button>
+
             <AskWriteModal_ 
                 isOpen={askModalOpen} 
                 doClose={closeAskModal} 
-                className="style"/>
+                className="BQ-style"/>
         </>
     );
 }
@@ -206,19 +200,19 @@ function BoardQuestion() {
     };
 
     return (
-        <div className='board-ask'>
+        <div className='BQ-board-ask'>
             <Grid2 container spacing={2}>
                 <Grid2 lg={3} sm={3}>
                     <Navbar_ pageTitle="Contact ✍🏻"/>
                 </Grid2>
-                <Grid2 lg={9} sm={10}>
+                <Grid2 lg={9} sm={10} id="BQ-grid-align">
                     <div className='review-items'>
                         <AskTable_ data={askData}/>
                     </div>
-                    <div className='button-style'>
+                    <div className='BQ-button-style'>
                         <AskButton_ />
                     </div>
-                    <div className='pagination'>
+                    <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
                     </div>
                 </Grid2>

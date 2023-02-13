@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import useUploadMedia from '../../modules/useUploadMedia';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router';
-import { Button, IconButton } from '@mui/material';
+import { Button, IconButton, Tooltip, Badge } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
 
 function AlbumCover() {
@@ -27,6 +27,7 @@ function AlbumCover() {
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
     useUploadMedia(albumForm.albumName);
 
+  const userSequence = sessionStorage.getItem('userSeq');
   useEffect(() => {
     // sessionStorage.setItem('albumPhoto',fileMedia );
     getAlbum();
@@ -48,7 +49,7 @@ function AlbumCover() {
   const showUpdateHandler = () => {
     setShowUpdate(!showUpdate);
   }
-  const userId = sessionStorage.getItem('userId');
+  const name = sessionStorage.getItem('name');
   const onAlbumListHandler = () => {
     navigate('/album/list');
   };
@@ -67,7 +68,7 @@ function AlbumCover() {
             <Button onClick={showUpdateHandler}>앨범 수정하기</Button>
           </div>
         </Grid2>
-        <Grid2 lg={6} sm={8}>
+        <Grid2 lg={6} sm={6}>
           <div className='cover-image' style={{ color: albumForm.albumColor }}>
             <div className='album-img'>
               <div className='media-area'>{albumForm.albumPhotoUrl && (albumForm.albumPhotoUrl !== null) ?
@@ -76,9 +77,15 @@ function AlbumCover() {
                 }
               </div>
             </div>
+            <Tooltip title="앨범 펼치기">
+
             <div className='cover-id' onClick={onAlbumListHandler}>
-              {albumForm.albumName}님의 앨범
+          <Badge badgeContent={albumForm.albumMediaCnt} color="secondary">
+              {name}님의 앨범 &nbsp;
+          </Badge>
             </div>
+            </Tooltip>
+
           </div>
             {showUpdate ? (
           <div className='upload-media'>
@@ -92,7 +99,7 @@ function AlbumCover() {
           null
             }
         </Grid2>
-        <Grid2 lg={4} sm={2}>
+        <Grid2 lg={4} sm={4}>
           <Grid2 lg={4}>
             <h3>나의 결혼식 날짜</h3>
             <p>{Date()}</p>
@@ -100,7 +107,9 @@ function AlbumCover() {
             <p>{albumForm.createdAt}</p>
           </Grid2>
           <Grid2 lg={4}>
+            <Tooltip title="리뷰로 이동">
             <h3 onClick={onClickHandler}>서비스 리뷰하기</h3>
+            </Tooltip>
           </Grid2>
         </Grid2>
       </Grid2>

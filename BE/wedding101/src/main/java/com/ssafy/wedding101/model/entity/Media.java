@@ -60,13 +60,13 @@ public class Media {
         this.album = album;
     }
 
-    public void wish() {
-        this.isWish = true;
+    public void wish(boolean now) {
+        this.isWish = !now;
     }
 
-    public void unwish() {
-        this.isWish = false;
-    }
+//    public void unwish() {
+//        this.isWish = false;
+//    }
 
     public void throwBin() {
         this.isInBin = true;
