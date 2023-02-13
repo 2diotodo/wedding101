@@ -60,7 +60,8 @@ public class AlbumRestController {
                 }
                 albumDto.setAlbumAccessId(accessId);
                 albumService.writeAlbum(albumDto);
-                AlbumDto newAblumDto = albumService.getAlbumByUserSeq(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
+                AlbumDto newAblumDto = albumService.getAlbumByUserSeq(userSeq)
+                        .orElseThrow(() -> new NoSuchElementException("data is null"));
                 result.put("data", newAblumDto); // db에 저장된 정보
                 result.put("message", "앨범 생성 SUCCESS");
                 return new ResponseEntity<>(result, HttpStatus.OK);

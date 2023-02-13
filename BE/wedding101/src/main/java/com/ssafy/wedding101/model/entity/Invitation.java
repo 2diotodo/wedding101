@@ -52,7 +52,7 @@ public class Invitation {
     @ColumnDefault("true")
     private boolean isValid;
 
-    public void update(Long templateSeq, String photoUrl1, String photoUrl2, String templateHeader,
+    public void update(String photoUrl1, String photoUrl2, String templateHeader,
                        String templateFooter, String templateEtc) {
         this.photoUrl1 = photoUrl1;
         this.photoUrl2 = photoUrl2;

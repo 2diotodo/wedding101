@@ -8,8 +8,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "tbl_album")
@@ -24,7 +22,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long albumSeq;
     @OneToOne
-    @JoinColumn(name="info_seq")
+    @JoinColumn(name = "info_seq")
     private Info info;
     @Column(name = "user_seq")
     private Long userSeq;
@@ -40,6 +38,12 @@ public class Album {
     private String albumThanksUrl;
     @Column(name = "album_media_cnt")
     private int albumMediaCnt;
+
+    @Column(name = "created_at")
+    private String createdAt;
+    @Column(name = "updated_at")
+    private String updatedAt;
+
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT")
     @ColumnDefault("true")
     private boolean isValid;
