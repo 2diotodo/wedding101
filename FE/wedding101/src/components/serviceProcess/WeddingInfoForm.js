@@ -50,16 +50,16 @@ function WeddingInfoForm(props){
                     </div>
                     <div className='horizontalLayout'>
                         <h3>부 생존 여부: </h3>
-                        <select id='fatherAlive' onChange={props.onChangeInfo}>
-                            <option value='true' selected="selected">생존</option>
+                        <select id='fatherAlive' onChange={props.onChangeInfo} defaultValue="생존">
+                            <option value='true'>생존</option>
                             <option value='false'>작고</option>
                             <option value='unknown'>비공개</option>
                         </select>
                     </div>
-                    <div className='horizontalLayout' onChange={props.onChangeInfo}>
+                    <div className='horizontalLayout'>
                         <h3>모 생존 여부: </h3>
-                        <select id='motherAlive'>
-                            <option value='true' selected="selected">생존</option>
+                        <select id='motherAlive' onChange={props.onChangeInfo} defaultValue='생존'>
+                            <option value='true'>생존</option>
                             <option value='false'>작고</option>
                             <option value='unknown'>비공개</option>
                         </select>
