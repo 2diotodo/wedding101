@@ -50,6 +50,7 @@ function ServiceProcess04 () {
             if(response.status === 200){
                 alert(`서비스 신청 완료되었습니다.`);
                 navigate("/");
+                window.scrollTo(0,0);
             }
         }).catch(function (error) {
             console.log(error)
