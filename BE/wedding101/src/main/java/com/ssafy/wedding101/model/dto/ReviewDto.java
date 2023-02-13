@@ -18,4 +18,5 @@ public class ReviewDto {
     private String reviewContent;
     private String createdAt;
     private String updatedAt;
+    private boolean isVaild;
 }
