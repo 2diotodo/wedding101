@@ -1,19 +1,32 @@
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import ModifyForm from '../../../components/user/UserModify/ModifyForm'
+import UserModifyForm from '../../../components/user/UserModify/ModifyForm'
+import InfoModifyForm from '../../../components/WeddingInvitation/InfoModify/ModifyForm'
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './UserMyPage.css';
 import { Modal } from '@mui/material';
+import { Button } from 'react-scroll';
 
 function UserMyPage() {
-    const [ModifyOpen, setModifyOpen] = useState(false);
-    const handleModifyOpen = () => setModifyOpen(true);
-    const handleModifyClose = () => setModifyOpen(false);
+    const [userModifyOpen, setUserModifyOpen] = useState(false);
+    const openUserModal = () => {
+        if(userModifyOpen === false) {
+            setInfoModifyOpen(false);
+        }
+        setUserModifyOpen((userModifyOpen) => !userModifyOpen);
+        
+    }
+
+    const [infoModifyOpen, setInfoModifyOpen] = useState(false);
+    const openInfoModal = () => {
+        if(infoModifyOpen === false) {
+            setUserModifyOpen(false);
+        }
+        setInfoModifyOpen((infoModifyOpen) => !infoModifyOpen);
+    }
 
     const navigate = useNavigate();
-    const toModifyUserPage = ()=> {
-        navigate('/user/modify')
-    }
+
     const toModifyInfoPage = ()=> {
         navigate('/info/modify')
     }
@@ -30,27 +43,23 @@ function UserMyPage() {
                         <Grid2 container spacing={5}> 
                             <div className ='user-mypage-item'>
                                 <Grid2 xs={6}>
-                                    <button type='text' onClick={handleModifyOpen}>내 정보</button>
+                                    <button type='text' onClick={openUserModal}>내 정보</button>
                                 </Grid2>
                             </div>
                             <div className ='user-mypage-item'>
                                 <Grid2 xs={6}>
-                                    <button type="text" onClick={toModifyInfoPage}>결혼 정보</button>
+                                    <button type="text" onClick={openInfoModal}>결혼 정보</button>
                                 </Grid2>
                             </div>
                         </Grid2>
                     </div>
+                    {userModifyOpen ? <UserModifyForm /> : null}
+                    {infoModifyOpen ? <InfoModifyForm /> : null}
                 </Grid2>
                 
             </Grid2>
 
-            {/* <Modal
-                open={ModifyOpen}
-                onClose={handleModifyClose}
-                >
-                
-
-            </Modal> */}
+            
         </div>
     );
 }
