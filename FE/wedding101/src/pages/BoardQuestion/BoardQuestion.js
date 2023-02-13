@@ -133,6 +133,7 @@ function getCurrentDate(){
 }
 
 function AskWriteModal_(props){
+    
     const doEdit = () => {
         const askTitle = document.getElementById('askTitle').value;
         const askContent = document.getElementById('filled-multiline-static').value;
