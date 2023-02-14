@@ -297,7 +297,7 @@ function BoardReview() {
 
     async function getAllReviews() {
         await axios
-        .get(`http://wedding101.shop/api/eview/all/`)
+        .get(`http://wedding101.shop/api/review/all/`)
         .then((res) => {
             console.log(res);
             setReviewItem(res.data.data);
