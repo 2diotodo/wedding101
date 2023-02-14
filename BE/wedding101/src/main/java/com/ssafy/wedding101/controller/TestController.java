@@ -28,15 +28,5 @@ public class TestController {
         log.trace("trace");
 
     }
-
-    @PostMapping("/video/merge")
-    public ResponseEntity<?> mergeWeddingmedia(@RequestBody Map<String, List<String>> listMap) throws Exception {
-
-        fileUtil.downloadImage(listMap.get("imageList"));
-        fileUtil.downloadVideo(listMap.get("videoList"), listMap.get("imageList"));
-        fileUtil.combineImage(listMap.get("imageList"));
-        fileUtil.combineVideo();
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    
 }
