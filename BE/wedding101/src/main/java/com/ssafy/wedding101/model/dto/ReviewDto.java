@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QuestionDto {
-    private Long questionSeq;
-    private Long userSeq;
-    private String userId;
+public class ReviewDto {
+    private Long reviewSeq;
+    private Long albumSeq;
     private String userNickname;
-    private String questionTitle;
-    private String questionContent;
+    private String reviewTitle;
+    private Integer reviewRate;
+    private String reviewContent;
     private String createdAt;
     private String updatedAt;
+    private boolean isVaild;
 }
