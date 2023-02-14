@@ -91,9 +91,9 @@ const InvitationProcess04 = () => {
     setInvitationForm.templateSeq();
     setInvitationForm.photoUrl01(sessionStorage.getItem("photoUrl01"));
     setInvitationForm.photoUrl02(sessionStorage.getItem("photoUrl02"));
-    setInvitationForm.templateHeader(sessionStorage.getItem("templateHeader"));
-    setInvitationForm.templateFooter(sessionStorage.getItem("templateFooter"));
-    setInvitationForm.templateEtc(sessionStorage.getItem("templateEtc"));
+    setInvitationForm.templateHeader(sessionStorage.getItem("textInput01"));
+    setInvitationForm.templateFooter(sessionStorage.getItem("textInput02"));
+    setInvitationForm.templateEtc(sessionStorage.getItem("textInput03"));
     setInvitationForm.createdAt(new Date());
     setInvitationForm.updatedAt(new Date());
     setInvitationForm.isValid(false);
