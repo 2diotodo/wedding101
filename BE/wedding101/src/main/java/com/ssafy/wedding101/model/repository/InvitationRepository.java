@@ -13,4 +13,8 @@ public interface InvitationRepository extends JpaRepository<Invitation, Long> {
     @Query(nativeQuery = true, value = "select * from tbl_invitation " +
             "where user_seq = :userSeq and is_valid = true")
     Optional<Invitation> findByUserSeq(@Param("userSeq") Long userSeq);
+
+    @Query(nativeQuery = true, value = "select * from tbl_invitation " +
+            "where invitation_seq = :invitationSeq and is_valid = true")
+    Optional<Invitation> findByInvitationSeq(@Param("invitationSeq") Long invitationSeq);
 }
