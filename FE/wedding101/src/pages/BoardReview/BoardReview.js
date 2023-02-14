@@ -128,7 +128,6 @@ function getCurrentDate(){
 function ReviewWriteModal(props){
     const userId = sessionStorage.getItem('userId');
     const currDate = getCurrentDate();
-    console.log(props);
     console.log(userId);
     console.log(currDate);
     const navigate = useNavigate();
@@ -162,10 +161,11 @@ function ReviewWriteModal(props){
             createdAt : currDate,
             reviewContent : reviewContent,
             reviewRate : 0,
-            reviewSeq : 1,
+            reviewSeq : 0,
             reviewTitle : reviewTitle,
             updatedAt : "string",
-            userId : userId
+            userId : userId,
+            is_valid : true
         }).then(function (response) {
             console.log(response);
             console.log(response.data.message);
