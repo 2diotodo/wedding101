@@ -13,6 +13,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+        분류 : Configuration
+        작성 : 권영진
+        내용 : Swagger-ui 사용을 위한 Java Configuration 설정 파일
+        진척도 : 최종
+ */
 @Configuration
 @EnableWebMvc
 public class SwaggerConfig {
