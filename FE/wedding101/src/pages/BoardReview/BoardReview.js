@@ -1,6 +1,6 @@
 import './BoardReview.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/common/Navbar';
 import TableItem from '../../components/board/TableItem';
 import Paper from '@mui/material/Paper';
@@ -52,7 +52,7 @@ function ReviewTableItem({arg}){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const {reviewSeq, albumSeq, reviewTitle,  reviewContent, writer, createdAt, updatedAt, isValid} = arg;
+    const {reviewSeq, albumSeq, reviewTitle,  reviewContent, userNickname, createdAt, updatedAt, valid} = arg;
     const createdDate = createdAt.split(" ")[0];
     const updatedDate = updatedAt.split(" ")[0];
     const modalData = [open, handleClose, reviewTitle, reviewContent];
@@ -63,7 +63,7 @@ function ReviewTableItem({arg}){
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell component="th" scope="row">{reviewSeq}</TableCell>
         <TableCell align="center" onClick={handleOpen}>{reviewTitle}</TableCell>
-        <TableCell align="center" >{writer}</TableCell>
+        <TableCell align="center" >{userNickname}</TableCell>
         <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
         <ReviewModal
@@ -71,7 +71,7 @@ function ReviewTableItem({arg}){
             doClose={handleClose} 
             title={reviewTitle} 
             content={reviewContent}
-            writer={writer}
+            writer={userNickname}
             reviewDate={createdDate}
             ansDate={updatedDate} ////<- ans date 정보가 필요
             className="style"/>
@@ -126,11 +126,9 @@ function getCurrentDate(){
 }
 
 function ReviewWriteModal(props){
-    const userId = sessionStorage.getItem('userId');
+    const userNickname = sessionStorage.getItem('name');
     const currDate = getCurrentDate();
-    console.log(userId);
     console.log(currDate);
-    const navigate = useNavigate();
 
     const reviewCancel = () => {
         let cancelSelect = window.confirm("작성중이던 글을 지웁니다.");
@@ -152,26 +150,17 @@ function ReviewWriteModal(props){
             return;
         }
 
-        const getRes = axios
-            .get(`http://i8a101.p.ssafy.io:8085/review/all`)
-            .then((res) => {console.log(res)});
-
         axios.post(`http://i8a101.p.ssafy.io:8085/review`, {
             albumSeq : 0,
-            createdAt : currDate,
-            reviewContent : reviewContent,
-            reviewRate : 0,
-            reviewSeq : 0,
-            reviewTitle : reviewTitle,
-            updatedAt : "string",
-            userId : userId,
-            is_valid : true
+            reviewContent: reviewContent,
+            reviewRate: 9,
+            reviewTitle: reviewTitle
         }).then(function (response) {
             console.log(response);
             console.log(response.data.message);
             if(response.status === 200){
-                alert(`서비스 신청 완료되었습니다.`);
-                navigate("/");
+                alert(`리뷰가 등록되었습니다.`);
+                props.renewPost();
                 window.scrollTo(0,0);
             }
         }).catch(function (error) {
@@ -209,7 +198,7 @@ function ReviewWriteModal(props){
                         justifyContent: 'left', marginLeft: '1.5%'},}}>
                     
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <ModalSubTitle writer={userId} date={currDate}></ModalSubTitle> 
+                    <ModalSubTitle writer={userNickname} date={currDate}></ModalSubTitle> 
                 
                     {/* 구분선 */}
                     <div className='BQ-Division-Line'></div>
@@ -272,6 +261,7 @@ function WriteReviewButton(props){
             <ReviewWriteModal
                 isOpen={reviewModalOpen} 
                 doClose={closeReviewModal}
+                renewPost={props.renewPost}
                 className="BQ-style"/>
         </>
     );
@@ -279,8 +269,24 @@ function WriteReviewButton(props){
 
 function BoardReview() {
     const [ page, setPage ] = useState(1);
-    const [ reviewItem, setReviewItem ] = useState(testTable);
-    // axios 통신으로 reviewItem 가져오기
+    const [ reviewItem, setReviewItem ] = useState([]);
+
+    useEffect(() => {
+        getAllReviews();
+    }, []);
+
+    async function getAllReviews() {
+        await axios
+        .get(`http://i8a101.p.ssafy.io:8085/review/all/`)
+        .then((res) => {
+            console.log(res);
+            setReviewItem(res.data.data);
+            console.log('리뷰 정보 수신 성공');
+        })
+        .catch((err) => {
+            console.log('리뷰 정보 수신에 실패하였습니다.');
+        });
+    }
 
     // pagination
     const PER_PAGE = 8;
@@ -302,7 +308,7 @@ function BoardReview() {
                         <ReviewTable data={reviewData}/>
                     </div>
                     <div className='BQ-button-style'>
-                        <WriteReviewButton/>
+                        <WriteReviewButton renewPost={getAllReviews}/>
                     </div>
                     <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
