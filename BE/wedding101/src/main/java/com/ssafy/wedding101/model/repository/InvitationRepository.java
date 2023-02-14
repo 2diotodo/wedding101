@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface InvitationRepository extends JpaRepository<Invitation, Long> {
     @Query(nativeQuery = true, value = "select * from tbl_invitation " +
             "where user_seq = :userSeq and is_valid = true")
-    Optional<Invitation> findByUserSeq(@Param("useSeq") Long userSeq);
+    Optional<Invitation> findByUserSeq(@Param("userSeq") Long userSeq);
 }
