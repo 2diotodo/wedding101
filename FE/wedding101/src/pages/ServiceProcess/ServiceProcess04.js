@@ -17,7 +17,7 @@ function ServiceProcess04 () {
     const navigate = useNavigate();
     const submitWeddingInfo = () => {
         console.log(processForm);
-        axios.post(`http://i8a101.p.ssafy.io:8085/Info`, {
+        axios.post(`http://wedding101.shop/api/Info`, {
             brideAccountBank: processForm.brideAccountBank,
             brideAccountName: processForm.brideAccountName,
             brideAccountNumber: processForm.brideAccountNumber,
