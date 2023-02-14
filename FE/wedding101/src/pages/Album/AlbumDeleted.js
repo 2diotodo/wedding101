@@ -100,7 +100,7 @@ const AlbumDeleted = () => {
                 {binMedia.length > 0 ? (
                   mediaData
                     .currentData()
-                    .map((item) => <MediaItem media={item} key={item.mediaSeq}/>)
+                    .map((item) => <MediaItem media={item} key={item.mediaSeq} getDeletedMedia={getDeletedMedia}/>)
                 ) : (
                   <div>no binMedia</div>
                 )}
