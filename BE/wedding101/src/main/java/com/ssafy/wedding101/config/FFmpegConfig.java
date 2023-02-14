@@ -8,15 +8,30 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 
+/*
+        분류 : Configuration
+        작성 : 권영진
+        내용 : Linux에서 FFmpeg을 사용하기 위한 Java Configuration 파일
+        진척도 : 최종
+ */
 @Configuration
 public class FFmpegConfig {
 
+    // Ec2 서버에서 FFmpeg, FFprobe의 상대 위치
     public final String ffmpegPath = "/usr/bin/ffmpeg";
-//    public final String ffmpegPath = "/ffmpeg/bin/ffmpeg.exe";
-
     public final String ffprobePath = "/usr/bin/ffprobe";
+
+    // Local 환경에서 FFmpeg, FFprobe의 상대 위치
+//    public final String ffmpegPath = "/ffmpeg/bin/ffmpeg.exe";
 //    public final String ffprobePath = "/ffmpeg/bin/ffprobe.exe";
 
+
+    /*
+        분류 : Bean
+        작성 : 권영진
+        내용 : FFmpeg 빈등록 - Linux, Window, Unix 등의 각각의 환경에서 올바르게 선언될 수 있도록 생성
+        진척도 : 최종
+    */
     @Bean(name = "ffMpeg")
     public FFmpeg fFmpeg() throws IOException {
         FFmpeg ffmpeg = null;
@@ -34,6 +49,12 @@ public class FFmpegConfig {
         return ffmpeg;
     }
 
+    /*
+    분류 : Bean
+    작성 : 권영진
+    내용 : FFprobe 빈등록 - Linux, Window, Unix 등의 각각의 환경에서 올바르게 선언될 수 있도록 생성
+    진척도 : 최종
+    */
     @Bean(name = "ffProbe")
     public FFprobe fFprobe() throws IOException {
         FFprobe fFprobe = null;
