@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const useUploadMedia = (media) => {
+const useUploadMedia = (propsurl) => {
     const [filePreview, setFilePreview] = useState('');
     const [fileMedia, setFileMedia] = useState('');
 
@@ -18,7 +18,7 @@ const useUploadMedia = (media) => {
         reader.readAsDataURL(file);
         reader.onload = (event) => {
             const base64 = event.target.result;
-            sessionStorage.setItem(media, base64);
+            // sessionStorage.setItem(media, base64);
         };
 
         if(file.type.includes('image')){
@@ -86,7 +86,7 @@ const useUploadMedia = (media) => {
                 "Content-Type": "multipart/form-data",
             },
             method: "POST",
-            url: "http://i8a101.p.ssafy.io:8085/file/uploadAlbumCover",  // 파일 업로드 요청 URL
+            url: propsurl,  // 파일 업로드 요청 URL
             data: formData,
         }).then((res) => {
             console.log(res);
