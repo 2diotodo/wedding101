@@ -9,6 +9,7 @@ import java.util.Optional;
 @Service
 public interface InvitationService {
     Optional<InvitationDto> getInvitation(Long invitationSeq);
+    Optional<InvitationDto> getInvitationByUserSeq(Long userSeq);
 
     void writeInvitation(InvitationDto invitationDto);
 
@@ -40,4 +41,6 @@ public interface InvitationService {
                 .templateEtc(invitation.getTemplateEtc())
                 .build();
     }
+
+
 }

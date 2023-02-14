@@ -25,6 +25,10 @@ public class InvitationServiceImpl implements InvitationService {
     }
 
     @Override
+    public Optional<InvitationDto> getInvitationByUserSeq(Long userSeq) {
+        return Optional.ofNullable(toDto(invitationRepository.findByUserSeq(userSeq).orElseThrow()));
+    }
+    @Override
     public void writeInvitation(InvitationDto invitationDto) {
         Invitation invitation = toEntity(invitationDto);
         Info info = infoRepository.findByUserSeq(invitationDto.getUserSeq()).orElseThrow();
