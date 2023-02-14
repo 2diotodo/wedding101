@@ -10,6 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Calendar from "react-calendar";
 import Checkbox from "@mui/material/Checkbox";
 import "react-calendar/dist/Calendar.css"; // css import
+import useUploadMedia from "../../modules/useUploadMedia";
 
 import invitation_image_1 from "../../assets/img/invitation_image_1.png";
 import invitation_image_2 from "../../assets/img/invitation_image_2.png";
@@ -105,6 +106,14 @@ function FamilyInfo(props) {
 }
 
 function UploadMedia(props) {
+  const {
+    fileMedia,
+    filePreview,
+    fileImageHandler,
+    deleteFileImage,
+    onFileUpload,
+  } = useUploadMedia("temp");
+
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
   const handleChange = (
@@ -151,7 +160,13 @@ function UploadMedia(props) {
 
       <Button className="uploadButton" variant="contained" component="label">
         Upload
-        <input hidden accept="image/*, video/*" multiple type="file" />
+        <input
+          hidden
+          accept="image/*, video/*"
+          multiple
+          type="file"
+          onChange={fileImageHandler}
+        />
       </Button>
 
       <div>
@@ -174,7 +189,7 @@ function UploadMedia(props) {
       <div className="checkAgreement">
         개인정보 제공 동의하기 <Checkbox />
       </div>
-      <Button variant="contained" endIcon={<SendIcon />}>
+      <Button variant="contained" endIcon={<SendIcon />} onClick={onFileUpload}>
         Send
       </Button>
     </div>
@@ -184,7 +199,7 @@ function UploadMedia(props) {
 function WeddingInfo(props) {
   return (
     <div className="weddingInfo">
-      <WeddingCalendar date="2023-02-17" />
+      <WeddingCalendar date={props.datetime} />
       <div className="weddingPlace"></div>
       <div className="weddingTransportation"></div>
     </div>
@@ -192,14 +207,16 @@ function WeddingInfo(props) {
 }
 
 function WeddingCalendar(props) {
-  const { date } = props;
-  // console.log(date);
+  const [value, onChange] = useState(new Date(props.date));
 
-  const [value, onChange] = useState(new Date());
+  useEffect(() => {
+    onChange(new Date(props.date));
+  }, [props]);
 
   return (
     <div>
-      <Calendar value={value} />
+      {/* <Calendar calendarType="US" value={value} /> */}
+      <Calendar calendarType="US" value={value} />
     </div>
   );
 }
@@ -213,6 +230,21 @@ function WeddingPhotoCarousel(props) {
 }
 
 function WeddingSummary(props) {
+  console.log(props);
+
+  const date = new Date(props.datetime);
+  let dateFormat =
+    date.getFullYear() +
+    "년 " +
+    (date.getMonth() + 1) +
+    "월 " +
+    date.getDate() +
+    "일, " +
+    date.getHours() +
+    "시 " +
+    date.getMinutes() +
+    "분";
+
   return (
     <div
       className="weddingSummary"
@@ -222,7 +254,7 @@ function WeddingSummary(props) {
       <br />
       {props.groomName} & {props.brideName}
       <br />
-      {props.datetime}
+      {dateFormat}
       {/* 12월 24일(일) 오후 2시 */}
       <br />
       {props.place}
@@ -284,14 +316,14 @@ function InvitationForm(props) {
         축하 영상을 전해보시는 건 어떨까요
       </div>
       <UploadMedia />
-      <WeddingInfo />
+      <WeddingInfo datetime={props.weddingInfoData.weddingDay} />
       <WeddingPhoto src={invitation_image_4} />
       {/* <WeddingPhotoCarousel/> */}
       <WeddingSummary
-        groomName="김성환"
-        brideName="권영진"
-        datetime="2023년 2월 17일 오후 2시"
-        place="역삼 멀티캠퍼스 8층"
+        groomName={props.weddingInfoData.groomName}
+        brideName={props.weddingInfoData.brideName}
+        datetime={props.weddingInfoData.weddingDay}
+        place={props.weddingInfoData.weddingHallName}
       />
       <WeddingMoney
         groomName={props.weddingInfoData.groomName}
