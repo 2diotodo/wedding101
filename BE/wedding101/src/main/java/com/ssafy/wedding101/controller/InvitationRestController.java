@@ -29,13 +29,21 @@ public class InvitationRestController {
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> writeInvitation(@RequestBody InvitationDto invitationDto) {
         Map<String, Object> result = new HashMap<>();
+        //토큰에서 userSeq가져옴
+        Long userSeq = invitationDto.getUserSeq();
         try {
+            invitationDto.setInfoSeq(infoService.getInfoSeqByUserSeq(userSeq));
+            System.out.println("여기 됨?");
 //            invitationDto.setUserSeq(); // 토큰에서 받아서 넣기
             invitationService.writeInvitation(invitationDto);
+
+            InvitationDto newInvitationDto = invitationService.getInvitationByUserSeq(userSeq).orElseThrow(() -> new NoSuchElementException("청첩장 생성 실패"));
+            result.put("data", newInvitationDto);
             result.put("message", "청첩장 생성 SUCCESS");
             return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        } catch (NoSuchElementException e) {
+            result.put("message", "청첩장 생성 FAIL");
+            return new ResponseEntity<>(result, HttpStatus.EXPECTATION_FAILED);
         }
     }
 
@@ -45,7 +53,7 @@ public class InvitationRestController {
         Map<String, Object> result = new HashMap<>();
         try {
             InvitationDto invitationDto = invitationService.getInvitation(invitationSeq).orElseThrow(() -> new NoSuchElementException("invitationSeq 오류"));
-            TemplateDto templateDto = templateService.getTemplate(invitationDto.getTempateSeq()).orElseThrow();
+            TemplateDto templateDto = templateService.getTemplate(invitationDto.getTemplateSeq()).orElseThrow();
             if(invitationDto.getTemplateHeader() == null) {
                 invitationDto.setTemplateHeader(templateDto.getTemplateHeader());
             }

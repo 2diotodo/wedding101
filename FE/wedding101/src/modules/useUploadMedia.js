@@ -8,6 +8,7 @@ const useUploadMedia = (media) => {
     // 파일 미리보기 구현
     const fileImageHandler = (e) => {
         const file = e.target.files[0];
+        console.log(file)
         if(!isValidFile(file)){
             alert("is not valid file")
             return
@@ -68,8 +69,10 @@ const useUploadMedia = (media) => {
     // 업로드 파일 삭제(메모리관리)
     const deleteFileImage = () => {
         URL.revokeObjectURL(fileMedia);
+        URL.revokeObjectURL(filePreview);
         setFileMedia('');
         setFilePreview('');
+        sessionStorage.setItem(media,fileMedia);
     };
 
 
@@ -86,7 +89,7 @@ const useUploadMedia = (media) => {
                 "Content-Type": "multipart/form-data",
             },
             method: "POST",
-            url: "http://i8a101.p.ssafy.io:8085/album?userSeq=1",  // 파일 업로드 요청 URL
+            url: "http://wedding101.shop/api/file/uploadAlbumCover",  // 파일 업로드 요청 URL
             data: formData,
         }).then((res) => {
             console.log(res);

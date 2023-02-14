@@ -23,7 +23,7 @@ function ModifyForm() {
     }, []);
     async function getUser() {
         await axios
-            .get(`http://i8a101.p.ssafy.io:8085/user?userSeq=2`)
+            .get(`http://wedding101.shop/api/user?userSeq=2`)
             .then((res) => {
                 setUser(res.data.data);
                 console.log(res);

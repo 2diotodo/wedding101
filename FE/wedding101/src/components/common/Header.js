@@ -51,11 +51,24 @@ function Header() {
             Album{' '}
           </Button>
         </NavLink>
-        <NavLink label='Process' to='/user/service01'>
-          <Button variant='text' size='large' color='secondary'>
-            Process{' '}
-          </Button>
-        </NavLink>
+        {isLogin ? (
+          <div>
+            <NavLink label='Process' to='/user/service01'>
+              <Button variant='text' size='large' color='secondary'>
+                Process{' '}
+              </Button>
+            </NavLink>
+          </div>
+        ) : (
+          <div>
+            <NavLink label='Process' to='/user/login'>
+              <Button variant='text' size='large' color='secondary' onClick={()=>{alert('로그인 후 이용 가능합니다.')}}>
+                Process{' '}
+              </Button>
+            </NavLink>
+          </div>
+        )}
+        
         <NavLink label='Review' to='/review'>
           <Button variant='text' size='large' color='secondary'>
             Review{' '}

@@ -30,7 +30,7 @@ function LoginForm() {
     console.log('here');
     
     await axios
-    .post('http://i8a101.p.ssafy.io:8085/user/login', {
+    .post('http://wedding101.shop/api/user/login', {
       userId: inputId,
       userPassword: inputPw,
     }
