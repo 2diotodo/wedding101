@@ -8,8 +8,6 @@ import UploadIcon from "@mui/icons-material/Upload";
 import axios from "axios";
 import ProgressBar from "../../components/common/ProgressBar";
 import InvitationForm from "../../components/WeddingInvitation/InvitationForm";
-import invitation_image_1 from "../../assets/img/invitation_image_1.png";
-import invitation_image_2 from "../../assets/img/invitation_image_2.png";
 import { useState, useEffect } from "react";
 import useUploadMedia from "../../modules/useUploadMedia";
 
@@ -66,25 +64,32 @@ const InvitationProcess02 = () => {
     console.log(weddingInfoData);
   }, []);
 
+  const [form, setForm] = useState({
+    photoUrl01: "",
+    photoUrl02: "",
+  });
+
   const [invitationData, setInvitationData] = useState({
     templateHeader: "초대합니다",
     templateFooter: "감사합니다",
     templateEtc: "돈많이주세요",
   });
 
-  const [photoURLform, setPhotoURLform] = useState({
-    url01: 'photoUrl01',
-    url02: 'photoUrl02'
-  })
+  const { filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
+    useUploadMedia(form.photoUrl01);
 
-  const { filePreview: filePreview1, fileImageHandler: fileImageHandler1, deleteFileImage: deleteFileImage1, onFileUpload: onFileUpload1 } =
-    useUploadMedia(photoURLform.url01);
-
-  const { filePreview: filePreview2, fileImageHandler: fileImageHandler2, deleteFileImage: deleteFileImage2, onFileUpload: onFileUpload2 } =
-    useUploadMedia(photoURLform.url02);
-
+  const handleChange = (e) => {
+    const newForm = {
+      ...form,
+      [e.target.name]: e.target.value,
+    };
+    setForm(newForm);
+    console.log("changed");
+  };
   const navigate = useNavigate();
   const toProcess03 = () => {
+    sessionStorage.setItem("photoUrl01", form.photoUrl01);
+    sessionStorage.setItem("photoUrl02", form.photoUrl02);
     navigate("/invitation03");
   };
 
@@ -106,7 +111,6 @@ const InvitationProcess02 = () => {
                 <InvitationForm
                   weddingInfoData={weddingInfoData}
                   invitationData={invitationData}
-
                 />
               </div>
               <div className="input-container">
@@ -117,19 +121,11 @@ const InvitationProcess02 = () => {
                         hidden
                         type="file"
                         accept="image/*, video/*"
-                        onChange={(e) => {
-                          fileImageHandler1(e);
-                          setTimeout(() => document.getElementById('invitationImage01').children[0].src = sessionStorage.getItem(photoURLform.url01), 50);
-                          
-                        }}
+                        onChange={fileImageHandler}
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button onClick={(e) => {
-                      deleteFileImage1(e);
-                      setTimeout(() => document.getElementById('invitationImage01').children[0].src = invitation_image_1, 50);
-                      
-                    }}>삭제</Button>
+                    <Button onClick={deleteFileImage}>삭제</Button>
                   </div>
                   <br />
                   <div className="upload02">
@@ -138,17 +134,11 @@ const InvitationProcess02 = () => {
                         hidden
                         type="file"
                         accept="image/*, video/*"
-                        onChange={(e) => {
-                          fileImageHandler2(e);
-                          setTimeout(() => document.getElementById('invitationImage02').children[0].src = sessionStorage.getItem(photoURLform.url02), 50);
-                        }}
+                        onChange={fileImageHandler}
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button onClick={(e) => {
-                      deleteFileImage2(e);
-                      setTimeout(() => document.getElementById('invitationImage02').children[0].src = invitation_image_2, 50);
-                    }}>삭제</Button>
+                    <Button onClick={deleteFileImage}>삭제</Button>
                   </div>
                 </div>
               </div>
