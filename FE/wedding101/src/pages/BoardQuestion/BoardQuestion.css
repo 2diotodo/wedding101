@@ -38,5 +38,37 @@
 }
 
 #BQ-grid-align{
-    margin-top: 6%;
+    margin-top: 3%;
+}
+
+.BQ-newQuestionContent{
+    width: 100%;
+    height: 100%;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.BQ-blank-for-askContent{
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
+
+.BQ-Edit-Cancel-Buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 95%;
+    margin-bottom: -1%;
+}
+
+/* 구분선  */
+.BQ-Division-Line{
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+.BQ-Modal-Text-Align{
+    margin-left: 1.5%;
+    margin-top: -0.5%;
 }

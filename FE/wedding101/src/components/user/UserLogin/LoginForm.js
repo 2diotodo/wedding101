@@ -52,6 +52,7 @@ function LoginForm() {
           console.log('=====================', '로그인 성공');
           // sessionStorage에 id를 userId라는 key 값으로 저장
           sessionStorage.setItem('userId', inputId);
+          sessionStorage.setItem('userNickname', res.data.data.userNickname)
           sessionStorage.setItem('name', res.data.data.userName);
         }
         //작업 완료되면 페이지 이동

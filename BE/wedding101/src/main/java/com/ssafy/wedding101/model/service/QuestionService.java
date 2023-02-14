@@ -34,10 +34,11 @@ public interface QuestionService {
                 .questionSeq(question.getQuestionSeq())
                 .userSeq(question.getUser().getUserSeq())
                 .userId(question.getUser().getUserId())
+                .userNickname(question.getUser().getUserNickname())
                 .questionTitle(question.getQuestionTitle())
                 .questionContent(question.getQuestionContent())
                 .createdAt(question.getCreatedAt())
-                .createdAt(question.getUpdatedAt())
+                .updatedAt(question.getUpdatedAt())
                 .build();
     }
 
