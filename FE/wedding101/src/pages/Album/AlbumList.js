@@ -137,7 +137,7 @@ const AlbumList = () => {
                 {media.length > 0 ? (
                   mediaData
                     .currentData()
-                    .map((item) => <MediaItem media={item} key={item.mediaSeq} />)
+                    .map((item) => <MediaItem media={item} key={item.mediaSeq} getAllMedia={getAllMedia}/>)
                 ) : (
                   <div>no media</div>
                 )}
@@ -145,7 +145,7 @@ const AlbumList = () => {
             )}
           </div>
           <div className='pagination'>
-            <Pagination count={count} page={page} onChange={pageHandler} getAllMedia={getAllMedia}/>
+            <Pagination count={count} page={page} onChange={pageHandler}  />
           </div>
         </Grid2>
       </Grid2>
