@@ -38,9 +38,9 @@ const AlbumList = () => {
 
   // 북마크 목록불러오기
   const wishFilterHandler = () => {
-    
-    setMedia([...media].filter((item) => item.wish===true))
-    setMergeMedia()
+    const merged = [...media].filter((item) => item.wish===true)
+    setMedia(merged);
+    setMergeMedia(merged);
   }
 
   // sorting
@@ -83,7 +83,7 @@ const AlbumList = () => {
   };
 
   const sendRequestHandler = async () => {
-    await axios.post(`...`,{
+    await axios.post(`http://i8a101.p.ssafy.io:8085/file/mergeVideo`,{
       data:{
         'mediaSeq': media.mediaSeq,
         'AlbumSeq': media.AlbumSeq,
