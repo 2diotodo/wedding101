@@ -10,6 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Calendar from "react-calendar";
 import Checkbox from "@mui/material/Checkbox";
 import "react-calendar/dist/Calendar.css"; // css import
+import useUploadMedia from "../../modules/useUploadMedia";
 
 import invitation_image_1 from "../../assets/img/invitation_image_1.png";
 import invitation_image_2 from "../../assets/img/invitation_image_2.png";
@@ -105,6 +106,14 @@ function FamilyInfo(props) {
 }
 
 function UploadMedia(props) {
+  const {
+    fileMedia,
+    filePreview,
+    fileImageHandler,
+    deleteFileImage,
+    onFileUpload,
+  } = useUploadMedia("temp");
+
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
   const handleChange = (
@@ -151,7 +160,13 @@ function UploadMedia(props) {
 
       <Button className="uploadButton" variant="contained" component="label">
         Upload
-        <input hidden accept="image/*, video/*" multiple type="file" />
+        <input
+          hidden
+          accept="image/*, video/*"
+          multiple
+          type="file"
+          onChange={fileImageHandler}
+        />
       </Button>
 
       <div>
@@ -174,7 +189,7 @@ function UploadMedia(props) {
       <div className="checkAgreement">
         개인정보 제공 동의하기 <Checkbox />
       </div>
-      <Button variant="contained" endIcon={<SendIcon />}>
+      <Button variant="contained" endIcon={<SendIcon />} onClick={onFileUpload}>
         Send
       </Button>
     </div>
