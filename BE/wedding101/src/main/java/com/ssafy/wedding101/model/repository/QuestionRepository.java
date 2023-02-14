@@ -24,6 +24,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     void updateQuestion(@Param("questionSeq") Long questionSeq, @Param("questionTitle") String questionTitle, @Param("questionContent") String questionContent);
 
     @Query(nativeQuery = true, value = "select * " +
-            "from tbl_question where is_valid = true")
+            "from tbl_question where is_valid = true order by created_at desc")
     List<Question> findAllQuestion();
 }
