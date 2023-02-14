@@ -71,7 +71,7 @@ const AlbumDeleted = () => {
     <div className='album-list'>
       <Grid2 container spacing={3}>
         <Grid2 lg={3} sm={3}>
-          <h1>Album List</h1>
+          <h1>Album Deleted</h1>
           <br />
           <FormControl fullWidth>
             <InputLabel id='sort-label'>정렬조건</InputLabel>
@@ -82,8 +82,8 @@ const AlbumDeleted = () => {
               label='Sort'
               onChange={orderHandler}
             >
-              <MenuItem value={'createdAt'}>날짜</MenuItem>
-              <MenuItem value={'createdAtRev'}>날짜역순</MenuItem>
+              <MenuItem value={'createdAt'}>최근순</MenuItem>
+              <MenuItem value={'createdAtRev'}>오래된순</MenuItem>
               <MenuItem value={'mediaName'}>이름</MenuItem>
             </Select>
           </FormControl>
