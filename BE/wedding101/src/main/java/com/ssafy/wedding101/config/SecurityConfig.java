@@ -25,42 +25,55 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/*
+        분류 : Configuration
+        작성 : 권영진
+        내용 : Spring Secruity를 활용한 인증, 인가 구현을 설정 위한 Java Configuration 파일
+        진척도 : 최종
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    // [ Dependency Injection ]
+    private final CorsConfig corsConfig;
+    // Dependency 1. JWT Util 클래스
+    private final JwtUtil jwtUtil;
+    // Dependency 2. 인증 성공 핸들러
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    // Dependency 3. 인증 실패 핸들러
+    private final AuthenticationFailureHandler authenticationFailureHandler;
+    // Dependency 4. 인증 실패 또는 인증헤더가 전달받지 못했을때 핸들러
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    // Dependency 5. 인가 실패 핸들러
+    private final AccessDeniedHandler accessDeniedHandler;
+    // Dependency 6. 커스텀 유저디테일서비스
+    private final UserDetailsService userDetailsService;
+    // Dependency 7. 유저 서비스
+    private final UserService userService;
+
+    // Security Authorization : 전체 공개 API
     private static final String[] permitAllPath = {
             /* swagger v2 */
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/swagger-ui/**",
-            "/swagger-ui/index.html",
-            "/webjars/**",
+            "/v2/api-docs", "/swagger-resources", "/swagger-resources/**", "/configuration/ui", "/configuration/security",
+            "/swagger-ui.html", "/swagger-ui/**", "/swagger-ui/index.html", "/webjars/**",
             /* swagger v3 */
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/auth/**"
+            "/v3/api-docs/**", "/swagger-ui/**", "/auth/**",
+            /* 전체 사용 가능 API */
+            "/album/access/**", "/album/access/**", "/file/uploadMedia/**", "/invitation/"
     };
-    private final CorsConfig corsConfig;
-    // JWT 제공 클래스
-    private final JwtUtil jwtUtil;
-    // 인증 성공 핸들러
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
-    // 인증 실패 핸들러
-    private final AuthenticationFailureHandler authenticationFailureHandler;
-    // 인증 실패 또는 인증헤더가 전달받지 못했을때 핸들러
-    private final AuthenticationEntryPoint authenticationEntryPoint;
-    // 인가 실패 핸들러
-    private final AccessDeniedHandler accessDeniedHandler;
 
-    private final UserDetailsService userDetailsService;
+    // Security Authorization : ROLE_USER 사용 가능 API
+    private static final String[] permitRoleUser = {
+            "/album/", "/album/delete/**", "/file/uploadAlbumCover", "/file/uploadInvitation",
+            "/file/mergeVideo", "/Info/**", "/invitation/"
+    };
 
-    private final UserService userService;
+    // Security Authorization : ROLE_MANAGER 사용 가능 API
+    private static final String[] permitRoleManager = {
+
+    };
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -78,12 +91,12 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//                .authorizeRequests()
-//                .antMatchers(permitAllPath).permitAll()
-//                .antMatchers("/practice/**").hasAuthority("ROLE_USER")
-//                .anyRequest().authenticated()
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers(permitAllPath).permitAll()
+                .antMatchers("/practice/**","/user/all","/user").hasAuthority("ROLE_USER")
+                .anyRequest().authenticated()
+//                .authorizeRequests()
+//                .anyRequest().permitAll()
                 .and()
                 .headers()
                 .frameOptions()
@@ -112,7 +125,7 @@ public class SecurityConfig {
         JwtAuthenticationFilter jwtAuthenticationFilter =
                 new JwtAuthenticationFilter(authenticationManager());
         // 필터 URL 설정
-        jwtAuthenticationFilter.setFilterProcessesUrl("/auth/loginUser");
+        jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
         // 인증 성공 핸들러
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         // 인증 실패 핸들러
