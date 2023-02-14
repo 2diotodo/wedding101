@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReviewDto {
     private Long reviewSeq;
     private Long albumSeq;
-    private String userId;
+    private String userNickname;
     private String reviewTitle;
     private Integer reviewRate;
     private String reviewContent;

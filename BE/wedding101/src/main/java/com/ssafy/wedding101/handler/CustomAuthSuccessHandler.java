@@ -3,7 +3,7 @@ package com.ssafy.wedding101.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.wedding101.common.ApiResponseType;
 import com.ssafy.wedding101.model.service.UserService;
-import com.ssafy.wedding101.util.JwtTokenProvider;
+import com.ssafy.wedding101.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -22,7 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtUtil jwtUtil;
 
     private final UserService userService;
 
@@ -32,7 +32,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // JWT Token 발급
-        HashMap<String, String> tokens = jwtTokenProvider.generateJwtToken(authentication);
+        HashMap<String, String> tokens = jwtUtil.generateJwtToken(authentication);
         String accessToken = tokens.get("accessToken");
         String refreshToken = tokens.get("refreshToken");
 

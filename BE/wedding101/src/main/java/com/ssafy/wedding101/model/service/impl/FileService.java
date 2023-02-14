@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AmazonS3Service {
+public class FileService {
 
     private final AmazonS3 amazonS3;
     @Value("${cloud.aws.s3.bucket}")
