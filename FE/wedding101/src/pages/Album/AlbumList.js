@@ -18,6 +18,7 @@ const AlbumList = () => {
   const [page, setPage] = useState(1);
   // axios 통신으로 DB 데이터 가져오기 구현
   const [media, setMedia] = useState([]);
+  const [mergeMedia, setMergeMedia] = useState([]);
   useEffect(() => {
     getAllMedia();
   }, []);
@@ -37,7 +38,9 @@ const AlbumList = () => {
 
   // 북마크 목록불러오기
   const wishFilterHandler = () => {
+    
     setMedia([...media].filter((item) => item.wish===true))
+    setMergeMedia()
   }
 
   // sorting
