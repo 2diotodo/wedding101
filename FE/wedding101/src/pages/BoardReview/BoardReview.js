@@ -151,7 +151,7 @@ function ReviewWriteModal(props){
         }
 
         axios.post(`http://i8a101.p.ssafy.io:8085/review`, {
-            albumSeq : 0,
+            albumSeq : props.userAlbumSeq,
             reviewContent: reviewContent,
             reviewRate: 9,
             reviewTitle: reviewTitle
@@ -161,6 +161,7 @@ function ReviewWriteModal(props){
             if(response.status === 200){
                 alert(`리뷰가 등록되었습니다.`);
                 props.renewPost();
+                props.doClose();
                 window.scrollTo(0,0);
             }
         }).catch(function (error) {
@@ -233,9 +234,24 @@ function WriteReviewButton(props){
 
     // review modal
     const [reviewModalOpen, setReviewModalOpen] = useState(false);
+    const [userAlbumSeq, setUserAlbumSeq] = useState();
     const openReviewModal = () => { setReviewModalOpen(true); };
     const closeReviewModal = () => { setReviewModalOpen(false); };
     const navigate = useNavigate();
+
+    async function getUserAlbumSeq() {
+        await axios
+        .get(`http://i8a101.p.ssafy.io:8085/album?userSeq=`+String(sessionStorage.userSeq))
+        .then((res) => {
+            console.log(res)
+            setUserAlbumSeq(res.data.data.albumSeq);
+        })
+        .catch((err) => {console.log(err);})
+    }
+
+    useEffect(()=> {
+        getUserAlbumSeq();
+    },[])
 
     // review Modal
     function loginCheckHandler(){
@@ -243,11 +259,15 @@ function WriteReviewButton(props){
         if (!isLogin){
             alert("로그인을 먼저 해주세요");
             navigate("/user/login");
+            return;
         }
-        else{
-            // Modal 창 띄우기
-            openReviewModal(); // 창 열림 설정
+        if (!userAlbumSeq){
+            alert("서비스 이용 후 리뷰해주세요");
+            navigate("/");
+            return;
         }
+        // Modal 창 띄우기
+        openReviewModal(); // 창 열림 설정
     }
 
     return(
@@ -262,6 +282,7 @@ function WriteReviewButton(props){
                 isOpen={reviewModalOpen} 
                 doClose={closeReviewModal}
                 renewPost={props.renewPost}
+                userAlbumSeq={userAlbumSeq}
                 className="BQ-style"/>
         </>
     );
@@ -270,10 +291,6 @@ function WriteReviewButton(props){
 function BoardReview() {
     const [ page, setPage ] = useState(1);
     const [ reviewItem, setReviewItem ] = useState([]);
-
-    useEffect(() => {
-        getAllReviews();
-    }, []);
 
     async function getAllReviews() {
         await axios
@@ -287,6 +304,25 @@ function BoardReview() {
             console.log('리뷰 정보 수신에 실패하였습니다.');
         });
     }
+
+    async function getUserSeq() {
+        await axios
+        .get(`http://i8a101.p.ssafy.io:8085/user/all`)
+        .then((res) => {
+            
+            res.data.data.forEach(element => {
+                if(element.userNickname === sessionStorage.getItem('userNickname')){
+                    sessionStorage.setItem('userSeq', element.userSeq);
+                }
+            })
+        })
+        .catch((err) => {console.log(err);})
+    }
+
+    useEffect(() => {
+        getAllReviews();
+        getUserSeq();
+    }, []);
 
     // pagination
     const PER_PAGE = 8;
