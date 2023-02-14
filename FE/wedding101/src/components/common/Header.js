@@ -1,4 +1,4 @@
-import './Header.css';
+import "./Header.css";
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
@@ -12,16 +12,16 @@ function Header() {
 
   const onLogout = () => {
     // sessionStorage에 userId로 저장되어 있는 아이템을 삭제
-    sessionStorage.removeItem('userId');
-    sessionStorage.setItem('isLogin', false);
+    sessionStorage.removeItem("userId");
+    sessionStorage.setItem("isLogin", false);
     // 메인으로 이동(새로고침)
     document.location.href = '/';
     navigate('/user/login');
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem('userId') === null) {
-      console.log('isLogin?? ::', isLogin);
+    if (sessionStorage.getItem("userId") === null) {
+      console.log("isLogin?? ::", isLogin);
     } else {
       // sessionStorage에 name이라는 key 값으로 저장된 값이 있다면
       // 로그인 상태 변경
