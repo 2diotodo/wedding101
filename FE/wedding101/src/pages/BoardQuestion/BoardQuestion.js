@@ -184,7 +184,7 @@ function AskWriteModal_(props){
     const askDataUpload = async () => {
         await axios({
             method: "POST",
-            url: `http://i8a101.p.ssafy.io:8085/qna`,  // 파일 업로드 요청 URL
+            url: `http://wedding101.shop/api/qna`,  // 파일 업로드 요청 URL
             data: {
                 userSeq: variables.userSeq,
                 questionSeq: variables.questionSeq,
@@ -292,11 +292,20 @@ function AskButton_(props){
 
 function BoardQuestion() {
     const [ page, setPage ] = useState(1);
-    const [ askItem, setAskItem ] = useState(sampleTable);
+    const [ askItem, setAskItem ] = useState([{
+        "userSeq":0,
+        "questionSeq": 0,
+        "questionTitle": "",
+        "questionContent": "",
+        "userId": "",
+        "createdAt": "",
+        "updatedAt": "",
+        "isValid": false
+    }]);
     function AskListDownload_(){
         axios({
             method: "GET",
-            url: "http://i8a101.p.ssafy.io:8085/" + 'qna/all',
+            url: "http://wedding101.shop/api/" + 'qna/all',
             headers : {
                 "Authorization" : "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkdWR3bHM2MjQiLCJ1c2VyU2VxIjoxLCJpYXQiOjE2NzYzMTQ0OTksImV4cCI6MTY3NjMxNjI5OX0.fku4SFlPZBcV2uOJEa6f1x86qXUdf6NaNl0swuT--Wk"
             }

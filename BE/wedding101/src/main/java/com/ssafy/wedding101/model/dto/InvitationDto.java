@@ -13,7 +13,7 @@ public class InvitationDto {
     private Long invitationSeq;
     private Long infoSeq;
     private Long userSeq;
-    private Long tempateSeq;
+    private Long templateSeq;
     private String photoUrl1;
     private String photoUrl2;
     private String templateHeader;

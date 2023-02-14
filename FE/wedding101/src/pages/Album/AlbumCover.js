@@ -45,7 +45,7 @@ function AlbumCover() {
 
   async function getAlbum() {
     await axios
-      .get(`http://i8a101.p.ssafy.io:8085/album?userSeq=${albumForm.userSeq}`)
+      .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`)
       .then((res) => {
         setAlbumForm(res.data.data);
         console.log(res.data.data);

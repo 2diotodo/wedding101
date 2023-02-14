@@ -53,7 +53,7 @@ function RegistForm() {
     const checkDuplicateId = (e) => {
         const id = form.id;
         axios
-            .get(`http://i8a101.p.ssafy.io:8085/user/exist/id/${id}`)
+            .get(`http://wedding101.shop/api/user/exist/id/${id}`)
             .then(res => {
                 if(res.data === false) {
                     setUsableId(true);
@@ -83,7 +83,7 @@ function RegistForm() {
     const checkDuplicateEmail = (e) => {
         const email = form.email;
         axios
-            .get(`http://i8a101.p.ssafy.io:8085/user/exist/email/${email}`)
+            .get(`http://wedding101.shop/api/user/exist/email/${email}`)
             .then(res => {
                 if(res.data === false) {
                     setUsableEmail(true);
@@ -160,7 +160,7 @@ function RegistForm() {
             return
         }
 
-        axios.post(`http://i8a101.p.ssafy.io:8085/user/signup`, {
+        axios.post(`http://wedding101.shop/api/user/signup`, {
             userId: id,
             userPassword: password,
             userName: name,

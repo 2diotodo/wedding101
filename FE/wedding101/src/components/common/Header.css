@@ -2,16 +2,43 @@
   background-color: #ffffff;
   width: 100%;
   height: 8vh;
-  position: fixed;
-  /* display: none; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 3%;
+  padding-right:3%;
 }
+
 .logo {
-  margin-top: 1%;
   float: left;
+  display: flex;
+  width: 15vw;
+  flex-direction: row;
+  justify-content: center;
+  cursor: pointer;
+  height: 35%;
+}
+
+.logo-font-tag{
+  padding-left: 4.5%;
+  font-size: 2.6vh;
+  font-weight: bolder;
+}
+
+.header-font-tag{
+  color: rgba(0, 0, 0, 0.90);
+  font-size: 2vh;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.header-font-group{
+  width: 65%;
+  margin-right: 5%;
+  display: flex;
+  justify-content: space-around;
 }
 .nav-tabs {
   display: flex;
-  margin-top: 1%;
   float: right;
 }
 navLink {
@@ -19,4 +46,9 @@ navLink {
 }
 link > button {
   height: 100%;
+}
+
+.login-signup{
+  display: row;
+  justify-content: center;
 }
