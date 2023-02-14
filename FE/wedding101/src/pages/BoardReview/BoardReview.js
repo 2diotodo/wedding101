@@ -43,7 +43,6 @@ function ReviewModal(props){
                     <div className='Division_Line'></div>
                     <div className='BQ-Division-Line'></div>
                     <div className='BQ-Modal-Text-Align'>{props.content}</div>
-                    {props.content}
                 </Typography>
             </Box>
         </Modal>
@@ -312,7 +311,7 @@ function BoardReview() {
         await axios
         .get(`http://wedding101.shop/api/user/all`)
         .then((res) => {
-            
+            console.log(res.data.data);
             res.data.data.forEach(element => {
                 if(element.userNickname === sessionStorage.getItem('userNickname')){
                     sessionStorage.setItem('userSeq', element.userSeq);
