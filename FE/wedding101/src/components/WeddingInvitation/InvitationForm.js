@@ -67,7 +67,7 @@ function BriefInfo(props) {
 function WeddingPhoto(props) {
   // 사진을 가져와야함 -> props에 담겨있어야하는가?
   return (
-    <div className="weddingPhoto">
+    <div className="weddingPhoto" id={props.id}>
       <img src={props.src} alt="invitation_image_1"></img>
     </div>
   );
@@ -117,15 +117,15 @@ function UploadMedia(props) {
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
   const handleChange = (
-    event: MouseEvent<HTMLElement>,
-    newAlignment: string
+    event,
+    newAlignment
   ) => {
     setSendTo(newAlignment);
   };
 
   const handleChange2 = (
-    event: MouseEvent<HTMLElement>,
-    newAlignment: string
+    event,
+    newAlignment
   ) => {
     setSendFrom(newAlignment);
   };
@@ -301,15 +301,14 @@ function InvitationForm(props) {
         //datetime="2023년 2월 17일 오후 2시"
         //place="역삼 멀티캠퍼스 8층"
       />
-      <WeddingPhoto src={invitation_image_1} />
-      <WeddingPhoto src={invitation_image_2} />
+      <WeddingPhoto src={invitation_image_1} id='invitationImage01'/>
+      <WeddingPhoto src={invitation_image_2} id='invitationImage02'/>
       <WeddingMessage
         message1={props.invitationData.templateHeader}
         message2={props.invitationData.templateFooter}
         message3={props.invitationData.templateEtc}
       />
       {/* <FamilyInfo/> */}
-      <WeddingPhoto src={invitation_image_3} />
       <div className="inducingMessage">
         결혼식 참여가 어려우신가요?
         <br />
@@ -317,7 +316,6 @@ function InvitationForm(props) {
       </div>
       <UploadMedia />
       <WeddingInfo datetime={props.weddingInfoData.weddingDay} />
-      <WeddingPhoto src={invitation_image_4} />
       {/* <WeddingPhotoCarousel/> */}
       <WeddingSummary
         groomName={props.weddingInfoData.groomName}
