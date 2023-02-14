@@ -9,7 +9,7 @@ const MainArea03 = () => {
         <div className='horizontalLayout' id='HL_p3_01'>
           <div className='verticalLayout' id='VL_p3_01'>
             <div className='title_explain' id='title03'>
-              <div className='title'>Wedding Album</div>
+              <div className='mainTitle' id='title_p3_01'>Wedding Album</div>
               <div className='explainText'>고마운 분들의 영상을 간직하세요</div>
             </div>
             <div className='detailLayout' id='DL03'>

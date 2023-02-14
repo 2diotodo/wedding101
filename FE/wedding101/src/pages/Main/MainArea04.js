@@ -25,7 +25,7 @@ const MainArea04 = () => {
 
         <div className='verticalLayout' id='VL_p4_01'>
           <div className='title_explain' id='title04'>
-            <div className='title'>SERVICE OUTLINE</div>
+            <div className='mainTitle'>SERVICE OUTLINE</div>
           </div>
           <div className='content-wrapper'>
             <Stepper activeStep={-1} alternativeLabel>

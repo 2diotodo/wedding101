@@ -20,18 +20,6 @@ tablebox {
     overflow: hidden;
 }
 
-#newReviewTitle {
-    width: 100%;
-    margin: 1% 0 1% 0;
-    padding: 0 0 0 3vh;
-    font-size: 2vh;
-}
-
-#newReviewContent{
-    width: 100%;
-    height: 90%;
-}
-
 #newReviewHL {
     justify-content: space-around;
     width: 30%;
