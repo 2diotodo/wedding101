@@ -5,9 +5,7 @@ INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_emai
 ("dudwls624", "1234", "권영진", "영진짱", "dudwls624@naver.com"),
 ("rla0347", "1234", "김지현", "JIIHH", "rla0347@naver.com"),
 ("llee.dh", "1234", "이동형", "후드티개발자", "dhl@naver.com"),
-("seonghwan1031", "1234", "김성환", "최고팀장", "seonghwan1031@naver.com");
-
-INSERT INTO tbl_user (user_id, user_password, user_name,user_nickname, user_email) VALUES
+("seonghwan1031", "1234", "김성환", "최고팀장", "seonghwan1031@naver.com"),
 ("wlsdnr4729", "1234", "이진욱", "핑크마스크", "wlsdnr4729@naver.com"),
 ("2diotodo", "1234", "류제엽", "JYP", "2diotodo@naver.com"),
 ("ruddlssk97", "1234", "나경인", "오창불주먹", "ruddlssk97@naver.com"),
