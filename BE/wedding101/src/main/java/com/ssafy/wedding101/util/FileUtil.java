@@ -24,8 +24,8 @@ public class FileUtil {
     private final FFprobe ffProbe;
 
     // [ 상수 설정 : 파일 저장 경로 ]
-//    private final String basePath = "/root/ffmpeg/temp/";
-    private final String basePath = "C:/Users/SSAFY/Desktop/temp/";
+    private final String basePath = "/root/ffmpeg/temp/";
+//    private final String basePath = "C:/Users/SSAFY/Desktop/temp/";
 
 
     public void downloadVideo(List<String> videoList, int imageListSize) throws IOException {

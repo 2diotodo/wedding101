@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -60,19 +61,21 @@ public class SecurityConfig {
             "/swagger-ui.html", "/swagger-ui/**", "/swagger-ui/index.html", "/webjars/**",
             /* swagger v3 */
             "/v3/api-docs/**", "/swagger-ui/**", "/auth/**",
-            /* 전체 사용 가능 API */
-            "/album/access/**", "/album/access/**", "/file/uploadMedia/**", "/invitation/"
+            /* API */
+            "/file//uploadMedia/image", "/file/uploadMedia/video", "/media", "/user/signup"
     };
 
     // Security Authorization : ROLE_USER 사용 가능 API
     private static final String[] permitRoleUser = {
             "/album/", "/album/delete/**", "/file/uploadAlbumCover", "/file/uploadInvitation",
-            "/file/mergeVideo", "/Info/**", "/invitation/"
+            "/file/mergeVideo", "/Info/**", "/invitation/", "/invitation/delete/*", "/media/**",
+            "/qna/*", "/review/**", "/unifiedVideo/**", "/user/**"
     };
 
-    // Security Authorization : ROLE_MANAGER 사용 가능 API
-    private static final String[] permitRoleManager = {
-
+    // Security Authorization : HTTPMethod GET만 허용하는 API
+    private static final String[] permitAllGetMethod = {
+            "/album/access/*", "/invitation/*", "/qna/*","/qna/all", "/review/*",
+            "/user/exist/**", "/user//find/id/*"
     };
 
     @Bean
@@ -93,7 +96,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(permitAllPath).permitAll()
-                .antMatchers("/practice/**","/user/all","/user").hasAuthority("ROLE_USER")
+                .antMatchers(permitRoleUser).hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.GET, permitAllGetMethod).permitAll()
                 .anyRequest().authenticated()
 //                .authorizeRequests()
 //                .anyRequest().permitAll()
