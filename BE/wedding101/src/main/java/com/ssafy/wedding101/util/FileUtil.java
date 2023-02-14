@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class FFmpegUtil {
+public class FileUtil {
 
     private final FFmpeg ffmpeg;
 

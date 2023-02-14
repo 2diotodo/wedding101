@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 @Component
 @RequiredArgsConstructor
-public final class JwtTokenProvider {
+public final class JwtUtil {
 
     private final UserDetailsService userDetailsService;
 
@@ -117,5 +117,12 @@ public final class JwtTokenProvider {
         } catch (JwtException | NullPointerException exception) {
             return false;
         }
+    }
+
+    /**
+     *
+     */
+    public Long getUserSeq(String accessToken){
+        return Long.valueOf(getClaimsFormToken(accessToken).get("userSeq").toString());
     }
 }

@@ -1,6 +1,6 @@
 package com.ssafy.wedding101.controller;
 
-import com.ssafy.wedding101.util.FFmpegUtil;
+import com.ssafy.wedding101.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.util.Map;
 @CrossOrigin
 public class TestController {
 
-    private final FFmpegUtil fFmpegUtil;
+    private final FileUtil fileUtil;
 
     @GetMapping("/log")
     public void log() throws Exception {
@@ -32,10 +32,10 @@ public class TestController {
     @PostMapping("/video/merge")
     public ResponseEntity<?> mergeWeddingmedia(@RequestBody Map<String, List<String>> listMap) throws Exception {
 
-        fFmpegUtil.downloadImage(listMap.get("imageList"));
-        fFmpegUtil.downloadVideo(listMap.get("videoList"), listMap.get("imageList"));
-        fFmpegUtil.combineImage(listMap.get("imageList"));
-        fFmpegUtil.combineVideo();
+        fileUtil.downloadImage(listMap.get("imageList"));
+        fileUtil.downloadVideo(listMap.get("videoList"), listMap.get("imageList"));
+        fileUtil.combineImage(listMap.get("imageList"));
+        fileUtil.combineVideo();
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
