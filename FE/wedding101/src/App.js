@@ -22,6 +22,7 @@ import AlbumDeleted from "./pages/Album/AlbumDeleted";
 import AlbumSelected from "./pages/Album/AlbumSelected";
 import InvitationShared from "./pages/WeddingInvitation/InvitationShared";
 
+
 function App() {
   return (
     <Routes>
