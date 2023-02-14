@@ -1,5 +1,5 @@
 import './BoardReview.css';
-import './BoardQuestion.css';
+import '../BoardQuestion/BoardQuestion.css';
 
 import { useState, useEffect } from 'react';
 import Navbar from '../../components/common/Navbar';
