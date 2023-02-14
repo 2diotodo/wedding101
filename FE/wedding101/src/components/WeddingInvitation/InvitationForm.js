@@ -67,7 +67,7 @@ function BriefInfo(props) {
 function WeddingPhoto(props) {
   // 사진을 가져와야함 -> props에 담겨있어야하는가?
   return (
-    <div className="weddingPhoto">
+    <div className="weddingPhoto" id={props.id}>
       <img src={props.src} alt="invitation_image_1"></img>
     </div>
   );
@@ -116,18 +116,68 @@ function UploadMedia(props) {
 
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
-  const handleChange = (
-    event: MouseEvent<HTMLElement>,
-    newAlignment: string
-  ) => {
+  const [sendName, setSendName] = useState("");
+  const [sendAgree, setSendAgree] = useState(false);
+  const handleChange = (event, newAlignment) => {
     setSendTo(newAlignment);
+    console.log(newAlignment);
   };
 
-  const handleChange2 = (
-    event: MouseEvent<HTMLElement>,
-    newAlignment: string
-  ) => {
+  const handleChange2 = (event, newAlignment) => {
     setSendFrom(newAlignment);
+    console.log(newAlignment);
+  };
+
+  const handleChangeCheck = (event) => {
+    setSendAgree(event.target.checked);
+  };
+
+  const handleChangeName = (event) => {
+    // console.log(event.target.value);
+    setSendName(event.target.value);
+  };
+
+  const onMediaUpload = async (e) => {
+    e.preventDefault();
+    if (!sendTo) {
+      alert("누구에게 보낼지 선택하세요");
+      return;
+    }
+    if (!sendFrom) {
+      alert("축하를 보낼 사람과의 관계를 선택하세요");
+      return;
+    }
+    if (!sendName) {
+      alert("보내는 사람의 이름을 입력해주세요");
+      return;
+    }
+    if (!fileMedia) {
+      alert("파일을 첨부해주세요");
+      return;
+    }
+    if (!sendAgree) {
+      alert("개인정보 제공에 동의해주세요");
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", fileMedia);
+    console.log(formData);
+
+    //   await axios({
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //     method: "POST",
+    //     url: "http://i8a101.p.ssafy.io:8085/album?userSeq=1", // 파일 업로드 요청 URL
+    //     data: formData,
+    //   })
+    //     .then((res) => {
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       alert("등록을 실패하였습니다.");
+    //     });
   };
 
   return (
@@ -154,10 +204,13 @@ function UploadMedia(props) {
           label="이름"
           variant="outlined"
           size="small"
+          onChange={handleChangeName}
         />{" "}
         (이)가
       </div>
-
+      <div className="media-area">
+        {filePreview && <img src={filePreview} alt="preview" />}
+      </div>
       <Button className="uploadButton" variant="contained" component="label">
         Upload
         <input
@@ -187,9 +240,13 @@ function UploadMedia(props) {
         </ToggleButtonGroup>
       </div>
       <div className="checkAgreement">
-        개인정보 제공 동의하기 <Checkbox />
+        개인정보 제공 동의하기 <Checkbox onChange={handleChangeCheck} />
       </div>
-      <Button variant="contained" endIcon={<SendIcon />} onClick={onFileUpload}>
+      <Button
+        variant="contained"
+        endIcon={<SendIcon />}
+        onClick={onMediaUpload}
+      >
         Send
       </Button>
     </div>
@@ -301,8 +358,8 @@ function InvitationForm(props) {
         //datetime="2023년 2월 17일 오후 2시"
         //place="역삼 멀티캠퍼스 8층"
       />
-      <WeddingPhoto src={invitation_image_1} />
-      <WeddingPhoto src={invitation_image_2} />
+      <WeddingPhoto src={invitation_image_1} id="invitationImage01" />
+      <WeddingPhoto src={invitation_image_2} id="invitationImage02" />
       <WeddingMessage
         message1={props.invitationData.templateHeader}
         message2={props.invitationData.templateFooter}
