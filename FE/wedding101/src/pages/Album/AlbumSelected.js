@@ -23,7 +23,7 @@ const AlbumSelected = (props) => {
 
   async function getAllMedia() {
     await axios
-      .get(`http://i8a101.p.ssafy.io:8085/media/wish/`)
+      .get(`http://wedding101.shop/api/media/wish/`)
       .then((res) => {
         setMedia(res.data.data);
         console.log('setMedia 성공');

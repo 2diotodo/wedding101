@@ -23,7 +23,7 @@ const AlbumDeleted = () => {
   
   async function getDeletedMedia() {
     await axios
-      .get(`http://i8a101.p.ssafy.io:8085/media/1/bin`)
+      .get(`http://wedding101.shop/api/media/1/bin`)
       .then((res) => {
         setBinMedia(res.data.data);
         console.log('setMedia 성공');

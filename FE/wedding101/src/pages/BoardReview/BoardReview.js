@@ -43,7 +43,6 @@ function ReviewModal(props){
                     <div className='Division_Line'></div>
                     <div className='BQ-Division-Line'></div>
                     <div className='BQ-Modal-Text-Align'>{props.content}</div>
-                    {props.content}
                 </Typography>
             </Box>
         </Modal>
@@ -153,7 +152,7 @@ function ReviewWriteModal(props){
             return;
         }
 
-        axios.post(`http://i8a101.p.ssafy.io:8085/review`, {
+        axios.post(`http://wedding101.shop/api/review`, {
             albumSeq : props.userAlbumSeq,
             reviewContent: reviewContent,
             reviewRate: 9,
@@ -244,7 +243,7 @@ function WriteReviewButton(props){
 
     async function getUserAlbumSeq() {
         await axios
-        .get(`http://i8a101.p.ssafy.io:8085/album?userSeq=`+String(sessionStorage.userSeq))
+        .get(`http://wedding101.shop/api/album?userSeq=`+String(sessionStorage.userSeq))
         .then((res) => {
             console.log(res)
             setUserAlbumSeq(res.data.data.albumSeq);
@@ -297,7 +296,7 @@ function BoardReview() {
 
     async function getAllReviews() {
         await axios
-        .get(`http://i8a101.p.ssafy.io:8085/review/all/`)
+        .get(`http://wedding101.shop/api/review/all/`)
         .then((res) => {
             console.log(res);
             setReviewItem(res.data.data);
@@ -310,9 +309,9 @@ function BoardReview() {
 
     async function getUserSeq() {
         await axios
-        .get(`http://i8a101.p.ssafy.io:8085/user/all`)
+        .get(`http://wedding101.shop/api/user/all`)
         .then((res) => {
-            
+            console.log(res.data.data);
             res.data.data.forEach(element => {
                 if(element.userNickname === sessionStorage.getItem('userNickname')){
                     sessionStorage.setItem('userSeq', element.userSeq);

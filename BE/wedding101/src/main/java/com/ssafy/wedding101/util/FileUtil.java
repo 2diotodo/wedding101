@@ -18,16 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileUtil {
 
+    // [의존성 주입]
     private final FFmpeg ffmpeg;
 
     private final FFprobe ffProbe;
 
-    // Temp 디렉토리에 대한 basePath 설정
+    // [ 상수 설정 : 파일 저장 경로 ]
     private final String basePath = "/root/ffmpeg/temp/";
 //    private final String basePath = "C:/Users/SSAFY/Desktop/temp/";
 
 
-    public void downloadVideo(List<String> videoList, List<String> imageList) throws IOException {
+    public void downloadVideo(List<String> videoList, int imageListSize) throws IOException {
 
         File file = new File(basePath + "videoList.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -50,7 +51,7 @@ public class FileUtil {
             executor.createJob(builder).run();
         }
 
-        if (imageList.size() != 0)
+        if (imageListSize != 0)
             writer.write("file '" + basePath + "/video/imageList.mp4\n");
 
 
@@ -58,9 +59,6 @@ public class FileUtil {
     }
 
     public void downloadImage(List<String> imageList) throws IOException {
-
-        File file = new File(basePath + "imageList.txt");
-
 
         for (int i = 0; i < imageList.size(); i++) {
 
@@ -77,6 +75,58 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void deleteMedia(int imageListSize, int videoListSize) {
+
+        File file = null;
+
+        // 다운로드 받았던 이미지들을 삭제한다.
+        for (int i = 0; i < imageListSize; i++) {
+            file = new File(basePath + "/image/Test" + i + ".jpg");
+
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
+        // 다운로드 받았던 비디오들을 삭제한다.
+        for (int i = 0 ; i < videoListSize ; i++){
+            file = new File(basePath + "/video/Test"+i+".mp4");
+
+            if (file.exists()){
+                file.delete();
+            }
+        }
+
+        // 이미지 합본을 삭제한다.
+        file = new File(basePath + "/video/imageList.mp4");
+
+        if (file.exists()){
+            file.delete();
+        }
+
+        // 동영상 합본을 삭제한다.
+        file = new File(basePath + "output.mp4");
+
+        if (file.exists()){
+            file.delete();
+        }
+
+        // 텍스트 파일을 삭제한다.
+        file = new File(basePath + "videoList.txt");
+
+        if (file.exists()){
+            file.delete();
+        }
+    }
+
+    public void deleteThumbNail() {
+        File file = new File(basePath + "thumbnail.jpg");
+
+        if (file.exists()){
+            file.delete();
         }
     }
 
@@ -112,7 +162,7 @@ public class FileUtil {
         sb.append("concat=n=").append(imageList.size()).append(":v=1:a=0,format=yuv420p[v]");
 
         System.out.println("hi");
-        System.out.println(sb.toString());
+        System.out.println(sb);
         System.out.println("hi");
 
         builder.setComplexFilter(sb.toString())
@@ -129,34 +179,35 @@ public class FileUtil {
         executor.createJob(builder).run();
     }
 
-    public void combineVideo() {
+    public String combineVideo() {
 
         FFmpegBuilder builder = new FFmpegBuilder()
                 .overrideOutputFiles(true)
-//              // 비디오 저장 폴더
-                // 여기서 서비스 코드에 맞는? 회원 정보에 맞는 앨범 찾는다
-                // 해당 앨범 디렉토리에 영상이 저장되있다.
-                // 그 디렉토리에 접근해서 파일 목록을 하나씩 불러와
-                // for 문을 돌면서 그 파일 이름들을
-                //    fopen 'videolist.txt.' as f
-                //    f.write( 비디오 이름 )
-                // videoList.txt
-                // "/home/ubuntu/ffmpeg/temp"
                 .addInput(basePath + "videoList.txt")
                 .addExtraArgs("-f", "concat")
                 .addExtraArgs("-safe", "0")
-//                .addExtraArgs("--with:fade:out-in")
                 .addOutput(basePath + "output.mp4")
                 .done();
 
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffProbe);
-
         executor.createJob(builder).run();
 
+        return basePath + "output.mp4";
+    }
 
-//        executor.createTwoPassJob(builder).run();
-        //https://github.com/bramp/ffmpeg-cli-wrapper/issues/109
-        //java.lang.IllegalStateException: Target size does not support multiple inputs
+    public String getThumbnail(String inputPath) {
 
+        FFmpegBuilder builder = new FFmpegBuilder()
+                .overrideOutputFiles(true)
+                .addInput(inputPath)
+                .addExtraArgs("-ss", "00:00:01")
+                .addOutput(basePath + "thumbnail.jpg")
+                .setFrames(1)
+                .done();
+
+        FFmpegExecutor excutor = new FFmpegExecutor(ffmpeg, ffProbe);
+        excutor.createJob(builder).run();
+
+        return basePath + "thumbnail.jpg";
     }
 }
