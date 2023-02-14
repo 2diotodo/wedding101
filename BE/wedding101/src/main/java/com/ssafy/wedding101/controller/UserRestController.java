@@ -2,6 +2,7 @@ package com.ssafy.wedding101.controller;
 
 import com.ssafy.wedding101.model.dto.UserDto;
 import com.ssafy.wedding101.model.service.UserService;
+import com.ssafy.wedding101.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.*;
 public class UserRestController {
 
         private final UserService userService;
+        private final JwtUtil jwtUtil;
 
         @Operation(summary = "회원가입")
         @PostMapping("/signup")
@@ -57,21 +59,25 @@ public class UserRestController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
-        @Operation(summary = "회원 조회 (1)")
-        @GetMapping ("")
-        public ResponseEntity<Map<String, Object>> getUserDetail(Long userSeq) {
-            Map<String, Object> result = new HashMap<>();
-            // 세션에서 seq 가져옴
-            try {
-                UserDto userDto = userService.getUser(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
-                result.put("message", "회원 조회 SUCCESS");
-                result.put("data", userDto);
-                return new ResponseEntity<>(result, HttpStatus.OK);
-            } catch (NoSuchElementException e) {
-                result.put("message", "회원 조회 FAIL - user Seq  INCORRECT");
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
+    @Operation(summary = "회원 조회 (1)")
+    @GetMapping ("")
+    public ResponseEntity<Map<String, Object>> getUserDetail(@RequestHeader("Authorization") String authorization) {
+
+        String accessToken = authorization.substring(7);
+        Long userSeq = jwtUtil.getUserSeq(accessToken);
+
+        Map<String, Object> result = new HashMap<>();
+        // 세션에서 seq 가져옴
+        try {
+            UserDto userDto = userService.getUser(userSeq).orElseThrow(() -> new NoSuchElementException("data is null"));
+            result.put("message", "회원 조회 SUCCESS");
+            result.put("data", userDto);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            result.put("message", "회원 조회 FAIL - user Seq  INCORRECT");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+    }
 
         @Operation(summary = "회원 조회 (all)")
         @GetMapping ("/all")
