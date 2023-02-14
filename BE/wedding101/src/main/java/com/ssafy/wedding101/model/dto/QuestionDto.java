@@ -13,6 +13,7 @@ public class QuestionDto {
     private Long questionSeq;
     private Long userSeq;
     private String userId;
+    private String userNickname;
     private String questionTitle;
     private String questionContent;
     private String createdAt;
