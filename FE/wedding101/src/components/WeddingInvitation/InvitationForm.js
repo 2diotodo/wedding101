@@ -69,7 +69,6 @@ function WeddingPhoto(props) {
   return (
     <div className="weddingPhoto">
       <img src={props.src} alt="invitation_image_1"></img>
-      {/* <img src="https://picsum.photos/1000/800" alt="invitation_image_1"></img> */}
     </div>
   );
 }
@@ -87,6 +86,9 @@ function WeddingMessage(props) {
         {props.message2}
         <br />
         {props.message3}
+        {/* 두 사람이 하나가 될 인생을 시작합니다. 사랑으로 가득 채워 즐거움은
+        나누고 어려움은 이겨내는 함께 나아가는 삶을 꾸리겠습니다. 부디
+        걸음하시어 축복하여 주시면 더없는 기쁨이 되겠습니다. */}
         <br />
       </div>
       <FamilyInfo />
@@ -110,72 +112,22 @@ function UploadMedia(props) {
     fileImageHandler,
     deleteFileImage,
     onFileUpload,
-  } = useUploadMedia("media");
+  } = useUploadMedia("temp");
 
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
-  const [sendName, setSendName] = useState("");
-  const [sendAgree, setSendAgree] = useState(false);
-  const handleChange = (event, newAlignment) => {
+  const handleChange = (
+    event: MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
     setSendTo(newAlignment);
-    console.log(newAlignment);
   };
 
-  const handleChange2 = (event, newAlignment) => {
+  const handleChange2 = (
+    event: MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
     setSendFrom(newAlignment);
-    console.log(newAlignment);
-  };
-
-  const handleChangeCheck = (event) => {
-    setSendAgree(event.target.checked);
-  };
-
-  const handleChangeName = (event) => {
-    // console.log(event.target.value);
-    setSendName(event.target.value);
-  };
-
-  const onMediaUpload = async (e) => {
-    e.preventDefault();
-    if (!sendTo) {
-      alert("누구에게 보낼지 선택하세요");
-      return;
-    }
-    if (!sendFrom) {
-      alert("축하를 보낼 사람과의 관계를 선택하세요");
-      return;
-    }
-    if (!sendName) {
-      alert("보내는 사람의 이름을 입력해주세요");
-      return;
-    }
-    if (!fileMedia) {
-      alert("파일을 첨부해주세요");
-      return;
-    }
-    if (!sendAgree) {
-      alert("개인정보 제공에 동의해주세요");
-      return;
-    }
-
-    let formData = new FormData();
-    formData.append("file", fileMedia);
-    console.log(formData);
-
-    //   await axios({
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //     method: "POST",
-    //     url: "http://i8a101.p.ssafy.io:8085/album?userSeq=1", // 파일 업로드 요청 URL
-    //     data: formData,
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((err) => {
-    //       alert("등록을 실패하였습니다.");
-    //     });
   };
 
   return (
@@ -202,13 +154,10 @@ function UploadMedia(props) {
           label="이름"
           variant="outlined"
           size="small"
-          onChange={handleChangeName}
         />{" "}
         (이)가
       </div>
-      <div className="media-area">
-        {filePreview && <img src={filePreview} alt="preview" />}
-      </div>
+
       <Button className="uploadButton" variant="contained" component="label">
         Upload
         <input
@@ -238,13 +187,9 @@ function UploadMedia(props) {
         </ToggleButtonGroup>
       </div>
       <div className="checkAgreement">
-        개인정보 제공 동의하기 <Checkbox onChange={handleChangeCheck} />
+        개인정보 제공 동의하기 <Checkbox />
       </div>
-      <Button
-        variant="contained"
-        endIcon={<SendIcon />}
-        onClick={onMediaUpload}
-      >
+      <Button variant="contained" endIcon={<SendIcon />} onClick={onFileUpload}>
         Send
       </Button>
     </div>
@@ -270,6 +215,7 @@ function WeddingCalendar(props) {
 
   return (
     <div>
+      {/* <Calendar calendarType="US" value={value} /> */}
       <Calendar calendarType="US" value={value} />
     </div>
   );
@@ -309,8 +255,10 @@ function WeddingSummary(props) {
       {props.groomName} & {props.brideName}
       <br />
       {dateFormat}
+      {/* 12월 24일(일) 오후 2시 */}
       <br />
       {props.place}
+      {/* 멀티캠퍼스 8층 */}
     </div>
   );
 }
@@ -325,23 +273,43 @@ function WeddingMoney(props) {
 }
 
 function InvitationForm(props) {
+  // const [data, setData] = useState(props.data);
+
+  // useEffect(() => {
+  //   setData(props);
+  // }, []);
+  // useEffect(() => {
+  //   const dataFetch = async () => {
+  //     const data = await api.wedding101.findWeddingInfo(1)
+  //     console.log(data.data);
+  //     setData(data.data);
+  //   }
+  //   dataFetch();
+  // }, []);
+
   return (
     <div className="invitation">
       <Title
         groomName={props.weddingInfoData.groomName}
         brideName={props.weddingInfoData.brideName}
+        // groomName="김성환"
+        // brideName="권영진"
       />
       <BriefInfo
         datetime={props.weddingInfoData.weddingDay}
         place={props.weddingInfoData.weddingHallName}
+        //datetime="2023년 2월 17일 오후 2시"
+        //place="역삼 멀티캠퍼스 8층"
       />
       <WeddingPhoto src={invitation_image_1} />
+      <WeddingPhoto src={invitation_image_2} />
       <WeddingMessage
         message1={props.invitationData.templateHeader}
         message2={props.invitationData.templateFooter}
         message3={props.invitationData.templateEtc}
       />
-
+      {/* <FamilyInfo/> */}
+      <WeddingPhoto src={invitation_image_3} />
       <div className="inducingMessage">
         결혼식 참여가 어려우신가요?
         <br />
@@ -350,6 +318,7 @@ function InvitationForm(props) {
       <UploadMedia />
       <WeddingInfo datetime={props.weddingInfoData.weddingDay} />
       <WeddingPhoto src={invitation_image_4} />
+      {/* <WeddingPhotoCarousel/> */}
       <WeddingSummary
         groomName={props.weddingInfoData.groomName}
         brideName={props.weddingInfoData.brideName}
