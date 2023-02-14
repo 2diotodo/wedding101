@@ -8,6 +8,7 @@ const useUploadMedia = (media) => {
     // 파일 미리보기 구현
     const fileImageHandler = (e) => {
         const file = e.target.files[0];
+        console.log(file)
         if(!isValidFile(file)){
             alert("is not valid file")
             return
@@ -68,8 +69,10 @@ const useUploadMedia = (media) => {
     // 업로드 파일 삭제(메모리관리)
     const deleteFileImage = () => {
         URL.revokeObjectURL(fileMedia);
+        URL.revokeObjectURL(filePreview);
         setFileMedia('');
         setFilePreview('');
+        sessionStorage.setItem(media,fileMedia);
     };
 
 
