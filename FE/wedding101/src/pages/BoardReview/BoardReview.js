@@ -1,4 +1,5 @@
 import './BoardReview.css';
+import './BoardQuestion.css';
 
 import { useState, useEffect } from 'react';
 import Navbar from '../../components/common/Navbar';
@@ -40,6 +41,8 @@ function ReviewModal(props){
                 <Typography  component="div" id="Modal__body">
                     <ModalSubTitle writer={props.writer} date={props.reviewDate}></ModalSubTitle>
                     <div className='Division_Line'></div>
+                    <div className='BQ-Division-Line'></div>
+                    <div className='BQ-Modal-Text-Align'>{props.content}</div>
                     {props.content}
                 </Typography>
             </Box>
