@@ -5,11 +5,18 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
+import { useEffect } from 'react';
 
-function MediaDialog({media, deleteConfirm}) {
+function MediaDialog({media, deleteConfirm, getAllMedia, getDeletedMedia}) {
 const [isBin, setIsBin] = useState(media.inBin);
 
   const [open, setOpen] = React.useState(false);
+
+  useEffect(()=>{
+    console.log('mediaSeq',media.mediaSeq);
+    console.log('isBin',isBin);
+    media.inBin=isBin;
+  },[isBin]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,28 +27,30 @@ const [isBin, setIsBin] = useState(media.inBin);
   };
   const binClickHandler = async () => {
       console.log('delete',isBin);
-    setIsBin(!isBin);
+    setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
-    await axios.put(`http://i8a101.p.ssafy.io:8085/media/delete/${media.mediaSeq}`,{
+    await axios.put(`http://wedding101.shop/api/media/delete/${media.mediaSeq}`,{
        mediaSeq: media.mediaSeq,
     });
+    getAllMedia();
     setOpen(false);
   }
 
   const restoreHandler = async () => {
     console.log('restore',isBin);
-    setIsBin(!isBin);
+    setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
-    await axios.put(`http://i8a101.p.ssafy.io:8085/media/restore/${media.mediaSeq}`,{
+    await axios.put(`http://wedding101.shop/api/media/restore/${media.mediaSeq}`,{
        mediaSeq: media.mediaSeq,
     });
+    getDeletedMedia();
     setOpen(false);
   }
 
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
+        삭제/복구
       </Button>
       <Dialog
         open={open}

@@ -9,6 +9,7 @@ import java.util.Optional;
 @Service
 public interface InvitationService {
     Optional<InvitationDto> getInvitation(Long invitationSeq);
+    Optional<InvitationDto> getInvitationByUserSeq(Long userSeq);
 
     void writeInvitation(InvitationDto invitationDto);
 
@@ -18,12 +19,14 @@ public interface InvitationService {
 
     default Invitation toEntity(InvitationDto invitationDto) {
         return Invitation.builder()
+                .userSeq(invitationDto.getUserSeq())
                 .invitationSeq(invitationDto.getInvitationSeq())
                 .photoUrl1(invitationDto.getPhotoUrl1())
                 .photoUrl2(invitationDto.getPhotoUrl2())
                 .templateHeader(invitationDto.getTemplateHeader())
                 .templateFooter(invitationDto.getTemplateFooter())
                 .templateEtc(invitationDto.getTemplateEtc())
+                .isValid(true)
                 .build();
     }
 
@@ -32,7 +35,7 @@ public interface InvitationService {
                 .invitationSeq(invitation.getInvitationSeq())
                 .infoSeq(invitation.getInfo().getInfoSeq())
                 .userSeq(invitation.getUserSeq())
-                .tempateSeq(invitation.getTemplate().getTemplateSeq())
+                .templateSeq(invitation.getTemplate().getTemplateSeq())
                 .photoUrl1(invitation.getPhotoUrl1())
                 .photoUrl2(invitation.getPhotoUrl2())
                 .templateHeader(invitation.getTemplateHeader())
@@ -40,4 +43,6 @@ public interface InvitationService {
                 .templateEtc(invitation.getTemplateEtc())
                 .build();
     }
+
+
 }

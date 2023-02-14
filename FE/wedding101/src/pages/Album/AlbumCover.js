@@ -24,8 +24,16 @@ function AlbumCover() {
     createdAt: '',
     updatedAt: '',
   });
-  const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
+  const { fileMedia, filePreview, uploadUrl, fileImageHandler, deleteFileImage, onFileUpload } =
     useUploadMedia(albumForm.albumName);
+
+    const dateformat = new Date(albumForm.createdAt);
+    const year = dateformat.getFullYear();
+    const month = dateformat.getMonth() + 1;
+    const date = dateformat.getDate();
+
+    const albumCreated = `${year}-${month >= 10 ? month : '0' + month}-${date >= 10 ? date : '0' + date}`
+
 
   const userSequence = sessionStorage.getItem('userSeq');
   useEffect(() => {
@@ -35,7 +43,7 @@ function AlbumCover() {
 
   async function getAlbum() {
     await axios
-      .get(`http://i8a101.p.ssafy.io:8085/album?userSeq=${albumForm.userSeq}`)
+      .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`)
       .then((res) => {
         setAlbumForm(res.data.data);
         console.log(res.data.data);
@@ -104,7 +112,7 @@ function AlbumCover() {
             <h3>나의 결혼식 날짜</h3>
             <p>{Date()}</p>
             <h3>앨범 생성일</h3>
-            <p>{albumForm.createdAt}</p>
+            <p>{albumCreated}</p>
           </Grid2>
           <Grid2 lg={4}>
             <Tooltip title="리뷰로 이동">

@@ -27,7 +27,7 @@ const style = {
   p: 0,
 };
 
-const MediaItem = ({ media, getAllMedia }) => {
+const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
   const {
     mediaSeq,
     albumSeq,
@@ -53,20 +53,18 @@ const MediaItem = ({ media, getAllMedia }) => {
 
 
     useEffect( () => {
-      console.log(mediaSeq,wish);
-  }, []);
+      media.wish=like;
+      media.inBin=isBin;
+  }, [like, isBin]);
 
-  const toggleLike = async (e) => {
-    console.log('likebefore',like);
-    const res = await axios.get(`http://i8a101.p.ssafy.io:8085/media/wish/${mediaSeq}`,{
+  const toggleLike = async () => {
+    await axios.get(`http://wedding101.shop/api/media/wish/${mediaSeq}`,{
       
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
-    setLike(!like);
+    setLike(like => !like);
     getAllMedia();
-    console.log('likeafter',like);
-
   };
-
+  
   return (
     <div className='media-item'>
       <Card sx={{ maxWidth: 300 }}>
@@ -112,7 +110,7 @@ const MediaItem = ({ media, getAllMedia }) => {
         </Box>
       </Modal>
       {/* 우클릭시 삭제확인 */}
-      <MediaDialog media={media} deleteConfirm={deleteConfirm}/>
+      <MediaDialog media={media} deleteConfirm={deleteConfirm} getAllMedia={getAllMedia} getDeletedMedia={getDeletedMedia}/>
     </div>
   );
 };
