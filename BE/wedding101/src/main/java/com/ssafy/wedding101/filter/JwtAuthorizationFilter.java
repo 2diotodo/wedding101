@@ -1,7 +1,7 @@
 package com.ssafy.wedding101.filter;
 
 import com.ssafy.wedding101.model.service.UserService;
-import com.ssafy.wedding101.util.JwtTokenProvider;
+import com.ssafy.wedding101.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer";
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtUtil jwtUtil;
 
     private final UserService userService;
 
@@ -36,11 +36,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String accessToken = resolveToken(request);
 
         // Token 유효성 검사
-        if (StringUtils.hasText(accessToken) && jwtTokenProvider.isValidToken(accessToken)) {
+        if (StringUtils.hasText(accessToken) && jwtUtil.isValidToken(accessToken)) {
 
 //             토큰으로 인증 정보를 추출
-            Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
-            String userId = jwtTokenProvider.getSubject(accessToken);
+            Authentication authentication = jwtUtil.getAuthentication(accessToken);
+            String userId = jwtUtil.getSubject(accessToken);
             System.out.println("1");
             System.out.println(userId);
             System.out.println("2");
