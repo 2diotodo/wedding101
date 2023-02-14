@@ -31,7 +31,8 @@ public class Invitation {
 
     @ManyToOne
     @JoinColumn(name = "template_seq")
-    private Template template;
+    private Template template
+            ;
 
     @Column(name = "photo_url1")
     private String photoUrl1;
