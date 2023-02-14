@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-const useUploadMedia = (media) => {
-  const [filePreview, setFilePreview] = useState("");
-  const [fileMedia, setFileMedia] = useState("");
+const useUploadMedia = (propsurl) => {
+    const [filePreview, setFilePreview] = useState('');
+    const [fileMedia, setFileMedia] = useState('');
 
   // 파일 미리보기 구현
   const fileImageHandler = (e) => {
@@ -15,12 +15,12 @@ const useUploadMedia = (media) => {
     }
     setFileMedia(file);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      const base64 = event.target.result;
-      sessionStorage.setItem(media, base64);
-    };
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const base64 = event.target.result;
+            // sessionStorage.setItem(media, base64);
+        };
 
     if (file.type.includes("image")) {
       const image = new Image();
@@ -81,21 +81,23 @@ const useUploadMedia = (media) => {
     formData.append("file", fileMedia);
     console.log(formData);
 
-    await axios({
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      method: "POST",
-      url: "http://wedding101.shop/api/file/uploadAlbumCover", // 파일 업로드 요청 URL
-      data: formData,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        alert("등록을 실패하였습니다.");
-      });
-  };
+        let formData = new FormData();
+        formData.append("file", fileMedia);
+        console.log(formData);
+
+        await axios({
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            method: "POST",
+            url: propsurl,  // 파일 업로드 요청 URL
+            data: formData,
+        }).then((res) => {
+            console.log(res);
+    }).catch(err => {
+        alert('등록을 실패하였습니다.');
+    });
+    };
 
   return {
     fileMedia,

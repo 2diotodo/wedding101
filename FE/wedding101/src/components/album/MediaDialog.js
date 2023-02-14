@@ -6,8 +6,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { forwardRef } from 'react';
+import { useImperativeHandle } from 'react';
 
-function MediaDialog({media, deleteConfirm, getAllMedia, getDeletedMedia}) {
+const MediaDialog = (({media, deleteConfirm, getAllMedia, getDeletedMedia}) => {
+  
 const [isBin, setIsBin] = useState(media.inBin);
 
   const [open, setOpen] = React.useState(false);
@@ -16,8 +19,11 @@ const [isBin, setIsBin] = useState(media.inBin);
     console.log('mediaSeq',media.mediaSeq);
     console.log('isBin',isBin);
     media.inBin=isBin;
-  },[isBin]);
+  },[]);
 
+  // useImperativeHandle(ref, () => ({
+  //   handleClickOpen,
+  // }));
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -49,9 +55,9 @@ const [isBin, setIsBin] = useState(media.inBin);
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         삭제/복구
-      </Button>
+      </Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -75,6 +81,6 @@ const [isBin, setIsBin] = useState(media.inBin);
       </Dialog>
     </div>
   );
-}
+});
 
 export default MediaDialog;
