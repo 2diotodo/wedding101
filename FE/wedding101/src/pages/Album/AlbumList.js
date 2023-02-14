@@ -18,6 +18,7 @@ const AlbumList = () => {
   const [page, setPage] = useState(1);
   // axios 통신으로 DB 데이터 가져오기 구현
   const [media, setMedia] = useState([]);
+  const [mergeMedia, setMergeMedia] = useState([]);
   useEffect(() => {
     getAllMedia();
   }, []);
@@ -37,7 +38,9 @@ const AlbumList = () => {
 
   // 북마크 목록불러오기
   const wishFilterHandler = () => {
+    
     setMedia([...media].filter((item) => item.wish===true))
+    setMergeMedia()
   }
 
   // sorting
@@ -137,7 +140,7 @@ const AlbumList = () => {
                 {media.length > 0 ? (
                   mediaData
                     .currentData()
-                    .map((item) => <MediaItem media={item} key={item.mediaSeq} />)
+                    .map((item) => <MediaItem media={item} key={item.mediaSeq} getAllMedia={getAllMedia}/>)
                 ) : (
                   <div>no media</div>
                 )}
@@ -145,7 +148,7 @@ const AlbumList = () => {
             )}
           </div>
           <div className='pagination'>
-            <Pagination count={count} page={page} onChange={pageHandler} getAllMedia={getAllMedia}/>
+            <Pagination count={count} page={page} onChange={pageHandler}  />
           </div>
         </Grid2>
       </Grid2>
