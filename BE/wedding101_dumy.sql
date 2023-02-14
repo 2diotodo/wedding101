@@ -41,10 +41,10 @@ insert into tbl_template (template_title, template_header, template_footer, temp
 
 -- invitation data / 5번까지만 데이터 넣음 6번부터 11번 까지 입력 가능
 select * from tbl_invitation;
-insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1) values
-(1, 1, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png"),
-(2, 2, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png"),
-(3, 3, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png");
+insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2) values
+(1, 1, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png"),
+(2, 2, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png"),
+(3, 3, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png");
 -- (6, 6, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png"),
 -- (7, 7, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png"),
 -- (8, 8, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png"),
@@ -52,9 +52,9 @@ insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1) values
 -- (10, 10, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png"),
 -- (11, 11, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png");
 -- 문구 수정 버전
-insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, template_header, template_footer, template_etc) values
-(4, 4, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png", "오랜 시간을 함께한 저희 두사람, ", "이제 평생을 함께 하려 합니다.", "하나가 되는 뜻깊은 날을 축복해주세요."),
-(5, 5, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "저희 두사람이 이제 믿음과 사랑으로", "한 가정을 이루게 되었습니다.", "부디 함께 하시어 축복해 주시기 바랍니다.");
+insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2, template_header, template_footer, template_etc) values
+(4, 4, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png", "오랜 시간을 함께한 저희 두사람, ", "이제 평생을 함께 하려 합니다.", "하나가 되는 뜻깊은 날을 축복해주세요."),
+(5, 5, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png", "저희 두사람이 이제 믿음과 사랑으로", "한 가정을 이루게 되었습니다.", "부디 함께 하시어 축복해 주시기 바랍니다.");
 
 -- album data / 6번까지 데이터 넣음 -> 7번부터 11번까지 입력가능
 insert into tbl_album (info_seq, user_seq, album_name, album_access_id, album_photo_url, album_thanks_url) values
@@ -77,19 +77,23 @@ select * from tbl_album;
 select * from tbl_media;
 insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation) values
 (1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/76afe67e-5b83-45c3-b0d2-49febd48c378.mp4", "https://picsum.photos/200", "한창희", "friend"),
-(1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "김은유", "family"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "전가영", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "고정욱", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "김태영", "acquaintance"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "박도현", "colleague"),
 (1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/76afe67e-5b83-45c3-b0d2-49febd48c378.mp4", "https://picsum.photos/200", "유동영", "friend"),
-(1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "이서정", "family"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "민다훈", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "박경희", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "백진솔", "acquaintance"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "석재윤", "colleague");
+insert into tbL_media (album_seq, storage_url, url_to_img, media_name, media_relation, is_video) values
+(1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend", 0),
+(1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "nki", "friend", 0),
+(1,"https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "nki", "friend", 0),
+(1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png", "nki", "friend", 0),
+(1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend", 0);
 insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation) values
 (2, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "박세리", "relatives"),
 (2, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "박도현", "colleague"),
