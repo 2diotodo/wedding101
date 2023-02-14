@@ -24,9 +24,11 @@ function AlbumCover() {
     createdAt: '',
     updatedAt: '',
   });
-  const { fileMedia, filePreview, uploadUrl, fileImageHandler, deleteFileImage, onFileUpload } =
-    useUploadMedia(albumForm.albumName);
+  const albumCoverUrl = `http://i8a101.p.ssafy.io:8085/file/uploadAlbumCover`;
+  const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
+    useUploadMedia(albumCoverUrl);
 
+    // 앨범생성일 연산 yyyy-mm-dd
     const dateformat = new Date(albumForm.createdAt);
     const year = dateformat.getFullYear();
     const month = dateformat.getMonth() + 1;
@@ -77,7 +79,8 @@ function AlbumCover() {
           </div>
         </Grid2>
         <Grid2 lg={6} sm={6}>
-          <div className='cover-image' style={{ color: albumForm.albumColor }}>
+              <Tooltip title="앨범 펼치기">
+          <div className='cover-image' style={{ color: albumForm.albumColor }} onClick={onAlbumListHandler}>
             <div className='album-img'>
               <div className='media-area'>{albumForm.albumPhotoUrl && (albumForm.albumPhotoUrl !== null) ?
                 ( <img src={albumForm.albumPhotoUrl} alt='preview' />) :
@@ -85,16 +88,15 @@ function AlbumCover() {
                 }
               </div>
             </div>
-            <Tooltip title="앨범 펼치기">
 
-            <div className='cover-id' onClick={onAlbumListHandler}>
+            <div className='cover-id' >
           <Badge badgeContent={albumForm.albumMediaCnt} color="secondary">
               {name}님의 앨범 &nbsp;
           </Badge>
             </div>
-            </Tooltip>
 
           </div>
+            </Tooltip>
             {showUpdate ? (
           <div className='upload-media'>
             <IconButton aria-label='upload picture' component='label'>
