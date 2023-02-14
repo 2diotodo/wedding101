@@ -3,9 +3,12 @@ import './Header.css';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { ButtonUnstyled } from '@mui/base';
 
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   const onLogout = () => {
     // sessionStorage에 userId로 저장되어 있는 아이템을 삭제
@@ -13,6 +16,7 @@ function Header() {
     sessionStorage.setItem('isLogin', false);
     // 메인으로 이동(새로고침)
     document.location.href = '/';
+    navigate('/user/login');
   };
 
   useEffect(() => {
@@ -25,77 +29,92 @@ function Header() {
       console.log('isLogin?? ::', isLogin);
       sessionStorage.setItem('isLogin', true);
     };
-    
-  },
-  [isLogin]
+    }, [isLogin]
   );
+
+  const navigateToHome = () => {
+    console.log('go to home!')
+    navigate('/');
+  };
+
+  const navigateToInvitation = () => {
+    console.log('go to invitation!')
+    navigate('/invitation01');
+  };
+
+  const navigateToAlbum = () => {
+    console.log('go to album!')
+    navigate('/album');
+  };
+
+  const navigateToProcess = () => {
+    console.log('go to process!')
+    navigate('/user/service01');
+  };
+
+  const navigateToReview = () => {
+    console.log('go to review!')
+    navigate('/review');
+  };
+  const navigateToContact = () => {
+    console.log('go to contact!')
+    navigate('/contact');
+  };
+
+  const navigateToLogin= () =>{
+    console.log('go to login!')
+    navigate('/user/login');
+  }
+
+  const navigateToSignup = () => {
+    console.log('go to signup!')
+    navigate('/user/signup');
+  };
+  const navigateToMyPage = () => {
+    console.log('go to myPage!')
+    navigate('/user/mypage');
+  };
+
 
   return (
     <div className='header'>
-      <div className='logo'>
-        <img src='#' alt='wedding101' />
-      </div>
-      <div className='nav-tabs'>
-        <NavLink labe='About' to='/'>
-          <Button variant='text' size='large' color='secondary'>
-            About{' '}
-          </Button>
-        </NavLink>
-        <NavLink label='Invitation' to='/invitation01'>
-          <Button variant='text' size='large' color='secondary'>
-            Invitation{' '}
-          </Button>
-        </NavLink>
-        <NavLink label='Album' to='/album'>
-          <Button variant='text' size='large' color='secondary'>
-            Album{' '}
-          </Button>
-        </NavLink>
-        <NavLink label='Process' to='/user/service01'>
-          <Button variant='text' size='large' color='secondary'>
-            Process{' '}
-          </Button>
-        </NavLink>
-        <NavLink label='Review' to='/review'>
-          <Button variant='text' size='large' color='secondary'>
-            Review{' '}
-          </Button>
-        </NavLink>
-        <NavLink label='Contact Us' to='/contact'>
-          <Button variant='text' size='large' color='secondary'>
-            Contact Us{' '}
-          </Button>
-        </NavLink>
+        <div className='logo' onClick={navigateToHome}>
+          <img src={ require('../../assets/favicon_io/wedding3-96.png') } />
+          <div className='logo-font-tag'>WEDDING101</div>
+        </div>
 
-        {isLogin ? (
-          <div>
-            <NavLink label='LogIn' to='/user/mypage'>
-              <Button variant='text' size='large' color='secondary'>
-                {sessionStorage.getItem('name')}님 환영합니다.
-              </Button>
-            </NavLink>
-            <NavLink label='LogOut' to='/user/login'>
-              <Button variant='text' size='large' color='secondary' onClick={onLogout}>
-                Logout{' '}
-              </Button>
-            </NavLink>
-          </div>
-        ) : (
-          <div>
-            <NavLink label='LogIn' to='/user/login'>
-              <Button variant='text' size='large' color='secondary'>
-                LogIn{' '}
-              </Button>
-            </NavLink>
-            <NavLink label='SignUp' to='/user/signup'>
-              <Button variant='text' size='large' color='secondary'>
-                SignUp{' '}
-              </Button>
-            </NavLink>
-          </div>
-        )}
-      </div>
+        <div  className='header-font-group'>
+            <div className='header-font-tag'
+                  onClick={navigateToHome}>About</div>
+
+            <div className='header-font-tag'
+                  onClick={navigateToInvitation}>INVITATION</div>
+
+            <div className='header-font-tag' 
+                onClick={navigateToAlbum}>ALBUM</div>
+
+            <div className='header-font-tag'
+                onClick={navigateToProcess}>PROCESS</div>
+
+            <div className='header-font-tag'
+                  onClick={navigateToReview}>REVIEW</div>
+
+            <div className='header-font-tag'
+                onClick={navigateToContact}>CONTACT</div>
+                  
+            {isLogin ? (  <div  className='header-font-tag' 
+                                onClick={navigateToMyPage}>
+                              👤 {sessionStorage.getItem('name')}님</div>)
+                        :( <div className='header-font-tag' 
+                                onClick={navigateToLogin}>LOGIN</div>)}
+
+            {isLogin ? ( <div className='header-font-tag' 
+                              onClick={onLogout}>LOGOUT</div>)
+                        :( <div className='header-font-tag'
+                                onClick={navigateToSignup}>SIGNUP</div> )}
+        </div>
     </div>
+
   );
 }
 export default Header;
