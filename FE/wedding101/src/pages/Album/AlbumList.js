@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Star from '@mui/icons-material/Star';
-import { Button, Pagination } from '@mui/material';
+import { Button, Pagination, FormControlLabel, Switch } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import usePagination from '../../utils/Pagination';
@@ -16,13 +16,20 @@ import axios from 'axios';
 
 const AlbumList = () => {
   const [page, setPage] = useState(1);
-  // axios 통신으로 DB 데이터 가져오기 구현
   const [media, setMedia] = useState([]);
-  const [mergeMedia, setMergeMedia] = useState([]);
+  const [mergeVideo, setMergeVideo] = useState([]);
+  const [mergePhoto, setMergePhoto] = useState([]);
+  const [likeToggle, setLikeToggle] = useState(false);
   useEffect(() => {
     getAllMedia();
+    if(likeToggle===true){
+      wishFilterHandler();
+    }else{
+      getAllMedia();
+    }
   }, []);
-
+  
+  // axios 통신으로 DB 데이터 가져오기 구현
   async function getAllMedia() {
     await axios
       .get(`http://i8a101.p.ssafy.io:8085/media/all/1`)
@@ -35,12 +42,20 @@ const AlbumList = () => {
         console.log('실패');
       });
   }
+  const merged = [...media].filter((item) => item.wish===true)
 
   // 북마크 목록불러오기
   const wishFilterHandler = () => {
-    
-    setMedia([...media].filter((item) => item.wish===true))
-    setMergeMedia()
+    setMedia(merged);
+  }
+
+  const onLikeToggleHandler = () =>{
+    setLikeToggle(!likeToggle);
+    if(likeToggle===false){
+      wishFilterHandler();
+    }else{
+      getAllMedia();
+    }
   }
 
   // sorting
@@ -82,12 +97,26 @@ const AlbumList = () => {
     mediaData.jump(p);
   };
 
+
+  // 통합본 merge&split
+  const mergeSplit = () =>{
+    setMergeVideo([]);
+    setMergePhoto([]);
+    console.log(merged);
+    for(const value of Object.values(merged)){
+      console.log(value.storageUrl);
+      console.log(value.video);
+      value.video === true ? (setMergeVideo((mergeVideo) => [...mergeVideo, value.storageUrl])) : (setMergePhoto((mergePhoto) => [...mergePhoto, value.storageUrl]));
+    }
+  }
+  // 통합본신청
   const sendRequestHandler = async () => {
-    await axios.post(`...`,{
-      data:{
-        'mediaSeq': media.mediaSeq,
-        'AlbumSeq': media.AlbumSeq,
-      }
+    mergeSplit();
+    console.log('video',mergeVideo);
+    console.log('photo',mergePhoto);
+    await axios.post(`http://i8a101.p.ssafy.io:8085/file/mergeVideo`,{
+        videoList: mergeVideo,
+        imageList: mergePhoto,
     })
     .then((res)=> {
       alert('신청이 완료되었습니다.');
@@ -121,6 +150,7 @@ const AlbumList = () => {
           <div className='filter-icons'>
             <div className='reset-icon'>
               <Button onClick={getAllMedia} >All</Button>
+              <FormControlLabel control={<Switch onChange={onLikeToggleHandler} />} label="Like?" />
             </div>
             <div className='wish-icon'>
               <Star onClick={wishFilterHandler} />
