@@ -73,15 +73,23 @@ const InvitationProcess02 = () => {
   });
 
   const [photoURLform, setPhotoURLform] = useState({
-    url01: 'photoUrl01',
-    url02: 'photoUrl02'
-  })
+    url01: "photoUrl01",
+    url02: "photoUrl02",
+  });
 
-  const { filePreview: filePreview1, fileImageHandler: fileImageHandler1, deleteFileImage: deleteFileImage1, onFileUpload: onFileUpload1 } =
-    useUploadMedia(photoURLform.url01);
+  const {
+    filePreview: filePreview1,
+    fileImageHandler: fileImageHandler1,
+    deleteFileImage: deleteFileImage1,
+    onFileUpload: onFileUpload1,
+  } = useUploadMedia(photoURLform.url01);
 
-  const { filePreview: filePreview2, fileImageHandler: fileImageHandler2, deleteFileImage: deleteFileImage2, onFileUpload: onFileUpload2 } =
-    useUploadMedia(photoURLform.url02);
+  const {
+    filePreview: filePreview2,
+    fileImageHandler: fileImageHandler2,
+    deleteFileImage: deleteFileImage2,
+    onFileUpload: onFileUpload2,
+  } = useUploadMedia(photoURLform.url02);
 
   const navigate = useNavigate();
   const toProcess03 = () => {
@@ -106,7 +114,6 @@ const InvitationProcess02 = () => {
                 <InvitationForm
                   weddingInfoData={weddingInfoData}
                   invitationData={invitationData}
-
                 />
               </div>
               <div className="input-container">
@@ -119,17 +126,33 @@ const InvitationProcess02 = () => {
                         accept="image/*, video/*"
                         onChange={(e) => {
                           fileImageHandler1(e);
-                          setTimeout(() => document.getElementById('invitationImage01').children[0].src = sessionStorage.getItem(photoURLform.url01), 50);
-                          
+                          setTimeout(
+                            () =>
+                              (document.getElementById(
+                                "invitationImage01"
+                              ).children[0].src = sessionStorage.getItem(
+                                photoURLform.url01
+                              )),
+                            50
+                          );
                         }}
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button onClick={(e) => {
-                      deleteFileImage1(e);
-                      setTimeout(() => document.getElementById('invitationImage01').children[0].src = invitation_image_1, 50);
-                      
-                    }}>삭제</Button>
+                    <Button
+                      onClick={(e) => {
+                        deleteFileImage1(e);
+                        setTimeout(
+                          () =>
+                            (document.getElementById(
+                              "invitationImage01"
+                            ).children[0].src = invitation_image_1),
+                          50
+                        );
+                      }}
+                    >
+                      삭제
+                    </Button>
                   </div>
                   <br />
                   <div className="upload02">
@@ -140,15 +163,33 @@ const InvitationProcess02 = () => {
                         accept="image/*, video/*"
                         onChange={(e) => {
                           fileImageHandler2(e);
-                          setTimeout(() => document.getElementById('invitationImage02').children[0].src = sessionStorage.getItem(photoURLform.url02), 50);
+                          setTimeout(
+                            () =>
+                              (document.getElementById(
+                                "invitationImage02"
+                              ).children[0].src = sessionStorage.getItem(
+                                photoURLform.url02
+                              )),
+                            50
+                          );
                         }}
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button onClick={(e) => {
-                      deleteFileImage2(e);
-                      setTimeout(() => document.getElementById('invitationImage02').children[0].src = invitation_image_2, 50);
-                    }}>삭제</Button>
+                    <Button
+                      onClick={(e) => {
+                        deleteFileImage2(e);
+                        setTimeout(
+                          () =>
+                            (document.getElementById(
+                              "invitationImage02"
+                            ).children[0].src = invitation_image_2),
+                          50
+                        );
+                      }}
+                    >
+                      삭제
+                    </Button>
                   </div>
                 </div>
               </div>
