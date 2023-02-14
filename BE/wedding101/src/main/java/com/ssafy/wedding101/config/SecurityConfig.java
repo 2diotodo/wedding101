@@ -4,7 +4,7 @@ import com.ssafy.wedding101.filter.JwtAuthenticationFilter;
 import com.ssafy.wedding101.filter.JwtAuthorizationFilter;
 import com.ssafy.wedding101.model.service.UserService;
 import com.ssafy.wedding101.util.CustomAuthenticationProvider;
-import com.ssafy.wedding101.util.JwtTokenProvider;
+import com.ssafy.wedding101.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +48,7 @@ public class SecurityConfig {
     };
     private final CorsConfig corsConfig;
     // JWT 제공 클래스
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtUtil jwtUtil;
     // 인증 성공 핸들러
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     // 인증 실패 핸들러
@@ -137,7 +137,7 @@ public class SecurityConfig {
     // jwt 인증 및 권환을 확인하는 필터
     @Bean
     public JwtAuthorizationFilter AuthorizationFilter() {
-        return new JwtAuthorizationFilter(jwtTokenProvider,userService);
+        return new JwtAuthorizationFilter(jwtUtil,userService);
     }
 
 }
