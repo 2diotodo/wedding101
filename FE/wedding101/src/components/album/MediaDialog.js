@@ -29,7 +29,7 @@ const [isBin, setIsBin] = useState(media.inBin);
       console.log('delete',isBin);
     setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
-    await axios.put(`http://i8a101.p.ssafy.io:8085/media/delete/${media.mediaSeq}`,{
+    await axios.put(`http://wedding101.shop/api/media/delete/${media.mediaSeq}`,{
        mediaSeq: media.mediaSeq,
     });
     getAllMedia();
@@ -40,7 +40,7 @@ const [isBin, setIsBin] = useState(media.inBin);
     console.log('restore',isBin);
     setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
-    await axios.put(`http://i8a101.p.ssafy.io:8085/media/restore/${media.mediaSeq}`,{
+    await axios.put(`http://wedding101.shop/api/media/restore/${media.mediaSeq}`,{
        mediaSeq: media.mediaSeq,
     });
     getDeletedMedia();

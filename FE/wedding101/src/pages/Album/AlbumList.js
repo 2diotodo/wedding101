@@ -25,7 +25,7 @@ const AlbumList = () => {
 
   async function getAllMedia() {
     await axios
-      .get(`http://i8a101.p.ssafy.io:8085/media/all/1`)
+      .get(`http://wedding101.shop/api/media/all/1`)
       .then((res) => {
         setMedia(res.data.data);
         console.log('setMedia 성공');

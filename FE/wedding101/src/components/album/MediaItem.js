@@ -58,7 +58,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
   }, [like, isBin]);
 
   const toggleLike = async () => {
-    await axios.get(`http://i8a101.p.ssafy.io:8085/media/wish/${mediaSeq}`,{
+    await axios.get(`http://wedding101.shop/api/media/wish/${mediaSeq}`,{
       
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike(like => !like);

@@ -86,7 +86,7 @@ const useUploadMedia = (media) => {
                 "Content-Type": "multipart/form-data",
             },
             method: "POST",
-            url: "http://i8a101.p.ssafy.io:8085/file/uploadAlbumCover",  // 파일 업로드 요청 URL
+            url: "http://wedding101.shop/api/file/uploadAlbumCover",  // 파일 업로드 요청 URL
             data: formData,
         }).then((res) => {
             console.log(res);
