@@ -162,9 +162,9 @@ function AskWriteModal_(props){
         console.log(askContent);
         console.log("edited!");
         
-        askDataUpload()
-        props.refresh();
+        askDataUpload();
         alert("해당 게시글이 등록 되었습니다");
+        props.refresh();
         props.doClose();
     };
     
@@ -298,13 +298,12 @@ function BoardQuestion() {
         axios({
             method: "GET",
             url: "http://i8a101.p.ssafy.io:8085/" + 'qna/all',
-        headers : {
+            headers : {
                 "Authorization" : "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkdWR3bHM2MjQiLCJ1c2VyU2VxIjoxLCJpYXQiOjE2NzYzMTQ0OTksImV4cCI6MTY3NjMxNjI5OX0.fku4SFlPZBcV2uOJEa6f1x86qXUdf6NaNl0swuT--Wk"
             }
         }).then(function (response) {
             console.log(response.data)
             setAskItem(response.data.data)
-            
         }).catch(function (error) {
             console.log(error);
         })
