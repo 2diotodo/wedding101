@@ -1,16 +1,21 @@
 import './BoardReview.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/common/Navbar';
 import TableItem from '../../components/board/TableItem';
 import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { useNavigate } from 'react-router';
 import testTable from '../../test/testReviews.json';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
          TableCell, Pagination, Box, Modal, Typography, Button} from '@mui/material';
 import usePagination from '../../utils/Pagination';
 import { func } from 'prop-types';
 import { TextField } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 function ModalSubTitle(props){
     return (
@@ -47,7 +52,7 @@ function ReviewTableItem({arg}){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const {reviewSeq, albumSeq, reviewTitle,  reviewContent, writer, createdAt, updatedAt, isValid} = arg;
+    const {reviewSeq, albumSeq, reviewTitle,  reviewContent, userNickname, createdAt, updatedAt, valid} = arg;
     const createdDate = createdAt.split(" ")[0];
     const updatedDate = updatedAt.split(" ")[0];
     const modalData = [open, handleClose, reviewTitle, reviewContent];
@@ -58,7 +63,7 @@ function ReviewTableItem({arg}){
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell component="th" scope="row">{reviewSeq}</TableCell>
         <TableCell align="center" onClick={handleOpen}>{reviewTitle}</TableCell>
-        <TableCell align="center" >{writer}</TableCell>
+        <TableCell align="center" >{userNickname}</TableCell>
         <TableCell align="right" >{createdDate}</TableCell>
         </TableRow>
         <ReviewModal
@@ -66,7 +71,7 @@ function ReviewTableItem({arg}){
             doClose={handleClose} 
             title={reviewTitle} 
             content={reviewContent}
-            writer={writer}
+            writer={userNickname}
             reviewDate={createdDate}
             ansDate={updatedDate} ////<- ans date 정보가 필요
             className="style"/>
@@ -121,25 +126,52 @@ function getCurrentDate(){
 }
 
 function ReviewWriteModal(props){
-    const userId = sessionStorage.getItem('userId');
+    const userNickname = sessionStorage.getItem('name');
     const currDate = getCurrentDate();
-    console.log(props);
-    console.log(userId);
     console.log(currDate);
 
     const reviewCancel = () => {
-
+        let cancelSelect = window.confirm("작성중이던 글을 지웁니다.");
+        if (cancelSelect){
+            document.getElementsByName('newReviewTitle')[0].value = "";
+            document.getElementsByName('newReviewContent')[0].value = "";
+            props.doClose();
+        }
+        else return;
     }
 
     const reviewSubmit = () => {
-        const reviewTitle = document.getElementById('newReviewTitle').value;
-        const reviewContent = document.getElementById('newReviewContent').value;
-        console.log(reviewTitle)
-        console.log(reviewContent)
+        const reviewTitle = document.getElementsByName('newReviewTitle')[0].value;
+        const reviewContent = document.getElementsByName('newReviewContent')[0].value;
+        console.log(reviewTitle);
+        console.log(reviewContent);
         if (!reviewTitle || !reviewContent){
             alert('제목이나 내용이 비어있습니다.');
             return;
         }
+
+        axios.post(`http://i8a101.p.ssafy.io:8085/review`, {
+            albumSeq : props.userAlbumSeq,
+            reviewContent: reviewContent,
+            reviewRate: 9,
+            reviewTitle: reviewTitle
+        }).then(function (response) {
+            console.log(response);
+            console.log(response.data.message);
+            if(response.status === 200){
+                alert(`리뷰가 등록되었습니다.`);
+                props.renewPost();
+                props.doClose();
+                window.scrollTo(0,0);
+            }
+        }).catch(function (error) {
+            console.log(error)
+            if(error.response.status === 417) {
+                alert('서비스 신청 전송 실패')
+                console.log(error.response.data.message);
+            }
+            console.log(error);
+        });
     }
 
     return (
@@ -150,36 +182,47 @@ function ReviewWriteModal(props){
             <Box className="Modal__content">
                 {/* Modal 창 제목 */}
                 <Typography component="div" id="Modal__header">리뷰 작성하기</Typography>
-                
-                {/* Modal 창 유저 글 작성 */}
-                <Typography  component="div" id="Modal__body" sx={{'& .MuiTextField-root': {  width: '100%' },}}>
-                    {/* props로 받아온 유저 닉네임 넣기 */}
-                    <div className="Modal_SubTitle">
-                        <div></div>
-                        <div className="Modal_SubTitle_date">작성일: {currDate}</div>
-                    </div>
-                    <div className='newReviewWrapper'>
-                        <TextField id='newReviewTitle' placeholder='제목:' variant='standard'/>
-                        <TextField
-                            id='newReviewContent'
-                            label="내용"
-                            variant='standard'
-                            multiline
-                            rows={14}/>
-                    </div>
-                </Typography>
-                <div className='horizontalLayout' id='newReviewHL'>
-                    <Button className='register_btn' color="primary" 
-                        variant="contained"
-                        startIcon="🤔"
-                        size="small"
-                        onClick={reviewCancel}>취소</Button>
-                    <Button className='register_btn' color="primary" 
-                        variant="contained"
-                        startIcon=""
-                        size="small"
-                        onClick={reviewSubmit}>리뷰 올리기</Button>
+                <div className="BQ-Edit-Delete-Buttons"> 
+                    <IconButton color="primary" className="BQ-Edit-Button" fontSize="large" onClick={reviewSubmit}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton color="gray" className="BQ-Delete-Button" fontSize="large" onClick={reviewCancel}>
+                        <DeleteIcon />
+                    </IconButton>
                 </div>
+                {/* Modal 창 유저 글 작성 */}
+                <Typography  
+                    component="div" 
+                    id="Modal__body" 
+                    sx={{'& .MuiTextField-root': { 
+                        display: 'flex', flexDirection: 'row',
+                        justifyContent: 'left', marginLeft: '1.5%'},}}>
+                    
+                    {/* props로 받아온 유저 닉네임 넣기 */}
+                    <ModalSubTitle writer={userNickname} date={currDate}></ModalSubTitle> 
+                
+                    {/* 구분선 */}
+                    <div className='BQ-Division-Line'></div>
+                
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    <TextField label="제목 : " 
+                        variant="standard" 
+                        InputProps={{ disableUnderline: true }}
+                        fullWidth
+                        fontSize="large"
+                        name='newReviewTitle'
+                    />
+                    <div className="BQ-blank-for-askContent"></div>
+                    <TextField  id="filled-multiline-static" 
+                        label="내용 : " 
+                        fullWidth
+                        multiline 
+                        variant="standard" 
+                        row = {14}
+                        InputProps={{ disableUnderline: true }}
+                        name='newReviewContent'
+                    />
+                </Typography>
                 
             </Box>
             
@@ -191,19 +234,40 @@ function WriteReviewButton(props){
 
     // review modal
     const [reviewModalOpen, setReviewModalOpen] = useState(false);
+    const [userAlbumSeq, setUserAlbumSeq] = useState();
     const openReviewModal = () => { setReviewModalOpen(true); };
     const closeReviewModal = () => { setReviewModalOpen(false); };
+    const navigate = useNavigate();
+
+    async function getUserAlbumSeq() {
+        await axios
+        .get(`http://i8a101.p.ssafy.io:8085/album?userSeq=`+String(sessionStorage.userSeq))
+        .then((res) => {
+            console.log(res)
+            setUserAlbumSeq(res.data.data.albumSeq);
+        })
+        .catch((err) => {console.log(err);})
+    }
+
+    useEffect(()=> {
+        getUserAlbumSeq();
+    },[])
 
     // review Modal
     function loginCheckHandler(){
         const isLogin = sessionStorage.getItem('isLogin')
-        if (isLogin === 'false'){
+        if (!isLogin){
             alert("로그인을 먼저 해주세요");
+            navigate("/user/login");
+            return;
         }
-        else{
-            // Modal 창 띄우기
-            openReviewModal(); // 창 열림 설정
+        if (!userAlbumSeq){
+            alert("서비스 이용 후 리뷰해주세요");
+            navigate("/");
+            return;
         }
+        // Modal 창 띄우기
+        openReviewModal(); // 창 열림 설정
     }
 
     return(
@@ -213,19 +277,52 @@ function WriteReviewButton(props){
                 variant="contained" 
                 startIcon="✏️"
                 size="small"
-                onClick={loginCheckHandler}>문의 등록</Button>
+                onClick={loginCheckHandler}>리뷰 등록</Button>
             <ReviewWriteModal
                 isOpen={reviewModalOpen} 
-                doClose={closeReviewModal} 
-                className="style"/>
+                doClose={closeReviewModal}
+                renewPost={props.renewPost}
+                userAlbumSeq={userAlbumSeq}
+                className="BQ-style"/>
         </>
     );
 }
 
 function BoardReview() {
     const [ page, setPage ] = useState(1);
-    const [ reviewItem, setReviewItem ] = useState(testTable);
-    // axios 통신으로 reviewItem 가져오기
+    const [ reviewItem, setReviewItem ] = useState([]);
+
+    async function getAllReviews() {
+        await axios
+        .get(`http://i8a101.p.ssafy.io:8085/review/all/`)
+        .then((res) => {
+            console.log(res);
+            setReviewItem(res.data.data);
+            console.log('리뷰 정보 수신 성공');
+        })
+        .catch((err) => {
+            console.log('리뷰 정보 수신에 실패하였습니다.');
+        });
+    }
+
+    async function getUserSeq() {
+        await axios
+        .get(`http://i8a101.p.ssafy.io:8085/user/all`)
+        .then((res) => {
+            
+            res.data.data.forEach(element => {
+                if(element.userNickname === sessionStorage.getItem('userNickname')){
+                    sessionStorage.setItem('userSeq', element.userSeq);
+                }
+            })
+        })
+        .catch((err) => {console.log(err);})
+    }
+
+    useEffect(() => {
+        getAllReviews();
+        getUserSeq();
+    }, []);
 
     // pagination
     const PER_PAGE = 8;
@@ -237,19 +334,19 @@ function BoardReview() {
     };
 
     return (
-        <div className='board-review'>
+        <div className='BQ-board-ask'>
             <Grid2 container spacing={2}>
                 <Grid2 lg={3} sm={3}>
                     <Navbar_ pageTitle="Review 👍"/>
                 </Grid2>
-                <Grid2 lg={9} sm={10}>
+                <Grid2 lg={9} sm={10} id='BQ-grid-align'>
                     <div className='review-items'>
                         <ReviewTable data={reviewData}/>
                     </div>
-                    <div className='button-style'>
-                        <WriteReviewButton/>
+                    <div className='BQ-button-style'>
+                        <WriteReviewButton renewPost={getAllReviews}/>
                     </div>
-                    <div className='pagination'>
+                    <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
                     </div>
                 </Grid2>

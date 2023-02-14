@@ -113,10 +113,9 @@
 
 #title_p2_01{
   width:100%;
+  height: 50%;
 }
 
 #explain_p2_01{
-  width:100%;
-  font-size: 6vh;
   font-family: 'yusei magic';
 }

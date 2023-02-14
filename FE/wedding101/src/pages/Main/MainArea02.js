@@ -30,9 +30,9 @@ const MainArea02 = () => {
         <div className='horizontalLayout' id='HL_p2_01'>
           <div className='verticalLayout' id='VL_p2_01'>
             <div className='title_explain'>
-              <div className='title' id='title_p2_01'>Mobile Invitation</div>
+              <div className='mainTitle' id='title_p2_01'>Mobile Invitation</div>
               <div className='explainText' id='explain_p2_01'>
-                Memory Forever
+                부담없이 초대하세요
               </div>
             </div>
             <div className='detailLayout'>
