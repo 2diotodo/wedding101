@@ -1,6 +1,6 @@
 import './BoardQuestion.css';
 import './BoardQuestionModal.css';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import usePagination from '../../utils/Pagination';
 import sampleTable from '../../test/testContact.json';
 import { useNavigate } from 'react-router';
@@ -12,6 +12,8 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import { func } from 'prop-types';
 
@@ -33,20 +35,21 @@ function AskModal_(props){
             <Box className="Modal__content">
                 {/* Modal 창 제목 */}
                 <Typography component="div" id="Modal__header">{props.title}</Typography>
-                
+
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body">
                     <ModalSubTitle_ writer={props.writer} date={props.askDate}></ModalSubTitle_>
-                    <div className='Division_Line'></div>
-                    {props.content}
+                    {/* 구분선 */}
+                    <div className='BQ-Division-Line'></div>
+                    <div className='BQ-Modal-Text-Align'>{props.content}</div>
                 </Typography>
 
                 {/* Modal 창 관리자 글 작성 */}
-                <Typography  component="div" id="Modal__body">
+                {/* <Typography  component="div" id="Modal__body">
                     <ModalSubTitle_ writer="관리자" date={props.ansDate}></ModalSubTitle_>
                     <div className='Division_Line'></div>
                     잘지냈지 넌 잘 지냈어?
-                </Typography>
+                </Typography> */}
             </Box>
         </Modal>
     );
@@ -129,92 +132,87 @@ function getCurrentDate(){
     return dateString;
 }
 
-function eventCheck(value){
-    console.log(value);
-}
 function AskWriteModal_(props){
-    // edit btn -> toggle role for Modal
-    const [isEdit, setIsEdit] = useState(false);
-    const [isDelete, setIsDelete] = useState(false);
     const doEdit = () => {
-        setIsEdit(true);
-        const askTitle = document.getElementsByName('newAskTitle').value;
-        const askContent = document.getElementsByName('newAskContent').value;
-        // axios 통신 추가 필요
-        document.getElementsByName('newAskTitle').value = "";
-        document.getElementsByName('newAskContent').value = "";
-        alert("해당 게시글이 등록 되었습니다")
+        const askTitle = document.getElementById('askTitle').value;
+        const askContent = document.getElementById('filled-multiline-static').value;
+        console.log(askTitle);
+        console.log(askContent);
+        console.log("edited!");
+        alert("해당 게시글이 등록 되었습니다");
         props.doClose();
-        console.log("edited!")
     };
-    const doDelete = () => {
-        setIsDelete(true);
-        alert("해당 게시글이 삭제 되었습니다")
-        document.getElementsByName('newAskTitle').value = "";
-        document.getElementsByName('newAskContent').value = "";
+    
+    const doCancel = () => {
+        alert("게시글 작성이 취소 되었습니다");
+        document.getElementById('askTitle').value = "";
+        document.getElementById('filled-multiline-static').value  = "";
+        const askTitle = document.getElementById('askTitle').value;
+        const askContent = document.getElementById('filled-multiline-static').value;
+        console.log(askTitle);
+        console.log(askContent);
+        console.log("canceled!");
         props.doClose();
-        console.log("deleted!")
     };
-
+    
     // write data -> userId + currDate
     const userId = sessionStorage.getItem('userId');
+    const userNickname = sessionStorage.getItem('userNickname');
     const currDate = getCurrentDate();
+    console.log(userId);
+    console.log(userNickname);
+    console.log(currDate);
     return (
-        <>
-           
-                <Modal  open={props.isOpen} className="Modal">
-                    <Box className="Modal__content">
-                        {/* Modal 창 제목 */}
-                        <Typography component="div" id="Modal__header">문의 작성하기</Typography>
+            <Modal  open={props.isOpen} className="Modal">
+                <Box className="Modal__content">
+                    {/* Modal 창 제목 */}
+                    <Typography component="div" id="Modal__header__2">문의 작성하기</Typography>
 
-                        {/* Edit + Delete  */}
-                        <div className="BQ-Edit-Delete-Buttons"> 
-                            <IconButton onClick={doEdit} color="primary" className="BQ-Edit-Button" fontSize="large">
-                                <EditIcon />
-                            </IconButton>
-                            <IconButton onClick={doDelete} color="gray" className="BQ-Delete-Button" fontSize="large" >
-                                <DeleteIcon />
-                            </IconButton>
-                        </div>
+                    {/* Edit + Delete  */}
+                    <div className="BQ-Edit-Cancel-Buttons"> 
+                        <IconButton onClick={doEdit} color="primary" className="BQ-Edit-Button" fontSize="large">
+                            <EditIcon />
+                        </IconButton>
+                        <IconButton onClick={doCancel} color="secondary" className="BQ-Cancel-Button" fontSize="large" >
+                            <CloseRoundedIcon />
+                        </IconButton>
+                    </div>
+                    
+                    {/* Modal 창 유저 글 작성 */}
+                    <Typography  
+                        component="div" 
+                        id="Modal__body__2" 
+                        sx={{'& .MuiTextField-root': { 
+                                display: 'flex', flexDirection: 'row',
+                                justifyContent: 'left', marginLeft: '1.5%'},}}>
                         
-                        {/* Modal 창 유저 글 작성 */}
-                        <Typography  
-                            component="div" 
-                            id="Modal__body" 
-                            sx={{'& .MuiTextField-root': { 
-                                    display: 'flex', flexDirection: 'row',
-                                    justifyContent: 'left', marginLeft: '1.5%'},}}>
-                            
-                        {/* props로 받아온 유저 닉네임 넣기 */}
-                        <ModalSubTitle_ writer={userId} date={currDate}></ModalSubTitle_> 
-                        
-                        {/* 구분선 */}
-                        <div className='BQ-Division-Line'></div>
-                        
-                        {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
-                        <TextField label="제목 : " 
-                            variant="standard" 
-                            InputProps={{ disableUnderline: true }}
-                            fullWidth
-                            fontSize="large"
-                            name='newAskTitle'
-                        />
-                        <div className="BQ-blank-for-askContent"></div>
+                    {/* props로 받아온 유저 닉네임 넣기 */}
+                    <ModalSubTitle_ writer={userNickname} date={currDate}></ModalSubTitle_> 
+                    
+                    {/* 구분선 */}
+                    <div className='BQ-Division-Line'></div>
+                    
+                    {/* onChange 콜백용 함수 만들어서 content에 set, modal에 버튼 추가하고 컨텐츠 등록 */}
+                    <TextField  id = "askTitle" 
+                                label="제목 : " 
+                                InputProps={{ disableUnderline: true }}
+                                fullWidth
+                                variant="standard" 
+                                fontSize="large"
+                    />
+                    <div className="BQ-blank-for-askContent"></div>
 
-                        <TextField  id="filled-multiline-static" 
-                                    label="내용 : " 
-                                    fullWidth
-                                    multiline 
-                                    variant="standard" 
-                                    row = {14}
-                                    InputProps={{ disableUnderline: true }}
-                                    name='newAskContent'
-                                    />
-                        </Typography>
-                    </Box>
-                </Modal>
-            
-        </>
+                    <TextField  id="filled-multiline-static" 
+                                label="내용 : " 
+                                InputProps={{ disableUnderline: true }}
+                                fullWidth
+                                variant="standard" 
+                                multiline 
+                                row = {14}
+                    />
+                    </Typography>
+                </Box>
+            </Modal>
     );
 }
 
@@ -244,6 +242,7 @@ function AskButton_(){
                     startIcon="✏️"
                     size="small"
                     onClick={loginCheckHandler}>문의 등록</Button>
+
             <AskWriteModal_ 
                 isOpen={askModalOpen} 
                 doClose={closeAskModal} 
@@ -288,4 +287,3 @@ function BoardQuestion() {
     );
 }
 export default BoardQuestion;
-// export default Board;

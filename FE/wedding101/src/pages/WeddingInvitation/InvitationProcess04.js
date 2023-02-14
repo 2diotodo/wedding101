@@ -2,7 +2,7 @@
 // 1-3단계에서 sessionStorage에 저장한 photo, text를 전송
 import "./InvitationProcess02.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Button } from "@mui/material/";
@@ -10,7 +10,59 @@ import InvitationForm from "../../components/WeddingInvitation/InvitationForm";
 import ProgressBar from "../../components/common/ProgressBar";
 import axios from "axios";
 
+// API 통신부
+const request = axios.create({
+  baseURL: "http://i8a101.p.ssafy.io:8085",
+});
+
+const api = {
+  wedding101: {
+    findWeddingInfo: (userSeq) =>
+      request.get("/Info", { params: { userSeq: userSeq } }),
+  },
+};
+
 const InvitationProcess04 = () => {
+  const [weddingInfoData, setWeddingInfoData] = useState({
+    infoSeq: 1,
+    userSeq: 1,
+    weddingDay: 1676193211000,
+    weddingHallName: "theariel",
+    weddingHallAddress: null,
+    weddingHallNumber: null,
+    groomName: "lsh",
+    brideName: "kwj",
+    groomPhoneNumber: "010-0000-0000",
+    bridePhoneNumber: "010-1111-1111",
+    groomAccountNumber: null,
+    groomAccountBank: null,
+    groomAccountName: null,
+    brideAccountNumber: null,
+    brideAccountBank: null,
+    brideAccountName: null,
+    groomRelation: null,
+    brideRelation: null,
+    groomFatherName: null,
+    groomMotherName: null,
+    brideFatherName: null,
+    brideMotherName: null,
+    groomFatherIsAlive: true,
+    groomMotherIsAlive: true,
+    brideFatherIsAlive: true,
+    brideMotherIsAlive: true,
+  });
+
+  useEffect(() => {
+    const dataFetch = async () => {
+      const res = await api.wedding101.findWeddingInfo(1);
+
+      //   console.log(res.data.data);
+      setWeddingInfoData(res.data.data);
+    };
+    dataFetch();
+    console.log(weddingInfoData);
+  }, []);
+
   const [invitationForm, setInvitationForm] = useState({
     invitationSeq: "",
     infoSeq: "",
@@ -26,18 +78,10 @@ const InvitationProcess04 = () => {
     isValid: "",
   });
 
-  const [data, setData] = useState({
-    weddingInfoData: {
-      groomName: "김성환",
-      brideName: "권영진",
-      weddingDay: "2023-02-17",
-      weddingHallName: "아펠가모",
-    },
-    invitationData: {
-      templateHeader: "초대합니다",
-      templateFooter: "감사합니다",
-      templateEtc: "돈많이주세요",
-    },
+  const [invitationData, setInvitationData] = useState({
+    templateHeader: sessionStorage.getItem("templateHeader"),
+    templateFooter: sessionStorage.getItem("templateFooter"),
+    templateEtc: sessionStorage.getItem("templateEtc"),
   });
 
   const submitHandler = async (e) => {
@@ -82,7 +126,10 @@ const InvitationProcess04 = () => {
             />
             <h2>모바일 청첩장이 생성되었습니다.</h2>
             <div>
-              <InvitationForm data={data} />
+              <InvitationForm
+                weddingInfoData={weddingInfoData}
+                invitationData={invitationData}
+              />
             </div>
             <form onSubmit={submitHandler}>
               <div className="buttons">
