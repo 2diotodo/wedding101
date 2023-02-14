@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import usePagination from '../../utils/Pagination';
 import sampleTable from '../../test/testContact.json';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router';
 import Paper from '@mui/material/Paper';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { TableContainer, Table, TableHead, TableBody, TableRow, 
@@ -345,4 +345,3 @@ function BoardQuestion() {
     );
 }
 export default BoardQuestion;
-// export default Board;
