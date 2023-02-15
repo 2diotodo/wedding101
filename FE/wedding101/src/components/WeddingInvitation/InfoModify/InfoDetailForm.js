@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import './ModifyForm.css';
-import { useEffect, useState, useNavigate } from 'react';
+import './InfoDetailForm.css';
+import { useEffect, useState } from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableRow} from '@mui/material';
 
 function InfoTable(props) {

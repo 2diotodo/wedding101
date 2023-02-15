@@ -1,8 +1,8 @@
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import UserModifyForm from '../../../components/user/UserModify/ModifyForm'
-import InfoModifyForm from '../../../components/WeddingInvitation/InfoModify/ModifyForm'
+import UserDetailForm from '../../../components/user/UserModify/UserDetailForm'
+import InfoDetailForm from '../../../components/WeddingInvitation/InfoModify/InfoDetailForm'
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './UserMyPage.css';
 import { Button } from '@mui/material';
 
@@ -58,8 +58,8 @@ function UserMyPage() {
                                 </Grid2>
                         </Grid2>
                     </div>
-                    {userModifyOpen ? <UserModifyForm /> : null}
-                    {infoModifyOpen ? <InfoModifyForm /> : null}
+                    {userModifyOpen ? <UserDetailForm /> : null}
+                    {infoModifyOpen ? <InfoDetailForm /> : null}
                 </Grid2>
                 
             </Grid2>

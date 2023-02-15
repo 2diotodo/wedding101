@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import './ModifyForm.css';
-import { useEffect, useState, useNavigate } from 'react';
+import './UserDetailForm.css';
+import { useEffect, useState} from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableRow, Button} from '@mui/material';
 
 function UserTable(props) {
@@ -68,12 +68,13 @@ function ModifyForm() {
     return (
         <div>
             <UserTable data = {user} className="user-table"/>
-            {/* <Button className = "user-modify-btn"
+            <Button className = "user-modify-btn"
                     color = 'primary'
                     startIcon="✏️"
                     variant='contained'
                     size='small'
-                    onClick={setUserModifyOpen}></Button> */}
+                    onClick={openModifyModal}></Button>
+            {userModifyOpen ? <User}
         </div>
     );
 }

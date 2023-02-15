@@ -33,7 +33,7 @@ public class QuestionRestController {
                     .orElseThrow(() -> new NoSuchElementException("문의 등록 FAIL"));
 
             result.put("data", newQuestionDto);
-            result.put("messsage", "문의 등록 SUCCESS");
+            result.put("message", "문의 등록 SUCCESS");
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             result.put("message", "문의 등록 FAIL");

@@ -107,20 +107,32 @@ insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_rel
 (2, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "백진솔", "acquaintance"),
 (2, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "석재윤", "colleague");
 select * from tbl_media;
+select * from tbl_media where album_seq = 1 and is_in_bin = false order by media_seq desc;
 
 -- question data 
 select * from tbl_question;
+select * from tbl_question where is_valid = true order by question_seq desc;
 insert into tbl_question (user_seq, question_title, question_content) values
-(1, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??"),
-(2, "서비스 이용료", "서비스 이용료는 얼마인가요, "),
-(3, "통합본 신청 개수는 제한이 있나요?", "통합본 신청은 무제한인가요?"),
-(4, "개인 정보", "정보 수정에 대한 문의드립니다. 정보 수정이 안되는데 어디서 신청하면 되나요?"),
-(5, "앨범 공개 여부", "앨범을 외부 사용자에게 공개할 수 있을까요?"),
-(6, "문의드립니다.", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??"),
-(7, "온라인 청첩장 문구 수정", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??"),
-(8, "온라인 청첩장 유지 기간", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??"),
-(9, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??"),
-(10, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??"),
+(1, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
+insert into tbl_question (user_seq, question_title, question_content) values
+(2, "서비스 이용료", "서비스 이용료는 얼마인가요, ");
+insert into tbl_question (user_seq, question_title, question_content) values
+(3, "통합본 신청 개수는 제한이 있나요?", "통합본 신청은 무제한인가요?");
+insert into tbl_question (user_seq, question_title, question_content) values
+(4, "개인 정보", "정보 수정에 대한 문의드립니다. 정보 수정이 안되는데 어디서 신청하면 되나요?");
+insert into tbl_question (user_seq, question_title, question_content) values
+(5, "앨범 공개 여부", "앨범을 외부 사용자에게 공개할 수 있을까요?");
+insert into tbl_question (user_seq, question_title, question_content) values
+(6, "문의드립니다.", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
+insert into tbl_question (user_seq, question_title, question_content) values
+(7, "온라인 청첩장 문구 수정", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
+insert into tbl_question (user_seq, question_title, question_content) values
+(8, "온라인 청첩장 유지 기간", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
+insert into tbl_question (user_seq, question_title, question_content) values
+(9, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
+insert into tbl_question (user_seq, question_title, question_content) values
+(10, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
+insert into tbl_question (user_seq, question_title, question_content) values
 (11, "앨범 유지기간이 언제까지 인가요?", "서비스 신청한 이후로 앨범 유지기간이 얼마까지 유지될까요? 유지 기간을 늘릴 수 있나요??");
 
 -- review data / 5번 앨범까지 작성함 6번부터 11번까지 작성가능 
