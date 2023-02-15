@@ -9,6 +9,8 @@ import { Button, IconButton, Tooltip, Badge } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
 
 function AlbumCover() {
+  const accessToken = sessionStorage.getItem('accessToken');
+
   const [showUpdate, setShowUpdate] = useState(false);
   const [albumForm, setAlbumForm] = useState({
     albumSeq: '',
@@ -25,9 +27,9 @@ function AlbumCover() {
     updatedAt: '',
   });
   const [ unifyCheck, setUnifyCheck ] = useState(false);  // 통합본 신청여부
-  const albumCoverUrl = `http://i8a101.p.ssafy.io:8085/file/uploadAlbumCover`;
+  const albumCoverUrl = `http://wedding101.shop/api/file/uploadAlbumCover`;
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
-    useUploadMedia(albumCoverUrl);
+    useUploadMedia(albumCoverUrl, accessToken);
 
     // 앨범생성일 연산 yyyy-mm-dd
     const dateformat = new Date(albumForm.createdAt);
@@ -38,7 +40,6 @@ function AlbumCover() {
     const albumCreated = `${year}-${month >= 10 ? month : '0' + month}-${date >= 10 ? date : '0' + date}`
 
 
-  const userSequence = sessionStorage.getItem('userSeq');
   useEffect(() => {
     // sessionStorage.setItem('albumPhoto',fileMedia );
     getAlbum();
@@ -47,7 +48,11 @@ function AlbumCover() {
   // 앨범정보 가져오기
   async function getAlbum() {
     await axios
-      .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`)
+      .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`,{
+        headers: {
+          "Authorization" : "Bearer " + accessToken
+        }
+      })
       .then((res) => {
         setAlbumForm(res.data.data);
         console.log(res.data.data);
@@ -74,7 +79,7 @@ function AlbumCover() {
   // 통합본 가져오기
   const unifiedMedia = async () => {
     await axios
-      .get(`http://i8a101.p.ssafy.io:8085/unifiedVideo/all/${albumForm.albumSeq}`)
+      .get(`http://wedding101.shop/api/unifiedVideo/all/${albumForm.albumSeq}`)
       .then((res) => {
         setAlbumForm(res.data.data);
         console.log(res.data.data);
