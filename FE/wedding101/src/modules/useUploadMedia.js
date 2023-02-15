@@ -70,17 +70,16 @@ const useUploadMedia = (propsurl) => {
     URL.revokeObjectURL(filePreview);
     setFileMedia("");
     setFilePreview("");
-    sessionStorage.setItem(media, fileMedia);
+    // sessionStorage.setItem(media, fileMedia);
   };
 
   // 파일 업로드 구현
   const onFileUpload = async (e) => {
     e.preventDefault();
-
+    console.log(propsurl);
     let formData = new FormData();
     formData.append("file", fileMedia);
-    console.log(formData);
-
+    console.log(formData)
     await axios({
       headers: {
         "Content-Type": "multipart/form-data",
