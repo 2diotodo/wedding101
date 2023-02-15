@@ -131,6 +131,7 @@ function getCurrentDate(){
 function ReviewWriteModal(props){
     const currDate = getCurrentDate();
     console.log(currDate);
+    console.log("reviewWriteModal", props)
 
     const reviewCancel = () => {
         let cancelSelect = window.confirm("작성중이던 글을 지웁니다.");
@@ -151,6 +152,7 @@ function ReviewWriteModal(props){
             alert('제목이나 내용이 비어있습니다.');
             return;
         }
+        console.log("props.userAlbumSeq", props.userAlbumSeq)
 
         axios.post(`${BASEURL}/review`, {
             headers: {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
@@ -158,13 +160,8 @@ function ReviewWriteModal(props){
                     albumSeq: props.userAlbumSeq,
                     reviewTitle: reviewTitle,
                     reviewRate: 9,
-                    reviewContent: reviewContent,
-                    reviewSeq: 0,
-                    updatedAt: 0,
-                    createdAt: 0,
-                    userNickname: props.userNickname,
-                    vaild: true
-                  }
+                    reviewContent: reviewContent
+                }
         }).then(function (response) {
             console.log(response.data.message);
             if(response.status === 200){
@@ -250,9 +247,31 @@ function WriteReviewButton(props){
 
     // review modal
     const [reviewModalOpen, setReviewModalOpen] = useState(false);
+    const [albumSeq, setAlbumSeq] = useState();
     const openReviewModal = () => { setReviewModalOpen(true); };
     const closeReviewModal = () => { setReviewModalOpen(false); };
     const navigate = useNavigate();
+
+    console.log('writeButton props:', props)
+
+    useEffect(()=> {
+        getAlbumSeq();
+    },[props])
+
+    async function getAlbumSeq() {
+        await axios
+            .get(`${BASEURL}/album?userSeq=`+String(props.userSeq),{
+                headers:{"Authorization": "Bearer " + sessionStorage.getItem('accessToken')}
+            })
+            .then((res) => {
+                console.log('앨범 정보 수신 성공');
+                setAlbumSeq(res.data.data.albumSeq);
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log('앨범 정보 수신 실패');
+            })
+    }
 
     // review Modal
     function loginCheckHandler(){
@@ -262,7 +281,7 @@ function WriteReviewButton(props){
             navigate("/user/login");
             return;
         }
-        if (props.userSeq === null){
+        if (albumSeq === null){
             alert("서비스 이용 후 리뷰해주세요");
             navigate("/");
             return;
@@ -283,7 +302,7 @@ function WriteReviewButton(props){
                 isOpen={reviewModalOpen} 
                 doClose={closeReviewModal}
                 renewPost={props.renewPost}
-                userAlbumSeq={props.userAlbumSeq}
+                userAlbumSeq={albumSeq}
                 userNickname={props.userNickname}
                 className="BQ-style"/>
         </>
@@ -320,9 +339,9 @@ function BoardReview() {
             })
             .then((res) => {
                 console.log('유저 정보 수신 성공');
+                console.log(res.data)
                 setUserSeq(res.data.data.userSeq)
                 setUserNickname(res.data.data.userNickname)
-                setUserAlbumSeq(res.data.data.userAlbumSeq)
             })
             .catch((err) => {
                 console.log(err);
@@ -358,7 +377,6 @@ function BoardReview() {
                     <div className='BQ-button-style'>
                         <WriteReviewButton userSeq={userSeq} 
                                            userNickname={userNickname}
-                                           userAlbumSeq={userAlbumSeq}
                                            renewPost={getAllReviews}/>
                     </div>
                     <div className='BQ-pagination'>
