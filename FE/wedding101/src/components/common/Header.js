@@ -1,22 +1,17 @@
 import "./Header.css";
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router';
-import { ButtonUnstyled } from '@mui/base';
 
-const BASEURL = "https://wedding101.shop/api/";
+const BASEURL = "https://wedding101.shop/api";
 
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
   const [userNickname, setUserNickname] = useState('');
   const navigate = useNavigate();
-  let userNickName = "";
 
   const navigateToHome = () => {
     console.log('go to home!');
-    sessionStorage.setItem('nickname',"");
     navigate('/');
   };
 
@@ -68,43 +63,34 @@ function Header() {
   };
 
   const onLogout = () => {
-    // sessionStorage에 accessToken로 저장되어 있는 아이템을 삭제
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("nickname");
-    setUserNickname('');
-    sessionStorage.setItem("isLogin", false);
     // 메인으로 이동(새로고침)
     document.location.href = '/';
+    // sessionStorage에 accessToken로 저장되어 있는 아이템을 삭제
+    setUserNickname('');
+    sessionStorage.clear();
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("accessToken") === null) {
-      console.log("isLogin?? ::", isLogin);
-    } else {
-      // sessionStorage에 name이라는 key 값으로 저장된 값이 있다면
+    if (sessionStorage.getItem("accessToken") === null){}
+    else{
       // 로그인 상태 변경
       setIsLogin(true);
-      console.log('isLogin?? ::', isLogin);
-      sessionStorage.setItem('isLogin', true);
+
+      // 회원 조회
+      axios({
+        method: "GET",
+        url: `${BASEURL}/user`,
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
+        }
+      }).then((res) => { 
+          setUserNickname(res.data.data.userNickname);
+      }).catch(function (error) {
+        console.log(error);
+      })
     };
-    }, [isLogin, userNickName]
+    }, [isLogin]
   );
-  
-  if (isLogin){
-    // 회원 조회
-    axios({
-      method: "GET",
-      url: BASEURL + "user/",
-      headers: {
-          "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
-      }
-    }).then((res) => { 
-        sessionStorage.setItem('nickname',res.data.data.userNickname);
-        setUserNickname(sessionStorage.getItem('nickname'))
-    }).catch(function (error) {
-      console.log(error);
-    })
-  }
 
   return (
     <div className='header'>
@@ -134,7 +120,7 @@ function Header() {
                   
             {isLogin ? (  <div  className='header-font-tag' 
                                 onClick={navigateToMyPage}>
-                              👤 {sessionStorage.getItem('nickname')}님</div>)                              
+                              👤 {userNickname}님</div>)                              
                         :( <div className='header-font-tag' 
                                 onClick={navigateToLogin}>LOGIN</div>)}
 

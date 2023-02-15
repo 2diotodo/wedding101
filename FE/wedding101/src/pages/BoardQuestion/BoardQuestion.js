@@ -55,7 +55,6 @@ function AskTableItem_({arg}){
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    console.log(arg);
     const {createdAt,questionContent, questionSeq, questionTitle, updatedAt, userId, userNickname, userSeq} = arg;
     const createdDate = createdAt.split(" ")[0];
     const updatedDate = updatedAt.split(" ")[0];
@@ -132,8 +131,6 @@ function AskWriteModal_(props){
     // write data -> userId + currDate
     const userNickname = sessionStorage.getItem('userNickname');
     const currDate = getCurrentDate();
-    console.log(userNickname);
-    console.log(currDate);
 
     let variables = [{
         userSeq: 0,
@@ -157,10 +154,6 @@ function AskWriteModal_(props){
             return;
         }
 
-        console.log(askTitle);
-        console.log(askContent);
-        console.log("edited!");
-        
         askDataUpload();
         alert("해당 게시글이 등록 되었습니다");
         props.refresh();
@@ -171,11 +164,6 @@ function AskWriteModal_(props){
         alert("게시글 작성이 취소 되었습니다");
         document.getElementById('askTitle').value = "";
         document.getElementById('filled-multiline-static').value  = "";
-        const askTitle = document.getElementById('askTitle').value;
-        const askContent = document.getElementById('filled-multiline-static').value;
-        console.log(askTitle);
-        console.log(askContent);
-        console.log("canceled!");
         props.doClose();
     };
     
@@ -195,7 +183,7 @@ function AskWriteModal_(props){
                 questionContent: variables.questionContent
             }
         }).then((res) => {
-            console.log(res);
+            console.log(res.data.messsage);
         }).catch(err => {
             alert('등록을 실패하였습니다.');
         });
@@ -266,7 +254,7 @@ function AskButton_(props){
     // ask Modal
     function loginCheckHandler(){
         const isLogin = sessionStorage.getItem('isLogin')
-        console.log(isLogin);
+
         if (isLogin == 'false' || isLogin == null){
             alert("로그인을 먼저 해주세요");
         }
@@ -313,7 +301,6 @@ function BoardQuestion() {
                 "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
             }
         }).then(function (response) {
-            console.log(response.data)
             setAskItem(response.data.data)
         }).catch(function (error) {
             console.log(error);
