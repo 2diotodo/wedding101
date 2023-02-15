@@ -15,11 +15,8 @@ function ServiceProcess04 () {
     const navigate = useNavigate();
     const submitWeddingInfo = () => {
         console.log(processForm);
-        console.log(sessionStorage.accessToken);
-        console.log(typeof(sessionStorage.accessToken));
-        axios.post(`http://wedding101.shop/api/Info`, {
-            headers : {
-                "Authorization": "Bearer " + sessionStorage.accessToken},
+        axios.post(`https://wedding101.shop/api/Info`, {
+            headers : {"Authorization": "Bearer " + sessionStorage.accessToken},
             data : {
                 brideAccountBank: processForm.brideAccountBank,
                 brideAccountName: processForm.brideAccountName,
