@@ -26,7 +26,7 @@ function AlbumCover() {
   });
 
   const accessToken = sessionStorage.getItem('accessToken');
-  axios.get(`http://wedding101.shop/api/user`, {
+  axios.get(`https://wedding101.shop/api/user`, {
     headers: {
       "Authorization" : "Bearer " + accessToken,
     }
@@ -47,7 +47,7 @@ function AlbumCover() {
     unifiedUrl: "",
     updatedAt: ""
   }]);
-  const albumCoverUrl = `http://wedding101.shop/api/file/uploadAlbumCover`;
+  const albumCoverUrl = `https://wedding101.shop/api/file/uploadAlbumCover`;
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
     useUploadMedia(albumCoverUrl, accessToken);
 
@@ -68,7 +68,7 @@ function AlbumCover() {
   // 앨범정보 가져오기
   async function getAlbum() {
     await axios
-      .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`,{
+      .get(`https://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`,{
         headers: {
           "Authorization" : "Bearer " + accessToken
         }
@@ -99,7 +99,7 @@ function AlbumCover() {
   // 통합본 가져오기
   const unifiedMedia = async () => {
     await axios
-      .get(`http://wedding101.shop/api/unifiedVideo/all/${albumForm.albumSeq}`,{
+      .get(`https://wedding101.shop/api/unifiedVideo/all/${albumForm.albumSeq}`,{
         headers: {
           "Authorization" : "Bearer " + accessToken
         }

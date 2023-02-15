@@ -16,7 +16,7 @@ import axios from 'axios';
 const AlbumDeleted = () => {
   const [userSeq, setUserSeq] = useState('');
   const accessToken = sessionStorage.getItem('accessToken');
-  axios.get(`http://wedding101.shop/api/user`, {
+  axios.get(`https://wedding101.shop/api/user`, {
     headers: {
       "Authorization" : "Bearer " + accessToken,
     }
@@ -35,7 +35,7 @@ const AlbumDeleted = () => {
   
   async function getDeletedMedia() {
     await axios
-      .get(`http://wedding101.shop/api/media/${userSeq}/bin`,{
+      .get(`https://wedding101.shop/api/media/${userSeq}/bin`,{
         headers: {
           "Authorization" : "Bearer " + accessToken,
         }
@@ -84,7 +84,7 @@ const AlbumDeleted = () => {
   };
 
   return (
-    <div className='album-list'>
+    <div className='album-deleted'>
       <Grid2 container spacing={3}>
         <Grid2 lg={3} sm={3}>
           <h1>Album Deleted</h1>
