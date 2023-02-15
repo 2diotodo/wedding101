@@ -1,5 +1,8 @@
 package com.ssafy.wedding101.controller;
 
+import com.ssafy.wedding101.model.dto.FileUploadDto;
+import com.ssafy.wedding101.model.dto.UserDto;
+import com.ssafy.wedding101.model.service.UserService;
 import com.ssafy.wedding101.model.service.impl.FileService;
 import com.ssafy.wedding101.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +29,7 @@ public class FileRestController {
 
     // [ 의존성 주입 ]
     private final FileService fileService;
+    private final UserService userService;
     private final JwtUtil jwtUtil;
 
     /**
@@ -87,18 +91,15 @@ public class FileRestController {
      */
     @Operation(summary = "미디어 - 이미지 업로드")
     @PostMapping("/uploadMedia/image")
-    public ResponseEntity<String> uploadMediaImage(@RequestHeader("Authorization") String authorization,
-                                                   @RequestBody MultipartFile multipartFile) {
-
-        // 토큰에서 userId를 가져옴
-        String accessToken = authorization.substring(7);
-        String userId = jwtUtil.getSubject(accessToken);
+    public ResponseEntity<String> uploadMediaImage(@ModelAttribute FileUploadDto fileUploadDto) {
+        // UserSeq로 유저 아이디를 불러옴
+        UserDto userDto = userService.getUser(fileUploadDto.getUserSeq()).orElseThrow();
 
         // File Service에 보낼 저장 경로 생성
-        String filePath = userId.concat("/media/image/");
+        String filePath =  userDto.getUserId().concat("/media/image/");
 
         // File Service 메서드 실행 및 저장
-        String url = fileService.uploadImage(filePath, multipartFile);
+        String url = fileService.uploadImage(filePath, fileUploadDto.getMultipartFile());
 
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
@@ -112,18 +113,16 @@ public class FileRestController {
      */
     @Operation(summary = "미디어 - 비디오 업로드")
     @PostMapping("/uploadMedia/video")
-    public ResponseEntity<Map<String,String>> uploadMediaVideo(@RequestHeader("Authorization") String authorization,
-                                                               @RequestBody MultipartFile multipartFile) {
+    public ResponseEntity<Map<String,String>> uploadMediaVideo(@ModelAttribute FileUploadDto fileUploadDto) {
+        // UserSeq로 유저 아이디를 불러옴
+        UserDto userDto = userService.getUser(fileUploadDto.getUserSeq()).orElseThrow();
 
-        // 토큰에서 userId를 가져옴
-        String accessToken = authorization.substring(7);
-        String userId = jwtUtil.getSubject(accessToken);
 
         // File Service에 보낼 저장 경로 생성
-        String filePath = userId.concat("/media/video/");
+        String filePath = userDto.getUserId().concat("/media/video/");
 
         // File Service 메서드 실행 및 저장
-        Map<String,String> map = fileService.uploadVideo(filePath, multipartFile);
+        Map<String,String> map = fileService.uploadVideo(filePath, fileUploadDto.getMultipartFile());
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
