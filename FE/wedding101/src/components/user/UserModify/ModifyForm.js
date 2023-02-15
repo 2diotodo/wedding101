@@ -7,11 +7,11 @@ import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow
 function UserTable(props) {
     return (
         <TableContainer component={Paper}>
-            <Table className="user-table" sx={{ minWidth: 550 }} aria-label="simple table">
+            <Table className="user-table" sx={{ maxWidth: 550 }} aria-label="simple table">
                 <TableBody>
                     <TableRow>
                         <TableCell variant="head" align="center">아이디</TableCell>
-                        <TableCell>{props.data.userId}</TableCell>
+                        <TableCell>{props.userId}</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell variant="head" align="center">이름</TableCell>
@@ -34,6 +34,8 @@ function UserTable(props) {
 }
 
 function ModifyForm() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    console.log(accessToken)
     const [user, setUser] = useState([]);
     useEffect(() =>  {
         // 컴포넌트 불러올때  getUser() 실행
@@ -45,7 +47,7 @@ function ModifyForm() {
             method : "GET",
             url : "http://wedding101.shop/api/" + 'user',
             headers : {
-                "Authorization" : "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJybGEwMzQ3IiwidXNlclNlcSI6MiwiaWF0IjoxNjc2MzYzNzc4LCJleHAiOjE2NzYzNjU1Nzh9.aLlbi3j9WiFemhNw5iBiOwg_Xqv-c9jUZSsaUJjK70M"
+                "Authorization" : "Bearer " + accessToken
             } 
         }).then((res) => {
                 setUser(res.data.data);
@@ -58,7 +60,8 @@ function ModifyForm() {
     return (
         <div>
             <h3>{userId}</h3>
-            <UserTable data={user}/>
+            <UserTable 
+                data = {user}/>
             <h3>{userEmail}</h3>
         </div>
     );
