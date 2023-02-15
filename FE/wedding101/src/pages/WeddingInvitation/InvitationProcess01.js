@@ -16,7 +16,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 // API 통신부
 const request = axios.create({
-  baseURL: "https://wedding101.shop/api/",
+  baseURL: "https://wedding101.shop/api",
 });
 
 const api = {
