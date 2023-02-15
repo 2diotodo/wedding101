@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { forwardRef } from 'react';
 import { useImperativeHandle } from 'react';
 
-const MediaDialog = (({media, deleteConfirm, getAllMedia, getDeletedMedia}) => {
+const MediaDialog = (({media, deleteConfirm, getAllMedia, getDeletedMedia, accessToken}) => {
   
 const [isBin, setIsBin] = useState(media.inBin);
 
@@ -36,7 +36,12 @@ const [isBin, setIsBin] = useState(media.inBin);
     setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
     await axios.put(`http://wedding101.shop/api/media/delete/${media.mediaSeq}`,{
-       mediaSeq: media.mediaSeq,
+      headers: {
+        "Authorization" : "Bearer " + accessToken
+      },
+      data:{
+        mediaSeq: media.mediaSeq,
+      }
     });
     getAllMedia();
     setOpen(false);
@@ -47,7 +52,12 @@ const [isBin, setIsBin] = useState(media.inBin);
     setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
     await axios.put(`http://wedding101.shop/api/media/restore/${media.mediaSeq}`,{
-       mediaSeq: media.mediaSeq,
+      headers: {
+        "Authorization" : "Bearer " + accessToken
+      },
+      data:{
+        mediaSeq: media.mediaSeq,
+      }
     });
     getDeletedMedia();
     setOpen(false);
