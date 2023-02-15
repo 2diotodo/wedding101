@@ -24,6 +24,7 @@ function AlbumCover() {
     createdAt: '',
     updatedAt: '',
   });
+  const [ unifyCheck, setUnifyCheck ] = useState(false);  // 통합본 신청여부
   const albumCoverUrl = `http://i8a101.p.ssafy.io:8085/file/uploadAlbumCover`;
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
     useUploadMedia(albumCoverUrl);
@@ -43,6 +44,7 @@ function AlbumCover() {
     getAlbum();
   }, []);
 
+  // 앨범정보 가져오기
   async function getAlbum() {
     await axios
       .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`)
@@ -69,6 +71,19 @@ function AlbumCover() {
     navigate('/review');
   };
 
+  // 통합본 가져오기
+  const unifiedMedia = async () => {
+    await axios
+      .get(`http://i8a101.p.ssafy.io:8085/unifiedVideo/all/${albumForm.albumSeq}`)
+      .then((res) => {
+        setAlbumForm(res.data.data);
+        console.log(res.data.data);
+        console.log('setMedia 성공');
+      })
+      .catch((err) => {
+        console.log('실패');
+      });
+  }
   return (
     <div className='album-cover'>
       <Grid2 container spacing={3}>
@@ -76,6 +91,9 @@ function AlbumCover() {
           <h1>Album Cover page</h1>
           <div className='update-button'>
             <Button onClick={showUpdateHandler}>앨범 수정하기</Button>
+          </div>
+          <div className='unify-button'>
+            <Button onClick={unifiedMedia}>통합본 확인하기</Button>
           </div>
         </Grid2>
         <Grid2 lg={6} sm={6}>
