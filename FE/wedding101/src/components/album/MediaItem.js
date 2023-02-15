@@ -51,31 +51,30 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
 
   const menuRef = useRef({});
 
-  const deleteConfirm = (inBin===false) ? '삭제하시겠습니까?' : '복원하시겠습니까?';
-  
-  const dialogOpen=()=>{
-    menuRef.current.handleClickOpen();
-  }
+  const deleteConfirm = inBin === false ? '삭제하시겠습니까?' : '복원하시겠습니까?';
 
-    useEffect( () => {
-      media.wish=like;
-      media.inBin=isBin;
+  const dialogOpen = () => {
+    menuRef.current.handleClickOpen();
+  };
+
+  useEffect(() => {
+    media.wish = like;
+    media.inBin = isBin;
   }, [like, isBin]);
 
   const toggleLike = async () => {
-    await axios.get(`https://wedding101.shop/api/media/wish/${mediaSeq}`,{
+    await axios.get(`https://wedding101.shop/api/media/wish/${mediaSeq}`, {
       headers: {
-        "Authorization" : "Bearer " + accessToken
-      }
+        Authorization: 'Bearer ' + accessToken,
+      },
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
-    setLike(like => !like);
+    setLike((like) => !like);
     getAllMedia();
   };
 
-  
   return (
     <div className='media-item'>
-      <Card sx={{ maxWidth: 300 }}>
+      <Card sx={{ width: 200, height: 350 }}>
         {/* 사진/비디오여부표시 및 좋아요표시 */}
         <CardHeader
           avatar={video ? <Videocam /> : <CameraAlt />}
@@ -87,8 +86,8 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
         ></CardHeader>
         {/* Card 본문 */}
         <CardActionArea onClick={handleOpen} onContextMenu={dialogOpen}>
-          <CardMedia component='img' height='140' image={urlToImg} alt='img' />
-          <CardContent>
+          <CardMedia component='img' height='200px' image={urlToImg} alt='img' />
+          <CardContent sx={{ width: 200, height: 100 }}>
             <Typography gutterBottom variant='h5' component='div'>
               {mediaName}
             </Typography>
@@ -118,7 +117,14 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
         </Box>
       </Modal>
       {/* 우클릭시 삭제확인 */}
-      <MediaDialog media={media} deleteConfirm={deleteConfirm} getAllMedia={getAllMedia} getDeletedMedia={getDeletedMedia} accessToken={accessToken} ref={menuRef}/>
+      <MediaDialog
+        media={media}
+        deleteConfirm={deleteConfirm}
+        getAllMedia={getAllMedia}
+        getDeletedMedia={getDeletedMedia}
+        accessToken={accessToken}
+        ref={menuRef}
+      />
     </div>
   );
 };
