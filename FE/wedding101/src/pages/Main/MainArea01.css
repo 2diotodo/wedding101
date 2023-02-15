@@ -65,6 +65,7 @@ img {
   height:100%;
 }
 #HL_p1_01{
+  width: auto;
   height:50%;
 }
 #HL_p1_02{
@@ -74,4 +75,8 @@ img {
 }
 #HL_p1_03{
   height:50%;
+}
+#container_main01{
+  object-fit: scale-down;
+  overflow: visible;
 }
