@@ -41,7 +41,7 @@ function ServiceProcess04 () {
                 weddingDay: processForm.weddingDay,
                 weddingHallAddress: processForm.weddingHallAddress,
                 weddingHallName: processForm.weddingHallName,
-                weddingHallNumber: processForm.weddingHallNumber
+                weddingHallNumber: processForm.weddingHallNumber,
             }
         }).then(function (response) {
             console.log(response);
