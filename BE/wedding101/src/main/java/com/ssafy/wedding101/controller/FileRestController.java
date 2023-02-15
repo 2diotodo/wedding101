@@ -1,5 +1,7 @@
 package com.ssafy.wedding101.controller;
 
+import com.ssafy.wedding101.model.dto.UserDto;
+import com.ssafy.wedding101.model.service.UserService;
 import com.ssafy.wedding101.model.service.impl.FileService;
 import com.ssafy.wedding101.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +28,7 @@ public class FileRestController {
 
     // [ 의존성 주입 ]
     private final FileService fileService;
+    private final UserService userService;
     private final JwtUtil jwtUtil;
 
     /**
@@ -87,15 +90,13 @@ public class FileRestController {
      */
     @Operation(summary = "미디어 - 이미지 업로드")
     @PostMapping("/uploadMedia/image")
-    public ResponseEntity<String> uploadMediaImage(@RequestHeader("Authorization") String authorization,
+    public ResponseEntity<String> uploadMediaImage(@RequestBody Long userSeq,
                                                    @RequestBody MultipartFile multipartFile) {
-
-        // 토큰에서 userId를 가져옴
-        String accessToken = authorization.substring(7);
-        String userId = jwtUtil.getSubject(accessToken);
+        // UserSeq로 유저 아이디를 불러옴
+        UserDto userDto = userService.getUser(userSeq).orElseThrow();
 
         // File Service에 보낼 저장 경로 생성
-        String filePath = userId.concat("/media/image/");
+        String filePath =  userDto.getUserId().concat("/media/image/");
 
         // File Service 메서드 실행 및 저장
         String url = fileService.uploadImage(filePath, multipartFile);
@@ -112,15 +113,14 @@ public class FileRestController {
      */
     @Operation(summary = "미디어 - 비디오 업로드")
     @PostMapping("/uploadMedia/video")
-    public ResponseEntity<Map<String,String>> uploadMediaVideo(@RequestHeader("Authorization") String authorization,
+    public ResponseEntity<Map<String,String>> uploadMediaVideo(@RequestBody Long userSeq,
                                                                @RequestBody MultipartFile multipartFile) {
+        // UserSeq로 유저 아이디를 불러옴
+        UserDto userDto = userService.getUser(userSeq).orElseThrow();
 
-        // 토큰에서 userId를 가져옴
-        String accessToken = authorization.substring(7);
-        String userId = jwtUtil.getSubject(accessToken);
 
         // File Service에 보낼 저장 경로 생성
-        String filePath = userId.concat("/media/video/");
+        String filePath = userDto.getUserId().concat("/media/video/");
 
         // File Service 메서드 실행 및 저장
         Map<String,String> map = fileService.uploadVideo(filePath, multipartFile);
