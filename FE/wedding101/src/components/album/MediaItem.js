@@ -28,7 +28,7 @@ const style = {
   p: 0,
 };
 
-const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
+const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
   const {
     mediaSeq,
     albumSeq,
@@ -64,7 +64,9 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
 
   const toggleLike = async () => {
     await axios.get(`http://wedding101.shop/api/media/wish/${mediaSeq}`,{
-      
+      headers: {
+        "Authorization" : "Bearer " + accessToken
+      }
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike(like => !like);
     getAllMedia();
@@ -116,7 +118,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
         </Box>
       </Modal>
       {/* 우클릭시 삭제확인 */}
-      <MediaDialog media={media} deleteConfirm={deleteConfirm} getAllMedia={getAllMedia} getDeletedMedia={getDeletedMedia} ref={menuRef}/>
+      <MediaDialog media={media} deleteConfirm={deleteConfirm} getAllMedia={getAllMedia} getDeletedMedia={getDeletedMedia} accessToken={accessToken} ref={menuRef}/>
     </div>
   );
 };

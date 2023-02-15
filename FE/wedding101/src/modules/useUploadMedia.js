@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const useUploadMedia = (propsurl) => {
+const useUploadMedia = (propsurl, accessToken) => {
     const [filePreview, setFilePreview] = useState('');
     const [fileMedia, setFileMedia] = useState('');
 
@@ -84,6 +84,7 @@ const useUploadMedia = (propsurl) => {
         await axios({
             headers: {
                 "Content-Type": "multipart/form-data",
+                "Authorization": "Bearer " + accessToken
             },
             method: "POST",
             url: propsurl,  // 파일 업로드 요청 URL
