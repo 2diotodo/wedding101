@@ -8,7 +8,19 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Star from '@mui/icons-material/Star';
-import { Button, Pagination, FormControlLabel, Switch, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Backdrop } from '@mui/material';
+import {
+  Button,
+  Pagination,
+  FormControlLabel,
+  Switch,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TextField,
+  Backdrop,
+} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -18,25 +30,15 @@ import axios from 'axios';
 const AlbumList = () => {
   const [userSeq, setUserSeq] = useState('');
   const accessToken = sessionStorage.getItem('accessToken');
-  axios.get(`https://wedding101.shop/api/user`, {
-    headers: {
-      "Authorization" : "Bearer " + accessToken,
-    }
-  })
-  .then((res)=>{
-    setUserSeq(res.data.userSeq);
-    
-  })
-  
-  
+
   const [page, setPage] = useState(1);
   const [media, setMedia] = useState([]);
   const [mergeVideo, setMergeVideo] = useState([]);
   const [mergePhoto, setMergePhoto] = useState([]);
   const [likeToggle, setLikeToggle] = useState(false);
   const [unifiedName, setUnifiedName] = useState(''); // 통합본 제목 입력받기
-  const [open, setOpen] = useState(false);  // dialog open 관리
-  const [backdropOpen, setBackdropOpen] = useState(false);  // backdrop open 관리
+  const [open, setOpen] = useState(false); // dialog open 관리
+  const [backdropOpen, setBackdropOpen] = useState(false); // backdrop open 관리
 
   // title dialog open
   const handleClickOpen = () => {
@@ -45,23 +47,37 @@ const AlbumList = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  // accessToken으로 userSeq 받아오기
+  async function getUserSeq() {
+    await axios
+      .get(`https://wedding101.shop/api/user`, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data.userSeq);
+        setUserSeq(res.data.data.userSeq);
+      });
+  }
   useEffect(() => {
+    getUserSeq();
     getAllMedia();
-    if(likeToggle===true){
+    if (likeToggle === true) {
       wishFilterHandler();
-    }else{
+    } else {
       getAllMedia();
     }
-  }, []);
-  
+  }, [userSeq]);
+
   // axios 통신으로 DB 데이터 가져오기 구현
   async function getAllMedia() {
+    console.log('hey', userSeq);
     await axios
-      .get(`https://wedding101.shop/api/media/all/${userSeq}`,{
-        headers:{
-          "Authorization" : "Bearer " + accessToken
-        }
+      .get(`https://wedding101.shop/api/media/all/${userSeq}`, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
       })
       .then((res) => {
         setMedia(res.data.data);
@@ -72,21 +88,21 @@ const AlbumList = () => {
         console.log('실패');
       });
   }
-  const merged = [...media].filter((item) => item.wish===true)
+  const merged = [...media].filter((item) => item.wish === true);
 
   // 북마크 목록불러오기
   const wishFilterHandler = () => {
     setMedia(merged);
-  }
+  };
 
-  const onLikeToggleHandler = () =>{
+  const onLikeToggleHandler = () => {
     setLikeToggle(!likeToggle);
-    if(likeToggle===false){
+    if (likeToggle === false) {
       wishFilterHandler();
-    }else{
+    } else {
       getAllMedia();
     }
-  }
+  };
 
   // sorting
   const [order, setOrder] = useState('createdAt');
@@ -116,7 +132,6 @@ const AlbumList = () => {
     navigate('/album/deleted');
   };
 
-
   // pagination
   const PER_PAGE = 6;
   const count = Math.ceil(media.length / PER_PAGE);
@@ -127,39 +142,43 @@ const AlbumList = () => {
     mediaData.jump(p);
   };
 
-
   // 통합본 merge&split
-  const mergeSplit = () =>{
+  const mergeSplit = () => {
     setMergeVideo([]);
     setMergePhoto([]);
     console.log(merged);
-    for(const value of Object.values(merged)){
+    for (const value of Object.values(merged)) {
       console.log(value.storageUrl);
       console.log(value.video);
-      value.video === true ? (setMergeVideo((mergeVideo) => [...mergeVideo, value.storageUrl])) : (setMergePhoto((mergePhoto) => [...mergePhoto, value.storageUrl]));
+      value.video === true
+        ? setMergeVideo((mergeVideo) => [...mergeVideo, value.storageUrl])
+        : setMergePhoto((mergePhoto) => [...mergePhoto, value.storageUrl]);
     }
-  }
+  };
 
-  const unifiedNameHandler = (e) =>{
+  const unifiedNameHandler = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
     setUnifiedName(e.target.value);
-  }
+  };
   // 통합본 제목 받을 dialog창
-  const setTextAlert= () => {
-    return(
+  const SetTextAlert = () => {
+    return (
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>통합본을 신청하시겠습니까?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-          신청할 통합본 제목을 입력하세요. &nbsp;북마크 앨범이 하나의 미디어로 제공됩니다.
+            신청할 통합본 제목을 입력하세요. \r\n북마크 앨범이 하나의 미디어로 제공됩니다.
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="name"
-            label="통합본 제목"
-            type="text"
+            margin='dense'
+            id='name'
+            label='통합본 제목'
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
+            value={unifiedName}
             onChange={unifiedNameHandler}
           />
         </DialogContent>
@@ -168,48 +187,45 @@ const AlbumList = () => {
           <Button onClick={sendRequestHandler}>신청하기</Button>
         </DialogActions>
       </Dialog>
-    )
-  }
+    );
+  };
   // 통합본신청
   const sendRequestHandler = async () => {
     setBackdropOpen(true);
     mergeSplit();
-    console.log('video',mergeVideo);
-    console.log('photo',mergePhoto);
-    await axios.post(`https://wedding101.shop/api/file/mergeVideo`,{
-      headers: {
-        "Authorization" : "Bearer " + accessToken
-      },
-      data:{
-        videoList: mergeVideo,
-        imageList: mergePhoto,
-      }
-    })
-    .then( async (res)=>{
-      console.log(res.data)
-      await axios.post(`https://wedding101.shop/api/unifiedVideo`,{
-        headers:{
-          "Authorization" : "Bearer " + accessToken
+    console.log('video', mergeVideo);
+    console.log('photo', mergePhoto);
+    await axios
+      .post(`https://wedding101.shop/api/file/mergeVideo`, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
         },
-        data:{
-          albumSeq: '',
-          unifiedName: unifiedName,
-          unifiedUrl: res.data,
-        }
+        data: {
+          videoList: mergeVideo,
+          imageList: mergePhoto,
+        },
       })
-    })
-    .then((res)=> {
-      alert('신청이 완료되었습니다.');
-      alert('앨범표지에서 신청본을 확인해보세요');
-
-    })
-    .catch((err) => {
-      console.log('실패!');
-    })
-    .finally(
-      handleClose(),
-      setBackdropOpen(false)
-    )
+      .then(async (res) => {
+        console.log(res.data);
+        await axios.post(`https://wedding101.shop/api/unifiedVideo`, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          },
+          data: {
+            albumSeq: '',
+            unifiedName: unifiedName,
+            unifiedUrl: res.data,
+          },
+        });
+      })
+      .then((res) => {
+        alert('신청이 완료되었습니다.');
+        alert('앨범표지에서 신청본을 확인해보세요');
+      })
+      .catch((err) => {
+        console.log('실패!');
+      })
+      .finally(handleClose(), setBackdropOpen(false));
   };
 
   return (
@@ -235,8 +251,8 @@ const AlbumList = () => {
 
           <div className='filter-icons'>
             <div className='reset-icon'>
-              <Button onClick={getAllMedia} >All</Button>
-              <FormControlLabel control={<Switch onChange={onLikeToggleHandler} />} label="Like?" />
+              <Button onClick={getAllMedia}>All</Button>
+              <FormControlLabel control={<Switch onChange={onLikeToggleHandler} />} label='Like?' />
             </div>
             <div className='wish-icon'>
               <Star onClick={wishFilterHandler} />
@@ -256,7 +272,14 @@ const AlbumList = () => {
                 {media.length > 0 ? (
                   mediaData
                     .currentData()
-                    .map((item) => <MediaItem media={item} key={item.mediaSeq} getAllMedia={getAllMedia} accessToken={accessToken}/>)
+                    .map((item) => (
+                      <MediaItem
+                        media={item}
+                        key={item.mediaSeq}
+                        getAllMedia={getAllMedia}
+                        accessToken={accessToken}
+                      />
+                    ))
                 ) : (
                   <div>no media</div>
                 )}
@@ -264,17 +287,17 @@ const AlbumList = () => {
             )}
           </div>
           <div className='pagination'>
-            <Pagination count={count} page={page} onChange={pageHandler}  />
+            <Pagination count={count} page={page} onChange={pageHandler} />
           </div>
         </Grid2>
       </Grid2>
-      {setTextAlert}
+      <SetTextAlert />
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={backdropOpen}
         onClick={handleClose}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
     </div>
   );
