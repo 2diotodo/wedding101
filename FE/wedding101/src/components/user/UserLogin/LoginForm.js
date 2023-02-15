@@ -37,8 +37,7 @@ function LoginForm() {
     }
     )
     .then((res) => {
-        console.log(res);
-
+      console.log(res);
         // console.log('res.data.userId :', res.data.data.userId);
         // console.log('res.data.msg :', res.data.message);
         // if (res.data.data.userId === undefined) {
@@ -58,9 +57,14 @@ function LoginForm() {
         //   sessionStorage.setItem('name', res.data.data.userName);
         // }
         //작업 완료되면 페이지 이동
+        sessionStorage.setItem('accessToken', res.data.accessToken);
         document.location.href = '/';
       })
-      .catch();
+      .catch((err) => {
+        console.log(err);
+        alert('ID나 비밀번호가 잘못됐습니다.');
+        return;
+      });
   };
 
   // page rendering 후 가장 처음 호출되는 함수
@@ -116,14 +120,6 @@ function LoginForm() {
         <Button variant='text' onClick={onClickHandler}>
           회원가입
         </Button>
-
-        <hr />
-        <Button>구글계정으로 로그인</Button>
-        <br />
-        <Button>카카오계정으로 로그인</Button>
-        <br />
-        <Button>네이버계정으로 로그인</Button>
-        <br />
     </div>
   );
 }
