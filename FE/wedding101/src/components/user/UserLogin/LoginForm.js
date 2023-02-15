@@ -28,16 +28,12 @@ function LoginForm() {
     // 버튼만 누르면 리프레시되는 것 막기
     event.preventDefault();
     console.log('here');
-
-
-    await axios
-    .post('http://wedding101.shop/api/user/login', {
-      userId: inputId,
-      userPassword: inputPw,
-    }
+    await axios.post('http://wedding101.shop/api/user/login', {
+        userId: inputId,
+        userPassword: inputPw,
+      }
     )
     .then((res) => {
-      console.log(res);
         // console.log('res.data.userId :', res.data.data.userId);
         // console.log('res.data.msg :', res.data.message);
         // if (res.data.data.userId === undefined) {
@@ -66,20 +62,6 @@ function LoginForm() {
         return;
       });
   };
-
-  // page rendering 후 가장 처음 호출되는 함수
-  useEffect(
-    () => {
-      console.log('1st render: useEffect');
-
-      axios
-        .get('/user/login')
-        .then((res) => console.log(res))
-        .catch();
-    },
-    // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    []
-  );
 
   const navigate = useNavigate();
   const onClickHandler = () => {
