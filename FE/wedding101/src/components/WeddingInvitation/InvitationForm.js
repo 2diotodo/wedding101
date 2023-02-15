@@ -114,6 +114,8 @@ function UploadMedia(props) {
     onFileUpload,
   } = useUploadMedia("media");
 
+  const albumSeq = props.albumSeq;
+
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
   const [sendName, setSendName] = useState("");
@@ -163,7 +165,7 @@ function UploadMedia(props) {
     let formData = new FormData();
     console.log(fileMedia);
     formData.append("multipartFile", fileMedia);
-    formData.append("userSeq", 1);
+    formData.append("userSeq", albumSeq);
     console.log(formData);
 
     await axios
@@ -174,10 +176,11 @@ function UploadMedia(props) {
       })
       .then(async (res) => {
         console.log(res);
-        let parser = `https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/media/`;
+        let parser =
+          "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/";
 
-        await axios.post("http://i8a101.p.ssafy.io:8085/media", {
-          albumSeq: 1,
+        await axios.post("https://wedding101.shop/api/media", {
+          albumSeq: albumSeq,
           inBin: false,
           mediaName: sendName,
           mediaReceiver: sendTo,
@@ -390,7 +393,7 @@ function InvitationForm(props) {
         <br />
         축하 영상을 전해보시는 건 어떨까요
       </div>
-      <UploadMedia />
+      <UploadMedia albumSeq={props.albumSeq} />
       <WeddingInfo datetime={props.weddingInfoData.weddingDay} />
       <WeddingPhoto src={invitation_image_4} />
       {/* <WeddingPhotoCarousel/> */}
