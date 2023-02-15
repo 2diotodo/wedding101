@@ -31,7 +31,7 @@ function LoginForm() {
 
     await axios.post('https://wedding101.shop/api/user/login', {
         userId: inputId,
-        userPassword: inputPw,
+        userPassword: inputPw
       }
     )
     .then((res) => {

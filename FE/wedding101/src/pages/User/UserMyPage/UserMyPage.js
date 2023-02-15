@@ -4,8 +4,7 @@ import InfoModifyForm from '../../../components/WeddingInvitation/InfoModify/Mod
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import './UserMyPage.css';
-import { Modal } from '@mui/material';
-import { Button } from 'react-scroll';
+import { Button } from '@mui/material';
 
 function UserMyPage() {
     const [userModifyOpen, setUserModifyOpen] = useState(false);
@@ -41,16 +40,22 @@ function UserMyPage() {
                 <Grid2 lg={9} xs={12}>
                     <div className='user-mypage-items'>
                         <Grid2 container spacing={5}> 
-                            <div className ='user-mypage-item'>
                                 <Grid2 xs={6}>
-                                    <button type='text' onClick={openUserModal}>내 정보</button>
+                                    <Button 
+                                        color='primary'
+                                        variant='contained'
+                                        size='small'
+                                        sx={{ width: 200, padding: 1, margin: 2 }}
+                                        onClick={openUserModal}>내 정보</Button>
                                 </Grid2>
-                            </div>
-                            <div className ='user-mypage-item'>
                                 <Grid2 xs={6}>
-                                    <button type="text" onClick={openInfoModal}>결혼 정보</button>
+                                    <Button 
+                                        color='primary'
+                                        variant='contained'
+                                        size='small'
+                                        sx={{ width: 200, padding: 1, margin: 2 }}
+                                        onClick={openInfoModal}>결혼정보</Button>
                                 </Grid2>
-                            </div>
                         </Grid2>
                     </div>
                     {userModifyOpen ? <UserModifyForm /> : null}

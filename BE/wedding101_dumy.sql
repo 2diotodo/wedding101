@@ -51,6 +51,8 @@ insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_
 -- (9, 9, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png"),
 -- (10, 10, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png"),
 -- (11, 11, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png");
+
+
 -- 문구 수정 버전
 insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2, template_header, template_footer, template_etc) values
 (4, 4, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922855.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png", "오랜 시간을 함께한 저희 두사람, ", "이제 평생을 함께 하려 합니다.", "하나가 되는 뜻깊은 날을 축복해주세요."),
@@ -88,7 +90,7 @@ insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_rel
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "박경희", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "백진솔", "acquaintance"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "석재윤", "colleague");
-insert into tbL_media (album_seq, storage_url, url_to_img, media_name, media_relation, is_video) values
+insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation, is_video) values
 (1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend", 0),
 (1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "nki", "friend", 0),
 (1,"https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "nki", "friend", 0),

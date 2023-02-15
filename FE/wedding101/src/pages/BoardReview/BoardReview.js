@@ -62,7 +62,7 @@ function ReviewTableItem({arg}){
     return(
       <>
         <TableRow   key={reviewSeq}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+             sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
         <TableCell component="th" scope="row">{reviewSeq}</TableCell>
         <TableCell align="center" onClick={handleOpen}>{reviewTitle}</TableCell>
         <TableCell align="center" >{userNickname}</TableCell>
