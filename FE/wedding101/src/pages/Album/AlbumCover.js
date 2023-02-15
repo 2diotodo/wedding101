@@ -5,17 +5,15 @@ import { useEffect, useState } from 'react';
 import useUploadMedia from '../../modules/useUploadMedia';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router';
-import { Button, IconButton, Tooltip, Badge } from '@mui/material';
+import { Button, IconButton, Tooltip, Badge, List, ListItem, ListItemText, Divider } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
+import MergedItem from '../../components/album/MergedItem';
 
 function AlbumCover() {
-  const accessToken = sessionStorage.getItem('accessToken');
-
-  const [showUpdate, setShowUpdate] = useState(false);
   const [albumForm, setAlbumForm] = useState({
     albumSeq: '',
     infoSeq: '',
-    userSeq: '1',
+    userSeq: '',
     albumName: '',
     albumColor: '',
     albumPhotoUrl: '',
@@ -26,7 +24,29 @@ function AlbumCover() {
     createdAt: '',
     updatedAt: '',
   });
-  const [ unifyCheck, setUnifyCheck ] = useState(false);  // 통합본 신청여부
+
+  const accessToken = sessionStorage.getItem('accessToken');
+  axios.get(`http://wedding101.shop/api/user`, {
+    headers: {
+      "Authorization" : "Bearer " + accessToken,
+    }
+  })
+  .then((res)=>{
+    setAlbumForm.userSeq(res.data.userSeq);
+
+  })
+
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [unifyCheck, setUnifyCheck] = useState(false);  // 통합본 신청여부
+  const [mergedMedia, setMergedMedia] = useState([{
+    albumSeq: "",
+    createdAt: "",
+    requestStatus: "",
+    unifiedName: "",
+    unifiedSeq: 0,
+    unifiedUrl: "",
+    updatedAt: ""
+  }]);
   const albumCoverUrl = `http://wedding101.shop/api/file/uploadAlbumCover`;
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
     useUploadMedia(albumCoverUrl, accessToken);
@@ -79,11 +99,15 @@ function AlbumCover() {
   // 통합본 가져오기
   const unifiedMedia = async () => {
     await axios
-      .get(`http://wedding101.shop/api/unifiedVideo/all/${albumForm.albumSeq}`)
+      .get(`http://wedding101.shop/api/unifiedVideo/all/${albumForm.albumSeq}`,{
+        headers: {
+          "Authorization" : "Bearer " + accessToken
+        }
+      })
       .then((res) => {
-        setAlbumForm(res.data.data);
-        console.log(res.data.data);
         console.log('setMedia 성공');
+        console.log(res.data);
+        setMergedMedia([...mergedMedia], res.data);
       })
       .catch((err) => {
         console.log('실패');
@@ -99,6 +123,12 @@ function AlbumCover() {
           </div>
           <div className='unify-button'>
             <Button onClick={unifiedMedia}>통합본 확인하기</Button>
+          </div>
+          <div className='merged-list'>
+          <List  component="nav" aria-label="merged-list">
+            {mergedMedia && mergedMedia.length > 0 ? (mergedMedia.map((item) => <MergedItem mergedMedia={item} key={item.index} />)) : null
+}
+          </List>
           </div>
         </Grid2>
         <Grid2 lg={6} sm={6}>
