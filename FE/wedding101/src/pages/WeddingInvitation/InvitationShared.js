@@ -3,10 +3,11 @@ import "./InvitationShared.css";
 import InvitationForm from "../../components/WeddingInvitation/InvitationForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Routes, Route, useParams } from "react-router-dom";
 
 // API 통신부
 const request = axios.create({
-  baseURL: "http://wedding101.shop/api/",
+  baseURL: "https://wedding101.shop/api/",
 });
 
 const api = {
@@ -17,6 +18,7 @@ const api = {
 };
 
 const InvitationShared = () => {
+  let { albumSeq } = useParams();
   const [weddingInfoData, setWeddingInfoData] = useState({
     infoSeq: 1,
     userSeq: 1,
@@ -54,7 +56,7 @@ const InvitationShared = () => {
 
   useEffect(() => {
     const dataFetch = async () => {
-      const data = await api.wedding101.findWeddingInfo(1);
+      const data = await api.wedding101.findWeddingInfo(albumSeq);
       console.log(data.data);
       setWeddingInfoData(data.data.weddingInfoData);
       setInvitationData(data.data.invitationData);
@@ -67,6 +69,7 @@ const InvitationShared = () => {
       <InvitationForm
         weddingInfoData={weddingInfoData}
         invitationData={invitationData}
+        albumSeq={albumSeq}
       />
     </div>
   );
