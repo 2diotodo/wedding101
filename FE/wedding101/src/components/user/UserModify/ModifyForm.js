@@ -40,6 +40,7 @@ function ModifyForm() {
     const [user, setUser] = useState([]);
     const {userId, userName, userNickname, userEmail} = user;
     const [userModifyOpen, setUserModifyOpen] = useState(false);
+    
     const openModifyModal = () => {
         setUserModifyOpen((userModifyOpen) => !userModifyOpen)
     }
@@ -56,7 +57,7 @@ function ModifyForm() {
                 "Authorization" : "Bearer " + accessToken
             } 
         }).then((res) => {
-                setUser(res.data.data);
+            setUser(res.data.data);
         }).catch(function (error) {
             console.log(error)
             if(error.response.status === 417) {

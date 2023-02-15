@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 import './ModifyForm.css';
+import GoServiceButton from '../../common/GoServiceButton';
 import { useEffect, useState, useNavigate } from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableRow} from '@mui/material';
+
+const BASEURL = "https://wedding101.shop/api/"
 
 function InfoTable(props) {
     return (
@@ -141,14 +144,12 @@ function ModifyForm() {
     async function getInfo() {
         await axios ({
             method : "GET",
-            url : "https://wedding101.shop/api/" + 'user',
-            // url : "http://i8a101.p.ssafy.io:8085/" + 'user',
+            url : BASEURL + 'user',
             headers : {
                 "Authorization" : "Bearer " + accessToken
             } 
         }).then((res) => {
             setInfo(res.data.data)
-            console.log(res.data.data)
         }).catch(function (error) {
             console.log(error)
             if(error.response.status === 417) {
@@ -156,22 +157,22 @@ function ModifyForm() {
             }
         })
 
-        await axios ({
-            method : "GET",
-            // url : "http://wedding101.shop/api/Info?userSeq=1"
-            url : "http://i8a101.p.ssafy.io:8085/Info?userSeq=" + info.userSeq,
-            headers : {
-                "Authorization" : "Bearer " + accessToken
-            }
-        }).then((res) => {
+        {info.userSeq &&
+            await axios ({
+                method : "GET",
+                url : BASEURL + "Info?userSeq=" + info.userSeq,
+                headers : {
+                    "Authorization" : "Bearer " + accessToken
+                }
+            }).then((res) => {
                 setInfo(res.data.data);
-        }).catch(function (error) {
-            console.log(error)
-            if(error.response.status === 417) {
-                console.log(error.response.data.message)
-            }
-        })
-
+            }).catch(function (error) {
+                if(error.response.status === 417) {
+                    console.log(error.response.data.message);
+                    console.log("결혼 정보를 등록해주세요");
+                }
+            })
+        }
     }
 
     return (

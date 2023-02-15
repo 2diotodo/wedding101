@@ -115,7 +115,7 @@ function Header() {
 
         <div  className='header-font-group'>
             <div  className='header-font-tag'
-                  onClick={navigateToHome}>About</div>
+                  onClick={navigateToHome}>ABOUT</div>
 
             <div  className='header-font-tag'
                   onClick={navigateToInvitation}>INVITATION</div>
