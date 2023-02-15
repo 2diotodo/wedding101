@@ -21,7 +21,11 @@ function Header() {
 
   const navigateToInvitation = () => {
     console.log('go to invitation!');
-    navigate('/invitation01');
+    if(isLogin) navigate('/invitation01');
+    else {
+      alert('로그인 후 이용해 주세요');
+      navigate('/user/login');
+    }
   };
 
   const navigateToAlbum = () => {
@@ -31,7 +35,11 @@ function Header() {
 
   const navigateToProcess = () => {
     console.log('go to process!')
-    navigate('/user/service01');
+    if(isLogin) navigate('/user/service01');
+    else {
+      alert('로그인 후 이용해 주세요');
+      navigate('/user/login');
+    }
   };
 
   const navigateToReview = () => {

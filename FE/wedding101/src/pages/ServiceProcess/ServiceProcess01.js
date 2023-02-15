@@ -96,7 +96,7 @@ function ServiceProcess01() {
           </div>
         </Grid2>
 
-        <Grid2 lg={9} sm={10} className='scrollable_content'>
+        <Grid2 lg={9} sm={10}>
           <ProgressBar steps={['step1', 'step2', 'step3', 'step4']} activeStep={0} />
           <h2>서비스 이용 약관 동의</h2>
           
