@@ -28,52 +28,40 @@ function LoginForm() {
     // 버튼만 누르면 리프레시되는 것 막기
     event.preventDefault();
     console.log('here');
-    
-    await axios
-    .post('http://wedding101.shop/api/user/login', {
-      userId: inputId,
-      userPassword: inputPw,
-    }
+    await axios.post('http://wedding101.shop/api/user/login', {
+        userId: inputId,
+        userPassword: inputPw,
+      }
     )
     .then((res) => {
-        console.log(res);
-        console.log('res.data.userId :', res.data.data.userId);
-        console.log('res.data.msg :', res.data.message);
-        if (res.data.data.userId === undefined) {
-          // id 불일치, msg= '가입되지 않은 id입니다.'
-          console.log('=========================', res.data.message);
-          alert('가입되지 않은 id입니다.');
-        } else if (res.data.data.userId === null) {
-          // id는 있지만, pw 다른 경우 userId = null
-          console.log('====================', '입력하신 비밀번호가 일치하지 않습니다.');
-          alert('입력하신 비밀번호가 일치하지 않습니다.');
-        } else if (res.data.data.userId === inputId) {
-          // id, pw 모두 일치
-          console.log('=====================', '로그인 성공');
-          // sessionStorage에 id를 userId라는 key 값으로 저장
-          sessionStorage.setItem('userId', inputId);
-          sessionStorage.setItem('userNickname', res.data.data.userNickname)
-          sessionStorage.setItem('name', res.data.data.userName);
-        }
+        // console.log('res.data.userId :', res.data.data.userId);
+        // console.log('res.data.msg :', res.data.message);
+        // if (res.data.data.userId === undefined) {
+        //   // id 불일치, msg= '가입되지 않은 id입니다.'
+        //   console.log('=========================', res.data.message);
+        //   alert('가입되지 않은 id입니다.');
+        // } else if (res.data.data.userId === null) {
+        //   // id는 있지만, pw 다른 경우 userId = null
+        //   console.log('====================', '입력하신 비밀번호가 일치하지 않습니다.');
+        //   alert('입력하신 비밀번호가 일치하지 않습니다.');
+        // } else if (res.data.data.userId === inputId) {
+        //   // id, pw 모두 일치
+        //   console.log('=====================', '로그인 성공');
+        //   // sessionStorage에 id를 userId라는 key 값으로 저장
+        //   sessionStorage.setItem('userId', inputId);
+        //   sessionStorage.setItem('userNickname', res.data.data.userNickname)
+        //   sessionStorage.setItem('name', res.data.data.userName);
+        // }
         //작업 완료되면 페이지 이동
+        sessionStorage.setItem('accessToken', res.data.accessToken);
         document.location.href = '/';
       })
-      .catch();
+      .catch((err) => {
+        console.log(err);
+        alert('ID나 비밀번호가 잘못됐습니다.');
+        return;
+      });
   };
-
-  // page rendering 후 가장 처음 호출되는 함수
-  useEffect(
-    () => {
-      console.log('1st render: useEffect');
-
-      axios
-        .get('/user/login')
-        .then((res) => console.log(res))
-        .catch();
-    },
-    // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    []
-  );
 
   const navigate = useNavigate();
   const onClickHandler = () => {
@@ -114,14 +102,6 @@ function LoginForm() {
         <Button variant='text' onClick={onClickHandler}>
           회원가입
         </Button>
-
-        <hr />
-        <Button>구글계정으로 로그인</Button>
-        <br />
-        <Button>카카오계정으로 로그인</Button>
-        <br />
-        <Button>네이버계정으로 로그인</Button>
-        <br />
     </div>
   );
 }

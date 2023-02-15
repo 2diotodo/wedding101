@@ -68,7 +68,7 @@ function RegistForm() {
     const checkDuplicateNickname = (e) => {
         const nickname = form.nickname;
         axios
-            .get(`http://i8a101.p.ssafy.io:8085/user/exist/nickname/${nickname}`)
+            .get(`http://wedding101.shop.api/user/exist/nickname/${nickname}`)
             .then(res => {
                 if(res.data === false) {
                     setUsableNickname(true);
