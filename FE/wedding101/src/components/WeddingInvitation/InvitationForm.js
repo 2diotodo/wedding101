@@ -112,7 +112,7 @@ function UploadMedia(props) {
     fileImageHandler,
     deleteFileImage,
     onFileUpload,
-  } = useUploadMedia("temp");
+  } = useUploadMedia("media");
 
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
@@ -160,24 +160,38 @@ function UploadMedia(props) {
       return;
     }
 
+    const auth_key =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJybGEwMzQ3IiwidXNlclNlcSI6MiwiaWF0IjoxNjc2MzYzOTQ3LCJleHAiOjE2NzYzNjU3NDd9.fhtBg-5x2cTYLiZOqL2jV1Qvx8WE9_pDa5uZQIRmWMw";
+
     let formData = new FormData();
-    formData.append("file", fileMedia);
+    console.log(fileMedia);
+    formData.append("files", fileMedia);
+    formData.append("userSeq", 1);
+    // formData.append("Authorization", auth_key);
     console.log(formData);
 
-    //   await axios({
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //     method: "POST",
-    //     url: "http://i8a101.p.ssafy.io:8085/album?userSeq=1", // 파일 업로드 요청 URL
-    //     data: formData,
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((err) => {
-    //       alert("등록을 실패하였습니다.");
-    //     });
+    await axios
+      .post("http://i8a101.p.ssafy.io:8085/file/uploadMedia/image", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("등록을 실패하였습니다.");
+      });
+    // await axios({
+    //   headers: {
+    //     // "Content-Type": "multipart/form-data",
+    //     Authorization: `Bearer ${auth_key}`,
+    //   },
+    //   method: "POST",
+    //   url: "http://i8a101.p.ssafy.io:8085/file/uploadMedia/image", // 파일 업로드 요청 URL
+    //   data: formData,
+    // })
   };
 
   return (
