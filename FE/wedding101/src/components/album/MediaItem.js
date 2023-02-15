@@ -14,6 +14,7 @@ import { CameraAlt, Videocam, Star, StarBorder } from '@mui/icons-material';
 
 import axios from 'axios';
 import MediaDialog from './MediaDialog';
+import { useRef } from 'react';
 
 const style = {
   position: 'absolute',
@@ -48,9 +49,13 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const menuRef = useRef({});
+
   const deleteConfirm = (inBin===false) ? '삭제하시겠습니까?' : '복원하시겠습니까?';
   
-
+  const dialogOpen=()=>{
+    menuRef.current.handleClickOpen();
+  }
 
     useEffect( () => {
       media.wish=like;
@@ -64,6 +69,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
     setLike(like => !like);
     getAllMedia();
   };
+
   
   return (
     <div className='media-item'>
@@ -78,7 +84,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
           }
         ></CardHeader>
         {/* Card 본문 */}
-        <CardActionArea onClick={handleOpen} >
+        <CardActionArea onClick={handleOpen} onContextMenu={dialogOpen}>
           <CardMedia component='img' height='140' image={urlToImg} alt='img' />
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
@@ -110,7 +116,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia }) => {
         </Box>
       </Modal>
       {/* 우클릭시 삭제확인 */}
-      <MediaDialog media={media} deleteConfirm={deleteConfirm} getAllMedia={getAllMedia} getDeletedMedia={getDeletedMedia}/>
+      <MediaDialog media={media} deleteConfirm={deleteConfirm} getAllMedia={getAllMedia} getDeletedMedia={getDeletedMedia} ref={menuRef}/>
     </div>
   );
 };

@@ -24,9 +24,12 @@ function AlbumCover() {
     createdAt: '',
     updatedAt: '',
   });
-  const { fileMedia, filePreview, uploadUrl, fileImageHandler, deleteFileImage, onFileUpload } =
-    useUploadMedia(albumForm.albumName);
+  const [ unifyCheck, setUnifyCheck ] = useState(false);  // 통합본 신청여부
+  const albumCoverUrl = `http://i8a101.p.ssafy.io:8085/file/uploadAlbumCover`;
+  const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
+    useUploadMedia(albumCoverUrl);
 
+    // 앨범생성일 연산 yyyy-mm-dd
     const dateformat = new Date(albumForm.createdAt);
     const year = dateformat.getFullYear();
     const month = dateformat.getMonth() + 1;
@@ -41,6 +44,7 @@ function AlbumCover() {
     getAlbum();
   }, []);
 
+  // 앨범정보 가져오기
   async function getAlbum() {
     await axios
       .get(`http://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`)
@@ -67,6 +71,19 @@ function AlbumCover() {
     navigate('/review');
   };
 
+  // 통합본 가져오기
+  const unifiedMedia = async () => {
+    await axios
+      .get(`http://i8a101.p.ssafy.io:8085/unifiedVideo/all/${albumForm.albumSeq}`)
+      .then((res) => {
+        setAlbumForm(res.data.data);
+        console.log(res.data.data);
+        console.log('setMedia 성공');
+      })
+      .catch((err) => {
+        console.log('실패');
+      });
+  }
   return (
     <div className='album-cover'>
       <Grid2 container spacing={3}>
@@ -75,9 +92,13 @@ function AlbumCover() {
           <div className='update-button'>
             <Button onClick={showUpdateHandler}>앨범 수정하기</Button>
           </div>
+          <div className='unify-button'>
+            <Button onClick={unifiedMedia}>통합본 확인하기</Button>
+          </div>
         </Grid2>
         <Grid2 lg={6} sm={6}>
-          <div className='cover-image' style={{ color: albumForm.albumColor }}>
+              <Tooltip title="앨범 펼치기">
+          <div className='cover-image' style={{ color: albumForm.albumColor }} onClick={onAlbumListHandler}>
             <div className='album-img'>
               <div className='media-area'>{albumForm.albumPhotoUrl && (albumForm.albumPhotoUrl !== null) ?
                 ( <img src={albumForm.albumPhotoUrl} alt='preview' />) :
@@ -85,16 +106,15 @@ function AlbumCover() {
                 }
               </div>
             </div>
-            <Tooltip title="앨범 펼치기">
 
-            <div className='cover-id' onClick={onAlbumListHandler}>
+            <div className='cover-id' >
           <Badge badgeContent={albumForm.albumMediaCnt} color="secondary">
               {name}님의 앨범 &nbsp;
           </Badge>
             </div>
-            </Tooltip>
 
           </div>
+            </Tooltip>
             {showUpdate ? (
           <div className='upload-media'>
             <IconButton aria-label='upload picture' component='label'>
