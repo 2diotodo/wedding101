@@ -20,7 +20,7 @@ import invitation_text_background from "../../assets/img/invitation_text_backgro
 
 // API 통신부
 const request = axios.create({
-  baseURL: "http://wedding101.shop/api/",
+  baseURL: "http://i8a101.p.ssafy.io:8085",
 });
 
 const api = {
@@ -112,7 +112,7 @@ function UploadMedia(props) {
     fileImageHandler,
     deleteFileImage,
     onFileUpload,
-  } = useUploadMedia("temp");
+  } = useUploadMedia("media");
 
   const [sendTo, setSendTo] = useState("");
   const [sendFrom, setSendFrom] = useState("");
@@ -161,23 +161,39 @@ function UploadMedia(props) {
     }
 
     let formData = new FormData();
-    formData.append("file", fileMedia);
+    console.log(fileMedia);
+    formData.append("multipartFile", fileMedia);
+    formData.append("userSeq", 1);
     console.log(formData);
 
-    //   await axios({
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //     method: "POST",
-    //     url: "http://i8a101.p.ssafy.io:8085/album?userSeq=1", // 파일 업로드 요청 URL
-    //     data: formData,
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((err) => {
-    //       alert("등록을 실패하였습니다.");
-    //     });
+    await axios
+      .post("http://i8a101.p.ssafy.io:8085/file/uploadMedia/image", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(async (res) => {
+        console.log(res);
+        let parser = `https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/media/`;
+
+        await axios.post("http://i8a101.p.ssafy.io:8085/media", {
+          albumSeq: 1,
+          inBin: false,
+          mediaName: sendName,
+          mediaReceiver: sendTo,
+          mediaRelation: sendFrom,
+          mediaSeq: 0,
+          onBooth: false,
+          storageUrl: res.data.split(parser)[1],
+          urlToImg: "string",
+          video: false,
+          wish: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("등록을 실패하였습니다.");
+      });
   };
 
   return (
@@ -192,8 +208,8 @@ function UploadMedia(props) {
           onChange={handleChange}
           aria-label="Platform"
         >
-          <ToggleButton value="groom">신랑</ToggleButton>
-          <ToggleButton value="bride">신부</ToggleButton>
+          <ToggleButton value="G">신랑</ToggleButton>
+          <ToggleButton value="B">신부</ToggleButton>
         </ToggleButtonGroup>
         에게
       </div>
@@ -215,7 +231,8 @@ function UploadMedia(props) {
         Upload
         <input
           hidden
-          accept="image/*, video/*"
+          accept="image/*"
+          // accept="image/*, video/*"
           multiple
           type="file"
           onChange={fileImageHandler}
@@ -233,6 +250,7 @@ function UploadMedia(props) {
           onChange={handleChange2}
           aria-label="Platform"
         >
+          <ToggleButton value="family">가족</ToggleButton>
           <ToggleButton value="relative">친인척</ToggleButton>
           <ToggleButton value="friend">친구</ToggleButton>
           <ToggleButton value="colleague">동료</ToggleButton>

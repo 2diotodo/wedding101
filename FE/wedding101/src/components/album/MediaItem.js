@@ -63,7 +63,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
   }, [like, isBin]);
 
   const toggleLike = async () => {
-    await axios.get(`http://wedding101.shop/api/media/wish/${mediaSeq}`,{
+    await axios.get(`https://wedding101.shop/api/media/wish/${mediaSeq}`,{
       headers: {
         "Authorization" : "Bearer " + accessToken
       }

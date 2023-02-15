@@ -10,7 +10,7 @@ const MainArea01 = () => {
   return (
     <div className='main-area01'>
       
-      <div className='container'>
+      <div className='container' id='container_main01'>
         <div className='verticalLayout' id='VL_p1_01'>
           <div className='title_explain'>
             <div className='mainTitle' id='title_p1_01'>Wedding101</div>
@@ -33,10 +33,10 @@ const MainArea01 = () => {
                 <img src={main01_4} alt='main01_4'></img>
               </div>
             </div>
-            <img src={main01_2} alt='main01_2' style={{position:"relative",left:"0.42%"}}></img>
+            <img src={main01_2} alt='main01_2' style={{position:"relative",left:"0.42%", height: '100%'}}></img>
           </div>
         </div>
-        <img src={main01_1} alt='main01_1' style={{width:"45%"}}></img>
+        <img src={main01_1} alt='main01_1' style={{height:'100%'}}></img>
       </div>
     </div>
   );

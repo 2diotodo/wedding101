@@ -1,7 +1,10 @@
 .footer {
   background-color: #ffffff;
   width: 100%;
-  height: 5%;
+  height: 20%;
   position: relative;
   transform: translatY(-100%);
+}
+.mock {
+  color: #ffffff;
 }
