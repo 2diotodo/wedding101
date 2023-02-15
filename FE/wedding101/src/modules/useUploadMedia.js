@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-const useUploadMedia = (propsurl) => {
-  const [filePreview, setFilePreview] = useState("");
-  const [fileMedia, setFileMedia] = useState("");
+const useUploadMedia = (propsurl, accessToken) => {
+    const [filePreview, setFilePreview] = useState('');
+    const [fileMedia, setFileMedia] = useState('');
 
   // 파일 미리보기 구현
   const fileImageHandler = (e) => {
@@ -70,31 +70,31 @@ const useUploadMedia = (propsurl) => {
     URL.revokeObjectURL(filePreview);
     setFileMedia("");
     setFilePreview("");
+    // sessionStorage.setItem(media, fileMedia);
   };
 
   // 파일 업로드 구현
   const onFileUpload = async (e) => {
     e.preventDefault();
+    console.log(propsurl);
+        let formData = new FormData();
+        formData.append("file", fileMedia);
+        console.log(formData);
 
-    let formData = new FormData();
-    formData.append("file", fileMedia);
-    console.log(formData);
-
-    await axios({
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      method: "POST",
-      url: propsurl, // 파일 업로드 요청 URL
-      data: formData,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        alert("등록을 실패하였습니다.");
-      });
-  };
+        await axios({
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": "Bearer " + accessToken
+            },
+            method: "POST",
+            url: propsurl,  // 파일 업로드 요청 URL
+            data: formData,
+        }).then((res) => {
+            console.log(res);
+    }).catch(err => {
+        alert('등록을 실패하였습니다.');
+    });
+    };
 
   return {
     fileMedia,

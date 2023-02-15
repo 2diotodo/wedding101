@@ -15,6 +15,19 @@ import usePagination from '../../utils/Pagination';
 import axios from 'axios';
 
 const AlbumList = () => {
+  const [userSeq, setUserSeq] = useState('');
+  const accessToken = sessionStorage.getItem('accessToken');
+  axios.get(`http://wedding101.shop/api/user`, {
+    headers: {
+      "Authorization" : "Bearer " + accessToken,
+    }
+  })
+  .then((res)=>{
+    setUserSeq(res.data.userSeq);
+
+  })
+
+
   const [page, setPage] = useState(1);
   const [media, setMedia] = useState([]);
   const [mergeVideo, setMergeVideo] = useState([]);
@@ -32,7 +45,11 @@ const AlbumList = () => {
   // axios 통신으로 DB 데이터 가져오기 구현
   async function getAllMedia() {
     await axios
-      .get(`http://wedding101.shop/api/media/all/1`)
+      .get(`http://wedding101.shop/api/media/all/${userSeq}`,{
+        headers:{
+          "Authorization" : "Bearer " + accessToken
+        }
+      })
       .then((res) => {
         setMedia(res.data.data);
         console.log('setMedia 성공');
@@ -114,12 +131,19 @@ const AlbumList = () => {
     mergeSplit();
     console.log('video',mergeVideo);
     console.log('photo',mergePhoto);
-    await axios.post(`http://i8a101.p.ssafy.io:8085/file/mergeVideo`,{
+    await axios.post(`http://wedding101.shop/api/file/mergeVideo`,{
+      headers: {
+        "Authorization" : "Bearer " + accessToken
+      },
+      data:{
         videoList: mergeVideo,
         imageList: mergePhoto,
+      }
     })
     .then((res)=> {
       alert('신청이 완료되었습니다.');
+      alert('앨범표지에서 신청본을 확인해보세요');
+
     })
     .catch((err) => {
       console.log('실패!');
@@ -170,7 +194,7 @@ const AlbumList = () => {
                 {media.length > 0 ? (
                   mediaData
                     .currentData()
-                    .map((item) => <MediaItem media={item} key={item.mediaSeq} getAllMedia={getAllMedia}/>)
+                    .map((item) => <MediaItem media={item} key={item.mediaSeq} getAllMedia={getAllMedia} accessToken={accessToken}/>)
                 ) : (
                   <div>no media</div>
                 )}
