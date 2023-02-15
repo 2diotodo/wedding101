@@ -1,6 +1,6 @@
 import './ServiceProcess04.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ProgressBar from '../../components/common/ProgressBar';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
@@ -12,12 +12,36 @@ function ServiceProcess04 () {
     const processForm = {
         ...integratedInfo,
     };
+    const [userSeq, setUserSeq] = useState();
+
+    useEffect(()=>{
+        getUserSeq();
+    }, [])
+
+    async function getUserSeq () {
+        await axios
+            .get(`https://wedding101.shop/api/user`,{
+                headers:{"Authorization": "Bearer " + sessionStorage.getItem('accessToken')}
+            })
+            .then((res) => {
+                console.log('유저 정보 수신 성공');
+                console.log(res.data)
+                setUserSeq(res.data.data.userSeq)
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log('유저 정보 수신 실패');
+            })
+    }
+
     const navigate = useNavigate();
     const submitWeddingInfo = () => {
         console.log(processForm);
         axios.post(`https://wedding101.shop/api/Info`, {
-            headers : {"Authorization": "Bearer " + sessionStorage.accessToken},
+            headers : {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
             data : {
+                infoSeq: null,
+                userSeq: userSeq,
                 brideAccountBank: processForm.brideAccountBank,
                 brideAccountName: processForm.brideAccountName,
                 brideAccountNumber: processForm.brideAccountNumber,
@@ -41,7 +65,8 @@ function ServiceProcess04 () {
                 weddingDay: processForm.weddingDay,
                 weddingHallAddress: processForm.weddingHallAddress,
                 weddingHallName: processForm.weddingHallName,
-                weddingHallNumber: processForm.weddingHallNumber,
+                weddingHallNumber: processForm.weddingHallNumber
+
             }
         }).then(function (response) {
             console.log(response);
