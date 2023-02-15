@@ -11,39 +11,41 @@ function ServiceProcess04 () {
     const integratedInfo = JSON.parse(sessionStorage.getItem('integratedInfo'));
     const processForm = {
         ...integratedInfo,
-        userSeq : 3,
-        infoSeq : 3
     };
     const navigate = useNavigate();
     const submitWeddingInfo = () => {
         console.log(processForm);
-        axios.post(`https://wedding101.shop/api/Info`, {
-            brideAccountBank: processForm.brideAccountBank,
-            brideAccountName: processForm.brideAccountName,
-            brideAccountNumber: processForm.brideAccountNumber,
-            brideFatherIsAlive: processForm.brideFatherIsAlive,
-            brideFatherName: processForm.brideFatherName,
-            brideMotherIsAlive: processForm.brideMotherIsAlive,
-            brideMotherName: processForm.brideMotherName,
-            brideName: processForm.brideName,
-            bridePhoneNumber: processForm.bridePhoneNumber,
-            brideRelation: processForm.brideRelation,
-            groomAccountBank: processForm.groomAccountBank,
-            groomAccountName: processForm.groomAccountName,
-            groomAccountNumber: processForm.groomAccountNumber,
-            groomFatherIsAlive: processForm.groomFatherIsAlive,
-            groomFatherName: processForm.groomFatherName,
-            groomMotherIsAlive: processForm.groomMotherIsAlive,
-            groomMotherName: processForm.groomMotherName,
-            groomName: processForm.groomName,
-            groomPhoneNumber: processForm.groomPhoneNumber,
-            groomRelation: processForm.groomRelation,
-            infoSeq: processForm.infoSeq,
-            userSeq: processForm.userSeq,
-            weddingDay: processForm.weddingDay,
-            weddingHallAddress: processForm.weddingHallAddress,
-            weddingHallName: processForm.weddingHallName,
-            weddingHallNumber: processForm.weddingHallNumber
+        console.log(sessionStorage.accessToken);
+        console.log(typeof(sessionStorage.accessToken));
+        axios.post(`http://wedding101.shop/api/Info`, {
+            headers : {
+                "Authorization": "Bearer " + sessionStorage.accessToken},
+            data : {
+                brideAccountBank: processForm.brideAccountBank,
+                brideAccountName: processForm.brideAccountName,
+                brideAccountNumber: processForm.brideAccountNumber,
+                brideFatherIsAlive: processForm.brideFatherIsAlive,
+                brideFatherName: processForm.brideFatherName,
+                brideMotherIsAlive: processForm.brideMotherIsAlive,
+                brideMotherName: processForm.brideMotherName,
+                brideName: processForm.brideName,
+                bridePhoneNumber: processForm.bridePhoneNumber,
+                brideRelation: processForm.brideRelation,
+                groomAccountBank: processForm.groomAccountBank,
+                groomAccountName: processForm.groomAccountName,
+                groomAccountNumber: processForm.groomAccountNumber,
+                groomFatherIsAlive: processForm.groomFatherIsAlive,
+                groomFatherName: processForm.groomFatherName,
+                groomMotherIsAlive: processForm.groomMotherIsAlive,
+                groomMotherName: processForm.groomMotherName,
+                groomName: processForm.groomName,
+                groomPhoneNumber: processForm.groomPhoneNumber,
+                groomRelation: processForm.groomRelation,
+                weddingDay: processForm.weddingDay,
+                weddingHallAddress: processForm.weddingHallAddress,
+                weddingHallName: processForm.weddingHallName,
+                weddingHallNumber: processForm.weddingHallNumber
+            }
         }).then(function (response) {
             console.log(response);
             console.log(response.data.message);
@@ -54,11 +56,7 @@ function ServiceProcess04 () {
             }
         }).catch(function (error) {
             console.log(error)
-            if(error.response.status === 417) {
-                alert('서비스 신청 전송 실패')
-                console.log(error.response.data.message);
-            }
-            console.log(error);
+            alert('에러 발생');
         });
     }
 

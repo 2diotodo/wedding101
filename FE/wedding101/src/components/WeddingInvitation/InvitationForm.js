@@ -160,38 +160,40 @@ function UploadMedia(props) {
       return;
     }
 
-    const auth_key =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJybGEwMzQ3IiwidXNlclNlcSI6MiwiaWF0IjoxNjc2MzYzOTQ3LCJleHAiOjE2NzYzNjU3NDd9.fhtBg-5x2cTYLiZOqL2jV1Qvx8WE9_pDa5uZQIRmWMw";
-
     let formData = new FormData();
     console.log(fileMedia);
-    formData.append("files", fileMedia);
+    formData.append("multipartFile", fileMedia);
     formData.append("userSeq", 1);
-    // formData.append("Authorization", auth_key);
     console.log(formData);
 
     await axios
-      .post("http://i8a101.p.ssafy.io:8085/file/uploadMedia/image", formData, {
+      .post("https://wedding101.shop/api/file/uploadMedia/image", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {
+      .then(async (res) => {
         console.log(res);
+        let parser = `https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/media/`;
+
+        await axios.post("http://i8a101.p.ssafy.io:8085/media", {
+          albumSeq: 1,
+          inBin: false,
+          mediaName: sendName,
+          mediaReceiver: sendTo,
+          mediaRelation: sendFrom,
+          mediaSeq: 0,
+          onBooth: false,
+          storageUrl: res.data.split(parser)[1],
+          urlToImg: "string",
+          video: false,
+          wish: false,
+        });
       })
       .catch((err) => {
         console.log(err);
         alert("등록을 실패하였습니다.");
       });
-    // await axios({
-    //   headers: {
-    //     // "Content-Type": "multipart/form-data",
-    //     Authorization: `Bearer ${auth_key}`,
-    //   },
-    //   method: "POST",
-    //   url: "http://i8a101.p.ssafy.io:8085/file/uploadMedia/image", // 파일 업로드 요청 URL
-    //   data: formData,
-    // })
   };
 
   return (
@@ -206,8 +208,8 @@ function UploadMedia(props) {
           onChange={handleChange}
           aria-label="Platform"
         >
-          <ToggleButton value="groom">신랑</ToggleButton>
-          <ToggleButton value="bride">신부</ToggleButton>
+          <ToggleButton value="G">신랑</ToggleButton>
+          <ToggleButton value="B">신부</ToggleButton>
         </ToggleButtonGroup>
         에게
       </div>
@@ -229,7 +231,8 @@ function UploadMedia(props) {
         Upload
         <input
           hidden
-          accept="image/*, video/*"
+          accept="image/*"
+          // accept="image/*, video/*"
           multiple
           type="file"
           onChange={fileImageHandler}
@@ -247,6 +250,7 @@ function UploadMedia(props) {
           onChange={handleChange2}
           aria-label="Platform"
         >
+          <ToggleButton value="family">가족</ToggleButton>
           <ToggleButton value="relative">친인척</ToggleButton>
           <ToggleButton value="friend">친구</ToggleButton>
           <ToggleButton value="colleague">동료</ToggleButton>

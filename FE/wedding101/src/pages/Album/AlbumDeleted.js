@@ -84,7 +84,7 @@ const AlbumDeleted = () => {
   };
 
   return (
-    <div className='album-list'>
+    <div className='album-deleted'>
       <Grid2 container spacing={3}>
         <Grid2 lg={3} sm={3}>
           <h1>Album Deleted</h1>
