@@ -4,6 +4,8 @@ import './ModifyForm.css';
 import { useEffect, useState, useNavigate } from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow} from '@mui/material';
 
+const BASEURL =  "https://wedding101.shop/api/";
+
 function UserTable(props) {
     return (
         <TableContainer component={Paper}>
@@ -45,7 +47,7 @@ function ModifyForm() {
     async function getUser() {
         await axios ({
             method : "GET",
-            url : "http://wedding101.shop/api/" + 'user',
+            url : BASEURL + 'user',
             headers : {
                 "Authorization" : "Bearer " + accessToken
             } 

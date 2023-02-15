@@ -20,7 +20,7 @@ import invitation_text_background from "../../assets/img/invitation_text_backgro
 
 // API 통신부
 const request = axios.create({
-  baseURL: "http://wedding101.shop/api/",
+  baseURL: "https://wedding101.shop/api/",
 });
 
 const api = {

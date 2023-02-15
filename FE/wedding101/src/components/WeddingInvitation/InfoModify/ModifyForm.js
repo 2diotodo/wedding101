@@ -46,7 +46,7 @@ function ModifyForm() {
     async function getInfo() {
         await axios ({
             method : "GET",
-            url : "http://wedding101.shop/api/Info?userSeq=1"
+            url : "https://wedding101.shop/api/Info?userSeq=1"
         }).then((res) => {
                 setInfo(res.data.data);
                 console.log(res.data.data);

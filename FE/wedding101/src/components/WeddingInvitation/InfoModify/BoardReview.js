@@ -153,7 +153,7 @@ function ReviewWriteModal(props){
             return;
         }
 
-        axios.post(`http://wedding101.shop/api/review`, {
+        axios.post(`https://wedding101.shop/api/review`, {
             albumSeq : props.userAlbumSeq,
             reviewContent: reviewContent,
             reviewRate: 9,
@@ -244,7 +244,7 @@ function WriteReviewButton(props){
 
     async function getUserAlbumSeq() {
         await axios
-        .get(`http://wedding101.shop/api/album?userSeq=`+String(sessionStorage.userSeq))
+        .get(`https://wedding101.shop/api/album?userSeq=`+String(sessionStorage.userSeq))
         .then((res) => {
             console.log(res)
             setUserAlbumSeq(res.data.data.albumSeq);
@@ -297,7 +297,7 @@ function BoardReview() {
 
     async function getAllReviews() {
         await axios
-        .get(`http://wedding101.shop/api/review/all/`)
+        .get(`https://wedding101.shop/api/review/all/`)
         .then((res) => {
             console.log(res);
             setReviewItem(res.data.data);
@@ -310,7 +310,7 @@ function BoardReview() {
 
     async function getUserSeq() {
         await axios
-        .get(`http://wedding101.shop/api/user/all`)
+        .get(`https://wedding101.shop/api/user/all`)
         .then((res) => {
             
             res.data.data.forEach(element => {

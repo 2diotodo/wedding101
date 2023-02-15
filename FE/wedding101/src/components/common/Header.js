@@ -10,6 +10,7 @@ const BASEURL = "https://wedding101.shop/api/";
 
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
+  const [userNickname, setUserNickname] = useState('');
   const navigate = useNavigate();
   let userNickName = "";
 
@@ -61,6 +62,8 @@ function Header() {
   const onLogout = () => {
     // sessionStorage에 accessToken로 저장되어 있는 아이템을 삭제
     sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("nickname");
+    setUserNickname('');
     sessionStorage.setItem("isLogin", false);
     // 메인으로 이동(새로고침)
     document.location.href = '/';
@@ -89,6 +92,7 @@ function Header() {
       }
     }).then((res) => { 
         sessionStorage.setItem('nickname',res.data.data.userNickname);
+        setUserNickname(sessionStorage.getItem('nickname'))
     }).catch(function (error) {
       console.log(error);
     })
