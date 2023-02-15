@@ -35,7 +35,7 @@ const [isBin, setIsBin] = useState(media.inBin);
       console.log('delete',isBin);
     setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
-    await axios.put(`http://wedding101.shop/api/media/delete/${media.mediaSeq}`,{
+    await axios.put(`https://wedding101.shop/api/media/delete/${media.mediaSeq}`,{
       headers: {
         "Authorization" : "Bearer " + accessToken
       },
@@ -51,7 +51,7 @@ const [isBin, setIsBin] = useState(media.inBin);
     console.log('restore',isBin);
     setIsBin(isBin => !isBin);
     console.log(media.mediaSeq);
-    await axios.put(`http://wedding101.shop/api/media/restore/${media.mediaSeq}`,{
+    await axios.put(`https://wedding101.shop/api/media/restore/${media.mediaSeq}`,{
       headers: {
         "Authorization" : "Bearer " + accessToken
       },

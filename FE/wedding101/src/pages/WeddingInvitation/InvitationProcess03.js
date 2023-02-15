@@ -13,7 +13,7 @@ import axios from "axios";
 
 // API 통신부
 const request = axios.create({
-  baseURL: "http://wedding101.shop/api/",
+  baseURL: "https://wedding101.shop/api/",
 });
 
 const api = {

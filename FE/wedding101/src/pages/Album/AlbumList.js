@@ -17,7 +17,7 @@ import axios from 'axios';
 const AlbumList = () => {
   const [userSeq, setUserSeq] = useState('');
   const accessToken = sessionStorage.getItem('accessToken');
-  axios.get(`http://wedding101.shop/api/user`, {
+  axios.get(`https://wedding101.shop/api/user`, {
     headers: {
       "Authorization" : "Bearer " + accessToken,
     }
@@ -45,7 +45,7 @@ const AlbumList = () => {
   // axios 통신으로 DB 데이터 가져오기 구현
   async function getAllMedia() {
     await axios
-      .get(`http://wedding101.shop/api/media/all/${userSeq}`,{
+      .get(`https://wedding101.shop/api/media/all/${userSeq}`,{
         headers:{
           "Authorization" : "Bearer " + accessToken
         }
@@ -131,7 +131,7 @@ const AlbumList = () => {
     mergeSplit();
     console.log('video',mergeVideo);
     console.log('photo',mergePhoto);
-    await axios.post(`http://wedding101.shop/api/file/mergeVideo`,{
+    await axios.post(`https://wedding101.shop/api/file/mergeVideo`,{
       headers: {
         "Authorization" : "Bearer " + accessToken
       },

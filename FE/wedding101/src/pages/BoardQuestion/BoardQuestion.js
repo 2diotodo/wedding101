@@ -184,7 +184,7 @@ function AskWriteModal_(props){
     const askDataUpload = async () => {
         await axios({
             method: "POST",
-            url: `http://wedding101.shop/api/qna`,  // 파일 업로드 요청 URL
+            url: `https://wedding101.shop/api/qna`,  // 파일 업로드 요청 URL
             data: {
                 userSeq: variables.userSeq,
                 questionSeq: variables.questionSeq,
@@ -305,7 +305,7 @@ function BoardQuestion() {
     function AskListDownload_(){
         axios({
             method: "GET",
-            url: "http://wedding101.shop/api/" + 'qna/all',
+            url: "https://wedding101.shop/api/" + 'qna/all',
             headers : {
                 "Authorization" : "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkdWR3bHM2MjQiLCJ1c2VyU2VxIjoxLCJpYXQiOjE2NzYzMTQ0OTksImV4cCI6MTY3NjMxNjI5OX0.fku4SFlPZBcV2uOJEa6f1x86qXUdf6NaNl0swuT--Wk"
             }
