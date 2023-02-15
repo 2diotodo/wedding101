@@ -90,7 +90,7 @@ insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_rel
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "박경희", "colleague"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "백진솔", "acquaintance"),
 (1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "https://picsum.photos/200", "석재윤", "colleague");
-insert into tbL_media (album_seq, storage_url, url_to_img, media_name, media_relation, is_video) values
+insert into tbl_media (album_seq, storage_url, url_to_img, media_name, media_relation, is_video) values
 (1, "https://picsum.photos/1000/800", "https://picsum.photos/200", "nki", "friend", 0),
 (1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "nki", "friend", 0),
 (1,"https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "nki", "friend", 0),
