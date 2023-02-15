@@ -5,6 +5,8 @@ import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
+const BASEURL =  "https://wedding101.shop/api/";
+
 function RegistForm() {
     const [form, setForm] = useState({
         id: null,
@@ -53,7 +55,7 @@ function RegistForm() {
     const checkDuplicateId = (e) => {
         const id = form.id;
         axios
-            .get(`http://wedding101.shop/api/user/exist/id/${id}`)
+            .get(`https://wedding101.shop/api/user/exist/id/${id}`)
             .then(res => {
                 if(res.data === false) {
                     setUsableId(true);
@@ -68,7 +70,7 @@ function RegistForm() {
     const checkDuplicateNickname = (e) => {
         const nickname = form.nickname;
         axios
-            .get(`http://wedding101.shop.api/user/exist/nickname/${nickname}`)
+            .get(`https://wedding101.shop/api/user/exist/nickname/${nickname}`)
             .then(res => {
                 if(res.data === false) {
                     setUsableNickname(true);
@@ -83,7 +85,7 @@ function RegistForm() {
     const checkDuplicateEmail = (e) => {
         const email = form.email;
         axios
-            .get(`http://wedding101.shop/api/user/exist/email/${email}`)
+            .get(`https://wedding101.shop/api/user/exist/email/${email}`)
             .then(res => {
                 if(res.data === false) {
                     setUsableEmail(true);
@@ -160,7 +162,7 @@ function RegistForm() {
             return
         }
 
-        axios.post(`http://wedding101.shop/api/user/signup`, {
+        axios.post(`https://wedding101.shop/api/user/signup`, {
             userId: id,
             userPassword: password,
             userName: name,
@@ -187,10 +189,7 @@ function RegistForm() {
     const onClickHandler = () =>{
         alert("로그인 페이지로 이동합니다.");
         navigate('/user/login');
-    };
-
-    
-
+    };    
 
     return (
         <div>

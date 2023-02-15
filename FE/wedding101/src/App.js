@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import MainLayout from "./pages/Main/MainLayout";
 import UserLogin from "./pages/User/UserLogin/UserLogin";
 import UserRegist from "./pages/User/UserRegist/UserRegist";
@@ -21,7 +21,6 @@ import MainIndex from "./pages/Main/MainIndex";
 import AlbumDeleted from "./pages/Album/AlbumDeleted";
 import AlbumSelected from "./pages/Album/AlbumSelected";
 import InvitationShared from "./pages/WeddingInvitation/InvitationShared";
-
 
 function App() {
   return (
@@ -48,7 +47,7 @@ function App() {
       <Route exact path="/" element={<MainIndex />} />
       <Route path="/user/login" element={<UserLogin />} />
       <Route path="/user/signup" element={<UserRegist />} />
-      <Route path="/invitationSample" element={<InvitationShared />} />
+      <Route path="/invitation/:albumSeq" element={<InvitationShared />} />
     </Routes>
   );
 }
