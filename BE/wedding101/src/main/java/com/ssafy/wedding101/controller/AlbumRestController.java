@@ -27,6 +27,7 @@ public class AlbumRestController {
     @Operation(summary = "앨범 조회")
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAlbumDetail(Long userSeq) {
+
         //토큰 userSeq
         Map<String, Object> result = new HashMap<>();
         try {

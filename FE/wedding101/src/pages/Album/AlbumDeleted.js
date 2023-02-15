@@ -14,6 +14,18 @@ import usePagination from '../../utils/Pagination';
 import axios from 'axios';
 
 const AlbumDeleted = () => {
+  const [userSeq, setUserSeq] = useState('');
+  const accessToken = sessionStorage.getItem('accessToken');
+  axios.get(`http://wedding101.shop/api/user`, {
+    headers: {
+      "Authorization" : "Bearer " + accessToken,
+    }
+  })
+  .then((res)=>{
+    setUserSeq(res.data.userSeq);
+
+  })
+
     const [page, setPage] = useState(1);
   // axios 통신으로 DB 데이터 가져오기 구현
   const [binMedia, setBinMedia] = useState([]);
@@ -23,7 +35,11 @@ const AlbumDeleted = () => {
   
   async function getDeletedMedia() {
     await axios
-      .get(`http://wedding101.shop/api/media/1/bin`)
+      .get(`http://wedding101.shop/api/media/${userSeq}/bin`,{
+        headers: {
+          "Authorization" : "Bearer " + accessToken,
+        }
+      })
       .then((res) => {
         setBinMedia(res.data.data);
         console.log('setMedia 성공');
