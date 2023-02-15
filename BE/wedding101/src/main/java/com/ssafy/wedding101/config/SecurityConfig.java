@@ -65,28 +65,27 @@ public class SecurityConfig {
             "/file//uploadMedia/image", "/file/uploadMedia/video", "/media", "/user/signup"
     };
 
-    // Security Authorization : ROLE_USER 사용 가능 API
-    private static final String[] permitRoleUser = {
-            "/album/", "/album/delete/**", "/file/uploadAlbumCover", "/file/uploadInvitation",
-            "/file/mergeVideo", "/Info/**", "/invitation/", "/invitation/delete/*", "/media/**",
-            "/qna/*", "/review/**", "/unifiedVideo/**", "/user/**"
+    // Security Authorization : HTTPMethod GET 전체 허용하는 API
+    private static final String[] permitAllGetMethod = {
+            "/album/access/*", "/invitation/*", "/qna/all", "/qna/*", "/review/all",
+            "/review/*", "/user/exist/nickname/*", "^/user/exist/id/*", "/user/exist/email/*",
+            "/user/find/id/*"
     };
 
-    // Security Authorization : HTTPMethod GET만 허용하는 API
-    private static final String[] permitAllGetMethod = {
-            "/album/access/*", "/invitation/*", "/qna/*","/qna/all", "/review/*",
-            "/user/exist/**", "/user//find/id/*"
+    // Security Authorization : HTTPMethod POST 전체 허용하는 API
+    private static final String[] permitAllPostMethod = {
+            "/file/uploadMedia/image", "/file/uploadMedia/video", "/media/*", "/user/signup",
     };
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/user/exist/id/*")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
 
         http
                 .csrf().disable()
@@ -96,11 +95,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(permitAllPath).permitAll()
-                .antMatchers(permitRoleUser).hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.GET, permitAllGetMethod).permitAll()
-                .anyRequest().authenticated()
-//                .authorizeRequests()
-//                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST, permitAllPostMethod).permitAll()
+                .anyRequest().hasAuthority("ROLE_USER")
                 .and()
                 .headers()
                 .frameOptions()

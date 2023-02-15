@@ -45,7 +45,7 @@ public class UnifiedVideoRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @Operation(summary = "미디어 삭제")
+    @Operation(summary = "통합본 삭제")
     @PutMapping("/delete/{unifiedSeq}")
     public ResponseEntity<?> deleteUnifiedVideo (@PathVariable Long unifiedSeq) {
         try {
