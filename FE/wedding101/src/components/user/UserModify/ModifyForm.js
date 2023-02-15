@@ -4,7 +4,7 @@ import './ModifyForm.css';
 import { useEffect, useState, useNavigate } from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow} from '@mui/material';
 
-const BASEURL =  "https://wedding101.shop/api/";
+const BASEURL =  "https://wedding101.shop/api";
 
 function UserTable(props) {
     return (
@@ -36,11 +36,10 @@ function UserTable(props) {
 }
 
 function ModifyForm() {
-    const accessToken = sessionStorage.getItem('accessToken');
     const [user, setUser] = useState([]);
     const {userId, userName, userNickname, userEmail} = user;
     const [userModifyOpen, setUserModifyOpen] = useState(false);
-    
+
     const openModifyModal = () => {
         setUserModifyOpen((userModifyOpen) => !userModifyOpen)
     }
@@ -52,14 +51,13 @@ function ModifyForm() {
     async function getUser() {
         await axios ({
             method : "GET",
-            url : BASEURL + 'user',
+            url : `${BASEURL}/user`,
             headers : {
-                "Authorization" : "Bearer " + accessToken
+                "Authorization" : "Bearer " + sessionStorage.getItem('accessToken')
             } 
         }).then((res) => {
             setUser(res.data.data);
-        }).catch(function (error) {
-            console.log(error)
+        }).catch((error) => {
             if(error.response.status === 417) {
                 console.log(error.response.data.message)
             }

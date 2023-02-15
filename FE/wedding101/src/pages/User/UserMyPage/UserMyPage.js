@@ -13,7 +13,6 @@ function UserMyPage() {
             setInfoModifyOpen(false);
         }
         setUserModifyOpen((userModifyOpen) => !userModifyOpen);
-        
     }
 
     const [infoModifyOpen, setInfoModifyOpen] = useState(false);
