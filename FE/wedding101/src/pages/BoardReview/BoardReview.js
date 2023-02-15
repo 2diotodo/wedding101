@@ -39,7 +39,7 @@ function ReviewModal(props){
                 
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body">
-                    <ModalSubTitle writer={props.writer} date={props.reviewDate}></ModalSubTitle>
+                    <ModalSubTitle writer={sessionStorage.getItem('userNickname')} date={props.reviewDate}></ModalSubTitle>
                     <div className='Division_Line'></div>
                     <div className='BQ-Division-Line'></div>
                     <div className='BQ-Modal-Text-Align'>{props.content}</div>
@@ -153,11 +153,13 @@ function ReviewWriteModal(props){
         }
 
         axios.post(`https://wedding101.shop/api/review`, {
+            headers: {"Authorization": "Bearer " + sessionStorage.accessToken},
+            data: {
             albumSeq : props.userAlbumSeq,
             reviewContent: reviewContent,
             reviewRate: 9,
             reviewTitle: reviewTitle
-        }).then(function (response) {
+        }}).then(function (response) {
             console.log(response);
             console.log(response.data.message);
             if(response.status === 200){
@@ -201,7 +203,7 @@ function ReviewWriteModal(props){
                         justifyContent: 'left', marginLeft: '1.5%'},}}>
                     
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <ModalSubTitle writer={userNickname} date={currDate}></ModalSubTitle> 
+                    <ModalSubTitle writer={sessionStorage.getItem('userNickname')} date={currDate}></ModalSubTitle> 
                 
                     {/* 구분선 */}
                     <div className='BQ-Division-Line'></div>
@@ -243,7 +245,8 @@ function WriteReviewButton(props){
 
     async function getUserAlbumSeq() {
         await axios
-        .get(`https://wedding101.shop/api/album?userSeq=`+String(sessionStorage.userSeq))
+        .get(`https://wedding101.shop/api/album?userSeq=`+String(sessionStorage.getItem('userSeq')),
+        {headers : { "Authorization": "Bearer " + sessionStorage.accessToken}})
         .then((res) => {
             console.log(res)
             setUserAlbumSeq(res.data.data.albumSeq);
@@ -309,16 +312,19 @@ function BoardReview() {
 
     async function getUserSeq() {
         await axios
-        .get(`https://wedding101.shop/api/user/all`)
-        .then((res) => {
-            console.log(res.data.data);
-            res.data.data.forEach(element => {
-                if(element.userNickname === sessionStorage.getItem('userNickname')){
-                    sessionStorage.setItem('userSeq', element.userSeq);
-                }
-            })
+        .get(`https://wedding101.shop/api/user`,{
+            headers:{"Authorization": "Bearer " + sessionStorage.accessToken}
         })
-        .catch((err) => {console.log(err);})
+        .then((res) => {
+            console.log('유저 정보 수신 성공');
+            console.log(res.data.data);
+            sessionStorage.setItem('userSeq',res.data.data.userSeq)
+            sessionStorage.setItem('userNickname',res.data.data.userNickname)
+        })
+        .catch((err) => {
+            console.log(err);
+            console.log('유저 정보 수신 실패');
+        })
     }
 
     useEffect(() => {
