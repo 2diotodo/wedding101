@@ -18,6 +18,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
+const BASEURL = "https://wedding101.shop/api"
+
 function ModalSubTitle(props){
     return (
         <div className="Modal_SubTitle">
@@ -29,7 +31,6 @@ function ModalSubTitle(props){
 
 function ReviewModal(props){
     return (
-        
         <Modal  open={props.isOpen} 
                 onClose={props.doClose} 
                 className="Modal">
@@ -39,7 +40,7 @@ function ReviewModal(props){
                 
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body">
-                    <ModalSubTitle writer={sessionStorage.getItem('userNickname')} date={props.reviewDate}></ModalSubTitle>
+                    <ModalSubTitle writer={props.writer} date={props.reviewDate}></ModalSubTitle>
                     <div className='Division_Line'></div>
                     <div className='BQ-Division-Line'></div>
                     <div className='BQ-Modal-Text-Align'>{props.content}</div>
@@ -109,7 +110,7 @@ function ReviewTable(props){
             {/* <TableHead_ /> */}
             <TableBody>
                 {props.data.currentData().map( 
-                    item => (<ReviewTableItem arg={item} key={item.reviewSeq}/>)
+                    item => (<ReviewTableItem arg={item} key={item.reviewSeq} />)
                 )}
             </TableBody>
             </Table>
@@ -128,7 +129,6 @@ function getCurrentDate(){
 }
 
 function ReviewWriteModal(props){
-    const userNickname = sessionStorage.getItem('name');
     const currDate = getCurrentDate();
     console.log(currDate);
 
@@ -152,15 +152,20 @@ function ReviewWriteModal(props){
             return;
         }
 
-        axios.post(`https://wedding101.shop/api/review`, {
-            headers: {"Authorization": "Bearer " + sessionStorage.accessToken},
-            data: {
-            albumSeq : props.userAlbumSeq,
-            reviewContent: reviewContent,
-            reviewRate: 9,
-            reviewTitle: reviewTitle
-        }}).then(function (response) {
-            console.log(response);
+        axios.post(`${BASEURL}/review`, {
+            headers: {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
+            data: { 
+                    albumSeq: props.userAlbumSeq,
+                    reviewTitle: reviewTitle,
+                    reviewRate: 9,
+                    reviewContent: reviewContent,
+                    reviewSeq: 0,
+                    updatedAt: 0,
+                    createdAt: 0,
+                    userNickname: props.userNickname,
+                    vaild: true
+                  }
+        }).then(function (response) {
             console.log(response.data.message);
             if(response.status === 200){
                 alert(`리뷰가 등록되었습니다.`);
@@ -174,7 +179,6 @@ function ReviewWriteModal(props){
                 alert('서비스 신청 전송 실패')
                 console.log(error.response.data.message);
             }
-            console.log(error);
         });
     }
 
@@ -185,12 +189,19 @@ function ReviewWriteModal(props){
                 className="Modal">
             <Box className="Modal__content">
                 {/* Modal 창 제목 */}
-                <Typography component="div" id="Modal__header">리뷰 작성하기</Typography>
+                <Typography component="div" 
+                            id="Modal__header">리뷰 작성하기</Typography>
                 <div className="BQ-Edit-Delete-Buttons"> 
-                    <IconButton color="primary" className="BQ-Edit-Button" fontSize="large" onClick={reviewSubmit}>
+                    <IconButton color="primary" 
+                                className="BQ-Edit-Button" 
+                                fontSize="large" 
+                                onClick={reviewSubmit}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton color="gray" className="BQ-Delete-Button" fontSize="large" onClick={reviewCancel}>
+                    <IconButton color="gray" 
+                                className="BQ-Delete-Button" 
+                                fontSize="large" 
+                                onClick={reviewCancel}>
                         <DeleteIcon />
                     </IconButton>
                 </div>
@@ -203,7 +214,8 @@ function ReviewWriteModal(props){
                         justifyContent: 'left', marginLeft: '1.5%'},}}>
                     
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <ModalSubTitle writer={sessionStorage.getItem('userNickname')} date={currDate}></ModalSubTitle> 
+                    <ModalSubTitle  writer={props.userNickname} 
+                                    date={currDate}></ModalSubTitle> 
                 
                     {/* 구분선 */}
                     <div className='BQ-Division-Line'></div>
@@ -238,35 +250,19 @@ function WriteReviewButton(props){
 
     // review modal
     const [reviewModalOpen, setReviewModalOpen] = useState(false);
-    const [userAlbumSeq, setUserAlbumSeq] = useState();
     const openReviewModal = () => { setReviewModalOpen(true); };
     const closeReviewModal = () => { setReviewModalOpen(false); };
     const navigate = useNavigate();
 
-    async function getUserAlbumSeq() {
-        await axios
-        .get(`https://wedding101.shop/api/album?userSeq=`+String(sessionStorage.getItem('userSeq')),
-        {headers : { "Authorization": "Bearer " + sessionStorage.accessToken}})
-        .then((res) => {
-            console.log(res)
-            setUserAlbumSeq(res.data.data.albumSeq);
-        })
-        .catch((err) => {console.log(err);})
-    }
-
-    useEffect(()=> {
-        getUserAlbumSeq();
-    },[])
-
     // review Modal
     function loginCheckHandler(){
-        const isLogin = sessionStorage.getItem('isLogin')
-        if (!isLogin){
+        const isLogin = sessionStorage.getItem('accessToken')
+        if (isLogin === null){
             alert("로그인을 먼저 해주세요");
             navigate("/user/login");
             return;
         }
-        if (!userAlbumSeq){
+        if (props.userSeq === null){
             alert("서비스 이용 후 리뷰해주세요");
             navigate("/");
             return;
@@ -287,7 +283,8 @@ function WriteReviewButton(props){
                 isOpen={reviewModalOpen} 
                 doClose={closeReviewModal}
                 renewPost={props.renewPost}
-                userAlbumSeq={userAlbumSeq}
+                userAlbumSeq={props.userAlbumSeq}
+                userNickname={props.userNickname}
                 className="BQ-style"/>
         </>
     );
@@ -296,12 +293,14 @@ function WriteReviewButton(props){
 function BoardReview() {
     const [ page, setPage ] = useState(1);
     const [ reviewItem, setReviewItem ] = useState([]);
+    const [ userSeq, setUserSeq] = useState('');
+    const [ userAlbumSeq, setUserAlbumSeq] = useState();
+    const [ userNickname, setUserNickname] = useState('');
 
     async function getAllReviews() {
         await axios
-        .get(`https://wedding101.shop/api/review/all`)
+        .get(`${BASEURL}/review/all`)
         .then((res) => {
-            console.log(res);
             setReviewItem(res.data.data);
             console.log('리뷰 정보 수신 성공');
         })
@@ -311,20 +310,25 @@ function BoardReview() {
     }
 
     async function getUserSeq() {
-        await axios
-        .get(`https://wedding101.shop/api/user`,{
-            headers:{"Authorization": "Bearer " + sessionStorage.accessToken}
-        })
-        .then((res) => {
-            console.log('유저 정보 수신 성공');
-            console.log(res.data.data);
-            sessionStorage.setItem('userSeq',res.data.data.userSeq)
-            sessionStorage.setItem('userNickname',res.data.data.userNickname)
-        })
-        .catch((err) => {
-            console.log(err);
-            console.log('유저 정보 수신 실패');
-        })
+        if (sessionStorage.getItem("accessToken") === null){
+            console.log("[BoardReview()] 로그인 해주세요")
+        }
+        else{
+            await axios
+            .get(`${BASEURL}/user`,{
+                headers:{"Authorization": "Bearer " + sessionStorage.getItem('accessToken')}
+            })
+            .then((res) => {
+                console.log('유저 정보 수신 성공');
+                setUserSeq(res.data.data.userSeq)
+                setUserNickname(res.data.data.userNickname)
+                setUserAlbumSeq(res.data.data.userAlbumSeq)
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log('유저 정보 수신 실패');
+            })
+        }
     }
 
     useEffect(() => {
@@ -352,7 +356,10 @@ function BoardReview() {
                         <ReviewTable data={reviewData}/>
                     </div>
                     <div className='BQ-button-style'>
-                        <WriteReviewButton renewPost={getAllReviews}/>
+                        <WriteReviewButton userSeq={userSeq} 
+                                           userNickname={userNickname}
+                                           userAlbumSeq={userAlbumSeq}
+                                           renewPost={getAllReviews}/>
                     </div>
                     <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
