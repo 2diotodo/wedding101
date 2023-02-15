@@ -64,18 +64,12 @@ const InvitationProcess04 = () => {
   }, []);
 
   const [invitationForm, setInvitationForm] = useState({
-    invitationSeq: "",
-    infoSeq: "",
-    userSeq: "",
-    templateSeq: "",
+    templateSeq: 1,
     photoUrl01: "",
     photoUrl02: "",
     templateHeader: "",
     templateFooter: "",
     templateEtc: "",
-    createdAt: "",
-    updatedAt: "",
-    isValid: "",
   });
 
   const [invitationData, setInvitationData] = useState({
@@ -87,29 +81,29 @@ const InvitationProcess04 = () => {
   const submitHandler = async (e) => {
     // sessionStorage to invitationForm
     alert("제출되었습니다.");
-    setInvitationForm.invitationSeq();
-    setInvitationForm.templateSeq();
     setInvitationForm.photoUrl01(sessionStorage.getItem("photoUrl01"));
     setInvitationForm.photoUrl02(sessionStorage.getItem("photoUrl02"));
     setInvitationForm.templateHeader(sessionStorage.getItem("textInput01"));
     setInvitationForm.templateFooter(sessionStorage.getItem("textInput02"));
     setInvitationForm.templateEtc(sessionStorage.getItem("textInput03"));
-    setInvitationForm.createdAt(new Date());
-    setInvitationForm.updatedAt(new Date());
-    setInvitationForm.isValid(false);
-
     // axios 통신
     await axios
       .post("http://localhost:8080/", {
         data: invitationForm,
       })
-      .then((res) => {})
-      .catch();
+      .then((res) => {
+        alert('청첩장이 발급되었습니다.');
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err)
+        alert('청첩장 발급 실패!');
+      });
   };
 
   const navigate = useNavigate();
-  const toProcess02 = () => {
-    navigate("/invitation02");
+  const toProcess03 = () => {
+    navigate("/invitation03");
   };
 
   return (
