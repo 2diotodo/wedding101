@@ -28,9 +28,11 @@ function LoginForm() {
     // 버튼만 누르면 리프레시되는 것 막기
     event.preventDefault();
     console.log('here');
-    await axios.post('http://wedding101.shop/api/user/login', {
+
+    // await axios.post('http://wedding101.shop/api/user/login', {
+      await axios.post('http://i8a101.p.ssafy.io:8085/user/login', {
         userId: inputId,
-        userPassword: inputPw,
+        userPassword: inputPw
       }
     )
     .then((res) => {
