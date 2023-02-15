@@ -84,23 +84,23 @@ function Header() {
         </div>
 
         <div  className='header-font-group'>
-            <div className='header-font-tag'
+            <div  className='header-font-tag'
                   onClick={navigateToHome}>About</div>
 
-            <div className='header-font-tag'
+            <div  className='header-font-tag'
                   onClick={navigateToInvitation}>INVITATION</div>
 
-            <div className='header-font-tag' 
-                onClick={navigateToAlbum}>ALBUM</div>
+            <div  className='header-font-tag' 
+                  onClick={navigateToAlbum}>ALBUM</div>
 
-            <div className='header-font-tag'
-                onClick={navigateToProcess}>PROCESS</div>
+            <div  className='header-font-tag'
+                  onClick={navigateToProcess}>PROCESS</div>
 
-            <div className='header-font-tag'
+            <div  className='header-font-tag'
                   onClick={navigateToReview}>REVIEW</div>
 
-            <div className='header-font-tag'
-                onClick={navigateToContact}>CONTACT</div>
+            <div  className='header-font-tag'
+                  onClick={navigateToContact}>CONTACT</div>
                   
             {isLogin ? (  <div  className='header-font-tag' 
                                 onClick={navigateToMyPage}>
