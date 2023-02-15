@@ -15,12 +15,12 @@ const useUploadMedia = (propsurl, accessToken) => {
     }
     setFileMedia(file);
 
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event) => {
-            const base64 = event.target.result;
-            // sessionStorage.setItem(media, base64);
-        };
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const base64 = event.target.result;
+      // sessionStorage.setItem(media, base64);
+    };
 
     if (file.type.includes("image")) {
       const image = new Image();
