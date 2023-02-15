@@ -81,18 +81,14 @@ const useUploadMedia = (propsurl) => {
     formData.append("file", fileMedia);
     console.log(formData);
 
-        let formData = new FormData();
-        formData.append("file", fileMedia);
-        console.log(formData);
-
-        await axios({
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            method: "POST",
-            url: propsurl,  // 파일 업로드 요청 URL
-            data: formData,
-        }).then((res) => {
+    await axios({
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      method: "POST",
+      url: propsurl,  // 파일 업로드 요청 URL
+      data: formData,
+    }).then((res) => {
             console.log(res);
     }).catch(err => {
         alert('등록을 실패하였습니다.');
