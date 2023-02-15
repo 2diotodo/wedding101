@@ -33,7 +33,9 @@ function AlbumCover() {
   })
   .then((res)=>{
     setAlbumForm.userSeq(res.data.userSeq);
-
+    setAlbumForm((prevState)=>{
+      return{...prevState, userSeq:res.data.userSeq}
+    })
   })
 
   const [showUpdate, setShowUpdate] = useState(false);
