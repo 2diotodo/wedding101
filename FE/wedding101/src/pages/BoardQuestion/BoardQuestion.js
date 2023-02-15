@@ -153,7 +153,7 @@ function AskWriteModal_(props){
             alert('제목이나 내용이 비어있습니다');
             return;
         }
-
+        console.log(variables.userNickname);
         askDataUpload();
         alert("해당 게시글이 등록 되었습니다");
         props.refresh();
@@ -178,6 +178,7 @@ function AskWriteModal_(props){
             },
             data: {
                 userSeq: variables.userSeq,
+                userNickname: variables.userNickname,
                 questionSeq: variables.questionSeq,
                 questionTitle: variables.questionTitle,
                 questionContent: variables.questionContent
