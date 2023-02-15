@@ -154,7 +154,8 @@ function ReviewWriteModal(props){
 
         axios.post(`https://wedding101.shop/api/review`, {
             headers: {"Authorization": "Bearer " + sessionStorage.accessToken},
-            data: {albumSeq : props.userAlbumSeq,
+            data: {
+            albumSeq : props.userAlbumSeq,
             reviewContent: reviewContent,
             reviewRate: 9,
             reviewTitle: reviewTitle
@@ -202,7 +203,7 @@ function ReviewWriteModal(props){
                         justifyContent: 'left', marginLeft: '1.5%'},}}>
                     
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <ModalSubTitle writer={userNickname} date={currDate}></ModalSubTitle> 
+                    <ModalSubTitle writer={sessionStorage.getItem('userNickname')} date={currDate}></ModalSubTitle> 
                 
                     {/* 구분선 */}
                     <div className='BQ-Division-Line'></div>
