@@ -1,4 +1,8 @@
-.user-table {
-    display: flex;
-    flex-direction: row;
+.MuiTableContainer-root { 
+    min-width: 500px;
+    max-width: 900px;
+}
+
+.user-table .MuiTableBody-root .MuiTableCell-root:nth-child(1) {
+    font-weight: bold;
 }
