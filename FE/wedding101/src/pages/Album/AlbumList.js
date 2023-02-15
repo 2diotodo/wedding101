@@ -8,7 +8,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Star from '@mui/icons-material/Star';
-import { Button, Pagination, FormControlLabel, Switch } from '@mui/material';
+import { Button, Pagination, FormControlLabel, Switch, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Backdrop } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import usePagination from '../../utils/Pagination';
@@ -24,15 +25,27 @@ const AlbumList = () => {
   })
   .then((res)=>{
     setUserSeq(res.data.userSeq);
-
+    
   })
-
-
+  
+  
   const [page, setPage] = useState(1);
   const [media, setMedia] = useState([]);
   const [mergeVideo, setMergeVideo] = useState([]);
   const [mergePhoto, setMergePhoto] = useState([]);
   const [likeToggle, setLikeToggle] = useState(false);
+  const [unifiedName, setUnifiedName] = useState(''); // 통합본 제목 입력받기
+  const [open, setOpen] = useState(false);  // dialog open 관리
+  const [backdropOpen, setBackdropOpen] = useState(false);  // backdrop open 관리
+
+  // title dialog open
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     getAllMedia();
     if(likeToggle===true){
@@ -126,8 +139,40 @@ const AlbumList = () => {
       value.video === true ? (setMergeVideo((mergeVideo) => [...mergeVideo, value.storageUrl])) : (setMergePhoto((mergePhoto) => [...mergePhoto, value.storageUrl]));
     }
   }
+
+  const unifiedNameHandler = (e) =>{
+    setUnifiedName(e.target.value);
+  }
+  // 통합본 제목 받을 dialog창
+  const setTextAlert= () => {
+    return(
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>통합본을 신청하시겠습니까?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+          신청할 통합본 제목을 입력하세요. &nbsp;북마크 앨범이 하나의 미디어로 제공됩니다.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="통합본 제목"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={unifiedNameHandler}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>취소</Button>
+          <Button onClick={sendRequestHandler}>신청하기</Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
   // 통합본신청
   const sendRequestHandler = async () => {
+    setBackdropOpen(true);
     mergeSplit();
     console.log('video',mergeVideo);
     console.log('photo',mergePhoto);
@@ -140,6 +185,19 @@ const AlbumList = () => {
         imageList: mergePhoto,
       }
     })
+    .then( async (res)=>{
+      console.log(res.data)
+      await axios.post(`https://wedding101.shop/api/unifiedVideo`,{
+        headers:{
+          "Authorization" : "Bearer " + accessToken
+        },
+        data:{
+          albumSeq: '',
+          unifiedName: unifiedName,
+          unifiedUrl: res.data,
+        }
+      })
+    })
     .then((res)=> {
       alert('신청이 완료되었습니다.');
       alert('앨범표지에서 신청본을 확인해보세요');
@@ -148,6 +206,10 @@ const AlbumList = () => {
     .catch((err) => {
       console.log('실패!');
     })
+    .finally(
+      handleClose(),
+      setBackdropOpen(false)
+    )
   };
 
   return (
@@ -184,7 +246,7 @@ const AlbumList = () => {
             </div>
           </div>
           <div className='send-request'>
-            <Button onClick={sendRequestHandler}>북마크 미디어 신청하기</Button>
+            <Button onClick={handleClickOpen}>북마크 미디어 신청하기</Button>
           </div>
         </Grid2>
         <Grid2 lg={9} sm={9} spacing={2}>
@@ -206,6 +268,14 @@ const AlbumList = () => {
           </div>
         </Grid2>
       </Grid2>
+      {setTextAlert}
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdropOpen}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 };
