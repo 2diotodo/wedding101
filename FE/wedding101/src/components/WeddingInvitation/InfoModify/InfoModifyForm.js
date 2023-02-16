@@ -170,6 +170,7 @@ function UserModifyForm(props) {
                         <TextField  value={weddingHallNumber} 
                                     onChange={changeWeddingHallNumber}></TextField>
                         </div>
+                        <div className='IM-Division-Line'></div>
                         <div className='info-item'>
                         <div>신랑 전화번호 : </div>
                         <TextField  value={groomPhoneNumber} 
@@ -210,6 +211,7 @@ function UserModifyForm(props) {
                         <TextField  value={brideAccountName} 
                                     onChange={changeBrideAccountName}></TextField>
                         </div>
+                        <div className='IM-Division-Line'></div>
                         {props.data.groomFatherIsAlive ?
                             <div className='info-item'> 
                             <div>신랑 아버지 : </div>
