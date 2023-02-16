@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ListItem, ListItemText, Divider, Modal, Box, Typography } from "@mui/material";
+import { List, ListItemText, Divider, Modal, Box, Typography, ListItemButton, ListItem } from "@mui/material";
 
 
 const style = {
@@ -7,7 +7,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 1000,
+    width: 900,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -21,10 +21,12 @@ const MergedItem = ({mergedMedia}) => {
 
     return(
         <>
-        <ListItem button>
+        <List  aria-label='merged-list'>
+
+        <ListItemButton>
               <ListItemText primary={mergedMedia.unifiedName} onClick={handleOpen}/>
-        </ListItem>
-        <Divider />
+        </ListItemButton>
+        </List>
 
         {/* 통합본 제목 클릭시 모달창으로 영상재생 */}
         <Modal
@@ -34,6 +36,7 @@ const MergedItem = ({mergedMedia}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {console.log(mergedMedia.unifiedName)}
           <video src={mergedMedia.unifiedUrl} controls autoPlay loop width='100%' />
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             {mergedMedia.unifiedName}
