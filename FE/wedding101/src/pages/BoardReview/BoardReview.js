@@ -154,14 +154,13 @@ function ReviewWriteModal(props){
         }
         console.log("props.userAlbumSeq", props.userAlbumSeq)
 
-        axios.post(`${BASEURL}/review`, {
-            headers: {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
-            data: { 
-                    albumSeq: props.userAlbumSeq,
-                    reviewTitle: reviewTitle,
-                    reviewRate: 9,
-                    reviewContent: reviewContent
-                }
+        axios.post(`${BASEURL}/review`,{ 
+            albumSeq: props.userAlbumSeq,
+            reviewTitle: reviewTitle,
+            reviewRate: 9,
+            reviewContent: reviewContent
+        },{
+            headers: {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
         }).then(function (response) {
             console.log(response.data.message);
             if(response.status === 200){
@@ -313,7 +312,6 @@ function BoardReview() {
     const [ page, setPage ] = useState(1);
     const [ reviewItem, setReviewItem ] = useState([]);
     const [ userSeq, setUserSeq] = useState('');
-    const [ userAlbumSeq, setUserAlbumSeq] = useState();
     const [ userNickname, setUserNickname] = useState('');
 
     async function getAllReviews() {
