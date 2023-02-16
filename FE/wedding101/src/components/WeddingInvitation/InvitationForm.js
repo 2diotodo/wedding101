@@ -81,17 +81,17 @@ function WeddingMessage(props) {
     >
       <h2 className="messageTitle">결혼합니다</h2>
       <div className="messageBody">
-        {props.message1}
+        {props.invitationData.templateHeader}
         <br />
-        {props.message2}
+        {props.invitationData.templateFooter}
         <br />
-        {props.message3}
+        {props.invitationData.templateEtc}
         {/* 두 사람이 하나가 될 인생을 시작합니다. 사랑으로 가득 채워 즐거움은
         나누고 어려움은 이겨내는 함께 나아가는 삶을 꾸리겠습니다. 부디
         걸음하시어 축복하여 주시면 더없는 기쁨이 되겠습니다. */}
         <br />
       </div>
-      <FamilyInfo />
+      <FamilyInfo weddingInfoData={props.weddingInfoData} />
     </div>
   );
 }
@@ -99,8 +99,16 @@ function WeddingMessage(props) {
 function FamilyInfo(props) {
   return (
     <div className="familyInfo">
-      <div className="groomFamily">김길동·이영숙의 장남 철수</div>
-      <div className="brideFamily">최희귀·김영미의 차녀 영희</div>
+      <div className="groomFamily">
+        {props.weddingInfoData.groomFatherName}·
+        {props.weddingInfoData.groomMotherName}의 아들{" "}
+        {props.weddingInfoData.groomName}
+      </div>
+      <div className="brideFamily">
+        {props.weddingInfoData.brideFatherName}·
+        {props.weddingInfoData.brideMotherName}의 딸{" "}
+        {props.weddingInfoData.brideName}
+      </div>
     </div>
   );
 }
@@ -380,14 +388,15 @@ function InvitationForm(props) {
         //place="역삼 멀티캠퍼스 8층"
       />
       <WeddingPhoto src={invitation_image_1} id="invitationImage01" />
-      <WeddingPhoto src={invitation_image_2} id="invitationImage02" />
       <WeddingMessage
-        message1={props.invitationData.templateHeader}
-        message2={props.invitationData.templateFooter}
-        message3={props.invitationData.templateEtc}
+        invitationData={props.invitationData}
+        weddingInfoData={props.weddingInfoData}
+        // message1={props.invitationData.templateHeader}
+        // message2={props.invitationData.templateFooter}
+        // message3={props.invitationData.templateEtc}
       />
       {/* <FamilyInfo/> */}
-      <WeddingPhoto src={invitation_image_3} />
+      {/* <WeddingPhoto src={invitation_image_3} /> */}
       <div className="inducingMessage">
         결혼식 참여가 어려우신가요?
         <br />
@@ -395,7 +404,8 @@ function InvitationForm(props) {
       </div>
       <UploadMedia albumSeq={props.albumSeq} />
       <WeddingInfo datetime={props.weddingInfoData.weddingDay} />
-      <WeddingPhoto src={invitation_image_4} />
+      <WeddingPhoto src={invitation_image_2} id="invitationImage02" />
+      {/* <WeddingPhoto src={invitation_image_4} /> */}
       {/* <WeddingPhotoCarousel/> */}
       <WeddingSummary
         groomName={props.weddingInfoData.groomName}
@@ -403,12 +413,12 @@ function InvitationForm(props) {
         datetime={props.weddingInfoData.weddingDay}
         place={props.weddingInfoData.weddingHallName}
       />
-      <WeddingMoney
+      {/* <WeddingMoney
         groomName={props.weddingInfoData.groomName}
         brideName={props.weddingInfoData.brideName}
         datetime={props.weddingInfoData.weddingDay}
         place={props.weddingInfoData.weddingHallName}
-      />
+      /> */}
     </div>
   );
 }
