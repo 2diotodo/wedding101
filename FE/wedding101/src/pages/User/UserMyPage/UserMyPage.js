@@ -6,18 +6,18 @@ import './UserMyPage.css';
 import { Button } from '@mui/material';
 
 function UserMyPage() {
-    const [userDetailOpen, setUserInfoOpen] = useState(false);
+    const [userDetailOpen, setUserDetailOpen] = useState(false);
     const openUserModal = () => {
         if(userDetailOpen === false) {
             setInfoDetailOpen(false);
         }
-        setUserInfoOpen((userDetailOpen) => !userDetailOpen);
+        setUserDetailOpen((userDetailOpen) => !userDetailOpen);
     }
 
     const [infoDetailOpen, setInfoDetailOpen] = useState(false);
     const openInfoModal = () => {
         if(infoDetailOpen === false) {
-            setInfoDetailOpen(false);
+            setUserDetailOpen(false);
         }
         setInfoDetailOpen((infoDetailOpen) => !infoDetailOpen);
     }
