@@ -4,8 +4,8 @@ function Footer() {
   return (
     <div className='footer'>
       <footer>
-        <h3>A101</h3>
-        <span>팀장: 김성환 </span>||
+      <span className='a101'>A101&nbsp;&nbsp;&nbsp; </span>
+        <span> &nbsp;&nbsp;&nbsp;팀장: 김성환 </span>||
         <span> 팀원: 권영진 </span>|
         <span> 김지현 </span>|
         <span> 류제엽 </span>|
