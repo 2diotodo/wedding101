@@ -42,7 +42,7 @@ insert into tbl_template (template_title, template_header, template_footer, temp
 -- invitation data / 5번까지만 데이터 넣음 6번부터 11번 까지 입력 가능
 select * from tbl_invitation;
 insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_url2) values
-(1, 1, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png"),
+(1, 1, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/invitation/KakaoTalk_20230216_171500201_11.jpg", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/invitation/KakaoTalk_20230216_171500201_01.jpg"),
 (2, 2, 2, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png"),
 (3, 3, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png");
 -- (6, 6, 1, "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png"),
@@ -60,7 +60,7 @@ insert into tbl_invitation (info_seq, user_seq, template_seq, photo_url1, photo_
 
 -- album data / 6번까지 데이터 넣음 -> 7번부터 11번까지 입력가능
 insert into tbl_album (info_seq, user_seq, album_name, album_access_id, album_photo_url, album_thanks_url) values
-(1, 1, "소중한 결혼과 소중한 사람들", "123456789a",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922695.png",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"),
+(1, 1, "소중한 결혼과 소중한 사람들", "123456789a",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/album/KakaoTalk_20230216_171500201_07.jpg",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/thanks/KakaoTalk_20230216_171506792.mp4"),
 (2, 2, "Happy Day !", "123456789b",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"),
 (3, 3, "포 터 블 웨딩 앨범", "123456789c",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922469.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"),
 (4, 4, "castle환 과 르세라핌의 앨범", "123456789d",  "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/invitation/KakaoTalk_20230214_125922579.png", "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/dudwls624/video/00fce54f-555f-457e-a38b-d6f27c44ce4f.mp4"),
