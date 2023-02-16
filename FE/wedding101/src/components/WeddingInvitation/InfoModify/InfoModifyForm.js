@@ -23,7 +23,13 @@ function UserModifyForm(props) {
     }
     const changeWeddingHallNumber=(e)=> {
         setWeddingHallNumber(e.target.value)
-    }    
+    }  
+    const changeGroomPhoneNumber=(e)=> {
+        setGroomPhoneNumber(e.target.value)
+    }   
+    const changeBridePhoneNumber=(e)=> {
+        setBridePhoneNumber(e.target.value)
+    }     
 
     return(
         <Modal  open={props.isOpen}
@@ -48,43 +54,30 @@ function UserModifyForm(props) {
                         </div>
                         <div className='info-item'>
                         <div>웨딩홀 주소 : </div>
-                        <TextField  value={weddingDay} 
+                        <TextField  value={weddingHallAddress} 
                                     onChange={changeWeddingHallAddress}></TextField>
                         </div>
                         <div className='info-item'>
                         <div>웨딩홀 전화번호 : </div>
-                        <TextField  value={weddingDay} 
+                        <TextField  value={weddingHallNumber} 
                                     onChange={changeWeddingHallNumber}></TextField>
                         </div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-                        <div>이름이름이르</div>
-
+                        <div className='info-item'>
+                        <div>신랑 전화번호 : </div>
+                        <TextField  value={groomPhoneNumber} 
+                                    onChange={changeGroomPhoneNumber}></TextField>
+                        </div>
+                        <div className='info-item'>
+                        <div>신부 전화번호 : </div>
+                        <TextField  value={bridePhoneNumber} 
+                                    onChange={changeBridePhoneNumber}></TextField>
+                        </div>
+                        <Button className = "user-modify-btn"
+                            color = 'primary'
+                            startIcon="✏️"
+                            variant='contained'
+                            size='medium'
+                            >수정 완료</Button>
                     </div>
                 </Typography>
             </Box>
