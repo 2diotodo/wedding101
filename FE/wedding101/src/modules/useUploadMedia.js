@@ -58,13 +58,14 @@ const useUploadMedia = (propsurl, accessToken) => {
     };
     // file 크기 초과검사
     const isValidFile = (file) => {
-      alert(`파일 크기가 ${Math.round( (file.size * 100) / (1024 * 1024) ) / 100}MB 입니다`)
-      if (file.size > 20 * 1024 * 1024 ) {
-        console.error("File size exceeds 20MB");
+      // alert(`파일 크기가 ${Math.round( (file.size * 100) / (1024 * 1024) ) / 100}MB 입니다`)
+      if (file.size > 50 * 1024 * 1024 ) {
+        console.error("File size exceeds 50MB");
         return false;
       }
       return true;
     };
+
     // 업로드 파일 삭제(메모리관리)
     const deleteFileImage = () => {
       URL.revokeObjectURL(fileMedia);
