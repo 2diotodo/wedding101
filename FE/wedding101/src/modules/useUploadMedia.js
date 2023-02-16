@@ -9,10 +9,10 @@ const useUploadMedia = (propsurl, accessToken) => {
   const fileImageHandler = (e) => {
     const file = e.target.files[0];
     console.log(file);
-    if (!isValidFile(file)) {
-      alert("is not valid file");
-      return;
-    }
+    // if (!isValidFile(file)) {
+    //   alert("is not valid file");
+    //   return;
+    // }
     setFileMedia(file);
 
     const reader = new FileReader();
