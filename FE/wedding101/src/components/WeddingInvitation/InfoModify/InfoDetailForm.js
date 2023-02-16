@@ -194,11 +194,12 @@ function InfoDetailForm() {
             </Table>
 
         </TableContainer>
-        <Button color = 'primary'
-            startIcon="✏️"
-            variant='contained'
-            size='small'
-        onClick={openInfoModifyModal}>수정하기</Button>
+        <Button sx ={{mt:1}}
+                color = 'primary'
+                startIcon="✏️"
+                variant='contained'
+                size='small'
+                onClick={openInfoModifyModal}>수정하기</Button>
         {infoModifyOpen ? <InfoModifyForm   data={info}
                                             isOpen={infoModifyOpen}
                                             doClose={openInfoModifyModal}
