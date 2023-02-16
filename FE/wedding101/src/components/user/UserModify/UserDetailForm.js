@@ -3,6 +3,7 @@ import axios from 'axios';
 import './UserDetailForm.css';
 import { useEffect, useState } from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Button} from '@mui/material';
+import UserModifyForm from './UserModifyForm'
 
 const BASEURL =  "https://wedding101.shop/api";
 
@@ -35,7 +36,7 @@ function UserTable(props) {
     )
 }
 
-function ModifyForm() {
+function UserDetailForm() {
     const [user, setUser] = useState([]);
     const {userId, userName, userNickname, userEmail} = user;
     const [userModifyOpen, setUserModifyOpen] = useState(false);
@@ -68,14 +69,16 @@ function ModifyForm() {
     return (
         <div>
             <UserTable data = {user} className="user-table"/>
-            <Button className = "user-modify-btn"
-                    color = 'primary'
+            <Button color = 'primary'
                     startIcon="✏️"
                     variant='contained'
                     size='small'
-                    onClick={setUserModifyOpen}></Button>
-            {/* {userModifyOpen ? <} */}
+                    onClick={openModifyModal}>수정하기</Button>
+            {userModifyOpen ? <UserModifyForm data={user} 
+                                            isOpen={userModifyOpen}
+                                            doClose={openModifyModal} 
+                                            className="modify-form" /> : null}
         </div>
     );
 }
-export default ModifyForm;
+export default UserDetailForm;

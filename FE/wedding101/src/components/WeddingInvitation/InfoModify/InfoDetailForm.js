@@ -149,7 +149,7 @@ function InfoTable(props) {
     )
 }
 
-function ModifyForm() {
+function InfoDetailForm() {
     const [userSeq, setUserSeq] = useState();
     
     useEffect(() =>  {
@@ -181,4 +181,4 @@ function ModifyForm() {
         <InfoTable userSeq={userSeq}></InfoTable>
     );
 }
-export default ModifyForm;
+export default InfoDetailForm;
