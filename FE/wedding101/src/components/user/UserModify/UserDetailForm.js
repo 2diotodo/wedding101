@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import './UserDetailForm.css';
 import { useEffect, useState } from 'react';
-import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Button} from '@mui/material';
+import { Paper, TableContainer, Table, TableBody, TableCell, TableRow, Button} from '@mui/material';
 import UserModifyForm from './UserModifyForm'
 
 const BASEURL =  "https://wedding101.shop/api";
@@ -43,6 +43,7 @@ function UserDetailForm() {
 
     const openModifyModal = () => {
         setUserModifyOpen((userModifyOpen) => !userModifyOpen)
+        getUser()
     }
 
     useEffect(() =>  {
@@ -77,7 +78,7 @@ function UserDetailForm() {
             {userModifyOpen ? <UserModifyForm data={user} 
                                             isOpen={userModifyOpen}
                                             doClose={openModifyModal} 
-                                            className="modify-form" /> : null}
+                                            className="user-modify-form" /> : null}
         </div>
     );
 }

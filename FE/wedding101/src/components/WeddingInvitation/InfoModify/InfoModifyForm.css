@@ -1,0 +1,11 @@
+.scrollable-form {
+
+    overflow-y: auto;
+}
+
+/* 구분선  */
+.IM-Division-Line{
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
