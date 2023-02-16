@@ -12,6 +12,11 @@
     justify-content: center;
 }
 
+.invitation_slider{
+    height: 100%;
+    width: 35%;
+}
+
 .invitation-item{
     margin: 1px;
 }
@@ -24,9 +29,4 @@
     width: 300px;
     height: 400px;
     overflow-y: scroll
-}
-
-.invitation_slider{
-    height: 100%;
-    width: 35%;
 }
