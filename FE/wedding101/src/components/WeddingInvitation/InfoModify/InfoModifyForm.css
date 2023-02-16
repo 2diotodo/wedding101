@@ -9,3 +9,12 @@
     margin-top: 2%;
     margin-bottom: 3%;
 }
+
+.info-item {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-content: center;
+    align-items: center;
+    padding: 1.5px;
+}
