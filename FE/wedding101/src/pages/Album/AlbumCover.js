@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import { Button, IconButton, Tooltip, Badge, List } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
 import MergedItem from '../../components/album/MergedItem';
-import arrow from '../../assets/img/cutearrow.png';
+import cutearrow from '../../assets/img/cutearrow.png';
 
 const BASEURL = 'https://wedding101.shop/api';
 
@@ -211,7 +211,7 @@ function AlbumCover() {
               </div>
               <div className='cover-back' onClick={onAlbumListHandler}>
                 <h1 className='open-album'>앨범 펼치기</h1>
-                <img src={arrow} alt='arrow'></img>
+                <img src={cutearrow} alt='arrow'></img>
               </div>
             </div>
           </div>
