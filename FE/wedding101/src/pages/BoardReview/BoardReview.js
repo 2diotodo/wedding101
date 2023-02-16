@@ -348,7 +348,7 @@ function BoardReview() {
     return (
         <div className='BQ-board-ask'>
             <Grid2 container spacing={2}>
-                <Grid2 lg={3} sm={3}>
+                <Grid2 lg={3} sm={3}>i=[]
                     <Navbar_ pageTitle="Review 👍"/>
                 </Grid2>
                 <Grid2 lg={9} sm={10} id='BQ-grid-align'>
