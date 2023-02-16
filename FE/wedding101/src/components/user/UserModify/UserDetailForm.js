@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import './ModifyForm.css';
-import { useEffect, useState, useNavigate } from 'react';
-import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow} from '@mui/material';
+import './UserDetailForm.css';
+import { useEffect, useState } from 'react';
+import { Paper, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Button} from '@mui/material';
 
 const BASEURL =  "https://wedding101.shop/api";
 
@@ -68,12 +68,13 @@ function ModifyForm() {
     return (
         <div>
             <UserTable data = {user} className="user-table"/>
-            {/* <Button className = "user-modify-btn"
+            <Button className = "user-modify-btn"
                     color = 'primary'
                     startIcon="✏️"
                     variant='contained'
                     size='small'
-                    onClick={setUserModifyOpen}></Button> */}
+                    onClick={setUserModifyOpen}></Button>
+            {/* {userModifyOpen ? <} */}
         </div>
     );
 }
