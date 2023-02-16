@@ -42,7 +42,7 @@ function Title(props) {
 function BriefInfo(props) {
   console.log(props);
 
-  const date = new Date(props.datetime);
+  const date = new Date(props.datetime - 9 * 60 * 60 * 1000);
   let dateFormat =
     date.getFullYear() +
     "년 " +
@@ -68,7 +68,7 @@ function WeddingPhoto(props) {
   // 사진을 가져와야함 -> props에 담겨있어야하는가?
   return (
     <div className="weddingPhoto" id={props.id}>
-      <img src={props.src} alt="invitation_image_1"></img>
+      <img src={props.src} alt="invitation_image"></img>
     </div>
   );
 }
@@ -128,6 +128,7 @@ function UploadMedia(props) {
   const [sendFrom, setSendFrom] = useState("");
   const [sendName, setSendName] = useState("");
   const [sendAgree, setSendAgree] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const handleChange = (event, newAlignment) => {
     setSendTo(newAlignment);
     console.log(newAlignment);
@@ -195,11 +196,15 @@ function UploadMedia(props) {
           mediaRelation: sendFrom,
           mediaSeq: 0,
           onBooth: false,
-          storageUrl: res.data.split(parser)[1],
-          urlToImg: "string",
+          storageUrl: res.data,
+          urlToImg: res.data,
           video: false,
           wish: false,
         });
+      })
+      .then(() => {
+        alert("전송에 성공했습니다.");
+        setIsDisabled(true);
       })
       .catch((err) => {
         console.log(err);
@@ -275,6 +280,7 @@ function UploadMedia(props) {
         variant="contained"
         endIcon={<SendIcon />}
         onClick={onMediaUpload}
+        disabled={isDisabled}
       >
         Send
       </Button>
@@ -387,7 +393,10 @@ function InvitationForm(props) {
         //datetime="2023년 2월 17일 오후 2시"
         //place="역삼 멀티캠퍼스 8층"
       />
-      <WeddingPhoto src={invitation_image_1} id="invitationImage01" />
+      <WeddingPhoto
+        src={props.invitationData.photoUrl1}
+        id="invitationImage0"
+      />
       <WeddingMessage
         invitationData={props.invitationData}
         weddingInfoData={props.weddingInfoData}
@@ -404,7 +413,10 @@ function InvitationForm(props) {
       </div>
       <UploadMedia albumSeq={props.albumSeq} />
       <WeddingInfo datetime={props.weddingInfoData.weddingDay} />
-      <WeddingPhoto src={invitation_image_2} id="invitationImage02" />
+      <WeddingPhoto
+        src={props.invitationData.photoUrl2}
+        id="invitationImage02"
+      />
       {/* <WeddingPhoto src={invitation_image_4} /> */}
       {/* <WeddingPhotoCarousel/> */}
       <WeddingSummary

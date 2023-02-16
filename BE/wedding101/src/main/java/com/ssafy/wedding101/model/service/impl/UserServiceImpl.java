@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
     public void modifyUser(UserDto userDto) {
         User user = userRepository.findByUserId(userDto.getUserId()).orElseThrow();
         user.updateUser(userDto.getUserId(),
-                userDto.getUserPassword(),
                 userDto.getUserName(),
                 userDto.getUserNickname(),
                 userDto.getUserEmail());
