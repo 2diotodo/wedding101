@@ -21,14 +21,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 1000,
+  width: 'auto',
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   p: 0,
 };
 
-const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
+const MediaItem = ({ media, getAllMedia, wishFilterHandler, getDeletedMedia, accessToken }) => {
   const {
     mediaSeq,
     albumSeq,
@@ -69,7 +68,9 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
       },
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike((like) => !like);
+    
     getAllMedia();
+    wishFilterHandler();
   };
 
   return (
@@ -109,10 +110,10 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
           {media.video === true ? (
             <video src={storageUrl} controls autoPlay loop width='100%' />
           ) : (
-            <img src={urlToImg} alt={urlToImg} />
+            <img src={storageUrl} alt={storageUrl} width='600px' height='800px' />
           )}
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
-            {mediaRelation}의 메세지
+          <Typography id='modal-modal-title' variant='h6' component='h2' >
+            {mediaName}
           </Typography>
         </Box>
       </Modal>
