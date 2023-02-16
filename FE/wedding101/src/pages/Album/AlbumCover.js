@@ -116,11 +116,11 @@ function AlbumCover() {
           method: "GET",
           url: `${BASEURL}/Info?userSeq=${userSeq}`,
           headers : {
-              "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
+              "Authorization" : "Bearer " + accessToken
           }
       }).then((response) => {
-          setMerriageDate(response.data.data);
-          console.log(merriageDate);
+          setMerriageDate(response.data.data.weddingDay);
+          console.log(response)
       }).catch((error) => {
           console.log(error);
       })
@@ -170,6 +170,8 @@ function AlbumCover() {
     getAlbum();
     getMerriageDate();
   }, [userSeq]);
+
+  console.log(merriageDate);
 
   return (
     <div className='album-cover'>
@@ -234,7 +236,7 @@ function AlbumCover() {
         <Grid2 lg={3} sm={4}>
           <Grid2 lg={8}>
             <h3>나의 결혼식 날짜</h3>
-            <p>{Date()}</p>
+            <p>{merriageDate}</p>
             <h3>앨범 생성일</h3>
             <p>{albumCreated}</p>
           </Grid2>
