@@ -74,6 +74,7 @@ const InvitationProcess01 = () => {
   }, []);
 
   const settings = {
+    className: 'invitation_slider',
     dots: true, // 슬라이드 아래 점표시
     infinite: true, // 무한반복
     speed: 500, // 넘어가는 속도
@@ -102,24 +103,6 @@ const InvitationProcess01 = () => {
             />
             <h2>모바일 청첩장 템플릿 선택하기</h2>
             <Slider {...settings}>
-              <div className="invitation-item">
-                <InvitationForm
-                  weddingInfoData={weddingInfoData}
-                  invitationData={invitationData}
-                />
-              </div>
-              <div className="invitation-item">
-                <InvitationForm
-                  weddingInfoData={weddingInfoData}
-                  invitationData={invitationData}
-                />
-              </div>
-              <div className="invitation-item">
-                <InvitationForm
-                  weddingInfoData={weddingInfoData}
-                  invitationData={invitationData}
-                />
-              </div>
               <div className="invitation-item">
                 <InvitationForm
                   weddingInfoData={weddingInfoData}
