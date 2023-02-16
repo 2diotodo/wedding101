@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-import './ModifyForm.css';
-import GoServiceButton from '../../common/GoServiceButton';
-import { useEffect, useState, useNavigate } from 'react';
-import { Paper, TableContainer, Table, TableBody, TableCell, TableRow} from '@mui/material';
+import './InfoDetailForm.css';
+import { useEffect, useState } from 'react';
+import { Paper, TableContainer, Table, TableBody, TableCell, TableRow, Button} from '@mui/material';
 
 const BASEURL = "https://wedding101.shop/api"
 
