@@ -10,10 +10,7 @@ import {
   IconButton,
   Tooltip,
   Badge,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
+  List
 } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
 import MergedItem from '../../components/album/MergedItem';
@@ -41,6 +38,8 @@ function AlbumCover() {
   const [showUpdate, setShowUpdate] = useState(false);
   const [merriageDate, setMerriageDate] = useState();
   const [unifyCheck, setUnifyCheck] = useState(false); // 통합본 신청여부
+  const [userAlbumSeq, setAlbumSeq] = useState();
+  const [userSeq, setUserSeq] = useState();
   const [mergedMedia, setMergedMedia] = useState([
     {
       albumSeq: '',
@@ -53,8 +52,7 @@ function AlbumCover() {
     },
   ]);
   const albumCoverUrl = `${BASEURL}/file/uploadAlbumCover`;
-  const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
-    useUploadMedia(albumCoverUrl, accessToken);
+  const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } = useUploadMedia(albumCoverUrl, accessToken);
 
   // 앨범생성일 연산 yyyy-mm-dd
   const dateformat = new Date(albumForm.createdAt);
@@ -65,43 +63,29 @@ function AlbumCover() {
   const albumCreated = `${year}-${month >= 10 ? month : '0' + month}-${
     date >= 10 ? date : '0' + date
   }`;
-  async function getUserSeq() {
-    await axios
-      .get(`${BASEURL}/user`, {
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-        },
-      })
-      .then((res) => {
-        setAlbumForm((albumForm) => {
-          return { ...albumForm, userSeq: res.data.data.userSeq };
-        });
-      });
-  }
 
-  async function getMerriageDate(){
-    await axios({
-        method: "GET",
-        url: `${BASEURL}/Info?userSeq=${albumForm.userSeq}`,
-        headers : {
-            "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
-        }
-    }).then(function (response) {
-        setMerriageDate(response.data.data)
-    }).catch(function (error) {
-        console.log(error);
-    })
+  async function getUserSeq() {
+      await axios
+        .get(`${BASEURL}/user`, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          },
+      })
+        .then((res) => {
+          setUserSeq(res.data.data.userSeq);
+          albumForm.userSeq = userSeq;
+      });
   }
 
   // 앨범정보 가져오기
   async function getAlbum() {
-    if (albumForm.userSeq === null){
-      alert("서비스 신청을 이용해주세요")
-      goServicePage();
+    if (accessToken === null){
+      alert("로그인 후 서비스 신청을 이용해주세요");
+      goMainPage();
     }
-    else{
+    else {
       await axios
-        .get(`${BASEURL}/album?userSeq=${albumForm.userSeq}`, {
+        .get(`${BASEURL}/album?userSeq=${userSeq}`, {
           headers: {
             Authorization: 'Bearer ' + accessToken,
           },
@@ -112,8 +96,34 @@ function AlbumCover() {
           console.log('setMedia 성공');
         })
         .catch((err) => {
-          console.log('getAlbum() 실패');
+          if (err.response.status === 417){
+            alert("서비스 신청을 이용해주세요");
+            goServicePage();
+          }
+          else{
+            console.log(err.message);
+          }
         });
+    }
+  }
+  
+
+  async function getMerriageDate(){
+
+    if (userSeq === null){}
+    else{
+      await axios({
+          method: "GET",
+          url: `${BASEURL}/Info?userSeq=${userSeq}`,
+          headers : {
+              "Authorization" : "Bearer " + accessToken
+          }
+      }).then((response) => {
+          setMerriageDate(response.data.data.weddingDay);
+          console.log(response)
+      }).catch((error) => {
+          console.log(error);
+      })
     }
   }
 
@@ -157,10 +167,11 @@ function AlbumCover() {
 
   useEffect(() => {
     getUserSeq();
-    console.log('userSeq: ', albumForm.userSeq);
     getAlbum();
     getMerriageDate();
-  }, [albumForm.userSeq]);
+  }, [userSeq]);
+
+  console.log(merriageDate);
 
   return (
     <div className='album-cover'>
@@ -225,7 +236,7 @@ function AlbumCover() {
         <Grid2 lg={3} sm={4}>
           <Grid2 lg={8}>
             <h3>나의 결혼식 날짜</h3>
-            <p>{Date()}</p>
+            <p>{merriageDate}</p>
             <h3>앨범 생성일</h3>
             <p>{albumCreated}</p>
           </Grid2>
