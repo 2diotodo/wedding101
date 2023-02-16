@@ -50,7 +50,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
   const handleClose = () => setOpen(false);
 
   const menuRef = useRef({});
-
+  const baseurl = "https://wedding101.shop/api/";
   const deleteConfirm = inBin === false ? '삭제하시겠습니까?' : '복원하시겠습니까?';
 
   const dialogOpen = () => {
@@ -63,7 +63,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
   }, [like, isBin]);
 
   const toggleLike = async () => {
-    await axios.get(`https://wedding101.shop/api/media/wish/${mediaSeq}`, {
+    await axios.get(baseurl + `media/wish/${mediaSeq}`, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
       },
@@ -85,7 +85,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
           }
         ></CardHeader>
         {/* Card 본문 */}
-        <CardActionArea onClick={handleOpen} onContextMenu={dialogOpen}>
+        <CardActionArea sx={{ width: 200, height: 200 }} onClick={handleOpen} onContextMenu={dialogOpen}>
           <CardMedia component='img' height='200px' image={urlToImg} alt='img' />
           <CardContent sx={{ width: 200, height: 100 }}>
             <Typography gutterBottom variant='h5' component='div'>
