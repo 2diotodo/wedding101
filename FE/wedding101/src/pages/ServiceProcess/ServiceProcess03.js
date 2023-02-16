@@ -208,7 +208,9 @@ function ServiceProcess03 () {
                       <DatePicker
                         minDate={new Date()}
                         selected={weddingDateTime}
-                        onChange={date => setWeddingDateTime(date)}/>
+                        onChange={date => {
+                          setWeddingDateTime(weddingDateTime.setDate(date.getDate()));
+                        }}/>
                     </div>
                     <div className='horizontalLayout spaceBetween'>
                       <p style={{width: '30%', fontSize: '2vh'}}>예식 시간</p>
@@ -222,8 +224,11 @@ function ServiceProcess03 () {
                         timeCaption="Time"
                         dateFormat="HH:mm"
                         timeFormat="HH:mm"
-                        onChange={time => {setWeddingDateTime(time);
-                        console.log(time)}}
+                        onChange={time => {
+                          console.log(time)
+                          weddingDateTime.setHours(time.getHours()+9).setMinutes(time.setMinutes())
+                          setWeddingDateTime(weddingDateTime);
+                        }}
                         />
                     </div>
                   </div>
