@@ -128,6 +128,7 @@ function UploadMedia(props) {
   const [sendFrom, setSendFrom] = useState("");
   const [sendName, setSendName] = useState("");
   const [sendAgree, setSendAgree] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const handleChange = (event, newAlignment) => {
     setSendTo(newAlignment);
     console.log(newAlignment);
@@ -195,11 +196,15 @@ function UploadMedia(props) {
           mediaRelation: sendFrom,
           mediaSeq: 0,
           onBooth: false,
-          storageUrl: res.data.split(parser)[1],
-          urlToImg: "string",
+          storageUrl: res.data,
+          urlToImg: res.data,
           video: false,
           wish: false,
         });
+      })
+      .then(() => {
+        alert("전송에 성공했습니다.");
+        setIsDisabled(true);
       })
       .catch((err) => {
         console.log(err);
@@ -275,6 +280,7 @@ function UploadMedia(props) {
         variant="contained"
         endIcon={<SendIcon />}
         onClick={onMediaUpload}
+        disabled={isDisabled}
       >
         Send
       </Button>
