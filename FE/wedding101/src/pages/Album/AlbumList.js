@@ -89,7 +89,7 @@ const AlbumList = () => {
     } else {
       getAllMedia();
     }
-  }, [userSeq, likeToggle]);
+  }, [userSeq, likeToggle, media.wish]);
 
   // axios 통신으로 DB 데이터 가져오기 구현
   async function getAllMedia() {
@@ -118,11 +118,6 @@ const AlbumList = () => {
 
   const onLikeToggleHandler = () => {
     setLikeToggle(!likeToggle);
-    if (likeToggle === false) {
-      wishFilterHandler();
-    } else {
-      getAllMedia();
-    }
   };
 
   // sorting
@@ -324,6 +319,8 @@ const AlbumList = () => {
                       <MediaItem
                         media={item}
                         key={item.mediaSeq}
+                        likeToggle={likeToggle}
+                        pageHandler={pageHandler}
                         getAllMedia={getAllMedia}
                         wishFilterHandler={wishFilterHandler}
                         accessToken={accessToken}
