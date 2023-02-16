@@ -35,7 +35,6 @@ function ServiceProcess03 () {
   function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
       displayPlaces(data);
-      console.log(data);
     }
     else if (status === kakao.maps.services.Status.ZERO_RESULT) {
       alert('검색 결과가 존재하지 않습니다.');
@@ -51,8 +50,6 @@ function ServiceProcess03 () {
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
     for ( var i=0; i<places.length; i++ ) {
-
-      console.log(places[i])
     
       // 마커를 생성하고 지도에 표시합니다
       var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
@@ -124,6 +121,10 @@ function ServiceProcess03 () {
   function setAddressInfo(title, address){
     document.getElementById('weddingHallName').value = title;
     document.getElementById('weddingHallAddress').value = address;
+    setWeddingInfo({
+      weddingHallName: title,
+      weddingHallAddress: address
+    });
   }
 
   useEffect(()=>{
@@ -158,10 +159,10 @@ function ServiceProcess03 () {
   const toProcess04 = () => {
     let integratedInfo = JSON.parse(sessionStorage.getItem('integratedInfo'));
     integratedInfo.weddingHallName = weddingInfo.weddingHallName;
-    integratedInfo.weddingHallAddress = weddingInfo.weddingHallAdress;
+    integratedInfo.weddingHallAddress = weddingInfo.weddingHallAddress;
     integratedInfo.weddingHallNumber = weddingInfo.weddingHallNumber;
     integratedInfo.weddingDay = weddingDateTime.toISOString()
-    console.log(integratedInfo)
+    console.log('integratedInfo', integratedInfo)
     sessionStorage.setItem('integratedInfo', JSON.stringify(integratedInfo));
     navigate('/user/service04');
     window.scrollTo(0,0);
