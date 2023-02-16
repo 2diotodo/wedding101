@@ -2,7 +2,7 @@ FROM openjdk:11-jdk-slim
 
 RUN apt-get update &&\
     apt install ffmpeg -y &&\
-    mkdir -p /root/ffmpeg/temp
+    mkdir -p /root/ffmpeg/temp/image /root/ffmpeg/temp/video
 
 RUN apt-get install -y locales file vim sudo tzdata
 
