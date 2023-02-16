@@ -242,14 +242,16 @@ function UserModifyForm(props) {
                         <TextField  value={brideRelation} 
                                     onChange={changeBrideRelation}></TextField>
                         </div>           
-                        <Button className = "user-modify-btn"
-                            color = 'primary'
-                            startIcon="✏️"
-                            variant='contained'
-                            size='medium'
-                            onClick={ModifyInfo}>수정 완료</Button>
+                        
                     </div>
                 </Typography>
+                <Button sx={{mt:1}}
+                        className = "user-modify-btn"
+                        color = 'primary'
+                        startIcon="✏️"
+                        variant='contained'
+                        size='medium'
+                        onClick={ModifyInfo}>수정 완료</Button>
             </Box>
 
 
