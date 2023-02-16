@@ -11,6 +11,6 @@
 }
 
 
-.info-table .MuiTableBody-root .MuiTableCell-root:nth-child(1) {
+.MuiTableBody-root .MuiTableCell-root:nth-child(1) {
     font-weight: bold;
 }

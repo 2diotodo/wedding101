@@ -2,32 +2,22 @@ import './UserModifyForm.css';
 import {Modal, Box, Typography, TextField, Button} from '@mui/material';
 import {useState} from 'react';
 import axios from 'axios';
-import { useRef } from 'react';
 
 const BASEURL =  "https://wedding101.shop/api";
 function UserModifyForm(props) {
-    const [id, setId] = useState(props.data.userId)
     const [name, setName] = useState(props.data.userName)
     const [nickname, setNickname] = useState(props.data.userNickname)
     const [email, setEmail] = useState(props.data.userEmail)
 
-    const [idChange, setIdChange] = useState(false)
     const [nicknameChange, setNicknameChange] = useState(false)
     const [emailChange, setEmailChange] = useState(false)
     
-    const [idDuplicateCheck, setIdDuplicateCheck] = useState("중복확인")
     const [nicknameDuplicateCheck, setNicknameDuplicateCheck] = useState("중복확인")
     const [emailDuplicateCheck, setEmailDuplicateCheck] = useState("중복확인")
 
-    const [possibleId, setPossibleId] = useState(true)
     const [possibleNickname, setPossibleNickname] = useState(true)
     const [possibleEmail, setPossibleEmail] = useState(true)
-    const changeId = (e) => {
-        setIdChange(true) // 변함 유무 처리
-        setId(e.target.value) // 입력한 아이디로 변경
-        setIdDuplicateCheck("중복확인") // 아이디 중복확인 했어도 다시 중복확인으로 버튼 텍스트 변경
-        setPossibleId(false) // 중복확인 필요
-    }
+    
     const changeName = (e) => {setName(e.target.value)}
     const changeNickname = (e) => {
         setNicknameChange(true)
@@ -48,10 +38,7 @@ function UserModifyForm(props) {
         }
         return true;
     }
-    const checkId =()=>{
-        let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]$/;
-        return check.test(id);
-    }
+    
     const checkName =() => {
         let check = /^[ㄱ-ㅎ | ㅏ-ㅣ |가-힣]{2,12}$/; // 글자 2-12자리
         return !checkNull(name) && !check.test(name);
@@ -61,24 +48,6 @@ function UserModifyForm(props) {
         return !checkNull(email) && !check.test(email);
     }
 
-    // 중복체크
-    const checkIdDuplicate = async () => {
-        await axios ({
-            method: "GET",
-            url: `${BASEURL}/user/exist/id/`+id
-        }).then((res) => {
-            if(res.data === true) {
-                alert('사용중인 아이디입니다.')
-                setPossibleId(false)
-            }
-            else {
-                setIdDuplicateCheck("사용가능")
-                setPossibleId(true) // 중복확인함
-            }
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
     const checkNicknameDuplicate = async () => {
         await axios ({
             method: "GET",
@@ -114,23 +83,34 @@ function UserModifyForm(props) {
         })
     }
 
-
-
     const modifyUser = async () => {
-        console.log(idChange)
-        console.log(nicknameChange)
-        console.log(emailChange)
-        console.log(id)
-        // if(idChange) {
-            
-        // }
-        // if(nicknameChange) {
-
-        // }
-        // if(emailChange) {
-
-        // }
-
+        if(nicknameChange && !possibleNickname) {
+            alert('닉네임 중복확인을 진행하세요')
+            return
+        }
+        if(emailChange && !possibleEmail) {
+            alert('이메일 중복확인을 진행하세요')
+            return
+        }
+        await axios ({
+            method: "PUT",
+            url: `${BASEURL}/user`,
+            headers: {
+                "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
+            },
+            data: {
+                userId: props.data.userId,
+                userName : name,
+                userNickname: nickname,
+                userEmail: email
+            }
+        }).then((res) => {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+            alert('수정을 실패하였습니다.')
+        })
+        props.doClose();
     }
 
     return (
@@ -143,12 +123,7 @@ function UserModifyForm(props) {
 
                 {/* Modal 창 유저 글 작성 */}
                 <Typography  component="div" id="Modal__body">
-                    <div className="modify-label">수정 전 아이디 : {props.data.userId} </div>
-                    <TextField  value={id} 
-                                onChange={changeId}
-                                error={checkId()}
-                                helperText={checkId() ? "한글과 특수문자는 사용하실 수 없습니다.":""}></TextField>
-                    <Button color = 'primary' onClick={checkIdDuplicate}>{idDuplicateCheck}</Button>            
+                    <h2>{props.data.userId}님의 회원 정보</h2>
                     <div className='UM-Division-Line'></div>
                     <div className="modify-label">수정 전 이름 : {props.data.userName} </div>
                     <TextField  value={name}

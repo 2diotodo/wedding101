@@ -3,11 +3,10 @@ import axios from 'axios';
 import './InfoDetailForm.css';
 import { useEffect, useState } from 'react';
 import { Paper, TableContainer, Table, TableBody, TableCell, TableRow, Button} from '@mui/material';
-import InfoModifyForm from './InfoModifyForm'
+
 const BASEURL = "https://wedding101.shop/api"
 
-function InfoDetailForm() {
-    const [userSeq, setUserSeq] = useState();
+function InfoTable(props) {
     const [info, setInfo] = useState({
         userSeq: null,
         infoSeq: null,
@@ -37,76 +36,29 @@ function InfoDetailForm() {
         brideMotherIsAlive: null
     });
 
-
-
-    useEffect(() =>  {
-        // 컴포넌트 불러올때  getInfo() 실행
-        getUserSeq();
-        
-    }, [userSeq]);
-    
-    const accessToken = sessionStorage.getItem('accessToken');
-
-    async function getUserSeq() {
-        await axios ({
+    {props.userSeq &&
+        axios ({
             method : "GET",
-            url : `${BASEURL}/user`,
+            url : `${BASEURL}/Info?userSeq=${props.userSeq}`,
             headers : {
-                "Authorization" : "Bearer " + accessToken
-            } 
-        }).then((res) => {
-            setUserSeq(res.data.data.userSeq)
-            axios ({
-                method : "GET",
-                url : `${BASEURL}/Info?userSeq=${userSeq}`,
-                headers : {
-                    "Authorization" : "Bearer " + sessionStorage.getItem('accessToken')
-                }
-            }).then((res) => {
-                console.log(res.data.data);
-                setInfo(res.data.data);
-            }).catch((error) => {
-                console.log(error);
-                if(error.response.status === 417) {
-                    alert("결혼 정보를 등록해주세요")
-                    console.log(error.response.data.message);
-                    console.log("결혼 정보를 등록해주세요");
-                }
-            })
-        }).catch(function (error) {
-            console.log(error)
-            if(error.response.status === 417) {
-                console.log(error.response.data.message)
+                "Authorization" : "Bearer " + sessionStorage.getItem('accessToken')
             }
-            return ;
+        }).then((res) => {
+            console.log(res.data.data);
+            setInfo(res.data.data);
+        }).catch((error) => {
+            console.log(error);
+            if(error.response.status === 417) {
+                alert("결혼 정보를 등록해주세요")
+                console.log(error.response.data.message);
+                console.log("결혼 정보를 등록해주세요");
+            }
         })
     }
-    
-    function changeDate(weddingdate){
-        const date = new Date(weddingdate - 9 * 60 * 60 * 1000);
-        let dateFormat =
-            date.getFullYear() +
-            "년 " +
-            (date.getMonth() + 1) +
-            "월 " +
-            date.getDate() +
-            "일 " +
-            date.getHours() +
-            "시 " +
-            date.getMinutes() +
-            "분";
-        return dateFormat
-    }
 
-    const [infoModifyOpen, setInfoModifyOpen] = useState(false);
-    const openInfoModifyModal = () => {
-        setInfoModifyOpen((infoModifyOpen) => !infoModifyOpen)
-        getUserSeq()
-    }
 
     return (
-        <div>
-            <TableContainer component={Paper} className="info-table-container">
+        <TableContainer component={Paper} className="info-table-container">
             <Table className="info-table" sx={{minWidth:500}}  aria-label="simple table">
                 <TableBody>
                     <TableRow>
@@ -119,7 +71,7 @@ function InfoDetailForm() {
                     </TableRow>
                     <TableRow>
                         <TableCell variant="head" align="center">날짜</TableCell>
-                        <TableCell>{changeDate(info.weddingDay)}</TableCell>
+                        <TableCell>{info.weddingDay}</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell variant="head" align="center">장소</TableCell>
@@ -194,16 +146,39 @@ function InfoDetailForm() {
             </Table>
 
         </TableContainer>
-        <Button color = 'primary'
-            startIcon="✏️"
-            variant='contained'
-            size='small'
-        onClick={openInfoModifyModal}>수정하기</Button>
-        {infoModifyOpen ? <InfoModifyForm   data={info}
-                                            isOpen={infoModifyOpen}
-                                            doClose={openInfoModifyModal}
-                                            className="info-modify-form"/> : null}
-    </div>
+    )
+}
+
+function InfoDetailForm() {
+    const [userSeq, setUserSeq] = useState();
+    
+    useEffect(() =>  {
+        // 컴포넌트 불러올때  getInfo() 실행
+        getUserSeq();
+    }, []);
+    
+    const accessToken = sessionStorage.getItem('accessToken');
+
+    async function getUserSeq() {
+        await axios ({
+            method : "GET",
+            url : `${BASEURL}/user`,
+            headers : {
+                "Authorization" : "Bearer " + accessToken
+            } 
+        }).then((res) => {
+            setUserSeq(res.data.data.userSeq)
+        }).catch(function (error) {
+            console.log(error)
+            if(error.response.status === 417) {
+                console.log(error.response.data.message)
+            }
+            return ;
+        })
+    }
+    
+    return (
+        <InfoTable userSeq={userSeq}></InfoTable>
     );
 }
 export default InfoDetailForm;
