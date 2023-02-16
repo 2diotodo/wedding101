@@ -16,26 +16,34 @@ import axios from 'axios';
 const AlbumDeleted = () => {
   const [userSeq, setUserSeq] = useState('');
   const accessToken = sessionStorage.getItem('accessToken');
-  axios.get(`https://wedding101.shop/api/user`, {
-    headers: {
-      "Authorization" : "Bearer " + accessToken,
-    }
-  })
-  .then((res)=>{
-    setUserSeq(res.data.userSeq);
 
-  })
+  const baseurl = "https://wedding101.shop/api/";
+
+  // accessToken으로 userSeq 받아오기
+  async function getUserSeq() {
+    await axios
+      .get(baseurl + "user", {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data.userSeq);
+        setUserSeq(res.data.data.userSeq);
+      });
+  }
 
     const [page, setPage] = useState(1);
   // axios 통신으로 DB 데이터 가져오기 구현
   const [binMedia, setBinMedia] = useState([]);
   useEffect(() => {
+    getUserSeq();
     getDeletedMedia();
-  }, []);
+  }, [userSeq]);
   
   async function getDeletedMedia() {
     await axios
-      .get(`https://wedding101.shop/api/media/${userSeq}/bin`,{
+      .get(baseurl + `media/${userSeq}/bin`,{
         headers: {
           "Authorization" : "Bearer " + accessToken,
         }
