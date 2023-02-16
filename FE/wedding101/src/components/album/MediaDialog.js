@@ -9,21 +9,21 @@ import { useEffect } from 'react';
 import { forwardRef } from 'react';
 import { useImperativeHandle } from 'react';
 
-const MediaDialog = (({media, deleteConfirm, getAllMedia, getDeletedMedia, accessToken}) => {
-  
-const [isBin, setIsBin] = useState(media.inBin);
-
-  const [open, setOpen] = React.useState(false);
+const MediaDialog = forwardRef((props, ref) => {
+  // {media, deleteConfirm, getAllMedia, getDeletedMedia, accessToken}
+const [isBin, setIsBin] = useState(props.media.inBin);
+const [open, setOpen] = useState(false);
+const baseurl = "https://wedding101.shop/api/";
 
   useEffect(()=>{
-    console.log('mediaSeq',media.mediaSeq);
+    console.log('mediaSeq',props.media.mediaSeq);
     console.log('isBin',isBin);
-    media.inBin=isBin;
+    props.media.inBin=isBin;
   },[]);
 
-  // useImperativeHandle(ref, () => ({
-  //   handleClickOpen,
-  // }));
+  useImperativeHandle(ref, () => ({
+    handleClickOpen,
+  }));
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -32,34 +32,38 @@ const [isBin, setIsBin] = useState(media.inBin);
     setOpen(false);
   };
   const binClickHandler = async () => {
-      console.log('delete',isBin);
+    console.log('delete',isBin);
     setIsBin(isBin => !isBin);
-    console.log(media.mediaSeq);
-    await axios.put(`https://wedding101.shop/api/media/delete/${media.mediaSeq}`,{
+    console.log(props.media.mediaSeq);
+    await axios({
+      method: "PUT",
+      url: baseurl + `media/delete/${props.media.mediaSeq}`,
       headers: {
-        "Authorization" : "Bearer " + accessToken
+        "Authorization" : "Bearer " + props.accessToken
       },
       data:{
-        mediaSeq: media.mediaSeq,
+        "mediaSeq": props.media.mediaSeq,
       }
     });
-    getAllMedia();
+    props.getAllMedia();
     setOpen(false);
   }
 
   const restoreHandler = async () => {
     console.log('restore',isBin);
     setIsBin(isBin => !isBin);
-    console.log(media.mediaSeq);
-    await axios.put(`https://wedding101.shop/api/media/restore/${media.mediaSeq}`,{
+    console.log(props.media.mediaSeq);
+    await axios({
+      method: "PUT",
+      url: baseurl + `media/restore/${props.media.mediaSeq}`,
       headers: {
-        "Authorization" : "Bearer " + accessToken
+        "Authorization" : "Bearer " + props.accessToken
       },
       data:{
-        mediaSeq: media.mediaSeq,
+        "mediaSeq": props.media.mediaSeq,
       }
     });
-    getDeletedMedia();
+    props.getDeletedMedia();
     setOpen(false);
   }
 
@@ -75,7 +79,7 @@ const [isBin, setIsBin] = useState(media.inBin);
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {deleteConfirm}
+          {props.deleteConfirm}
         </DialogTitle>
 
         <DialogActions>
