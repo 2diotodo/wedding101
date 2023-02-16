@@ -119,7 +119,20 @@ function AlbumCover() {
               "Authorization" : "Bearer " + accessToken
           }
       }).then((response) => {
-          setMerriageDate(response.data.data.weddingDay);
+          const date = new Date(response.data.data.weddingDay - 9 * 60 * 60 * 1000);
+          let dateFormat =
+            date.getFullYear() +
+            "년 " +
+            (date.getMonth() + 1) +
+            "월 " +
+            date.getDate() +
+            "일" +
+            date.getHours() +
+            "시 " +
+            date.getMinutes() +
+            "분";
+
+          setMerriageDate(dateFormat);
           console.log(response)
       }).catch((error) => {
           console.log(error);
