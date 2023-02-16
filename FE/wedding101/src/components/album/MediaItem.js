@@ -65,7 +65,7 @@ const MediaItem = ({ media, getAllMedia, getDeletedMedia, accessToken }) => {
   const toggleLike = async () => {
     await axios.get(baseurl + `media/wish/${mediaSeq}`, {
       headers: {
-        Authorization: 'Bearer ' + accessToken,
+        "Authorization": 'Bearer ' + accessToken,
       },
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike((like) => !like);
