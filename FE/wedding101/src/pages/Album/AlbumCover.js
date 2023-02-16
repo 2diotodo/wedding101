@@ -91,19 +91,13 @@ function AlbumCover() {
     }).catch(function (error) {
         console.log(error);
     })
-}
-
-  useEffect(() => {
-    getUserSeq();
-    console.log('userSeq: ', albumForm.userSeq);
-    getAlbum();
-    getMerriageDate();
-  }, [albumForm.userSeq]);
+  }
 
   // 앨범정보 가져오기
   async function getAlbum() {
     if (albumForm.userSeq === null){
       alert("서비스 신청을 이용해주세요")
+      goServicePage();
     }
     else{
       await axios
@@ -126,14 +120,21 @@ function AlbumCover() {
   const showUpdateHandler = () => {
     setShowUpdate(!showUpdate);
   };
+
+  // Navigate page
+  const navigate = useNavigate();
   const onAlbumListHandler = () => {
     navigate('/album/list');
   };
-
-  const navigate = useNavigate();
   const onClickHandler = () => {
     navigate('/review');
   };
+  const goMainPage = () => {
+    navigate('/');
+  }
+  const goServicePage = () => {
+    navigate('/user/service01');
+  }
 
   // 통합본 가져오기
   const unifiedMedia = async () => {
@@ -152,6 +153,15 @@ function AlbumCover() {
         console.log('실패');
       });
   };
+
+
+  useEffect(() => {
+    getUserSeq();
+    console.log('userSeq: ', albumForm.userSeq);
+    getAlbum();
+    getMerriageDate();
+  }, [albumForm.userSeq]);
+
   return (
     <div className='album-cover'>
       <Grid2 container spacing={3}>
