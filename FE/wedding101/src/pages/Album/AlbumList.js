@@ -37,7 +37,6 @@ const AlbumList = () => {
   const [mergeVideo, setMergeVideo] = useState([]);
   const [mergePhoto, setMergePhoto] = useState([]);
   const [likeToggle, setLikeToggle] = useState(false);
-  const [unifiedName, setUnifiedName] = useState(''); // 통합본 제목 입력받기
   const [open, setOpen] = useState(false); // dialog open 관리
   const [backdropOpen, setBackdropOpen] = useState(false); // backdrop open 관리
 
@@ -54,7 +53,7 @@ const AlbumList = () => {
     await axios
       .get(baseurl + "user", {
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          "Authorization": 'Bearer ' + accessToken,
         },
       })
       .then((res) => {
@@ -68,7 +67,7 @@ const AlbumList = () => {
     await axios
       .get(baseurl + `album?userSeq=${userSeq}`, {
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          "Authorization": 'Bearer ' + accessToken,
         },
       })
       .then((res) => {
@@ -98,7 +97,7 @@ const AlbumList = () => {
     await axios
       .get(baseurl + `media/all/${userSeq}`, {
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          "Authorization": 'Bearer ' + accessToken,
         },
       })
       .then((res) => {
@@ -164,9 +163,20 @@ const AlbumList = () => {
     mediaData.jump(p);
   };
 
-  // 통합본 merge&split
+
+
+  // 통합본 제목 받을 dialog창
+  const SetTextAlert = () => {
+    const [unifiedName, setUnifiedName] = useState(''); // 통합본 제목 입력받기
+    
+    const unifiedNameHandler = (e) => {
+      setUnifiedName(e.target.value);
+      console.log(unifiedName);
+    };
+
+      // 통합본 merge&split
   const mergeSplit = () => {
-    setMergeVideo([]);
+    setMergeVideo([]);  //비우기
     setMergePhoto([]);
     console.log(merged);
     for (const value of Object.values(merged)) {
@@ -178,19 +188,69 @@ const AlbumList = () => {
     }
   };
 
-  const unifiedNameHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    setUnifiedName(e.target.value);
-  };
-  // 통합본 제목 받을 dialog창
-  const SetTextAlert = () => {
+    // 통합본신청
+  const sendRequestHandler = async () => {
+
+    setBackdropOpen(true);
+    mergeSplit();
+    console.log('video', mergeVideo);
+    console.log('photo', mergePhoto);
+    await axios
+      ({
+        method: "POST",
+        url: baseurl + `file/mergeVideo`,
+        headers: {
+          "Authorization": 'Bearer ' + accessToken,
+        },
+        data: {
+          "videoList": mergeVideo,
+          "imageList": mergePhoto,
+        },
+      })
+      .then(async(res) => {
+        console.log(res.data);
+        console.log("uni",unifiedName);
+        console.log("albumSeq", albumSeq.albumSeq)
+        const url = res.data;
+        await axios({
+          method: "POST",
+          url: baseurl + `unifiedVideo`,
+          headers: {
+            "Authorization": 'Bearer ' + accessToken,
+          },
+          data: {
+            "albumSeq": albumSeq.albumSeq,
+            "unifiedSeq": null,
+            "unifiedUrl": url,
+            "unifiedName": unifiedName,
+            "requestStatus": "2",
+            "createdAt": null,
+            "updatedAt": null
+          },
+        })
+        .then((res) => {
+          console.log("out",res.data)
+          alert('신청이 완료되었습니다.');
+        })
+        .catch((err) => {
+          console.log("unified 실패")
+        })
+      })
+      .then((res) => {
+        alert('앨범표지에서 신청본을 확인해보세요');
+      })
+      .catch((err) => {
+        console.log('merge실패!');
+      })
+      .finally(handleClose(), setBackdropOpen(false));
+  };  
+
     return (
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>통합본을 신청하시겠습니까?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            신청할 통합본 제목을 입력하세요. \r\n북마크 앨범이 하나의 미디어로 제공됩니다.
+            신청할 통합본 제목을 입력하세요. <br />북마크 앨범이 하나의 미디어로 제공됩니다.
           </DialogContentText>
           <TextField
             autoFocus
@@ -211,59 +271,7 @@ const AlbumList = () => {
       </Dialog>
     );
   };
-  // 통합본신청
-  const sendRequestHandler = async () => {
-    setBackdropOpen(true);
-    mergeSplit();
-    console.log('video', mergeVideo);
-    console.log('photo', mergePhoto);
-    await axios
-      ({
-        method: "POST",
-        url: baseurl + `file/mergeVideo`,
-        headers: {
-          "Authorization": 'Bearer ' + accessToken,
-        },
-        data: {
-          "videoList": mergeVideo,
-          "imageList": mergePhoto,
-        },
-      })
-      .then(async(res) => {
-        console.log(res.data);
-        console.log("uni",unifiedName);
-        const url = res.data;
-        await axios({
-          method: "POST",
-          url: baseurl + `unifiedVideo`,
-          headers: {
-            "Authorization": 'Bearer ' + accessToken,
-          },
-          data: {
-            // "albumSeq": albumSeq,
-            "unifiedSeq": null,
-            "unifiedUrl": url,
-            "unifiedName": unifiedName,
-            "requestStatus": 2,
-            "createdAt": null,
-            "updatedAt": null,
-          },
-        })
-        .then((res) => {
-          alert('신청이 완료되었습니다.');
-        })
-        .catch((err) => {
-          console.log("unified 실패")
-        })
-      })
-      .then((res) => {
-        alert('앨범표지에서 신청본을 확인해보세요');
-      })
-      .catch((err) => {
-        console.log('merge실패!');
-      })
-      .finally(handleClose(), setBackdropOpen(false));
-  };
+  
 
   return (
     <div className='album-list'>
@@ -289,7 +297,7 @@ const AlbumList = () => {
           <div className='filter-icons'>
             <div className='reset-icon'>
               <Button onClick={getAllMedia}>All</Button>
-              <FormControlLabel control={<Switch onChange={onLikeToggleHandler} />} label='Like?' />
+              <FormControlLabel control={<Switch  onChange={onLikeToggleHandler} />} label='Like?' />
             </div>
             <div className='wish-icon'>
               <Star onClick={wishFilterHandler} />
@@ -314,6 +322,7 @@ const AlbumList = () => {
                         media={item}
                         key={item.mediaSeq}
                         getAllMedia={getAllMedia}
+                        wishFilterHandler={wishFilterHandler}
                         accessToken={accessToken}
                       />
                     ))

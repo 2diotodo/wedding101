@@ -40,17 +40,7 @@ function AlbumCover() {
   const [unifyCheck, setUnifyCheck] = useState(false); // 통합본 신청여부
   const [userAlbumSeq, setAlbumSeq] = useState();
   const [userSeq, setUserSeq] = useState();
-  const [mergedMedia, setMergedMedia] = useState([
-    {
-      albumSeq: '',
-      createdAt: '',
-      requestStatus: '',
-      unifiedName: '',
-      unifiedSeq: 0,
-      unifiedUrl: '',
-      updatedAt: '',
-    },
-  ]);
+  const [mergedMedia, setMergedMedia] = useState('');
   const albumCoverUrl = `${BASEURL}/file/uploadAlbumCover`;
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } = useUploadMedia(albumCoverUrl, accessToken);
 
@@ -68,7 +58,7 @@ function AlbumCover() {
       await axios
         .get(`${BASEURL}/user`, {
           headers: {
-            Authorization: 'Bearer ' + accessToken,
+            "Authorization": 'Bearer ' + accessToken,
           },
       })
         .then((res) => {
@@ -87,7 +77,7 @@ function AlbumCover() {
       await axios
         .get(`${BASEURL}/album?userSeq=${userSeq}`, {
           headers: {
-            Authorization: 'Bearer ' + accessToken,
+            "Authorization": 'Bearer ' + accessToken,
           },
         })
         .then((res) => {
@@ -151,17 +141,20 @@ function AlbumCover() {
     await axios
       .get(`${BASEURL}/unifiedVideo/all/${albumForm.albumSeq}`, {
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          "Authorization": 'Bearer ' + accessToken,
         },
       })
       .then((res) => {
         console.log('setMedia 성공');
-        console.log(res.data);
-        setMergedMedia([...mergedMedia], res.data);
+        console.log(res.data.data);
+        // setMergedMedia([...mergedMedia, res.data.data]);
+        setMergedMedia(res.data.data);
       })
       .catch((err) => {
-        console.log('실패');
+        console.log('통합본가져오기실패');
       });
+  console.log('mergedmedia',mergedMedia);
+
   };
 
 
@@ -169,6 +162,7 @@ function AlbumCover() {
     getUserSeq();
     getAlbum();
     getMerriageDate();
+
   }, [userSeq]);
 
   console.log(merriageDate);
@@ -185,9 +179,9 @@ function AlbumCover() {
             <Button onClick={unifiedMedia}>통합본 확인하기</Button>
           </div>
           <div className='merged-list'>
-            <List component='nav' aria-label='merged-list'>
-              {mergedMedia && mergedMedia.length > 0
-                ? mergedMedia.map((item) => <MergedItem mergedMedia={item} key={item.index} />)
+            <List  aria-label='merged-list'>
+              {mergedMedia.length > 0
+                ? mergedMedia.map((item) => (<MergedItem mergedMedia={item} key={item.unifiedSeq} />))
                 : null}
             </List>
           </div>
