@@ -27,7 +27,15 @@ const style = {
   p: 0,
 };
 
-const MediaItem = ({ media, getAllMedia, wishFilterHandler, getDeletedMedia, accessToken }) => {
+const MediaItem = ({
+  media,
+  likeToggle,
+  pageHandler,
+  getAllMedia,
+  wishFilterHandler,
+  getDeletedMedia,
+  accessToken,
+}) => {
   const {
     mediaSeq,
     albumSeq,
@@ -41,7 +49,7 @@ const MediaItem = ({ media, getAllMedia, wishFilterHandler, getDeletedMedia, acc
     wish,
     inBin,
   } = media;
-  const [like, setLike] = useState(wish);
+  const [like, setLike] = useState(wish); // 좋아요상태
   const [open, setOpen] = useState(false);
   const [isBin, setIsBin] = useState(inBin);
 
@@ -49,28 +57,38 @@ const MediaItem = ({ media, getAllMedia, wishFilterHandler, getDeletedMedia, acc
   const handleClose = () => setOpen(false);
 
   const menuRef = useRef({});
-  const baseurl = "https://wedding101.shop/api/";
+  const baseurl = 'https://wedding101.shop/api/';
   const deleteConfirm = inBin === false ? '삭제하시겠습니까?' : '복원하시겠습니까?';
 
-  const dialogOpen = () => {
+  const dialogOpen = (e) => {
+    e.preventDefault();
     menuRef.current.handleClickOpen();
   };
 
   useEffect(() => {
+    if (media.inBin === true) {
+      getDeletedMedia();
+    } else if (likeToggle === true) {
+      wishFilterHandler();
+    } else {
+      getAllMedia();
+    }
     media.wish = like;
     media.inBin = isBin;
-  }, [like, isBin]);
+  }, [like, isBin, media.wish]);
 
   const toggleLike = async () => {
     await axios.get(baseurl + `media/wish/${mediaSeq}`, {
       headers: {
-        "Authorization": 'Bearer ' + accessToken,
+        Authorization: 'Bearer ' + accessToken,
       },
     }); // [POST] 사용자가 좋아요를 누름 -> DB 갱신
     setLike((like) => !like);
-    
-    getAllMedia();
-    wishFilterHandler();
+    if (likeToggle === true) {
+      wishFilterHandler();
+    } else {
+      getAllMedia();
+    }
   };
 
   return (
@@ -81,12 +99,16 @@ const MediaItem = ({ media, getAllMedia, wishFilterHandler, getDeletedMedia, acc
           avatar={video ? <Videocam /> : <CameraAlt />}
           action={
             <IconButton aria-label='star' onClick={toggleLike}>
-              {like ? <Star fontSize='small' /> : <StarBorder fontSize='small' />}
+              {like ? <Star color='warning' fontSize='small' /> : <StarBorder fontSize='small' />}
             </IconButton>
           }
         ></CardHeader>
         {/* Card 본문 */}
-        <CardActionArea sx={{ width: 200, height: 200 }} onClick={handleOpen} onContextMenu={dialogOpen}>
+        <CardActionArea
+          sx={{ width: 200, height: 200 }}
+          onClick={handleOpen}
+          onContextMenu={dialogOpen}
+        >
           <CardMedia component='img' height='200px' image={urlToImg} alt='img' />
           <CardContent sx={{ width: 200, height: 100 }}>
             <Typography gutterBottom variant='h5' component='div'>
@@ -112,7 +134,7 @@ const MediaItem = ({ media, getAllMedia, wishFilterHandler, getDeletedMedia, acc
           ) : (
             <img src={storageUrl} alt={storageUrl} width='600px' height='800px' />
           )}
-          <Typography id='modal-modal-title' variant='h6' component='h2' >
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
             {mediaName}
           </Typography>
         </Box>
