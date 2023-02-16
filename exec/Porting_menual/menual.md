@@ -86,14 +86,13 @@
       볼륨을 마운트하는 대상이 된다. 따라서 젠킨스가 껐다 켜져도 원상복구가 된다<br><br>
 
     c. 자동 배포를 위한 설정 파일 구성
-
-    |docker-compose.yaml|Dockerfile(BE)|Dockerfile(FE)|
-    |:------:|:--:|:--:|
-    |jenkins, nginx, mysql|Spring|React|
-
-    <details><summary>docker-compose.yaml</summary>
+    - 파일 별 역할 
+        |docker-compose.yaml|Dockerfile(BE)|Dockerfile(FE)|pipeline|
+        |:------:|:--:|:--:|:--:|
+        |jenkins, nginx, mysql|Spring|React|Jenkins|
+    - 파일 별 환경 설정
+    - ***<h3>docker-compose.yaml</h3>***
     ```yaml
-
         version: "3"
         services:
             jenkins:
@@ -140,8 +139,288 @@
                     - ./nginx/conf.d:/etc/nginx/conf.d
                     - /etc/letsencrypt:/etc/letsencrypt
                     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-  
+
     ```
+    - ***<h3>Spring Dockerfile</h3>***
+      - BE dockerfile 은 프로젝트 깃랩 레포지토리의 BE/wedding101 에 위치해 있는 상태이다
+      - ```sh
+        ~$ls ~/S08P12A101/BE/wedding101
+        Dockerfile  del_old_spring_container.sh 
+        build.gradle    gradle  gradlew gradle.properties  src     gradlew.bat     settings.gradle  logs 
+        ```
+      - Jenkins 가 동작하는 workspace 는 gitlab push 시그널 (webhook) 에 맞춰 자동으로
+        S08P12A101 깃랩 레포지토리를 Clone 해와서 빌드 + Dockerfile 기반 배포 진행하게 되는데, Dockerfile 은 아래와 같다. ffmpeg 은 추후 BE 에서 영상 통합본을 만드는데 필요한 라이브러리로, 파일이 저장되 경로를 설정했다
+        ```sh
+        ~$cat ~/S08P12A101/BE/wedding101/Dockerfile
+        FROM openjdk:11-jdk-slim
+
+        RUN apt-get update &&\
+            apt install ffmpeg -y &&\
+            mkdir -p /root/ffmpeg/temp/image /root/ffmpeg/temp/video
+
+        RUN apt-get install -y locales file vim sudo tzdata
+
+        RUN locale-gen ko_KR.UTF-8
+        RUN sudo sed -i 's/^# \(ko_KR.UTF-8\)/\1/' /etc/locale.gen
+        RUN sudo locale-gen
+
+        ARG JAR_FILE=build/libs/*.jar
+        ENV TZ="Asia/Seoul"
+
+        COPY ${JAR_FILE} app.jar
+
+        ENTRYPOINT ["java", "-jar", "/app.jar"]
+        ```
+      - 같은 이름의 도커 컨테이너가 존재하는 경우 기존의 컨테이너를 내리고, 지워줘야한다
+        이를 위해 셸 스크립트를 작성하였다.
+        ```sh
+        #!/bin/bash
+        # 1. for removing '<none>:<none>' docker image
+        #    you can check this on the official documentation
+        #    https://docs.docker.com/engine/reference/commandline/images/
+        DANGLING_DOCKER_IMAGE=$(docker images -f "dangling=true" -q)
+
+        # 2. for removing 'spring-server' container previously made
+        #    'PRE_JAVA_CONTAINER' has all the value which has been made before
+        #    'PRE_JAVA_IMAGE', 'PRE_JAVA_TAG' for checking docker images which has "spring-server"
+        PRE_JAVA_CONTAINER=$(docker ps -a | grep "java -jar" | awk '{print $1}')
+        PRE_JAVA_IMAGE=$(docker images -a | grep "spring-server" | awk '{print $1}')
+        PRE_JAVA_TAG=$(docker images -a | grep "spring-server" | awk '{print $2}')
+
+        if [ -n "$PRE_JAVA_CONTAINER" ] ; then
+                echo "Removing $PRE_JAVA_CONTAINER where command including 'java -jar'"
+                echo 'y' | docker system prune
+                docker stop $PRE_JAVA_CONTAINER
+                docker rm $PRE_JAVA_CONTAINER
+        else
+                echo "Great. There's no pre-container where command is 'java -jar'.."
+        fi
+
+        if [ -n "$DANGLING_DOCKER_IMAGE" ] ; then
+                echo "Removing image-$DANGLING_DOCKER_IMAGE(<none>:<none>).."
+                docker rmi $DANGLING_DOCKER_IMAGE
+        else
+                echo "Great. There's no danling docker images(<none>:<none>).."
+        fi
+
+        if [ -n "$PRE_JAVA_IMAGE" ] ; then
+                echo "Removing previous $PRE_JAVA_IMAGE:$PRE_JAVA_TAG.."
+                docker rmi -f $PRE_JAVA_IMAGE:$PRE_JAVA_TAG
+                echo 'y' | docker system prune
+        else
+                echo "Great. There's no previous $PRE_JAVA_IMAGE:$PRE_JAVA_TAG"
+        fi
+        ```
+
+   - ***<h3>React Dockerfile</h3>***
+      - FE dockerfile 은 프로젝트 깃랩 레포지토리의 FE/wedding101 에 위치해 있는 상태이다
+      - ```sh
+        ~$ls ~/S08P12A101/FE/wedding101
+        Dockerfile                 build                      node_modules               package-lock.json          public
+        README.md                  del_old_react_container.sh npm_start.sh               package.json               src
+        ```
+      - Jenkins 가 동작하는 workspace 는 gitlab push 시그널 (webhook) 에 맞춰 자동으로
+        S08P12A101 깃랩 레포지토리를 Clone 해와서 빌드 + Dockerfile 기반 배포 진행하게 되는데, Dockerfile 은 아래와 같다
+        ```sh
+        ~$cat ~/S08P12A101/FE/wedding101/Dockerfile
+        FROM node:18.13.0
+        WORKDIR /usr/src/app
+        COPY ./package* /usr/src/app/
+        RUN npm install
+        RUN npm install -g serve
+        COPY ./ /usr/src/app/
+        RUN npm run build
+        ENTRYPOINT ["serve", "-s", "build"]
+        ```
+      - 같은 이름의 도커 컨테이너가 존재하는 경우 기존의 컨테이너를 내리고, 지워줘야한다
+        이를 위해 셸 스크립트를 작성하였다.
+        ```sh
+        #!/bin/bash
+        # 1. for removing '<none>:<none>' docker image
+        #    you can check this on the official documentation
+        #    https://docs.docker.com/engine/reference/commandline/images/
+        DANGLING_DOCKER_IMAGE=$(docker images -a | grep none | awk '{print $3}')
+
+        # 2. for removing 'react' container previously made
+        #    'PRE_REACT_CONTAINER' has all the value which has been made before
+        #    'PRE_REACT_IMAGE', 'PRE_REACT_TAG' for checking docker images which has "react"
+        PRE_REACT_CONTAINER=$(docker ps -a | grep "react" | awk '{print $1}')
+        PRE_REACT_IMAGE=$(docker images -a | grep "react" | awk '{print $1}')
+        PRE_REACT_TAG=$(docker images -a | grep "react" | awk '{print $2}')
+
+        if [ -n "$PRE_REACT_CONTAINER" ] ; then
+                echo "Removing $PRE_REACT_CONTAINER where command including 'react'"
+                echo 'y' | docker system prune
+                docker stop $PRE_REACT_CONTAINER
+                docker rm $PRE_REACT_CONTAINER
+        else
+                echo "Great. There's no pre-container where command is 'react'.."
+        fi
+
+        if [ -n "$DANGLING_DOCKER_IMAGE" ] ; then
+                echo "Removing image-$DANGLING_DOCKER_IMAGE(<none>:<none>).."
+                docker rmi $DANGLING_DOCKER_IMAGE -f
+        else
+                echo "Great. There's no danling docker images(<none>:<none>).."
+        fi
+
+        if [ -n "$PRE_REACT_IMAGE" ] ; then
+                echo "Removing previous $PRE_REACT_IMAGE:$PRE_REACT_TAG.."
+                docker rmi -f $PRE_REACT_IMAGE:$PRE_REACT_TAG
+                echo 'y' | docker system prune
+        else
+                echo "Great. There's no previous $PRE_REACT_IMAGE:$PRE_REACT_TAG"
+        fi
+        ```
+   - ***<h3>Jenkins Pipeline script</h3>***
+     - jenkins 에 적용되는 파이프라인 스크립트는 다음과 같다
+     - git url 에는 본인의 레포지토리 주소가 들어간다
+     - docker-compose 를 진행한 Jenkins, nginx, mysql 은 도커 네트워크가 따로 잡힌다
+       - 따라서 react, spring 컨테이너를 띄울때 docker-compose 네트워크 포함시켜야한다
+        ```
+        pipeline {
+            agent any
+                stages {
+                    stage('Prepare') {
+                    steps {
+                        echo 'Clonning Repository'
+                        git url: 'https://lab....com/.../S08P12A101',
+                        branch: 'develop',
+                        credentialsId: 'gitlab-credential'
+                        }
+                        post {
+                        success { 
+                        echo 'Successfully Cloned Repository'
+                        }
+                            failure {
+                        error 'This pipeline stops here...'
+                        }
+                    }
+                    }
+                    
+                    stage('BE - Bulid') {
+                    steps {
+                        echo 'Bulid Gradle'
+                        dir('BE/wedding101'){
+                            sh 'chmod +X ./gradlew'
+                            sh './gradlew clean build'
+                        }
+                    }
+                    post {
+                        failure {
+                        error 'This pipeline stops here...'
+                        }
+                    }
+                    }
+                    
+                    stage('BE - Deploy'){
+                        steps {
+                            dir('BE/wedding101'){
+                                echo 'Check current working docker container'
+                                sh 'chmod +X ./del_old_spring_container.sh'
+                                sh './del_old_spring_container.sh'
+                                sh 'cat ./Dockerfile'
+                                echo 'Docker build and run spring-boot container'
+                                sh 'docker ps'
+                                sh 'docker images'
+                                sh 'docker build -t spring-server:latest .'
+                                sh 'docker run -d -p 8085:9090 \
+                                    --network dockerfiles_default \
+                                    --name spring spring-server:latest '
+                                sh 'docker ps'
+                                sh 'docker images'
+                            }
+                        }
+                    }
+                    
+                    stage('FE - Bulid') {
+                        steps {
+                            echo 'Bulid React'
+                            dir('FE/wedding101'){
+                                echo 'React Docker container build'
+                                sh 'cat ./Dockerfile'
+                                sh 'docker ps'
+                                sh 'docker images'
+                                sh 'chmod +X ./del_old_react_container.sh'
+                                sh './del_old_react_container.sh'
+                                sh 'docker build -t react:latest -f ./Dockerfile .'
+                            }
+                        }
+                    }
+                    
+                    stage('FE - Deploy') {
+                        agent any
+                        steps {
+                            dir('FE/wedding101'){
+                                echo 'Check current working docker container'
+                                sh 'docker ps'
+                                sh 'docker images'
+                                sh 'docker run -d --name react \
+                                --network dockerfiles_default \
+                                -p 3000:3000 react:latest'
+                                sh 'docker ps'
+                                sh 'docker images'
+                            }
+                        }
+                    }
+                }
+            }
+        ```
+---
+3. 기타 환경 설정 및 파일
+- NGINX
+  - nginx.conf : 모바일에서 영상 업로드시 용량 제한 존재 
+    - 이를 해결 하기 위한 http block 에 아래의 옵션 추가 
+    - ```client_max_body_size 50M;```
+  - ~/Dockerfiles/nginx/conf.d/deafult.conf
+    - reverse proxy 설정 + https (ssl 키 적용)
+        ```
+        server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
+
+            server_name wedding101.shop;
+
+            return 301 https://$server_name$request_uri;
+        }
+
+        server {
+            listen 443 ssl;
+            listen [::]:443 ssl;
+
+            ssl_certificate /etc/letsencrypt/live/wedding101.shop/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/wedding101.shop/privkey.pem;
+
+            location / {
+                proxy_pass http://wedding101.shop:3000;
+            }
+            location /api/ {
+                proxy_pass http://wedding101.shop:8085/;
+            }
+        }
+        ```****
+- Jenkins
+    <details><summary>플러그인</summary>
+      - Bitbucket Pipeline for Blue Ocean <br>
+      - Dashboard for Blue Ocean <br>
+      - Personalization for Blue Ocean <br>
+      - Display URL for Blue Ocean <br>
+      - Server Sent Events (SSE) Gateway <br>
+      - Events API for Blue Ocean <br>
+      - Blue Ocean Pipeline Editor <br>
+      - i18n for Blue Ocean <br>
+      - Autofavorite for Blue Ocean <br>
+      - Blue Ocean <br>
+      - NodeJS <br>
+      - GitLab <br>
+      - Generic Webhook Trigger <br>
+      - Gitlab Authentication <br>
+      - Gitlab API <br>
+      - GitLab Branch Source <br>
+      - Gitlab Merge Request Builder <br>
+      - Config File Provider <br>
+      - Docker <br>
+      - Docker Pipeline <br>
+      - docker-build-step
     </details>
-    
-3) 
+
