@@ -41,7 +41,7 @@ function ServiceProcess04 () {
     const submitWeddingInfo = () => {
         
         console.log(processForm);
-        axios.post(`https://wedding101.shop/api/Info`, processForm,{
+        axios.post(`https://wedding101.shop/api/Info`, processForm, {
             headers : {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
         }).then(function (response) {
             console.log(response);
