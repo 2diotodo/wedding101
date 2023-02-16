@@ -222,24 +222,25 @@ const AlbumList = () => {
         method: "POST",
         url: baseurl + `file/mergeVideo`,
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          "Authorization": 'Bearer ' + accessToken,
         },
         data: {
           "videoList": mergeVideo,
           "imageList": mergePhoto,
         },
       })
-      .then((res) => {
+      .then(async(res) => {
         console.log(res.data);
+        console.log("uni",unifiedName);
         const url = res.data;
-         axios({
+        await axios({
           method: "POST",
           url: baseurl + `unifiedVideo`,
           headers: {
-            Authorization: 'Bearer ' + accessToken,
+            "Authorization": 'Bearer ' + accessToken,
           },
           data: {
-            "albumSeq": albumSeq,
+            // "albumSeq": albumSeq,
             "unifiedSeq": null,
             "unifiedUrl": url,
             "unifiedName": unifiedName,
@@ -247,14 +248,19 @@ const AlbumList = () => {
             "createdAt": null,
             "updatedAt": null,
           },
-        });
+        })
+        .then((res) => {
+          alert('신청이 완료되었습니다.');
+        })
+        .catch((err) => {
+          console.log("unified 실패")
+        })
       })
       .then((res) => {
-        alert('신청이 완료되었습니다.');
         alert('앨범표지에서 신청본을 확인해보세요');
       })
       .catch((err) => {
-        console.log('실패!');
+        console.log('merge실패!');
       })
       .finally(handleClose(), setBackdropOpen(false));
   };
