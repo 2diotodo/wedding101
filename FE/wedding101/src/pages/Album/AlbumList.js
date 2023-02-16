@@ -29,6 +29,7 @@ import axios from 'axios';
 
 const AlbumList = () => {
   const [userSeq, setUserSeq] = useState('');
+  const [albumSeq, setAlbumSeq] = useState('');
   const accessToken = sessionStorage.getItem('accessToken');
 
   const [page, setPage] = useState(1);
@@ -40,6 +41,7 @@ const AlbumList = () => {
   const [open, setOpen] = useState(false); // dialog open 관리
   const [backdropOpen, setBackdropOpen] = useState(false); // backdrop open 관리
 
+  const baseurl = "https://wedding101.shop/api/"
   // title dialog open
   const handleClickOpen = () => {
     setOpen(true);
@@ -50,7 +52,7 @@ const AlbumList = () => {
   // accessToken으로 userSeq 받아오기
   async function getUserSeq() {
     await axios
-      .get(`https://wedding101.shop/api/user`, {
+      .get(baseurl + "user", {
         headers: {
           Authorization: 'Bearer ' + accessToken,
         },
@@ -60,9 +62,29 @@ const AlbumList = () => {
         setUserSeq(res.data.data.userSeq);
       });
   }
+
+  // 앨범정보 가져오기
+  async function getAlbum() {
+    await axios
+      .get(baseurl + `album?userSeq=${userSeq}`, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        },
+      })
+      .then((res) => {
+        setAlbumSeq(res.data.data);
+        console.log(res.data.data);
+        console.log('setAlbumSeq 성공');
+      })
+      .catch((err) => {
+        console.log('실패');
+      });
+  }
+
   useEffect(() => {
     getUserSeq();
     getAllMedia();
+    getAlbum()
     if (likeToggle === true) {
       wishFilterHandler();
     } else {
@@ -74,7 +96,7 @@ const AlbumList = () => {
   async function getAllMedia() {
     console.log('hey', userSeq);
     await axios
-      .get(`https://wedding101.shop/api/media/all/${userSeq}`, {
+      .get(baseurl + `media/all/${userSeq}`, {
         headers: {
           Authorization: 'Bearer ' + accessToken,
         },
@@ -196,25 +218,34 @@ const AlbumList = () => {
     console.log('video', mergeVideo);
     console.log('photo', mergePhoto);
     await axios
-      .post(`https://wedding101.shop/api/file/mergeVideo`, {
+      ({
+        method: "POST",
+        url: baseurl + `file/mergeVideo`,
         headers: {
           Authorization: 'Bearer ' + accessToken,
         },
         data: {
-          videoList: mergeVideo,
-          imageList: mergePhoto,
+          "videoList": mergeVideo,
+          "imageList": mergePhoto,
         },
       })
-      .then(async (res) => {
+      .then((res) => {
         console.log(res.data);
-        await axios.post(`https://wedding101.shop/api/unifiedVideo`, {
+        const url = res.data;
+         axios({
+          method: "POST",
+          url: baseurl + `unifiedVideo`,
           headers: {
             Authorization: 'Bearer ' + accessToken,
           },
           data: {
-            albumSeq: '',
-            unifiedName: unifiedName,
-            unifiedUrl: res.data,
+            "albumSeq": albumSeq,
+            "unifiedSeq": null,
+            "unifiedUrl": url,
+            "unifiedName": unifiedName,
+            "requestStatus": 2,
+            "createdAt": null,
+            "updatedAt": null,
           },
         });
       })
