@@ -11,7 +11,8 @@ import java.util.List;
 @Repository
 public interface MediaRepository extends JpaRepository<Media, Long> {
     @Query(nativeQuery = true, value = "select * " +
-            "from tbl_media where album_seq = :albumSeq and is_in_bin = false")
+            "from tbl_media where album_seq = :albumSeq and is_in_bin = false " +
+            "order by media_seq desc")
     List<Media> findAllByAlbumSeq(@Param("albumSeq") Long albumSeq);
 
     @Query(nativeQuery = true, value = "select * " +
