@@ -291,7 +291,7 @@ function UploadMedia(props) {
 function WeddingInfo(props) {
   return (
     <div className="weddingInfo">
-      <WeddingCalendar date={props.datetime} />
+      <WeddingCalendar date={props.datetime - 9 * 60 * 60 * 1000} />
       <div className="weddingPlace"></div>
       <div className="weddingTransportation"></div>
     </div>
@@ -324,7 +324,7 @@ function WeddingPhotoCarousel(props) {
 function WeddingSummary(props) {
   console.log(props);
 
-  const date = new Date(props.datetime);
+  const date = new Date(props.datetime - 9 * 60 * 60 * 1000);
   let dateFormat =
     date.getFullYear() +
     "년 " +
