@@ -132,26 +132,33 @@ function UserModifyForm(props) {
                                 helperText={checkName() ? "한글 이름을 입력하세요":""}></TextField>
                     <div className='UM-Division-Line'></div>
                     <div className="modify-label">수정 전 닉네임 : {props.data.userNickname} </div>
-                    <TextField  value={nickname} 
-                                onChange={changeNickname}></TextField>
-                    <Button color = 'primary' onClick={checkNicknameDuplicate} >{nicknameDuplicateCheck}</Button>
+                    <div className='duplicate-btn'>
+                        <TextField  value={nickname} 
+                                    onChange={changeNickname}></TextField>
+                        <Button color = 'primary' onClick={checkNicknameDuplicate} >{nicknameDuplicateCheck}</Button>
+                    </div>
                     <div className='UM-Division-Line'></div>
                     <div className="modify-label">수정 전 이메일 : {props.data.userEmail} </div>
-                    <TextField  value={email} 
-                                onChange={changeEmail}
-                                error={checkEmail()}
-                                helperText={checkEmail() ? "유효하지 않은 이메일입니다.":""}
-                                sx={{width:{sm:200, md:300}}}></TextField>
-                    <Button color = 'primary' onClick={checkEmailDuplicate} >{emailDuplicateCheck}</Button>
+                    <div className='duplicate-btn'>
+                        <TextField  value={email} 
+                                    onChange={changeEmail}
+                                    error={checkEmail()}
+                                    helperText={checkEmail() ? "유효하지 않은 이메일입니다.":""}
+                                    sx={{width:{sm:200, md:300}}}></TextField>
+                        <Button color = 'primary' onClick={checkEmailDuplicate} >{emailDuplicateCheck}</Button>
+                    </div>
                     <div></div>
-                    <Button className = "user-modify-btn"
-                            color = 'primary'
-                            startIcon="✏️"
-                            variant='contained'
-                            size='medium'
-                            onClick={modifyUser}>수정 완료</Button>
+                    
                 </Typography>
+                <Button className = "user-modify-btn"
+                        sx ={{mt:1}}
+                        color = 'primary'
+                        startIcon="✏️"
+                        variant='contained'
+                        size='medium'
+                        onClick={modifyUser}>수정 완료</Button>
             </Box>
+           
         </Modal>
     );
 }

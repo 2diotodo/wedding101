@@ -70,15 +70,16 @@ function UserDetailForm() {
     return (
         <div>
             <UserTable data = {user} className="user-table"/>
-            <Button color = 'primary'
+            <Button sx ={{mt:1}}
+                    color = 'primary'
                     startIcon="✏️"
                     variant='contained'
                     size='small'
                     onClick={openModifyModal}>수정하기</Button>
-            {userModifyOpen ? <UserModifyForm data={user} 
-                                            isOpen={userModifyOpen}
-                                            doClose={openModifyModal} 
-                                            className="user-modify-form" /> : null}
+            {userModifyOpen ? <UserModifyForm   data={user} 
+                                                isOpen={userModifyOpen}
+                                                doClose={openModifyModal} 
+                                                className="user-modify-form" /> : null}
         </div>
     );
 }
