@@ -58,7 +58,8 @@ const useUploadMedia = (propsurl, accessToken) => {
   };
   // file 크기 초과검사
   const isValidFile = (file) => {
-    if (file.size > 20 * 1024 * 1024) {
+    alert(`파일 크기가 ${file.size} 입니다`)
+    if (file.size > 20 * 1024 * 1024 ) {
       console.error("File size exceeds 20MB");
       return false;
     }
