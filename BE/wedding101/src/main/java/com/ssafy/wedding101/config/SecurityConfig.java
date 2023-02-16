@@ -69,7 +69,7 @@ public class SecurityConfig {
     private static final String[] permitAllGetMethod = {
             "/album/access/*", "/invitation/*", "/qna/all", "/qna/*", "/review/all",
             "/review/*", "/user/exist/nickname/*", "^/user/exist/id/*", "/user/exist/email/*",
-            "/user/find/id/*"
+            "/user/find/id/*", "/user/all"
     };
 
     // Security Authorization : HTTPMethod POST 전체 허용하는 API
