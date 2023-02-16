@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
+import addHours from "date-fns/addHours";
 import "react-datepicker/dist/react-datepicker.css";
 
 const { kakao } = window;
@@ -139,7 +140,12 @@ function ServiceProcess03 () {
     setPs(new kakao.maps.services.Places());
   }, []);
 
-  const [weddingDateTime, setWeddingDateTime] = useState(setHours(setMinutes(new Date(), 0),9));
+  const [weddingDateTime, setWeddingDateTime] = useState({
+    date: new Date(),
+    time: new Date()
+  }
+    
+  );
   const [weddingInfo, setWeddingInfo] = useState({
     weddingHallName: "string",
     weddingHallAddress: "string",
@@ -161,7 +167,11 @@ function ServiceProcess03 () {
     integratedInfo.weddingHallName = weddingInfo.weddingHallName;
     integratedInfo.weddingHallAddress = weddingInfo.weddingHallAddress;
     integratedInfo.weddingHallNumber = weddingInfo.weddingHallNumber;
-    integratedInfo.weddingDay = weddingDateTime.toISOString()
+    const dayString = weddingDateTime.date.toISOString()
+    const timeString = weddingDateTime.time.toISOString()
+    const newDayTime = dayString.substring(0,10) + timeString.substring(10)
+    console.log(newDayTime)
+    integratedInfo.weddingDay = newDayTime;
     console.log('integratedInfo', integratedInfo)
     sessionStorage.setItem('integratedInfo', JSON.stringify(integratedInfo));
     navigate('/user/service04');
@@ -207,15 +217,16 @@ function ServiceProcess03 () {
                       <p style={{width: '30%', fontSize: '2vh'}}>예식 날짜</p>
                       <DatePicker
                         minDate={new Date()}
-                        selected={weddingDateTime}
-                        onChange={date => {
-                          setWeddingDateTime(weddingDateTime.setDate(date.getDate()));
-                        }}/>
+                        selected={weddingDateTime.date}
+                        onChange={date => setWeddingDateTime({
+                          ...weddingDateTime,
+                          date: date
+                        })}/>
                     </div>
                     <div className='horizontalLayout spaceBetween'>
                       <p style={{width: '30%', fontSize: '2vh'}}>예식 시간</p>
                       <DatePicker
-                        selected={weddingDateTime}
+                        selected={weddingDateTime.time}
                         showTimeSelect
                         showTimeSelectOnly
                         minTime={setHours(setMinutes(new Date(),0),9)}
@@ -225,10 +236,11 @@ function ServiceProcess03 () {
                         dateFormat="HH:mm"
                         timeFormat="HH:mm"
                         onChange={time => {
-                          console.log(time)
-                          weddingDateTime.setHours(time.getHours()+9).setMinutes(time.setMinutes())
-                          setWeddingDateTime(weddingDateTime);
-                        }}
+                          setWeddingDateTime({
+                          ...weddingDateTime,
+                          time: time
+                        });
+                        console.log(time)}}
                         />
                     </div>
                   </div>
