@@ -10,6 +10,14 @@
 }
 
 .user-modify-btn {
-    float: right;
-    margin-top: 2.5%;
+    margin-top: 3%;
+    border-top: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.duplicate-btn {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: flex-end;
+
 }
