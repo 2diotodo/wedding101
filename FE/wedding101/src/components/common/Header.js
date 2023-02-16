@@ -101,33 +101,33 @@ function Header() {
 
         <div  className='header-font-group'>
             <div  className='header-font-tag'
-                  onClick={navigateToHome}>ABOUT</div>
+                  onClick={navigateToHome}>ABOUT&nbsp;</div>
 
             <div  className='header-font-tag'
-                  onClick={navigateToInvitation}>INVITATION</div>
+                  onClick={navigateToInvitation}>INVITATION&nbsp;</div>
 
             <div  className='header-font-tag' 
-                  onClick={navigateToAlbum}>ALBUM</div>
+                  onClick={navigateToAlbum}>ALBUM&nbsp;</div>
 
             <div  className='header-font-tag'
-                  onClick={navigateToProcess}>PROCESS</div>
+                  onClick={navigateToProcess}>PROCESS&nbsp;</div>
 
             <div  className='header-font-tag'
-                  onClick={navigateToReview}>REVIEW</div>
+                  onClick={navigateToReview}>REVIEW&nbsp;</div>
 
             <div  className='header-font-tag'
-                  onClick={navigateToContact}>CONTACT</div>
+                  onClick={navigateToContact}>CONTACT&nbsp;</div>
                   
             {isLogin ? (  <div  className='header-font-tag' 
                                 onClick={navigateToMyPage}>
-                              👤 {userNickname}님</div>)                              
+                              👤 {userNickname}님&nbsp;</div>)                              
                         :( <div className='header-font-tag' 
-                                onClick={navigateToLogin}>LOGIN</div>)}
+                                onClick={navigateToLogin}>LOGIN&nbsp;</div>)}
 
             {isLogin ? ( <div className='header-font-tag' 
-                              onClick={onLogout}>LOGOUT</div>)
+                              onClick={onLogout}>LOGOUT&nbsp;</div>)
                         :( <div className='header-font-tag'
-                                onClick={navigateToSignup}>SIGNUP</div> )}
+                                onClick={navigateToSignup}>SIGNUP&nbsp;</div> )}
         </div>
     </div>
   );

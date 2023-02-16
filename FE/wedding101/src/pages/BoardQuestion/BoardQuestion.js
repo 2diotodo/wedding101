@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import EditIcon from '@mui/icons-material/Edit';
 
+const BASEURL = "https://wedding101.shop/api"
 
 function ModalSubTitle_(props){
     return (
@@ -129,7 +130,6 @@ function getCurrentDate(){
 
 function AskWriteModal_(props){
     // write data -> userId + currDate
-    const userNickname = sessionStorage.getItem('userNickname');
     const currDate = getCurrentDate();
 
     let variables = [{
@@ -144,16 +144,16 @@ function AskWriteModal_(props){
         const askTitle = document.getElementById('askTitle').value;
         const askContent = document.getElementById('filled-multiline-static').value;
 
-        variables['userSeq'] = 3;
+        variables['userSeq'] = props.userSeq;
         variables['questionTitle'] = askTitle;
         variables['questionContent'] = askContent;
-        variables['userNickname'] = userNickname;
+        variables['userNickname'] = props.writer;
 
         if (!askTitle || !askContent){
             alert('제목이나 내용이 비어있습니다');
             return;
         }
-
+        console.log(variables.userNickname);
         askDataUpload();
         alert("해당 게시글이 등록 되었습니다");
         props.refresh();
@@ -172,12 +172,13 @@ function AskWriteModal_(props){
     const askDataUpload = async () => {
         await axios({
             method: "POST",
-            url: `https://wedding101.shop/api/qna`,  // 파일 업로드 요청 URL
+            url: `${BASEURL}/qna`,  // 파일 업로드 요청 URL
             headers : {
                 "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
             },
             data: {
                 userSeq: variables.userSeq,
+                userNickname: variables.userNickname,
                 questionSeq: variables.questionSeq,
                 questionTitle: variables.questionTitle,
                 questionContent: variables.questionContent
@@ -214,7 +215,7 @@ function AskWriteModal_(props){
                                 justifyContent: 'left', marginLeft: '1.5%'},}}>
                         
                     {/* props로 받아온 유저 닉네임 넣기 */}
-                    <ModalSubTitle_ writer={userNickname} date={currDate}></ModalSubTitle_> 
+                    <ModalSubTitle_ writer={props.writer} date={currDate}></ModalSubTitle_> 
                     
                     {/* 구분선 */}
                     <div className='BQ-Division-Line'></div>
@@ -253,14 +254,12 @@ function AskButton_(props){
 
     // ask Modal
     function loginCheckHandler(){
-        const isLogin = sessionStorage.getItem('isLogin')
-
-        if (isLogin == 'false' || isLogin == null){
+        if (sessionStorage.getItem('accessToken') === null){
             alert("로그인을 먼저 해주세요");
         }
         else{
             // Modal 창 띄우기
-            openAskModal(); // 창 열림 설정
+            openAskModal();
         }
     }
     return(
@@ -276,6 +275,8 @@ function AskButton_(props){
                 isOpen={askModalOpen} 
                 doClose={closeAskModal} 
                 refresh={props.refresh}
+                writer={props.userNickname}
+                userSeq={props.userSeq}
                 className="BQ-style"/>
         </>
     );
@@ -283,33 +284,44 @@ function AskButton_(props){
 
 function BoardQuestion() {
     const [ page, setPage ] = useState(1);
-    const [ askItem, setAskItem ] = useState([{
-        "userSeq":0,
-        "questionSeq": 0,
-        "questionTitle": "",
-        "questionContent": "",
-        "userId": "",
-        "createdAt": "",
-        "updatedAt": "",
-        "isValid": false
-    }]);
-    function AskListDownload_(){
-        axios({
+    const [userNickname, setUserNickname] = useState('');
+    const [userSeq, setUserSeq] = useState('');
+    const [ askItem, setAskItem ] = useState([]);
+
+    async function AskListDownload_(){
+        await axios({
             method: "GET",
-            url: "https://wedding101.shop/api/" + 'qna/all',
+            url: `${BASEURL}/qna/all`,
             headers : {
                 "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
             }
         }).then(function (response) {
+            console.log(response.data.data)
             setAskItem(response.data.data)
         }).catch(function (error) {
             console.log(error);
         })
     }
     
+    async function LoginCheckGetNickname_(){
+        await axios({ 
+            method: "GET",
+            url: `${BASEURL}/user`,
+            headers : {
+                "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
+            }
+        }).then(function (response) {
+            setUserNickname(response.data.data.userNickname)
+            setUserSeq(response.data.data.userSeq)
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
     // axios 통신으로 askItem 가져오기
     useEffect(() => {
         AskListDownload_();
+        LoginCheckGetNickname_();
       }, []);
 
     // pagination
@@ -331,7 +343,9 @@ function BoardQuestion() {
                         <AskTable_ data={askData}/>
                     </div>
                     <div className='BQ-button-style'>
-                        <AskButton_ refresh={AskListDownload_}/>
+                        <AskButton_ refresh={AskListDownload_}
+                                    userNickname={userNickname}
+                                    userSeq={userSeq}/>
                     </div>
                     <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
