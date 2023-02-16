@@ -1,35 +1,27 @@
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import UserModifyForm from '../../../components/user/UserModify/ModifyForm'
-import InfoModifyForm from '../../../components/WeddingInvitation/InfoModify/ModifyForm'
-import { useNavigate } from 'react-router';
+import UserDetailForm from '../../../components/user/UserModify/UserDetailForm'
+import InfoDetailForm from '../../../components/WeddingInvitation/InfoModify/InfoDetailForm'
 import { useEffect, useState } from 'react';
 import './UserMyPage.css';
 import { Button } from '@mui/material';
 
 function UserMyPage() {
-    const [userModifyOpen, setUserModifyOpen] = useState(false);
+    const [userDetailOpen, setUserInfoOpen] = useState(false);
     const openUserModal = () => {
-        if(userModifyOpen === false) {
-            setInfoModifyOpen(false);
+        if(userDetailOpen === false) {
+            setInfoDetailOpen(false);
         }
-        setUserModifyOpen((userModifyOpen) => !userModifyOpen);
-        
+        setUserInfoOpen((userDetailOpen) => !userDetailOpen);
     }
 
-    const [infoModifyOpen, setInfoModifyOpen] = useState(false);
+    const [infoDetailOpen, setInfoDetailOpen] = useState(false);
     const openInfoModal = () => {
-        if(infoModifyOpen === false) {
-            setUserModifyOpen(false);
+        if(infoDetailOpen === false) {
+            setInfoDetailOpen(false);
         }
-        setInfoModifyOpen((infoModifyOpen) => !infoModifyOpen);
+        setInfoDetailOpen((infoDetailOpen) => !infoDetailOpen);
     }
-
-    const navigate = useNavigate();
-
-    const toModifyInfoPage = ()=> {
-        navigate('/info/modify')
-    }
-
+    
     return (
         <div className='user-mypage'>
             <Grid2 container spacing={2}>
@@ -58,8 +50,8 @@ function UserMyPage() {
                                 </Grid2>
                         </Grid2>
                     </div>
-                    {userModifyOpen ? <UserModifyForm /> : null}
-                    {infoModifyOpen ? <InfoModifyForm /> : null}
+                    {userDetailOpen ? <UserDetailForm /> : null}
+                    {infoDetailOpen ? <InfoDetailForm /> : null}
                 </Grid2>
                 
             </Grid2>
