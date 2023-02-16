@@ -20,6 +20,7 @@
 .invitation {
     font-family: 'Gowun Batang', serif;
     border: 1px solid #999;
+    height:100%;
 }
 
 .title {
