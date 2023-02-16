@@ -18,11 +18,13 @@ import {
 import UploadIcon from '@mui/icons-material/Upload';
 import MergedItem from '../../components/album/MergedItem';
 
+const BASEURL = "https://wedding101.shop/api";
+
 function AlbumCover() {
   const [albumForm, setAlbumForm] = useState({
     albumSeq: '',
     infoSeq: '',
-    userSeq: '',
+    userSeq: null,
     albumName: '',
     albumColor: '',
     albumPhotoUrl: '',
@@ -37,6 +39,7 @@ function AlbumCover() {
   const accessToken = sessionStorage.getItem('accessToken');
 
   const [showUpdate, setShowUpdate] = useState(false);
+  const [merriageDate, setMerriageDate] = useState();
   const [unifyCheck, setUnifyCheck] = useState(false); // 통합본 신청여부
   const [mergedMedia, setMergedMedia] = useState([
     {
@@ -49,7 +52,7 @@ function AlbumCover() {
       updatedAt: '',
     },
   ]);
-  const albumCoverUrl = `https://wedding101.shop/api/file/uploadAlbumCover`;
+  const albumCoverUrl = `${BASEURL}/file/uploadAlbumCover`;
   const { fileMedia, filePreview, fileImageHandler, deleteFileImage, onFileUpload } =
     useUploadMedia(albumCoverUrl, accessToken);
 
@@ -64,7 +67,7 @@ function AlbumCover() {
   }`;
   async function getUserSeq() {
     await axios
-      .get(`https://wedding101.shop/api/user`, {
+      .get(`${BASEURL}/user`, {
         headers: {
           Authorization: 'Bearer ' + accessToken,
         },
@@ -75,28 +78,49 @@ function AlbumCover() {
         });
       });
   }
+
+  async function getMerriageDate(){
+    await axios({
+        method: "GET",
+        url: `${BASEURL}/Info?userSeq=${albumForm.userSeq}`,
+        headers : {
+            "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
+        }
+    }).then(function (response) {
+        setMerriageDate(response.data.data)
+    }).catch(function (error) {
+        console.log(error);
+    })
+}
+
   useEffect(() => {
     getUserSeq();
     console.log('userSeq: ', albumForm.userSeq);
     getAlbum();
+    getMerriageDate();
   }, [albumForm.userSeq]);
 
   // 앨범정보 가져오기
   async function getAlbum() {
-    await axios
-      .get(`https://wedding101.shop/api/album?userSeq=${albumForm.userSeq}`, {
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-        },
-      })
-      .then((res) => {
-        setAlbumForm(res.data.data);
-        console.log(res.data.data);
-        console.log('setMedia 성공');
-      })
-      .catch((err) => {
-        console.log('실패');
-      });
+    if (albumForm.userSeq === null){
+      alert("서비스 신청을 이용해주세요")
+    }
+    else{
+      await axios
+        .get(`${BASEURL}/album?userSeq=${albumForm.userSeq}`, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          },
+        })
+        .then((res) => {
+          setAlbumForm(res.data.data);
+          console.log(res.data.data);
+          console.log('setMedia 성공');
+        })
+        .catch((err) => {
+          console.log('getAlbum() 실패');
+        });
+    }
   }
 
   const showUpdateHandler = () => {
@@ -114,7 +138,7 @@ function AlbumCover() {
   // 통합본 가져오기
   const unifiedMedia = async () => {
     await axios
-      .get(`https://wedding101.shop/api/unifiedVideo/all/${albumForm.albumSeq}`, {
+      .get(`${BASEURL}/unifiedVideo/all/${albumForm.albumSeq}`, {
         headers: {
           Authorization: 'Bearer ' + accessToken,
         },
@@ -131,7 +155,7 @@ function AlbumCover() {
   return (
     <div className='album-cover'>
       <Grid2 container spacing={3}>
-        <Grid2 lg={2} sm={2}>
+        <Grid2 lg={3} sm={2}>
           <h1>Album Cover page</h1>
           <div className='update-button'>
             <Button onClick={showUpdateHandler}>앨범 수정하기</Button>
@@ -188,8 +212,8 @@ function AlbumCover() {
             </div>
           ) : null}
         </Grid2>
-        <Grid2 lg={4} sm={4}>
-          <Grid2 lg={4}>
+        <Grid2 lg={3} sm={4}>
+          <Grid2 lg={8}>
             <h3>나의 결혼식 날짜</h3>
             <p>{Date()}</p>
             <h3>앨범 생성일</h3>

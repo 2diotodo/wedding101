@@ -144,7 +144,7 @@ function AskWriteModal_(props){
         const askTitle = document.getElementById('askTitle').value;
         const askContent = document.getElementById('filled-multiline-static').value;
 
-        variables['userSeq'] = 3;
+        variables['userSeq'] = props.userSeq;
         variables['questionTitle'] = askTitle;
         variables['questionContent'] = askContent;
         variables['userNickname'] = props.writer;
@@ -276,6 +276,7 @@ function AskButton_(props){
                 doClose={closeAskModal} 
                 refresh={props.refresh}
                 writer={props.userNickname}
+                userSeq={props.userSeq}
                 className="BQ-style"/>
         </>
     );
@@ -284,6 +285,7 @@ function AskButton_(props){
 function BoardQuestion() {
     const [ page, setPage ] = useState(1);
     const [userNickname, setUserNickname] = useState('');
+    const [userSeq, setUserSeq] = useState('');
     const [ askItem, setAskItem ] = useState([]);
 
     async function AskListDownload_(){
@@ -294,6 +296,7 @@ function BoardQuestion() {
                 "Authorization" : "Bearer " + sessionStorage.getItem("accessToken")
             }
         }).then(function (response) {
+            console.log(response.data.data)
             setAskItem(response.data.data)
         }).catch(function (error) {
             console.log(error);
@@ -309,6 +312,7 @@ function BoardQuestion() {
             }
         }).then(function (response) {
             setUserNickname(response.data.data.userNickname)
+            setUserSeq(response.data.data.userSeq)
         }).catch(function (error) {
             console.log(error);
         })
@@ -340,7 +344,8 @@ function BoardQuestion() {
                     </div>
                     <div className='BQ-button-style'>
                         <AskButton_ refresh={AskListDownload_}
-                                    userNickname={userNickname}/>
+                                    userNickname={userNickname}
+                                    userSeq={userSeq}/>
                     </div>
                     <div className='BQ-pagination'>
                         <Pagination count={count} page={page} onChange={pageHandler}/>
