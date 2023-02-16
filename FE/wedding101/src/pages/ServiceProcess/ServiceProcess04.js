@@ -1,6 +1,6 @@
 import './ServiceProcess04.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ProgressBar from '../../components/common/ProgressBar';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
@@ -9,51 +9,83 @@ import axios from 'axios';
 
 function ServiceProcess04 () {
     const integratedInfo = JSON.parse(sessionStorage.getItem('integratedInfo'));
-    const processForm = {
-        ...integratedInfo,
-    };
+    const [userSeq, setUserSeq] = useState();
+    const [processForm, setProcessForm] = useState();
+
+    useEffect(()=>{
+        getUserSeq();
+    }, [])
+
+    async function getUserSeq () {
+        await axios
+            .get(`https://wedding101.shop/api/user`,{
+                headers:{"Authorization": "Bearer " + sessionStorage.getItem('accessToken')}
+            })
+            .then((res) => {
+                console.log('유저 정보 수신 성공');
+                console.log(res.data)
+                setUserSeq(res.data.data.userSeq)
+                setProcessForm({
+                    ...integratedInfo,
+                    userSeq : res.data.data.userSeq,
+                    infoSeq : res.data.data.userSeq,
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log('유저 정보 수신 실패');
+            })
+    }
+
     const navigate = useNavigate();
     const submitWeddingInfo = () => {
+        
         console.log(processForm);
-        axios.post(`https://wedding101.shop/api/Info`, {
-            headers : {"Authorization": "Bearer " + sessionStorage.accessToken},
-            data : {
-                brideAccountBank: processForm.brideAccountBank,
-                brideAccountName: processForm.brideAccountName,
-                brideAccountNumber: processForm.brideAccountNumber,
-                brideFatherIsAlive: processForm.brideFatherIsAlive,
-                brideFatherName: processForm.brideFatherName,
-                brideMotherIsAlive: processForm.brideMotherIsAlive,
-                brideMotherName: processForm.brideMotherName,
-                brideName: processForm.brideName,
-                bridePhoneNumber: processForm.bridePhoneNumber,
-                brideRelation: processForm.brideRelation,
-                groomAccountBank: processForm.groomAccountBank,
-                groomAccountName: processForm.groomAccountName,
-                groomAccountNumber: processForm.groomAccountNumber,
-                groomFatherIsAlive: processForm.groomFatherIsAlive,
-                groomFatherName: processForm.groomFatherName,
-                groomMotherIsAlive: processForm.groomMotherIsAlive,
-                groomMotherName: processForm.groomMotherName,
-                groomName: processForm.groomName,
-                groomPhoneNumber: processForm.groomPhoneNumber,
-                groomRelation: processForm.groomRelation,
-                weddingDay: processForm.weddingDay,
-                weddingHallAddress: processForm.weddingHallAddress,
-                weddingHallName: processForm.weddingHallName,
-                weddingHallNumber: processForm.weddingHallNumber,
-            }
+        axios.post(`https://wedding101.shop/api/Info`, processForm,{
+            headers : {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
         }).then(function (response) {
             console.log(response);
             console.log(response.data.message);
             if(response.status === 200){
                 alert(`서비스 신청 완료되었습니다.`);
-                navigate("/");
+                axios.post(`https://wedding101.shop/api/album`, {
+                    "albumSeq": 0,
+                    "infoSeq": processForm.infoSeq, 
+                    "userSeq": processForm.userSeq, 
+                    "albumName": "앨범",
+                    "albumColor": null,
+                    "albumPhotoUrl": null,
+                    "albumAccessId": null,
+                    "albumMediaCnt": 0,
+                    "valid": true
+                  },{
+                    headers : {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
+                }).then((res) => {
+                    console.log('앨범 생성 완료');
+                }).catch((err) => {
+                    console.log('앨범 생성 실패');
+                    alert('앨범 생성에 문제가 생겼습니다.');
+                })
+                navigate("/album");
                 window.scrollTo(0,0);
             }
         }).catch(function (error) {
             console.log(error)
-            alert('에러 발생');
+            if (error.response.status === 417){
+                axios.put(`https://wedding101.shop/api/Info`, processForm, {
+                    headers : {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
+                }).then((res) => {
+                    alert('서비스 신청 정보 수정 완료되었습니다.');
+                    navigate('/album');
+                    window.scrollTo(0,0);
+                }).catch((err) => {
+                    alert('에러 발생');
+                })
+            }
+            else {
+                alert('에러 발생');
+            }
+            
         });
     }
 
