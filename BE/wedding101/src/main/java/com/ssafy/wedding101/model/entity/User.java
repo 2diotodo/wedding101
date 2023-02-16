@@ -49,9 +49,8 @@ public class User {
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    public void updateUser(String userId, String userPassword, String userName, String userNickname, String userEmail){
+    public void updateUser(String userId, String userName, String userNickname, String userEmail){
         this.userId = userId;
-        this.userPassword = userPassword;
         this.userName = userName;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
