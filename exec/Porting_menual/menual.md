@@ -2,9 +2,9 @@
 
 ## 1. 환경 구성
 ---
-1) EC2 서버에 도커 설치 </br>
-    a. 공식 문서 참조 - [🔗](https://docs.docker.com/engine/install/ubuntu/) <br></br>
-    b. 순서<br></br>
+1) EC2 서버에 도커 설치 
+    a. 공식 문서 참조 - [🔗](https://docs.docker.com/engine/install/ubuntu/) 
+    b. 순서
     - 이전 도커 관련 라이브러리 삭제
         ```sh
         $sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -12,12 +12,12 @@
     - <u>**Docker 레포지토리**</u>를 설정
       -  apt 패키지 업데이트 + apt가 HTTPS를 통해 저장소를 사용할 수 있도록 패키지 설치
             ```sh
-            $sudo apt-get update
-            $sudo apt-get install \
-                ca-certificates \
-                curl \
-                gnupg \
-                lsb-release
+            $sudo   apt-get update
+            $sudo   apt-get install \
+                    ca-certificates \
+                    curl \
+                    gnupg \
+                    lsb-release
             ```
       - Docker’s official GPG 키 추가
         ```sh
@@ -47,7 +47,7 @@
         $sudo chown root:docker /var/run/docker.sock
         ```
 ---
-2) 자동 CI/CD Pipeline 설계 </br>
+1) 자동 CI/CD Pipeline 설계 </br>
    a. 배포 툴 설정
     - 🐳 Docker 
       - 도커 이미지를 통해 손 쉬운 배포와 배포환경 조성 가능<br>
@@ -91,7 +91,7 @@
         |:------:|:--:|:--:|:--:|
         |jenkins, nginx, mysql|Spring|React|Jenkins|
     - 파일 별 환경 설정
-    - ***<h3>docker-compose.yaml</h3>***
+    - ***<h5>docker-compose.yaml</h5>***
     ```yaml
         version: "3"
         services:
@@ -141,7 +141,7 @@
                     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
     ```
-    - ***<h3>Spring Dockerfile</h3>***
+    - ***<h5>Spring Dockerfile</h5>***
       - BE dockerfile 은 프로젝트 깃랩 레포지토리의 BE/wedding101 에 위치해 있는 상태이다
       - ```sh
         ~$ls ~/S08P12A101/BE/wedding101
@@ -212,15 +212,14 @@
         fi
         ```
 
-   - ***<h3>React Dockerfile</h3>***
+   - ***<h5>React Dockerfile</h5>***
       - FE dockerfile 은 프로젝트 깃랩 레포지토리의 FE/wedding101 에 위치해 있는 상태이다
       - ```sh
         ~$ls ~/S08P12A101/FE/wedding101
         Dockerfile                 build                      node_modules               package-lock.json          public
         README.md                  del_old_react_container.sh npm_start.sh               package.json               src
         ```
-      - Jenkins 가 동작하는 workspace 는 gitlab push 시그널 (webhook) 에 맞춰 자동으로
-        S08P12A101 깃랩 레포지토리를 Clone 해와서 빌드 + Dockerfile 기반 배포 진행하게 되는데, Dockerfile 은 아래와 같다
+      - Jenkins 가 동작하는 workspace 는 gitlab push 시그널 (webhook) 에 맞춰 자동으로 S08P12A101 깃랩 레포지토리를 Clone 해와서 빌드 + Dockerfile 기반 배포 진행하게 되는데, Dockerfile 은 아래와 같다
         ```sh
         ~$cat ~/S08P12A101/FE/wedding101/Dockerfile
         FROM node:18.13.0
@@ -272,7 +271,7 @@
                 echo "Great. There's no previous $PRE_REACT_IMAGE:$PRE_REACT_TAG"
         fi
         ```
-   - ***<h3>Jenkins Pipeline script</h3>***
+   - ***<h5>Jenkins Pipeline script</h5>***
      - jenkins 에 적용되는 파이프라인 스크립트는 다음과 같다
      - git url 에는 본인의 레포지토리 주소가 들어간다
      - docker-compose 를 진행한 Jenkins, nginx, mysql 은 도커 네트워크가 따로 잡힌다
@@ -367,7 +366,8 @@
             }
         ```
 ---
-3. 기타 환경 설정 및 파일
+<h4>3. 기타 환경 설정 및 파일</h4>
+
 - NGINX
   - nginx.conf : 모바일에서 영상 업로드시 용량 제한 존재 
     - 이를 해결 하기 위한 http block 에 아래의 옵션 추가 
@@ -398,7 +398,8 @@
                 proxy_pass http://wedding101.shop:8085/;
             }
         }
-        ```****
+        ```
+
 - Jenkins
     <details><summary>플러그인</summary>
       - Bitbucket Pipeline for Blue Ocean <br>
@@ -423,4 +424,15 @@
       - Docker Pipeline <br>
       - docker-build-step
     </details>
+---
+<h4>4. 서비스 설명 </h4>
 
+1. 서비스 메인페이지
+<video width="640" height="480" controls>
+  <source src="https://user-images.githubusercontent.com/48194000/219598064-d971cdd6-b063-45c9-84db-f23699b4303c.mov" type="video/mp4">
+</video>
+
+2. 로그인 및 신청하기
+<video width="640" height="480" controls>
+  <source src="https://user-images.githubusercontent.com/48194000/219598606-edc889c9-af1a-4866-be09-1591484817ec.mov" type="video/mp4">
+</video>
