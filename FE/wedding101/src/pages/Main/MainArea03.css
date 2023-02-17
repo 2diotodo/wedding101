@@ -39,3 +39,9 @@
 #title_p3_01{
   height:40%;
 }
+#explain_03_01 {
+  font-family: "Nanum Brush Script";
+  color: white;
+  text-shadow: 2px 2px 4px gray;
+  font-size: 6vh;
+}

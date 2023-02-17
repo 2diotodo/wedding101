@@ -1,7 +1,15 @@
 import './MainArea04.css';
-import { Step, Stepper, StepLabel } from "@mui/material";
+import { Step, Stepper, StepLabel} from "@mui/material";
+// import { makeStyles } from "@mui/styles";
+// import { makeStyles } from "@material-ui/core";
 
 const MainArea04 = () => {
+  // const useStyle = makeStyles({
+  //   customeLabelStyle : {
+  //     fontSize : "20px"
+  //   }
+  // });
+
   const steps = [{
     label : 'Wedding101 서비스 신청',
     content : ['Wedding101 서비스 가입',
@@ -31,10 +39,10 @@ const MainArea04 = () => {
             <Stepper activeStep={-1} alternativeLabel>
               {steps.map((level) => (
                 <Step key={level.label}>
-                  <StepLabel>{level.label}</StepLabel>
-                  <ul>
+                  <StepLabel >{level.label}</StepLabel>
+                  <ul className='level-content'>
                     {level.content.map((content, i)=>(
-                      <li key={i}>{content}</li>
+                      <li className='level-content-item' key={i}>{content}</li>
                     ))}
                   </ul>
                 </Step>
