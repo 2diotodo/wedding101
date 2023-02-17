@@ -13,8 +13,9 @@ function GoServiceButton() {
   };
   return (
     <Button
-      variant='contained'
-      sx={{ borderRadius: 50 }}
+      variant='outlined'
+      sx={{ borderRadius: 50,}, 
+          {':hover': { bgcolor: 'violet', color:'white',},}}
       color='secondary'
       onClick={navigateToService}
     >
