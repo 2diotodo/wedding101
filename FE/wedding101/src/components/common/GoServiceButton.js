@@ -4,17 +4,18 @@ import { useNavigate } from 'react-router';
 function GoServiceButton() {
   const navigate = useNavigate();
   const navigateToService = () => {
-    if(sessionStorage.getItem('accessToken') === undefined){
+    if (sessionStorage.getItem('accessToken') !== null) {
       navigate('/user/service01');
-    }else{
+    } else {
       alert('로그인 후 이용 가능합니다.');
       navigate('/user/login');
     }
   };
   return (
     <Button
-      variant='contained'
-      sx={{ borderRadius: 50 }}
+      variant='outlined'
+      sx={{ borderRadius: 50,}, 
+          {':hover': { bgcolor: 'violet', color:'white',},}}
       color='secondary'
       onClick={navigateToService}
     >
