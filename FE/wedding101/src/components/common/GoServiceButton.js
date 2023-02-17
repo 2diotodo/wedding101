@@ -13,8 +13,8 @@ function GoServiceButton() {
   };
   return (
     <Button
-      variant='contained'
-      sx={{ borderRadius: 50 }}
+      variant='outlined'
+      sx={{ borderRadius: 50, }}
       color='secondary'
       onClick={navigateToService}
     >

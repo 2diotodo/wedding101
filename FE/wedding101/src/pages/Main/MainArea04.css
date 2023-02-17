@@ -7,10 +7,12 @@
   background-color: #d9cfde;
 }
 
-.content-wrapper {
+.service-content-wrapper {
   height:115%;
+}
 
-
+.content-wrapper {
+  height:75%;
 }
 
 #VL_p4_01 {
