@@ -97,6 +97,9 @@
   color:#B3B3B3;
   opacity: 1;
 }
+.explainText{
+  /* height: 10%; */
+}
 
 #HL_p2_01{
   width: 100%;
@@ -113,9 +116,12 @@
 
 #title_p2_01{
   width:100%;
-  height: 50%;
+  height: 30%;
 }
 
 #explain_p2_01{
-  font-family: 'yusei magic';
+  font-family: "Nanum Brush Script";
+  color: white;
+  text-shadow: 2px 2px 4px gray;
+  font-size: 6vh;
 }
