@@ -19,6 +19,7 @@
 
 .invitation-item{
     margin: 1px;
+    padding-left: 14%;
 }
 .buttons {
     display: inline;
@@ -29,4 +30,8 @@
     width: 300px;
     height: 400px;
     overflow-y: scroll
+}
+
+.invitation_width50{
+    width: 50%;
 }

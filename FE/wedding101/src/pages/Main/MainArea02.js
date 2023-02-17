@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const MainArea02 = () => {
   const settings = {
+    className: 'main-slider',
     dots: true, // 슬라이드 아래 점표시
     infinite: true, // 무한반복
     speed: 500, // 넘어가는 속도
