@@ -22,9 +22,10 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 'auto',
-  bgcolor: 'background.paper',
+  bgcolor: 'transparent',
   boxShadow: 24,
   p: 0,
+  justifyContent: 'center'
 };
 
 const MediaItem = ({
@@ -96,7 +97,7 @@ const MediaItem = ({
       <Card sx={{ width: 200, height: 350 }}>
         {/* 사진/비디오여부표시 및 좋아요표시 */}
         <CardHeader
-          avatar={video ? <Videocam /> : <CameraAlt />}
+          avatar={video || media.storageUrl.includes('mp4') ? <Videocam /> : <CameraAlt />}
           action={
             <IconButton aria-label='star' onClick={toggleLike}>
               {like ? <Star color='warning' fontSize='small' /> : <StarBorder fontSize='small' />}
@@ -129,13 +130,13 @@ const MediaItem = ({
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          {media.video === true ? (
+          {media.video === true || media.storageUrl.includes('mp4') ? (
             <video src={storageUrl} controls autoPlay loop width='100%' />
           ) : (
             <img src={storageUrl} alt={storageUrl} width='600px' height='800px' />
           )}
           <Typography id='modal-modal-title' variant='h6' component='h2'>
-            {mediaName}
+            {mediaName}님의 메세지
           </Typography>
         </Box>
       </Modal>
