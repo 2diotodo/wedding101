@@ -35,7 +35,7 @@ const MainArea04 = () => {
           <div className='title_explain' id='title04'>
             <div className='mainTitle'>SERVICE OUTLINE</div>
           </div>
-          <div className='content-wrapper'>
+          <div className='service-content-wrapper'>
             <Stepper activeStep={-1} alternativeLabel>
               {steps.map((level) => (
                 <Step key={level.label}>

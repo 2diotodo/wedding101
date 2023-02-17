@@ -1,8 +1,14 @@
 import './MainArea03.css';
 import main03_1 from '../../assets/img/mainArea03_1.png';
 import main03_2 from '../../assets/img/mainArea03_2.png';
+import { useNavigate } from 'react-router';
 
 const MainArea03 = () => {
+  const navigate = useNavigate();
+  const toAlbum=()=>{
+    navigate('/album');
+  }
+
   return (
     <div className='main-area03'>
       <div className='container' id='container_p3'>
@@ -14,7 +20,7 @@ const MainArea03 = () => {
             </div>
             <div className='detailLayout' id='DL03'>
               <img src={main03_2} alt='main03_2' id='img_main3_2'></img>
-              <button className='detailButton' id='button03'>자세히 보러가기</button>
+              <button className='detailButton' id='button03' onClick={toAlbum}>자세히 보러가기</button>
             </div>
           </div>
           <img src={main03_1} alt='main03_1' id='img_main3_1'></img>
