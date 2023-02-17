@@ -195,93 +195,106 @@ function RegistForm() {
         <div>
             <h3>회원가입</h3>
             <form onSubmit={onSubmitHandler} >
-
-            <TextField
-                id="id-input" 
-                type="text" 
-                name='id'
-                label="아이디를 입력하세요" 
-                variant="outlined"
-                size='small'
-                margin='dense'
-                value={form.id}
-                onInput={onInputId}
-                onChange={onChange}
-                error={checkId()}
-                helperText={checkId() ? "한글과 특수문자는 사용하실 수 없습니다.":"" } />
-            <span>{id_duplicate_message}</span>
-            <button type="button" onClick={checkDuplicateId} >중복확인</button>
-            <br />
             
-
-        
-            <TextField
-                id="pw-input" 
-                type="password" 
-                name='password'
-                label="비밀번호를 입력하세요" 
-                variant="outlined"
-                size='small'
-                margin='dense'
-                value={form.password}
-                onChange={onChange}
-                error={checkPassword()}
-                helperText={checkPassword() ? "비밀번호는 8-12자로 입력해주세요":"" } /><br />
-            <TextField
-                id="pw-confirm-input" 
-                type="password"
-                name='passwordConfirm' 
-                label="비밀번호를 다시 입력하세요" 
-                variant="outlined"
-                size='small'
-                margin='dense'
-                value={form.passwordConfirm}
-                onChange={onChange}
-                error={checkPasswordConfim()}
-                helperText={checkPasswordConfim() ? "비밀번호가 일치하지 않습니다.":"" }  /><br />
-            <TextField
-                id="name-input" 
-                type="text" 
-                name='name'
-                label="이름을 입력하세요" 
-                variant="outlined"
-                size='small'
-                margin='dense'
-                value={form.name}
-                onChange={onChange}
-                error={checkName()}
-                helperText={checkName() ? "이름을 입력하세요":""}  /><br />
-            <TextField
-                id="nickname-input" 
-                type="text" 
-                name='nickname'
-                label="닉네임을 입력하세요" 
-                variant="outlined"
-                size='small'
-                margin='dense'
-                value={form.nickname}
-                onInput={onInputNickname}
-                onChange={onChange}  />
-            <span>{nickname_duplicate_message}</span>
-            <button type="button" onClick={checkDuplicateNickname} >중복확인</button>
-            <br />
-            <TextField
-                id="email-input" 
-                type="text" 
-                name='email'
-                label="이메일을 입력하세요" 
-                variant="outlined"
-                size='small'
-                margin='dense'
-                value={form.email}
-                onInput={onInputEmail}
-                onChange={onChange}
-                error={checkEmail()}
-                helperText={checkEmail() ? "유효하지 않은 이메일입니다.":"" } />
-            <span>{email_duplicate_message}</span>
-            <button type="button" onClick={checkDuplicateEmail} >중복확인</button><br />
-            <Button variant="contained" type='submit' >회원가입</Button>
-            <br />
+            <div className='verticalLayout' id='loginForm'>
+                <div className='horizontalLayout' id='loginFormHL'>
+                    <TextField
+                        id="id-input" 
+                        type="text" 
+                        name='id'
+                        label="아이디를 입력하세요" 
+                        variant="outlined"
+                        size='small'
+                        margin='dense'
+                        value={form.id}
+                        onInput={onInputId}
+                        onChange={onChange}
+                        error={checkId()}
+                        helperText={checkId() ? "한글과 특수문자는 사용하실 수 없습니다.":"" } />
+                    <div style={{width: '3%'}}></div>
+                    <button type="button" onClick={checkDuplicateId} >중복확인</button>
+                </div>
+                <span>{id_duplicate_message}</span>
+                <div className='horizontalLayout' id='loginFormHL'>
+                    <TextField
+                    id="pw-input" 
+                    type="password" 
+                    name='password'
+                    label="비밀번호를 입력하세요" 
+                    variant="outlined"
+                    size='small'
+                    margin='dense'
+                    value={form.password}
+                    onChange={onChange}
+                    error={checkPassword()}
+                    helperText={checkPassword() ? "비밀번호는 8-12자로 입력해주세요":"" } />
+                </div>
+                <div className='horizontalLayout' id='loginFormHL'>
+                    <TextField
+                    id="pw-confirm-input" 
+                    type="password"
+                    name='passwordConfirm' 
+                    label="비밀번호를 다시 입력하세요" 
+                    variant="outlined"
+                    size='small'
+                    margin='dense'
+                    value={form.passwordConfirm}
+                    onChange={onChange}
+                    error={checkPasswordConfim()}
+                    helperText={checkPasswordConfim() ? "비밀번호가 일치하지 않습니다.":"" }  />
+                </div>
+                <div className='horizontalLayout' id='loginFormHL'>
+                    <TextField
+                    id="name-input" 
+                    type="text" 
+                    name='name'
+                    label="이름을 입력하세요" 
+                    variant="outlined"
+                    size='small'
+                    margin='dense'
+                    value={form.name}
+                    onChange={onChange}
+                    error={checkName()}
+                    helperText={checkName() ? "이름을 입력하세요":""}  />
+                </div>
+                <div className='horizontalLayout' id='loginFormHL'>
+                    <TextField
+                        id="nickname-input" 
+                        type="text" 
+                        name='nickname'
+                        label="닉네임을 입력하세요" 
+                        variant="outlined"
+                        size='small'
+                        margin='dense'
+                        value={form.nickname}
+                        onInput={onInputNickname}
+                        onChange={onChange}  />
+                    <div style={{width: '3%'}}></div>
+                    <button type="button" onClick={checkDuplicateNickname} >중복확인</button>
+                </div>
+                <span>{nickname_duplicate_message}</span>
+                <div className='horizontalLayout' id='loginFormHL'>
+                    <TextField
+                        id="email-input" 
+                        type="text" 
+                        name='email'
+                        label="이메일을 입력하세요" 
+                        variant="outlined"
+                        size='small'
+                        margin='dense'
+                        value={form.email}
+                        onInput={onInputEmail}
+                        onChange={onChange}
+                        error={checkEmail()}
+                        helperText={checkEmail() ? "유효하지 않은 이메일입니다.":"" } />
+                    <div style={{width: '3%'}}></div>
+                    <button type="button" onClick={checkDuplicateEmail} >중복확인</button>
+                </div>
+                <br/>
+                <span>{email_duplicate_message}</span>
+                <Button variant="contained" type='submit' >회원가입</Button>
+                <br />
+            </div>
             </form>
             <Button variant="text" onClick={onClickHandler}>로그인 페이지로 이동하기</Button>
         </div>

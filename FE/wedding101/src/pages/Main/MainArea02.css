@@ -34,7 +34,7 @@
   align-items: center;
 }
 
-.slick-slider {
+.main-slider {
   position: relative;
   height: 80%;
   width: 70%;
@@ -61,14 +61,14 @@
   opacity: 0.75;
 }
 
-.slick-current .inFrame{
+.main-slider .slick-current .inFrame{
   width: 80.41%;
   height: 100%;
   object-fit: fill;
   opacity: 1;
 }
 
-.slick-dots{
+.main-slider .slick-dots{
   position: relative;
   right: 75.6%;
   bottom: 4%;
