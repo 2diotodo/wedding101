@@ -168,7 +168,7 @@ const InvitationProcess02 = () => {
                               ...invitationData,
                               photoUrl1: filePreview1,
                             });
-                          }, 1000);
+                          }, 500);
 
                           // setTimeout(
                           //   () =>
