@@ -148,37 +148,44 @@ function UploadMedia(props) {
     setSendName(event.target.value);
   };
 
-  const onMediaUpload = async (e) => {
-    e.preventDefault();
-    if (!sendTo) {
-      alert("누구에게 보낼지 선택하세요");
-      return;
-    }
-    if (!sendFrom) {
-      alert("축하를 보낼 사람과의 관계를 선택하세요");
-      return;
-    }
-    if (!sendName) {
-      alert("보내는 사람의 이름을 입력해주세요");
-      return;
-    }
-    if (!fileMedia) {
-      alert("파일을 첨부해주세요");
-      return;
-    }
-    if (!sendAgree) {
-      alert("개인정보 제공에 동의해주세요");
-      return;
-    }
-
-    let formData = new FormData();
-    console.log(fileMedia);
-    formData.append("multipartFile", fileMedia);
-    formData.append("userSeq", albumSeq);
-    console.log(formData);
-
+  const onUploadVideo = async (data) =>{
     await axios
-      .post("https://wedding101.shop/api/file/uploadMedia/image", formData, {
+      .post("https://wedding101.shop/api/file/uploadMedia/video", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(async (res) => {
+        console.log(res);
+        let parser =
+          "https://a101-wedding101-pjt.s3.ap-northeast-2.amazonaws.com/";
+
+        await axios.post("https://wedding101.shop/api/media", {
+          albumSeq: albumSeq,
+          inBin: false,
+          mediaName: sendName,
+          mediaReceiver: sendTo,
+          mediaRelation: sendFrom,
+          mediaSeq: 0,
+          onBooth: false,
+          storageUrl: res.data.videoURL,
+          urlToImg: res.data.thumbNailUrl,
+          video: true,
+          wish: false,
+        });
+      })
+      .then(() => {
+        alert("전송에 성공했습니다.");
+        setIsDisabled(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("등록을 실패하였습니다.");
+      });
+  }
+  const onUploadImage = async (data) =>{
+    await axios
+      .post("https://wedding101.shop/api/file/uploadMedia/image", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -210,6 +217,41 @@ function UploadMedia(props) {
         console.log(err);
         alert("등록을 실패하였습니다.");
       });
+  }
+  const onMediaUpload = async (e) => {
+    e.preventDefault();
+    if (!sendTo) {
+      alert("누구에게 보낼지 선택하세요");
+      return;
+    }
+    if (!sendFrom) {
+      alert("축하를 보낼 사람과의 관계를 선택하세요");
+      return;
+    }
+    if (!sendName) {
+      alert("보내는 사람의 이름을 입력해주세요");
+      return;
+    }
+    if (!fileMedia) {
+      alert("파일을 첨부해주세요");
+      return;
+    }
+    if (!sendAgree) {
+      alert("개인정보 제공에 동의해주세요");
+      return;
+    }
+
+    let formData = new FormData();
+    console.log(fileMedia);
+    formData.append("multipartFile", fileMedia);
+    formData.append("userSeq", albumSeq);
+    console.log(formData);
+
+    if(fileMedia.type==='video/mp4'){
+      onUploadVideo(formData);
+    }else{
+      onUploadImage(formData);
+    }
   };
 
   return (
@@ -247,8 +289,8 @@ function UploadMedia(props) {
         Upload
         <input
           hidden
-          accept="image/*"
-          // accept="image/*, video/*"
+          // accept="image/*"
+          accept="image/*, video/mp4"
           multiple
           type="file"
           onChange={fileImageHandler}

@@ -7,7 +7,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Star from '@mui/icons-material/Star';
 import {
   Button,
   Pagination,
@@ -308,13 +307,14 @@ const AlbumList = () => {
             </div>
           </div>
         </Grid2>
-        <Grid2 lg={9} sm={9} spacing={2}>
+        <Grid2 lg={9} sm={9} spacing={3}>
+          <div className='item-area'>
           <div className='media-items'>
             {media && (
               <div className='media-items'>
                 {media.length > 0 ? (
                   mediaData
-                    .currentData()
+                  .currentData()
                     .map((item) => (
                       <MediaItem
                         media={item}
@@ -324,17 +324,18 @@ const AlbumList = () => {
                         getAllMedia={getAllMedia}
                         wishFilterHandler={wishFilterHandler}
                         accessToken={accessToken}
-                      />
-                    ))
-                ) : (
-                  <div>no media</div>
-                )}
+                        />
+                        ))
+                        ) : (
+                          <div>no media</div>
+                          )}
               </div>
             )}
           </div>
           <div className='pagination'>
             <Pagination count={count} page={page} onChange={pageHandler} />
           </div>
+      </div>
         </Grid2>
       </Grid2>
       <SetTextAlert />
@@ -342,7 +343,7 @@ const AlbumList = () => {
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={backdropOpen}
         onClick={handleClose}
-      >
+        >
         <CircularProgress color='inherit' />
       </Backdrop>
     </div>
