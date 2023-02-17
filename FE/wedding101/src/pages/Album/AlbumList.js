@@ -25,6 +25,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import usePagination from '../../utils/Pagination';
+import FadeLoader from 'react-spinners/FadeLoader';
 import axios from 'axios';
 
 const AlbumList = () => {
@@ -38,7 +39,7 @@ const AlbumList = () => {
   const [mergePhoto, setMergePhoto] = useState([]);
   const [likeToggle, setLikeToggle] = useState(false); // 북마크 토글상태관리
   const [open, setOpen] = useState(false); // dialog open 관리
-  const [backdropOpen, setBackdropOpen] = useState(false); // backdrop open 관리
+  const [loading, setLoading] = useState(false); // backdrop open 관리
 
   const baseurl = 'https://wedding101.shop/api/';
   // title dialog open
@@ -157,6 +158,28 @@ const AlbumList = () => {
     mediaData.jump(p);
   };
 
+  const Loading=()=>{
+    return(
+      <div className='loading-wrap'>
+        <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <FadeLoader
+          color="#C63DEE"
+          height={15}
+          width={5}
+          radius={2}
+          margin={2}
+        />
+      </div>
+      </div>
+    )
+  }
   // 통합본 제목 받을 dialog창
   const SetTextAlert = () => {
     const [unifiedName, setUnifiedName] = useState(''); // 통합본 제목 입력받기
@@ -179,11 +202,12 @@ const AlbumList = () => {
           : setMergePhoto((mergePhoto) => [...mergePhoto, value.storageUrl]);
       }
     };
-
+  
     // 통합본신청
     const sendRequestHandler = async () => {
-      setBackdropOpen(true);
-      mergeSplit();
+      handleClose();
+      setLoading(true);
+      await mergeSplit();
       console.log('video', mergeVideo);
       console.log('photo', mergePhoto);
       await axios({
@@ -197,7 +221,7 @@ const AlbumList = () => {
           imageList: mergePhoto,
         },
       })
-        .then(async (res) => {
+      .then(async (res) => {
           console.log(res.data);
           console.log('uni', unifiedName);
           console.log('albumSeq', albumSeq.albumSeq);
@@ -220,10 +244,12 @@ const AlbumList = () => {
           })
             .then((res) => {
               console.log('out', res.data);
+              setLoading(false)
               alert('신청이 완료되었습니다.');
             })
             .catch((err) => {
               console.log('unified 실패');
+              setLoading(false)
             });
         })
         .then((res) => {
@@ -231,8 +257,8 @@ const AlbumList = () => {
         })
         .catch((err) => {
           console.log('merge실패!');
+          setLoading(false)
         })
-        .finally(handleClose(), setBackdropOpen(false));
     };
 
     return (
@@ -339,13 +365,7 @@ const AlbumList = () => {
         </Grid2>
       </Grid2>
       <SetTextAlert />
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={backdropOpen}
-        onClick={handleClose}
-        >
-        <CircularProgress color='inherit' />
-      </Backdrop>
+      {loading && <Loading />}
     </div>
   );
 };
