@@ -74,21 +74,19 @@ const InvitationProcess02 = () => {
       })
       .then((res) => {
         setUserSeq(res.data.data.userSeq);
-        console.log(userSeq);
       });
   }
 
   useEffect(() => {
     const dataFetch = async () => {
       const res = await api.wedding101.findWeddingInfo(userSeq);
-
       //   console.log(res.data.data);
       setWeddingInfoData(res.data.data);
     };
     getUserSeq();
     dataFetch();
     console.log(weddingInfoData);
-  }, []);
+  }, [userSeq]);
 
   const [invitationData, setInvitationData] = useState({
     templateHeader: "초대합니다",
@@ -164,7 +162,14 @@ const InvitationProcess02 = () => {
                         accept="image/*"
                         onChange={(e) => {
                           fileImageHandler1(e);
-                          setFirstImage();
+                          setTimeout(() => {
+                            console.log(filePreview1);
+                            setInvitationData({
+                              ...invitationData,
+                              photoUrl1: filePreview1,
+                            });
+                          }, 1000);
+
                           // setTimeout(
                           //   () =>
                           //     (document.getElementById(
@@ -178,7 +183,7 @@ const InvitationProcess02 = () => {
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button
+                    {/* <Button
                       onClick={(e) => {
                         deleteFileImage1(e);
                         setTimeout(
@@ -191,7 +196,7 @@ const InvitationProcess02 = () => {
                       }}
                     >
                       삭제
-                    </Button>
+                    </Button> */}
                   </div>
                   <br />
                   <div className="upload02">
@@ -202,8 +207,10 @@ const InvitationProcess02 = () => {
                         accept="image/*"
                         onChange={(e) => {
                           fileImageHandler2(e);
-                          setSecondImage();
-
+                          setInvitationData({
+                            ...invitationData,
+                            photoUrl2: filePreview2,
+                          });
                           // setTimeout(
                           //   () =>
                           //     (document.getElementById(
@@ -217,7 +224,7 @@ const InvitationProcess02 = () => {
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button
+                    {/* <Button
                       onClick={(e) => {
                         deleteFileImage2(e);
                         setTimeout(
@@ -230,7 +237,7 @@ const InvitationProcess02 = () => {
                       }}
                     >
                       삭제
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>
