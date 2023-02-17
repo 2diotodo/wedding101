@@ -428,6 +428,6 @@
 <h4>4. 서비스 설명 </h4>
 
 1. 서비스 메인페이지
-<video src="https://user-images.githubusercontent.com/48194000/219651595-03601011-389e-41e5-b816-f5a20a5af3ff.mp4" control width="80%" />
-
+<video src="https://user-images.githubusercontent.com/48194000/219651595-03601011-389e-41e5-b816-f5a20a5af3ff.mp4" controls="controls" style="max-width: 730px;">
+</video>
 2. 로그인 및 신청
