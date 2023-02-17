@@ -425,7 +425,24 @@
       - docker-build-step
     </details>
 ---
-<h4>4. 서비스 설명 </h4>
+<h4>4. 서비스 </h4>
 
 1. 서비스 메인페이지
-<img src="![01_메인화면보여주기](/uploads/4191350a095f1c1ffdc285c667dd7584/01_메인화면보여주기.mp4)" width="100%"></img>
+![01_메인화면보여주기](https://user-images.githubusercontent.com/48194000/219656233-34d129be-c950-4d3c-96d1-86d7b0c87953.gif)
+
+
+2. 로그인 및 신청
+![02_로그인및서비스신청](https://user-images.githubusercontent.com/48194000/219671967-22f0ac2b-b899-4581-b4b0-157ed3389dd8.gif)
+
+
+3. 모바일 청첩장
+![03_모바일청첩장](https://user-images.githubusercontent.com/48194000/219672008-8c62ddb2-bc3a-48d1-81cb-d6344d575355.gif)
+
+
+4. IoT 부스 데모
+    ![04_IoT부스데모](https://user-images.githubusercontent.com/48194000/219672037-1fbacaa7-1318-450c-8237-728c3b7e8661.gif)
+
+
+5. 통합 앨범 신청 및 통합 앨범 확인
+    ![06_통합앨범신청](https://user-images.githubusercontent.com/48194000/219672105-60929c5b-bf81-4c27-ab0d-0e2a555b7a22.gif)
+    ![07_통합앨범확인](https://user-images.githubusercontent.com/48194000/219672134-b073365a-668a-4115-a01f-bc2acda3b74e.gif)
