@@ -47,11 +47,11 @@
         $sudo chown root:docker /var/run/docker.sock
         ```
 ---
-1) 자동 CI/CD Pipeline 설계 </br>
+1) 자동 CI/CD Pipeline 설계 </br></br>
    a. 배포 툴 설정
     - 🐳 Docker 
       - 도커 이미지를 통해 손 쉬운 배포와 배포환경 조성 가능<br>
-      - 도커파일과 도커 컴포즈를 통해 여러 도커 컨테이너를 손쉽게 관리 가능 <br><br>
+      - 도커파일과 도커 컴포즈를 통해 여러 도커 컨테이너를 손쉽게 관리 가능 <br>
 
    - 🕴🏼Jenkins
       - FE / BE 의 빌드 과정과 배포 과정을 ***pipeline*** 스크립트 하나로 관리 가능 <br>
@@ -91,56 +91,56 @@
         |:------:|:--:|:--:|:--:|
         |jenkins, nginx, mysql|Spring|React|Jenkins|
     - 파일 별 환경 설정
-    - ***<h5>docker-compose.yaml</h5>***
-    ```yaml
-        version: "3"
-        services:
-            jenkins:
-                container_name: jenkins
-                build:
-                    context: ./jenkins
-                    dockerfile: Dockerfile
-                ports:
-                    - "9090:8080"
-                    - "50000:50000"
-                volumes:
-                    - /home/ubuntu/jenkins_backup:/var/jenkins_home
-                    - /var/run/docker.sock:/var/run/docker.sock
-                environment:
-                    TZ: "Asia/Seoul"
-            mysql:
-                container_name: mysql
-                build:
-                    context: ./mysql
-                    dockerfile: Dockerfile
-                ports:
-                    - "3306:3306"
-                volumes:
-                    - /mysql:/var/lib/mysql
-                environment:
-                    MYSQL_DATABASE: wedding101_db
-                    MYSQL_ROOT_PASSWORD: ssafy
-                    MYSQL_PASSWORD: ssafy
-                    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-                    MYSQL_CHARACTER_SET_SERVER: utf8mb4
-                    MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
-            nginx:
-                container_name: nginx
-                build:
-                    context: ./nginx
-                    dockerfile: Dockerfile
-                ports:
-                    - "80:80"
-                    - "443:443"
-                expose:
-                    - "80"
-                    - "443"
-                volumes:
-                    - ./nginx/conf.d:/etc/nginx/conf.d
-                    - /etc/letsencrypt:/etc/letsencrypt
-                    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ***<h5>docker-compose.yaml</h5>***
+        ```yaml
+            version: "3"
+            services:
+                jenkins:
+                    container_name: jenkins
+                    build:
+                        context: ./jenkins
+                        dockerfile: Dockerfile
+                    ports:
+                        - "9090:8080"
+                        - "50000:50000"
+                    volumes:
+                        - /home/ubuntu/jenkins_backup:/var/jenkins_home
+                        - /var/run/docker.sock:/var/run/docker.sock
+                    environment:
+                        TZ: "Asia/Seoul"
+                mysql:
+                    container_name: mysql
+                    build:
+                        context: ./mysql
+                        dockerfile: Dockerfile
+                    ports:
+                        - "3306:3306"
+                    volumes:
+                        - /mysql:/var/lib/mysql
+                    environment:
+                        MYSQL_DATABASE: wedding101_db
+                        MYSQL_ROOT_PASSWORD: ssafy
+                        MYSQL_PASSWORD: ssafy
+                        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+                        MYSQL_CHARACTER_SET_SERVER: utf8mb4
+                        MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+                nginx:
+                    container_name: nginx
+                    build:
+                        context: ./nginx
+                        dockerfile: Dockerfile
+                    ports:
+                        - "80:80"
+                        - "443:443"
+                    expose:
+                        - "80"
+                        - "443"
+                    volumes:
+                        - ./nginx/conf.d:/etc/nginx/conf.d
+                        - /etc/letsencrypt:/etc/letsencrypt
+                        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
-    ```
+        ```
     - ***<h5>Spring Dockerfile</h5>***
       - BE dockerfile 은 프로젝트 깃랩 레포지토리의 BE/wedding101 에 위치해 있는 상태이다
       - ```sh
@@ -428,5 +428,4 @@
 <h4>4. 서비스 설명 </h4>
 
 1. 서비스 메인페이지
-<video src="https://user-images.githubusercontent.com/48194000/219598064-d971cdd6-b063-45c9-84db-f23699b4303c.mov" width="80%" controls></video>
-
+<img src="![01_메인화면보여주기](/uploads/4191350a095f1c1ffdc285c667dd7584/01_메인화면보여주기.mp4)" width="100%"></img>
