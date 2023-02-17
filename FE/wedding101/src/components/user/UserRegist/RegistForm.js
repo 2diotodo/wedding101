@@ -290,6 +290,7 @@ function RegistForm() {
                     <div style={{width: '3%'}}></div>
                     <button type="button" onClick={checkDuplicateEmail} >중복확인</button>
                 </div>
+                <br/>
                 <span>{email_duplicate_message}</span>
                 <Button variant="contained" type='submit' >회원가입</Button>
                 <br />
