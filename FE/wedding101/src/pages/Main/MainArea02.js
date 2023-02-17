@@ -8,6 +8,7 @@ import phoneFrame from '../../assets/img/mainArea02_2.png';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useNavigate } from 'react-router';
 
 const MainArea02 = () => {
   const settings = {
@@ -20,6 +21,11 @@ const MainArea02 = () => {
     centerMode: true,
     centerPadding: '0px', // 슬라이드 끝쪽 이미지 안잘리기
   };
+  const navigate = useNavigate();
+  const toInvitation=()=>{
+    navigate('/invitation01');
+  }
+
   return (
     
     <div className='main-area02'>
@@ -37,7 +43,7 @@ const MainArea02 = () => {
               </div>
             </div>
             <div className='detailLayout'>
-              <button className='detailButton' id='button02'>자세히 보러가기</button>
+              <button className='detailButton' id='button02' onClick={toInvitation}>자세히 보러가기</button>
             </div>
           </div>
           <Slider {...settings}>
