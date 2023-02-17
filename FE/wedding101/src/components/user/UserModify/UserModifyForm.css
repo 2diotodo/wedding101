@@ -9,11 +9,6 @@
     margin-bottom: 1.5%;
 }
 
-.user-modify-btn {
-    margin-top: 3%;
-    border-top: 3px solid rgba(0, 0, 0, 0.1);
-}
-
 .duplicate-btn {
     display: flex;
     flex-direction: row;
