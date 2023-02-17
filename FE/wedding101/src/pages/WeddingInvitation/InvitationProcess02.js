@@ -21,7 +21,7 @@ const request = axios.create({
 const api = {
   wedding101: {
     findWeddingInfo: (userSeq) =>
-      request.get("/Info", { params: { userSeq: userSeq } }),
+      request.get("/Info", { params: { userSeq: userSeq }},{headers:{"Authorization": sessionStorage.getItem('accessToken')}}),
   },
 };
 
@@ -97,7 +97,7 @@ const InvitationProcess02 = () => {
   };
 
   return (
-    <div>
+    <div className="process02">
       <Grid2 container spacing={3}>
         <Grid2 lg={3} sm={2}>
           <h1>Mobile Invitation</h1>
