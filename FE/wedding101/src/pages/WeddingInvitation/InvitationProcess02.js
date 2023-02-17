@@ -13,6 +13,8 @@ import invitation_image_2 from "../../assets/img/invitation_image_2.png";
 import { useState, useEffect } from "react";
 import useUploadMedia from "../../modules/useUploadMedia";
 
+const BASEURL = "https://wedding101.shop/api";
+
 // API 통신부
 const request = axios.create({
   baseURL: "https://wedding101.shop/api",
@@ -21,11 +23,19 @@ const request = axios.create({
 const api = {
   wedding101: {
     findWeddingInfo: (userSeq) =>
-      request.get("/Info", { params: { userSeq: userSeq }},{headers:{"Authorization": sessionStorage.getItem('accessToken')}}),
+      request.get("/Info", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+        },
+        params: { userSeq: userSeq },
+      }),
   },
 };
 
 const InvitationProcess02 = () => {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const [userSeq, setUserSeq] = useState();
+
   const [weddingInfoData, setWeddingInfoData] = useState({
     infoSeq: 1,
     userSeq: 1,
@@ -55,26 +65,35 @@ const InvitationProcess02 = () => {
     brideMotherIsAlive: true,
   });
 
+  async function getUserSeq() {
+    await axios
+      .get(`${BASEURL}/user`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      })
+      .then((res) => {
+        setUserSeq(res.data.data.userSeq);
+      });
+  }
+
   useEffect(() => {
     const dataFetch = async () => {
-      const res = await api.wedding101.findWeddingInfo(1);
-
+      const res = await api.wedding101.findWeddingInfo(userSeq);
       //   console.log(res.data.data);
       setWeddingInfoData(res.data.data);
     };
+    getUserSeq();
     dataFetch();
     console.log(weddingInfoData);
-  }, []);
+  }, [userSeq]);
 
   const [invitationData, setInvitationData] = useState({
     templateHeader: "초대합니다",
     templateFooter: "감사합니다",
     templateEtc: "돈많이주세요",
-  });
-
-  const [photoURLform, setPhotoURLform] = useState({
-    url01: "photoUrl01",
-    url02: "photoUrl02",
+    photoUrl1: "https://via.placeholder.com/150",
+    photoUrl2: "https://via.placeholder.com/150",
   });
 
   const {
@@ -82,18 +101,34 @@ const InvitationProcess02 = () => {
     fileImageHandler: fileImageHandler1,
     deleteFileImage: deleteFileImage1,
     onFileUpload: onFileUpload1,
-  } = useUploadMedia(photoURLform.url01);
+  } = useUploadMedia("", accessToken);
 
   const {
     filePreview: filePreview2,
     fileImageHandler: fileImageHandler2,
     deleteFileImage: deleteFileImage2,
     onFileUpload: onFileUpload2,
-  } = useUploadMedia(photoURLform.url02);
+  } = useUploadMedia("", accessToken);
 
   const navigate = useNavigate();
   const toProcess03 = () => {
     navigate("/invitation03");
+  };
+
+  const setFirstImage = () => {
+    const newInvitationData = {
+      ...invitationData,
+      photoUrl1: filePreview1,
+    };
+    setInvitationData(newInvitationData);
+  };
+
+  const setSecondImage = () => {
+    const newInvitationData = {
+      ...invitationData,
+      photoUrl2: filePreview2,
+    };
+    setInvitationData(newInvitationData);
   };
 
   return (
@@ -114,6 +149,7 @@ const InvitationProcess02 = () => {
                 <InvitationForm
                   weddingInfoData={weddingInfoData}
                   invitationData={invitationData}
+                  albumSeq={userSeq}
                 />
               </div>
               <div className="input-container">
@@ -123,23 +159,31 @@ const InvitationProcess02 = () => {
                       <input
                         hidden
                         type="file"
-                        accept="image/*, video/*"
+                        accept="image/*"
                         onChange={(e) => {
                           fileImageHandler1(e);
-                          setTimeout(
-                            () =>
-                              (document.getElementById(
-                                "invitationImage01"
-                              ).children[0].src = sessionStorage.getItem(
-                                photoURLform.url01
-                              )),
-                            50
-                          );
+                          setTimeout(() => {
+                            console.log(filePreview1);
+                            setInvitationData({
+                              ...invitationData,
+                              photoUrl1: filePreview1,
+                            });
+                          }, 1000);
+
+                          // setTimeout(
+                          //   () =>
+                          //     (document.getElementById(
+                          //       "invitationImage01"
+                          //     ).children[0].src = sessionStorage.getItem(
+                          //       photoURLform.url01
+                          //     )),
+                          //   50
+                          // );
                         }}
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button
+                    {/* <Button
                       onClick={(e) => {
                         deleteFileImage1(e);
                         setTimeout(
@@ -152,7 +196,7 @@ const InvitationProcess02 = () => {
                       }}
                     >
                       삭제
-                    </Button>
+                    </Button> */}
                   </div>
                   <br />
                   <div className="upload02">
@@ -160,23 +204,27 @@ const InvitationProcess02 = () => {
                       <input
                         hidden
                         type="file"
-                        accept="image/*, video/*"
+                        accept="image/*"
                         onChange={(e) => {
                           fileImageHandler2(e);
-                          setTimeout(
-                            () =>
-                              (document.getElementById(
-                                "invitationImage02"
-                              ).children[0].src = sessionStorage.getItem(
-                                photoURLform.url02
-                              )),
-                            50
-                          );
+                          setInvitationData({
+                            ...invitationData,
+                            photoUrl2: filePreview2,
+                          });
+                          // setTimeout(
+                          //   () =>
+                          //     (document.getElementById(
+                          //       "invitationImage02"
+                          //     ).children[0].src = sessionStorage.getItem(
+                          //       photoURLform.url02
+                          //     )),
+                          //   50
+                          // );
                         }}
                       />
                       <UploadIcon fontSize="large" />
                     </IconButton>
-                    <Button
+                    {/* <Button
                       onClick={(e) => {
                         deleteFileImage2(e);
                         setTimeout(
@@ -189,7 +237,7 @@ const InvitationProcess02 = () => {
                       }}
                     >
                       삭제
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>
