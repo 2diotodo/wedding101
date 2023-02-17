@@ -122,7 +122,7 @@ function ServiceProcess01() {
                   WEDDING 101 이용약관 동의<span className='required'>(필수)</span>
                 </label>
               </div>
-              <div className='content-wrapper'>
+              <div className='content-wrapper_sp01'>
                 <div className='scrollable-content'>
                   약관내용1<br></br>
                   약관내용2<br></br>
@@ -144,7 +144,7 @@ function ServiceProcess01() {
                   개인정보 수집 및 이용약관 동의<span className='required'>(필수)</span>
                 </label>
               </div>
-              <div className='content-wrapper'>
+              <div className='content-wrapper_sp01'>
                 <div className='scrollable-content'>
                   약관내용1<br></br>
                   약관내용2<br></br>
@@ -166,7 +166,7 @@ function ServiceProcess01() {
                   위치기반 서비스 이용약관 동의<span className='required'>(필수)</span>
                 </label>
               </div>
-              <div className='content-wrapper'>
+              <div className='content-wrapper_sp01'>
                 <div className='scrollable-content'>
                   약관내용1<br></br>
                   약관내용2<br></br>
@@ -189,7 +189,7 @@ function ServiceProcess01() {
                   <span className='not-required'>(선택)</span>
                 </label>
               </div>
-              <div className='content-wrapper'>
+              <div className='content-wrapper_sp01'>
                 <div className='scrollable-content'>
                   <ServiceTerms terms={3}/>
                 </div>

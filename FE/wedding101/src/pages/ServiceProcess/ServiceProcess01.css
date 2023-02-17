@@ -33,6 +33,10 @@
   height: 100%;
 }
 
+.content-wrapper_sp01{
+  height:75%;
+}
+
 input#all-class-checkbox{
   display: none;
 }
