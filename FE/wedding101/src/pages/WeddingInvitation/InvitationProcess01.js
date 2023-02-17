@@ -75,14 +75,13 @@ const InvitationProcess01 = () => {
 
   const settings = {
     className: 'invitation_slider',
-    id: '',
     dots: true, // 슬라이드 아래 점표시
     infinite: true, // 무한반복
     speed: 500, // 넘어가는 속도
     slidesToShow: 1, // 화면에 보일 슬라이드 수
     slidesToScroll: 1, // 스크롤 단위
     centerMode: true,
-    centerPadding: "0px", // 슬라이드 끝쪽 이미지 안잘리기
+    centerPadding: "0", // 슬라이드 끝쪽 이미지 안잘리기
   };
 
   const navigate = useNavigate();
@@ -103,6 +102,7 @@ const InvitationProcess01 = () => {
               activeStep={0}
             />
             <h2>모바일 청첩장 템플릿 선택하기</h2>
+            
             <Slider {...settings}>
               <div className="invitation-item">
                 <InvitationForm
