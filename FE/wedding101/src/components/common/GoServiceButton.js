@@ -14,7 +14,8 @@ function GoServiceButton() {
   return (
     <Button
       variant='outlined'
-      sx={{ borderRadius: 50, }}
+      sx={{ borderRadius: 50,}, 
+          {':hover': { bgcolor: 'violet', color:'white',},}}
       color='secondary'
       onClick={navigateToService}
     >
