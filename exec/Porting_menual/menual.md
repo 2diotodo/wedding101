@@ -47,7 +47,7 @@
         $sudo chown root:docker /var/run/docker.sock
         ```
 ---
-1) 자동 CI/CD Pipeline 설계 </br></br>
+1) 자동 CI/CD Pipeline 설계 </br><br>
    a. 배포 툴 설정
     - 🐳 Docker 
       - 도커 이미지를 통해 손 쉬운 배포와 배포환경 조성 가능<br>
