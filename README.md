@@ -280,13 +280,17 @@ FE
 - 이동형
 - 이진욱
 
+### CI/CD
+
+- 이동형
+
 ## 프로젝트 산출물
 
 ---
 
 ## 프로젝트 결과물
 
-- [포팅메뉴얼](.exec/Porting_menual/menual.md)
+- [포팅메뉴얼](https://lab.ssafy.com/s08-webmobile3-sub2/S08P12A101/-/blob/develop/exec/Porting_menual/menual.md)
 - [중간발표자료]()
 - [최종발표자료]()
 
@@ -333,6 +337,19 @@ FE
   ![서비스신청-3,4](https://user-images.githubusercontent.com/79901413/220556090-a495d526-cc97-487b-ade3-fefeafea34ae.gif)
 
 <br />
+
+### 방명로그 
+- 소형 포토 영상 부스를 통해 영상 기반 방명록을 작성할 수 있습니다.
+- 신랑 신부는 웹 상으로 하객이 남기는 실시간 축하 영상을 확인할 수 있습니다.
+  <br/>
+  ![](https://user-images.githubusercontent.com/48194000/219672037-1fbacaa7-1318-450c-8237-728c3b7e8661.gif)
+  <br/>
+- 두 가지 모드
+  1. 폴라로이드 모드 
+      - 사진을 찍고 손 글씨를 남기면 폴라로이드로 합쳐 웹 앨범 페이지로 전송합니다.
+  2. 방명로그 모드
+      - 동영상을 통해 결혼 축하영상을 찍고 웹 앨범 페이지로 전송합니다.
+
 
 ### 모바일 청첩장
 
