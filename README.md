@@ -286,7 +286,7 @@ FE
 
 ## 프로젝트 결과물
 
-- [포팅메뉴얼](.exec/Porting_menual/menual.md)
+- [포팅메뉴얼](./exec/Porting_menual/menual.md)
 - [중간발표자료]()
 - [최종발표자료]()
 
