@@ -301,14 +301,15 @@ FE
 ### 로그인
 
 - 서비스 신청을 위해 로그인이 필요합니다.
-  ![로그인](https://user-images.githubusercontent.com/79901413/220556110-117c4698-fa21-4fb6-aaba-2b5a635895ba.gif)
+  <br>
+  <img src="https://user-images.githubusercontent.com/79901413/220556110-117c4698-fa21-4fb6-aaba-2b5a635895ba.gif" title="로그인" width="70%" height="70%"/>
   <br />
 
 ### 회원가입
 
 - 아이디, 이메일 중복확인 및 비밀번호 길이 등 검증과정을 거쳐 가입합니다.
   <br />
-  ![회원가입](https://user-images.githubusercontent.com/79901413/220556104-181ead89-299c-4d70-bb53-771622877cca.gif)
+  <img src="https://user-images.githubusercontent.com/79901413/220556104-181ead89-299c-4d70-bb53-771622877cca.gif" title="회원가입" width="70%" height="70%"/>
   <br />
 
 ### 마이페이지
@@ -316,8 +317,7 @@ FE
 - 로그인 후 마이페이지에서 자신의 정보를 확인하고 수정할 수 있습니다.
 - 결혼정보 신청 후 확인 및 수정이 가능합니다.
   <br />
-  ![마이페이지](https://user-images.githubusercontent.com/79901413/220556077-2c87b77f-1d23-416b-acd9-168a826a825f.gif)
-
+  <img src="https://user-images.githubusercontent.com/79901413/220556077-2c87b77f-1d23-416b-acd9-168a826a825f.gif" title="마이페이지" width="70%" height="70%"/>
 <br />
 
 ### 메인화면
@@ -325,24 +325,23 @@ FE
 - 서비스 개요를 소개합니다.
 - 전체 페이지 스크롤을 통해 구현하였습니다.
   <br />
-  ![메인화면](https://user-images.githubusercontent.com/79901413/220556080-23ba88c8-20e7-47a5-bb5b-f295c132a962.gif)
+  <img src="https://user-images.githubusercontent.com/79901413/220556080-23ba88c8-20e7-47a5-bb5b-f295c132a962.gif" title="메인화면" width="70%" height="70%"/>
   <br />
 
 ### 서비스 신청
 
 - 로그인 후 메인화면 또는 헤더에서 서비스를 신청할 수 있습니다.
   <br />
-  ![서비스신청-1](https://user-images.githubusercontent.com/79901413/220556084-769ca79c-10fc-4165-bcc9-71744b8b16db.gif)
-  ![서비스신청-2](https://user-images.githubusercontent.com/79901413/220556087-eedbe859-6092-4938-a2eb-b683ec1e7999.gif)
-  ![서비스신청-3,4](https://user-images.githubusercontent.com/79901413/220556090-a495d526-cc97-487b-ade3-fefeafea34ae.gif)
-
+  <img src="https://user-images.githubusercontent.com/79901413/220556084-769ca79c-10fc-4165-bcc9-71744b8b16db.gif" title="서비스신청-1" width="70%" height="70%"/>
+  <img src="https://user-images.githubusercontent.com/79901413/220556087-eedbe859-6092-4938-a2eb-b683ec1e7999.gif" title="서비스신청-2" width="70%" height="70%"/>
+  <img src="https://user-images.githubusercontent.com/79901413/220556090-a495d526-cc97-487b-ade3-fefeafea34ae.gif" title="서비스신청-3,4" width="70%" height="70%"/>
 <br />
 
 ### 방명로그 
 - 소형 포토 영상 부스를 통해 영상 기반 방명록을 작성할 수 있습니다.
 - 신랑 신부는 웹 상으로 하객이 남기는 실시간 축하 영상을 확인할 수 있습니다.
   <br/>
-  ![](https://user-images.githubusercontent.com/48194000/219672037-1fbacaa7-1318-450c-8237-728c3b7e8661.gif)
+  <img src="https://user-images.githubusercontent.com/48194000/219672037-1fbacaa7-1318-450c-8237-728c3b7e8661.gif" title="웹 앨범" width="70%" height="70%"/>
   <br/>
 - 두 가지 모드
   1. 폴라로이드 모드 
@@ -356,7 +355,7 @@ FE
 - 모바일 환경에서 영상 및 사진을 업로드 할 수 있습니다.
 - 업로드한 미디어는 부부가 앨범 목록에서 확인가능합니다.
   <br />
-  ![모바일청첩장](https://user-images.githubusercontent.com/79901413/220558876-cebe2381-f98c-4748-95c2-6dc38ba40375.gif)
+  <img src="https://user-images.githubusercontent.com/79901413/220558876-cebe2381-f98c-4748-95c2-6dc38ba40375.gif" title="모바일청첩장"/>
   <br />
 
 ### 앨범표지
@@ -364,7 +363,7 @@ FE
 - 서비스 신청 후 앨범표지에 접근할 수 있습니다.
 - 앨범 목록에서 통합본 신청 후 앨범표지화면에서 확인가능합니다.
   <br />
-  ![앨범-통합본](https://user-images.githubusercontent.com/79901413/220556096-4b9cd9ba-fead-4751-bc8b-61451a75575f.gif)
+  <img src="https://user-images.githubusercontent.com/79901413/220556096-4b9cd9ba-fead-4751-bc8b-61451a75575f.gif" title="앨범-통합본" width="70%" height="70%"/>
   <br />
 
 ### 앨범목록
@@ -373,16 +372,16 @@ FE
 - 미디어 북마크 및 삭제가 가능합니다.
 - 통합본 신청을 통해 북마크 미디어들을 통합본으로 만들 수 있습니다.
   <br />
-  ![앨범-목록](https://user-images.githubusercontent.com/79901413/220556105-65eede97-cf39-46d2-b2ac-c46fcae98247.gif)
+  <img src="https://user-images.githubusercontent.com/79901413/220556105-65eede97-cf39-46d2-b2ac-c46fcae98247.gif" title="앨범-목록" width="70%" height="70%"/>
   <br />
 
 ### 리뷰
 
 - 서비스 이용에 대한 리뷰를 남길 수 있습니다.
   <br />
-  ![리뷰](https://user-images.githubusercontent.com/79901413/220556068-42a29c08-3694-4a76-8ae7-e772bc926cd5.gif)
+  <img src="https://user-images.githubusercontent.com/79901413/220556068-42a29c08-3694-4a76-8ae7-e772bc926cd5.gif" title="리뷰" width="70%" height="70%"/>
+  <br />
 
-<br />
 Jenkins Connection Test
 
 ```
