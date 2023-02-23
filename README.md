@@ -1,8 +1,11 @@
-# 💑 Wedding101 - 신혼부부에게 축하영상 & 사진을 보내보세요!
+# 💑 Wedding101 - 예비부부에게 축하영상 & 사진을 보내보세요!
 
-## Wedding101(웹 최적화) : [https://wedding101.shop](https://wedding101.shop)
+## ♥ Wedding101(웹 최적화) : [https://wedding101.shop](https://wedding101.shop)
 
-## 프로젝트 진행기간
+## 🎁 Project Box : [Notion](https://www.notion.so/mslrbt/A101-NOTION-958ffa1d750e4de0baeca2d1f9738dfa)
+
+<br />
+## ⏳ 프로젝트 진행기간
 
 2023.01.03 ~ 2023.02.17(45일)
 <br />
@@ -10,13 +13,17 @@
 
 </br>
 
-## 배경
+## 🎬 배경
 
-Wedding101이란 결혼(Wedding)과 101(입문)의 합성어입니다. 101은 학문에서 처음 배우는 입문수업을 의미하는데, 결혼이라는 일생일대의 경험이 좋은 추억으로 남을 수 있도록 본 서비스가 좋은 길잡이가 될 수 있음을 의미하고 있습니다.
+_-정신없이 지나간 결혼식 다시 추억할 수는 없을까?-_
+<img src="https://user-images.githubusercontent.com/79901413/220566247-f3ee38a2-1473-4dd3-87ca-d1352583653b.gif" title="프로젝트개요" width="70%" height="70%"/>
 
-## 개요
+## 🔍 개요
 
 _-예비 부부가 결혼 과정에서 지나치기 쉬운 순간들을 담아-_
+<br />
+Wedding101이란 결혼(Wedding)과 101(입문)의 합성어입니다. 결혼이라는 일생일대의 경험이 좋은 추억으로 남을 수 있도록 본 서비스가 좋은 길잡이가 될 수 있음을 의미하고 있습니다.
+<br />
 Wedding101은 예비부부를 향한 축하를 사진과 영상으로 담아 디지털 앨범을 제공하는 서비스입니다. 본 프로젝트는 IoT 플랫폼을 이용한 미디어와 디지털 앨범이라는 웹 서비스를 통해 아날로그와 디지털이 통합된 사용자 경험을 제공하고자 합니다.
 </br>
 
@@ -24,18 +31,25 @@ Wedding101은 예비부부를 향한 축하를 사진과 영상으로 담아 디
 
 ---
 
-- ### 현장 부스 - 결혼식장에 축하 메세지를 보내는 부스 설치 - 친지, 지인 등 하객이 부부를 위해 사진, 영상을 보낼 수 있습니다. - 사진은 폴라로이드 형태로 메세지를, 영상은 음성과 함께 메세지를 보낼 수 있습니다.
+- ### 현장 부스
+- 결혼식장에 축하 메세지를 보내는 부스 설치
+- 친지, 지인 등 하객이 부부를 위해 사진, 영상을 보낼 수 있습니다.
+- 사진은 폴라로이드 형태로 메세지를, 영상은 음성과 함께 메세지를 보낼 수 있습니다.
 
 <br />
 
-- ### 모바일 청첩장 - 결혼식 현장에 가지 못한 분들을 위한 서비스 - 예비 부부가 미리 보낸 청첩장을 통해 접근가능합니다. - 모바일에서 부부를 위한 메세지를 보낼 수 있습니다. - 사진과 영상 모두 가능합니다.
+- ### 모바일 청첩장
+- 결혼식 현장에 가지 못한 분들을 위한 서비스
+- 예비 부부가 미리 보낸 청첩장을 통해 접근가능합니다.
+- 모바일에서 부부를 위한 사진과 영상 메세지를 보낼 수 있습니다.
 
 <br />
 
-- ### 앨범관리 - 결혼식 이후 부부가 축하 영상 및 사진을 확인하고 북마크 및 삭제 등이 가능합니다. 특히 미디어 북마크를 통해 통합본을 신청하여 새로운 하나의 미디어로 받아볼 수 있습니다.
-<br />
+- ### 앨범관리
+- 결혼식 이후 부부가 축하 영상 및 사진을 확인하고 북마크 및 삭제 등이 가능합니다. 특히 미디어 북마크를 통해 통합본을 신청하여 새로운 하나의 미디어로 받아볼 수 있습니다.
+  <br />
 
-## 🎀 주요기술
+## 🛠 주요기술
 
 ---
 
@@ -72,14 +86,34 @@ Wedding101은 예비부부를 향한 축하를 사진과 영상으로 담아 디
 - Jenkins
 - Nginx
 
-## 프로젝트 파일구조
+## 📔 프로젝트 파일구조
 
 ---
 
 ### Back
 
 ```
-
+BE
+├─main
+│  ├─java
+│  │  └─com
+│  │      └─ssafy
+│  │          └─wedding101
+│  │              ├─common
+│  │              ├─config
+│  │              ├─controller
+│  │              ├─filter
+│  │              ├─handler
+│  │              ├─model
+│  │              │  ├─dto
+│  │              │  ├─entity
+│  │              │  ├─repository
+│  │              │  └─service
+│  │              │      └─impl
+│  │              └─util
+│  └─resources
+│      └─static
+└─test
 ```
 
 ### Front
@@ -88,171 +122,41 @@ Wedding101은 예비부부를 향한 축하를 사진과 영상으로 담아 디
 FE
 ├─node_modules
 ├─public
-├─src
-    ├─  App.css
-    ├─  App.js
-    ├─  index.css
-    ├─  index.js
-    ├─  logo.svg
-    ├─  reportWebVitals.js
-    ├─  setupTests.js
-    │
+└─src
     ├─api
-    │      server.js
-    │      userService.js
-    │
     ├─assets
     │  └─img
-    │
     ├─components
     │  ├─album
-    │  │      MediaDialog.js
-    │  │      MediaItem.css
-    │  │      MediaItem.js
-    │  │      MediaModal.js
-    │  │      MergedItem.js
-    │  │
     │  ├─board
-    │  │      PaginationButtons.js
-    │  │      TableItem.css
-    │  │      TableItem.js
-    │  │
     │  ├─common
-    │  │      Footer.css
-    │  │      Footer.js
-    │  │      GoServiceButton.css
-    │  │      GoServiceButton.js
-    │  │      Header.css
-    │  │      Header.js
-    │  │      Modal.js
-    │  │      Navbar.css
-    │  │      Navbar.js
-    │  │      ProgressBar.js
-    │  │      selectBox.js
-    │  │      UploadMedia.css
-    │  │      UploadMedia.js
-    │  │
     │  ├─main
-    │  │      useMoveScroll.js
-    │  │
     │  ├─serviceProcess
-    │  │      WeddingInfoForm.css
-    │  │      WeddingInfoForm.js
-    │  │
     │  ├─user
     │  │  ├─UserLogin
-    │  │  │      LoginForm.css
-    │  │  │      LoginForm.js
-    │  │  │
     │  │  ├─UserModify
-    │  │  │      UserDetailForm.css
-    │  │  │      UserDetailForm.js
-    │  │  │      UserModifyForm.css
-    │  │  │      UserModifyForm.js
-    │  │  │
     │  │  └─UserRegist
-    │  │          RegistForm.css
-    │  │          RegistForm.js
-    │  │
     │  └─WeddingInvitation
-    │      │  InvitationForm.css
-    │      │  InvitationForm.js
-    │      │  UploadText.css
-    │      │  UploadText.js
-    │      │
     │      └─InfoModify
-    │              BoardReview.js
-    │              InfoDetailForm.css
-    │              InfoDetailForm.js
-    │              InfoDetailForm_og.js
-    │              InfoModifyForm.css
-    │              InfoModifyForm.js
-    │
     ├─data
-    │
     ├─modules
-    │      index.js
-    │      useConfirm.js
-    │      useForm.js
-    │      useUploadMedia.js
-    │
     ├─pages
-    │  │
     │  ├─Album
-    │  │      AlbumCover.css
-    │  │      AlbumCover.js
-    │  │      AlbumDeleted.css
-    │  │      AlbumDeleted.js
-    │  │      AlbumList.css
-    │  │      AlbumList.js
-    │  │      AlbumSelected.js
-    │  │
     │  ├─BoardQuestion
-    │  │      BoardQuestion.css
-    │  │      BoardQuestion.js
-    │  │      BoardQuestionModal.css
-    │  │
     │  ├─BoardReview
-    │  │      BoardReview.css
-    │  │      BoardReview.js
-    │  │      BoardReviewRegist.js
-    │  │
     │  ├─Main
-    │  │      MainArea01.css
-    │  │      MainArea01.js
-    │  │      MainArea02.css
-    │  │      MainArea02.js
-    │  │      MainArea03.css
-    │  │      MainArea03.js
-    │  │      MainArea04.css
-    │  │      MainArea04.js
-    │  │      MainIndex.css
-    │  │      MainIndex.js
-    │  │      MainLayout.js
-    │  │
     │  ├─ServiceProcess
-    │  │      ServiceProcess01.css
-    │  │      ServiceProcess01.js
-    │  │      ServiceProcess02.css
-    │  │      ServiceProcess02.js
-    │  │      ServiceProcess03.css
-    │  │      ServiceProcess03.js
-    │  │      ServiceProcess04.css
-    │  │      ServiceProcess04.js
-    │  │
     │  ├─User
     │  │  ├─UserLogin
-    │  │  │      UserLogin.css
-    │  │  │      UserLogin.js
-    │  │  │
     │  │  ├─UserMyPage
-    │  │  │      UserMyPage.css
-    │  │  │      UserMyPage.js
-    │  │  │
     │  │  └─UserRegist
-    │  │          UserRegist.css
-    │  │          UserRegist.js
-    │  │
     │  └─WeddingInvitation
-    │          InvitationProcess01.css
-    │          InvitationProcess01.js
-    │          InvitationProcess02.css
-    │          InvitationProcess02.js
-    │          InvitationProcess03.css
-    │          InvitationProcess03.js
-    │          InvitationProcess04.css
-    │          InvitationProcess04.js
-    │          InvitationShared.css
-    │          InvitationShared.js
-    │          UserInvitation.css
-    │          UserInvitation.js
-    │
     ├─test
     └─utils
 
 ```
 
-## 협업 툴
+## 🔈 협업 툴
 
 ---
 
@@ -261,7 +165,7 @@ FE
 - JIRA
 - MatterMost
 
-## 팀원 역할 분배
+## 🎲 팀원 역할 분배
 
 ---
 
@@ -284,15 +188,24 @@ FE
 
 - 이동형
 
-## 프로젝트 산출물
+## 🖨 프로젝트 산출물
+
+- [기능명세서(excel)](<./docs/%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C(excel).pdf>)
+- [프로젝트명세서(docx)](<./docs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EB%AA%85%EC%84%B8%EC%84%9C(docx).pdf>)
+- [ERD](./docs/ERD.png)
+- [유저스토리](./docs/%EC%9C%A0%EC%A0%80%EC%8A%A4%ED%86%A0%EB%A6%AC.pdf)
+- [웹 플로우차트](./docs/%EC%9B%B9_%ED%94%8C%EB%A1%9C%EC%9A%B0%EC%B0%A8%ED%8A%B8.PNG)
+- [iot 플로우차트](./docs/iot_%ED%94%8C%EB%A1%9C%EC%9A%B0%EC%B0%A8%ED%8A%B8.PNG)
+- [웹 와이어프레임](./docs/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.pdf)
+- [iot 와이어프레임](./docs/Rpi%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84.pdf)
 
 ---
 
-## 프로젝트 결과물
+## 🎀 프로젝트 결과물
 
-- [포팅메뉴얼](https://lab.ssafy.com/s08-webmobile3-sub2/S08P12A101/-/blob/develop/exec/Porting_menual/menual.md)
-- [중간발표자료]()
-- [최종발표자료]()
+- [포팅메뉴얼](./exec/Porting_menual/menual.md)
+- [중간발표자료](./ppt/Wedding101_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C.pptx)
+- [최종발표자료](./ppt/Wedding101_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pptx)
 
 ## 🧡 Wedding101 서비스 화면
 
@@ -318,7 +231,7 @@ FE
 - 결혼정보 신청 후 확인 및 수정이 가능합니다.
   <br />
   <img src="https://user-images.githubusercontent.com/79901413/220556077-2c87b77f-1d23-416b-acd9-168a826a825f.gif" title="마이페이지" width="70%" height="70%"/>
-<br />
+  <br />
 
 ### 메인화면
 
@@ -335,20 +248,20 @@ FE
   <img src="https://user-images.githubusercontent.com/79901413/220556084-769ca79c-10fc-4165-bcc9-71744b8b16db.gif" title="서비스신청-1" width="70%" height="70%"/>
   <img src="https://user-images.githubusercontent.com/79901413/220556087-eedbe859-6092-4938-a2eb-b683ec1e7999.gif" title="서비스신청-2" width="70%" height="70%"/>
   <img src="https://user-images.githubusercontent.com/79901413/220556090-a495d526-cc97-487b-ade3-fefeafea34ae.gif" title="서비스신청-3,4" width="70%" height="70%"/>
-<br />
+  <br />
 
-### 방명로그 
+### 방명로그
+
 - 소형 포토 영상 부스를 통해 영상 기반 방명록을 작성할 수 있습니다.
 - 신랑 신부는 웹 상으로 하객이 남기는 실시간 축하 영상을 확인할 수 있습니다.
   <br/>
   <img src="https://user-images.githubusercontent.com/48194000/219672037-1fbacaa7-1318-450c-8237-728c3b7e8661.gif" title="웹 앨범" width="70%" height="70%"/>
   <br/>
 - 두 가지 모드
-  1. 폴라로이드 모드 
-      - 사진을 찍고 손 글씨를 남기면 폴라로이드로 합쳐 웹 앨범 페이지로 전송합니다.
+  1. 폴라로이드 모드
+     - 사진을 찍고 손 글씨를 남기면 폴라로이드로 합쳐 웹 앨범 페이지로 전송합니다.
   2. 방명로그 모드
-      - 동영상을 통해 결혼 축하영상을 찍고 웹 앨범 페이지로 전송합니다.
-
+     - 동영상을 통해 결혼 축하영상을 찍고 웹 앨범 페이지로 전송합니다.
 
 ### 모바일 청첩장
 
@@ -382,6 +295,10 @@ FE
   <img src="https://user-images.githubusercontent.com/79901413/220556068-42a29c08-3694-4a76-8ae7-e772bc926cd5.gif" title="리뷰" width="70%" height="70%"/>
   <br />
 
+<details>
+<summary>Jenkins Connection Test</summary>
+<div markdown="1">
+
 Jenkins Connection Test
 
 ```
@@ -395,3 +312,6 @@ and should rebuild and test.
 ```
 
 before setting the pipeline on the jenkins
+
+</div>
+</details>
